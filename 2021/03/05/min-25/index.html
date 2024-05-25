@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="难得一批!!! Min_25是针对积性函数f(i)求和问题，可处理范围可达到$n^{11}-n^{12}$。 所以复杂度是低于线性的。大概是$\frac{n^{\frac{3}{4}}}{\log \sqrt n}$。可以说是完爆洲阁筛甚至所有筛法。 但同时，虽然有这些优点，可理解起来相当不容易，所以很难。 粗略思路： 先将质数分为小于等于$\sqrt{n}$和大于$\sqrt{n}$两种。 再预">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Min_25筛思想及例题集">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/03/05/min-25/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="难得一批!!! Min_25是针对积性函数f(i)求和问题，可处理范围可达到$n^{11}-n^{12}$。 所以复杂度是低于线性的。大概是$\frac{n^{\frac{3}{4}}}{\log \sqrt n}$。可以说是完爆洲阁筛甚至所有筛法。 但同时，虽然有这些优点，可理解起来相当不容易，所以很难。 粗略思路： 先将质数分为小于等于$\sqrt{n}$和大于$\sqrt{n}$两种。 再预">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-05T05:36:54.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.709Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Min_25筛思想及例题集</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/03/05/2019-icpc-online-shanghai-e-counting/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/03/04/2019-icpc-online-nanjing-e/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/03/05/min-25/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&text=Min_25筛思想及例题集"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&title=Min_25筛思想及例题集"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&is_video=false&description=Min_25筛思想及例题集"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Min_25筛思想及例题集&body=Check out this article: https://blog.jujimeizuo.cn/2021/03/05/min-25/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&title=Min_25筛思想及例题集"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&title=Min_25筛思想及例题集"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&title=Min_25筛思想及例题集"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&title=Min_25筛思想及例题集"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&name=Min_25筛思想及例题集&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/03/05/min-25/&t=Min_25筛思想及例题集"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E6%83%B3"><span class="toc-number">1.</span> <span class="toc-text">思想</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%9B%E8%B4%A8%E6%95%B0"><span class="toc-number">1.0.1.</span> <span class="toc-text">筛质数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%AF%E6%80%A7%E5%87%BD%E6%95%B0%E6%B1%82%E5%92%8C"><span class="toc-number">1.0.2.</span> <span class="toc-text">积性函数求和</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">2.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.0.1.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86"><span class="toc-number">2.1.</span> <span class="toc-text">第一部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86"><span class="toc-number">2.2.</span> <span class="toc-text">第二部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86"><span class="toc-number">2.3.</span> <span class="toc-text">第三部分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">例题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LOJ-6235-%E5%8C%BA%E9%97%B4%E7%B4%A0%E6%95%B0%E4%B8%AA%E6%95%B0"><span class="toc-number">3.0.1.</span> <span class="toc-text">LOJ 6235. 区间素数个数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LOJ-6053-%E7%AE%80%E5%8D%95%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">3.0.2.</span> <span class="toc-text">LOJ 6053. 简单的函数</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Min_25筛思想及例题集
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-03-05T05:36:54.000Z" class="dt-published" itemprop="datePublished">2021-03-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/ACM/" rel="tag">ACM</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>难得一批!!!</p>
+<p>Min_25是针对积性函数f(i)求和问题，可处理范围可达到$n^{11}-n^{12}$。 所以复杂度是低于线性的。大概是$\frac{n^{\frac{3}{4}}}{\log \sqrt n}$。可以说是完爆洲阁筛甚至所有筛法。 但同时，虽然有这些优点，可理解起来相当不容易，所以很难。</p>
+<p>粗略思路： 先将质数分为小于等于$\sqrt{n}$和大于$\sqrt{n}$两种。 再预处理所有质数函数的前缀和，利用小于等于 $\sqrt{n}$的质数进行转移，推出所有函数的和。</p>
+<h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><h4 id="筛质数"><a href="#筛质数" class="headerlink" title="筛质数"></a>筛质数</h4><p>问题：假设我们需要求出n以内所有质数和。</p>
+<p>质数筛求出所有小于等于$\sqrt{n}$的质数，$p_i$表示第i个质数，一共有$p_0$个质数，ps为p的前缀和。</p>
+<p>设函数$S(x,j)&#x3D;\sum_{i&#x3D;2}^xi*[i为质数或i的最小质因数大于p_j]$</p>
+<p>$设Sum(n)&#x3D;\frac{n(n+1)}{2}-1.$</p>
+<p>$显然对于任意x，S(x,0)&#x3D;Sum(x)-1，我们要求的ans&#x3D;S(x,p_0)$</p>
+<p>考虑转移，如果$p_j^2&gt;x,S(x,j)&#x3D;S(x,j-1).$ 否则: $$S(x,j)&#x3D;S(x,j-1)-p_j*(S(\frac{x}{p_j},j-1)-ps_{j-1})$$</p>
+<p>一直转移、递归，就可以得到$S(n,p_0).$</p>
+<p>可以看出，这种筛法可以筛很多的积性函数，但应该不是所有积性函数都能筛吧？</p>
+<h4 id="积性函数求和"><a href="#积性函数求和" class="headerlink" title="积性函数求和"></a>积性函数求和</h4><p>通过上面方法，可以求出很多积性函数f(x)，当x为质数时的和，现在要求： $$\sum_{i&#x3D;1}^nf(i)$$</p>
+<p>考虑把上面的式子倒过来推，定义跟前面的一样：(可以用上面的S预处理$G(x,p_0))$ $设fs_x&#x3D;\sum_{i&#x3D;1}^xf(p_i)$</p>
+<p>$$G(x,j)&#x3D;G(x,j+1)+\sum_{k&#x3D;1}(G(\frac{x}{p_j^k},j+1)-fs_j)*f(p_j^k)+\sum_{k&#x3D;2}f(p_j^k)$$</p>
+<p>则ans&#x3D;G(n,0).</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>由于递归消耗的时间会过长，所以采用循环代替递归.</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> Min25 &#123;</span><br><span class="line">    <span class="type">int</span> prime[N], id1[N], id2[N], flag[N], ncnt, m;</span><br><span class="line"></span><br><span class="line">    ll g[N], sum[N], a[N], T, n;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">ID</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x &lt;= T ? id1[x] : id2[n / x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> ll <span class="title">calc</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x * (x + <span class="number">1</span>) / <span class="number">2</span> - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> ll <span class="title">f</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ncnt = <span class="number">0</span>, m = <span class="number">0</span>;</span><br><span class="line">        T = <span class="built_in">sqrt</span>(n + <span class="number">0.5</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i &lt;= T; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!flag[i]) prime[++ncnt] = i, sum[ncnt] = sum[ncnt - <span class="number">1</span>] + i;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= T; j++) &#123;</span><br><span class="line">                flag[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (ll l = <span class="number">1</span>; l &lt;= n; l = n / (n / l) + <span class="number">1</span>) &#123;</span><br><span class="line">            a[++m] = n / l;</span><br><span class="line">            <span class="keyword">if</span> (a[m] &lt;= T) id1[a[m]] = m; <span class="keyword">else</span> id2[n / a[m]] = m;</span><br><span class="line">            g[m] = <span class="built_in">calc</span>(a[m]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= ncnt; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= m &amp;&amp; (ll)prime[i] * prime[i] &lt;= a[j]; j++)</span><br><span class="line">                g[j] = g[j] - (ll)prime[i] * (g[<span class="built_in">ID</span>(a[j] / prime[i])] - sum[i - <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> ll <span class="title">Solve</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x &lt;= <span class="number">1</span>) <span class="keyword">return</span> x;</span><br><span class="line">        <span class="keyword">return</span> n = x, <span class="built_in">init</span>(), g[<span class="built_in">ID</span>(n)];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h3 id="第一部分"><a href="#第一部分" class="headerlink" title="第一部分"></a>第一部分</h3><p>考虑一个递推公式g(j,n)，表示n以内筛过前j个质数的倍数的合数和。 $g(j,n)&#x3D;\sum_{i\epsilon f(i)最小质因子&gt;p_j}f(i)&#x3D;\sum_{i\epsilon f(i)最小质因子&gt;p_j}i^k$</p>
+<p>状态转移：</p>
+<p>$$g(j,n)&#x3D;g(j-1,n)-f(p_j)[g(j-1,\frac{n}{p_j})-\sum_{i&#x3D;1}^{j-1}f(p_i)]&#x3D;g(j-1,n)-p_j^k[g(j-1,\frac{n}{p_j})-\sum_{i&#x3D;1}^{j-1}p_i^k]$$</p>
+<p>当$p_j^2&gt;n时，g(j,n)&#x3D;g(j-1,n)$，所以只需要计算出$\sqrt{n}$以内的素数。</p>
+<h3 id="第二部分"><a href="#第二部分" class="headerlink" title="第二部分"></a>第二部分</h3><p>预处理$id1[]，id2[]$和各种$\frac{n}{l}$的前缀和。</p>
+<h3 id="第三部分"><a href="#第三部分" class="headerlink" title="第三部分"></a>第三部分</h3><p>设S(n,j)表示n以内所有最小质因子大于等于$p_j$的f(x)的和，即$S(n,j)&#x3D;\sum_{i&#x3D;1}^nF(i)[i最大质因子\ge p_j]$</p>
+<p>状态转移：</p>
+<p>$$S(n,j)&#x3D;\sum{g_t(id[n])-sum_t[j-1]}+\sum_{k\ge y\;p_k^{e+1}\leq n}F(p_k^e)*S(\frac{n}{p_k^e},k+1)+F(p_k^{e+1})$$</p>
+<p>$sum_t(j-1)&#x3D;\sum_{i&#x3D;1}^{j-1}p_i^t$为前j-1个质数的t次幂之和. $\sum{g_t(id[n])-sum_t[j-1]}$为多个多项式加减运算凑成的多项式的质数和$\sum_{p\epsilon primes}F(x)[p&lt;P_j]$ 后面直接计算多项式函数$F(p_k^e),F(p_k^{e+1})$</p>
+<p>递归完成即可。</p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><h4 id="LOJ-6235-区间素数个数"><a href="#LOJ-6235-区间素数个数" class="headerlink" title="LOJ 6235. 区间素数个数"></a>LOJ 6235. 区间素数个数</h4><p>传送门：<a target="_blank" rel="noopener" href="https://loj.ac/p/6235">https://loj.ac/p/6235</a></p>
+<p>求解1-n之间所有素数个数</p>
+<p>$$g(j,n)&#x3D;g(j-1,n)-f(p_j)[g(j-1,\frac{n}{p_j})-\sum_{i&#x3D;1}^{j-1}f(p_i)]&#x3D;g(j-1,n)-g(j-1,\frac{n}{p_j})-(j-1)$$</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bits/stdc++.h&quot;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> Min_25 &#123;</span><br><span class="line">    <span class="type">int</span> is_pr[N], pr[N], prs[N], cnt, m;</span><br><span class="line">    ll n, T;</span><br><span class="line">    ll id1[N], id2[N], a[N], g[N];</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="type">int</span> <span class="title">ID</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x &lt;= T ? id1[x] : id2[n / x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> ll <span class="title">calc</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> ll <span class="title">f</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cnt = m = <span class="number">0</span>;</span><br><span class="line">        T = <span class="built_in">sqrt</span>(n + <span class="number">0.5</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>;i &lt;= T; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!is_pr[i]) pr[++cnt] = i, prs[cnt] = prs[cnt - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>;j &lt;= cnt &amp;&amp; i * pr[j] &lt;= T; j++) &#123;</span><br><span class="line">                is_pr[i * pr[j]] = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">if</span>(i % pr[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(ll l = <span class="number">1</span>;l &lt;= n; l = n / (n / l) + <span class="number">1</span>) &#123;</span><br><span class="line">            a[++m] = n / l;</span><br><span class="line">            <span class="keyword">if</span>(a[m] &lt;= T) id1[a[m]] = m;</span><br><span class="line">            <span class="keyword">else</span> id2[n / a[m]] = m;</span><br><span class="line">            g[m] = <span class="built_in">calc</span>(a[m]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt;= cnt; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>;j &lt;= m &amp;&amp; (ll)pr[i] * pr[i] &lt;= a[j]; j++) &#123;</span><br><span class="line">                g[j] = g[j] - (g[<span class="built_in">ID</span>(a[j] / pr[i])] - prs[i - <span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ll <span class="title">Solve</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(x &lt;= <span class="number">1</span>) <span class="keyword">return</span> x;</span><br><span class="line">        <span class="keyword">return</span> n = x, <span class="built_in">init</span>(), g[<span class="built_in">ID</span>(n)];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll n; cin &gt;&gt; n;</span><br><span class="line">    cout &lt;&lt; Min_25::<span class="built_in">Solve</span>(n) &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="LOJ-6053-简单的函数"><a href="#LOJ-6053-简单的函数" class="headerlink" title="LOJ 6053. 简单的函数"></a>LOJ 6053. 简单的函数</h4><p>传送门：<a target="_blank" rel="noopener" href="https://loj.ac/p/6053">https://loj.ac/p/6053</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bits/stdc++.h&quot;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e6</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">quick_pow</span><span class="params">(ll a, ll b)</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b) &#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>) ans = ans * a % mod;</span><br><span class="line">         a = a * a % mod;</span><br><span class="line">         b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> Min_25 &#123;</span><br><span class="line">    <span class="type">int</span> is_pr[N], id1[N], id2[N], cnt;</span><br><span class="line">    ll n, m, T;</span><br><span class="line">    ll pr[N], prs[N], a[N], g1[N], g2[N];</span><br><span class="line"></span><br><span class="line">    ll inv2;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> ll <span class="title">ID</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x &lt;= T ? id1[x] : id2[n / x];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> ll <span class="title">calc1</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (x - <span class="number">1</span>) % mod;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> ll <span class="title">calc2</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x % mod * (x + <span class="number">1</span>) % mod * inv2 % mod - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        cnt = m = <span class="number">0</span>;</span><br><span class="line">        inv2 = <span class="built_in">quick_pow</span>(<span class="number">2</span>, mod - <span class="number">2</span>);</span><br><span class="line">        T = <span class="built_in">sqrt</span>(n + <span class="number">0.5</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>;i &lt;= T; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(!is_pr[i]) pr[++cnt] = i, prs[cnt] = (prs[cnt - <span class="number">1</span>] + i) % mod;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>;j &lt;= cnt &amp;&amp; i * pr[j] &lt;= T; j++) &#123;</span><br><span class="line">                is_pr[i * pr[j]] = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">if</span>(i % pr[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(ll l = <span class="number">1</span>;l &lt;= n; l = n / (n / l) + <span class="number">1</span>) &#123;</span><br><span class="line">            a[++m] = n / l;</span><br><span class="line">            <span class="keyword">if</span>(a[m] &lt;= T) id1[a[m]] = m;</span><br><span class="line">            <span class="keyword">else</span> id2[n / a[m]] = m;</span><br><span class="line">            g1[m] = <span class="built_in">calc1</span>(a[m]);</span><br><span class="line">            g2[m] = <span class="built_in">calc2</span>(a[m]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt;= cnt; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>;j &lt;= m &amp;&amp; pr[i] * pr[i] &lt;= a[j]; j++) &#123;</span><br><span class="line">                g1[j] = (g1[j] - (g1[<span class="built_in">ID</span>(a[j] / pr[i])] - (i - <span class="number">1</span>))) % mod;</span><br><span class="line">                g2[j] = (g2[j] - pr[i] * (g2[<span class="built_in">ID</span>(a[j] / pr[i])] - prs[i - <span class="number">1</span>]) % mod) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ll <span class="title">S</span><span class="params">(ll x, ll y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(x &lt;= <span class="number">1</span>  x &lt; pr[y]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        ll ans = (g2[<span class="built_in">ID</span>(x)] - prs[y - <span class="number">1</span>] - (g1[<span class="built_in">ID</span>(x)] - (y - <span class="number">1</span>)) + (y == <span class="number">1</span> ? <span class="number">2</span> : <span class="number">0</span>) + mod) % mod;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = y;i &lt;= cnt &amp;&amp; pr[i] * pr[i] &lt;= x; i++) &#123;</span><br><span class="line">            ll pe = pr[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> e = <span class="number">1</span>;pe * pr[i] &lt;= x; e++, pe *= pr[i]) &#123;</span><br><span class="line">                ans = (ans + (pr[i] ^ e) * <span class="built_in">S</span>(x / pe, i + <span class="number">1</span>) % mod + (pr[i] ^ e + <span class="number">1</span>) % mod) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans % mod;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ll <span class="title">Solve</span><span class="params">(ll x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> n = x, <span class="built_in">init</span>(), <span class="built_in">S</span>(n, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ll n; cin &gt;&gt; n;</span><br><span class="line">    ll ans = Min_25::<span class="built_in">Solve</span>(n);</span><br><span class="line">    cout &lt;&lt; (ans % mod + mod) % mod &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/03/05/min-25/">https://blog.jujimeizuo.cn/2021/03/05/min-25/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E6%83%B3"><span class="toc-number">1.</span> <span class="toc-text">思想</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%9B%E8%B4%A8%E6%95%B0"><span class="toc-number">1.0.1.</span> <span class="toc-text">筛质数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%AF%E6%80%A7%E5%87%BD%E6%95%B0%E6%B1%82%E5%92%8C"><span class="toc-number">1.0.2.</span> <span class="toc-text">积性函数求和</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">2.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.0.1.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86"><span class="toc-number">2.1.</span> <span class="toc-text">第一部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86"><span class="toc-number">2.2.</span> <span class="toc-text">第二部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86"><span class="toc-number">2.3.</span> <span class="toc-text">第三部分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">例题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LOJ-6235-%E5%8C%BA%E9%97%B4%E7%B4%A0%E6%95%B0%E4%B8%AA%E6%95%B0"><span class="toc-number">3.0.1.</span> <span class="toc-text">LOJ 6235. 区间素数个数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LOJ-6053-%E7%AE%80%E5%8D%95%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">3.0.2.</span> <span class="toc-text">LOJ 6053. 简单的函数</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/03/05/min-25/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&text=Min_25筛思想及例题集"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&title=Min_25筛思想及例题集"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&is_video=false&description=Min_25筛思想及例题集"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Min_25筛思想及例题集&body=Check out this article: https://blog.jujimeizuo.cn/2021/03/05/min-25/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&title=Min_25筛思想及例题集"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&title=Min_25筛思想及例题集"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&title=Min_25筛思想及例题集"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&title=Min_25筛思想及例题集"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/03/05/min-25/&name=Min_25筛思想及例题集&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/03/05/min-25/&t=Min_25筛思想及例题集"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

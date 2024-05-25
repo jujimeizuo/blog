@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="4.1 端口、接口的区别接口(Interface)和端口(Port)是两个不同的概念。端口是指接口电路中的一些寄存器，这些寄存器分别用来存放数据信息、控制信息和状态信息，相应的端口分别称为数据端口、控制端口和状态端口。若干个端口加上相应的控制逻辑才能组成接口。CPU通过输入指令，从端口读入信息，通过输出指令，可将信息写入端口中。 4.2 与程序中断方式相比，DMA方式的特点 从数据传送看，程序中断">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理期末复习（四）输入输出系统">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/06/17/jizu4/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="4.1 端口、接口的区别接口(Interface)和端口(Port)是两个不同的概念。端口是指接口电路中的一些寄存器，这些寄存器分别用来存放数据信息、控制信息和状态信息，相应的端口分别称为数据端口、控制端口和状态端口。若干个端口加上相应的控制逻辑才能组成接口。CPU通过输入指令，从端口读入信息，通过输出指令，可将信息写入端口中。 4.2 与程序中断方式相比，DMA方式的特点 从数据传送看，程序中断">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-06-17T07:31:49.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.748Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>计算机组成原理期末复习（四）输入输出系统</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/06/17/shuzituxiang4/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/06/16/jizu3/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/17/jizu4/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&text=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&title=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&is_video=false&description=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机组成原理期末复习（四）输入输出系统&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/17/jizu4/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&title=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&title=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&title=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&title=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&name=计算机组成原理期末复习（四）输入输出系统&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&t=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-%E7%AB%AF%E5%8F%A3%E3%80%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.</span> <span class="toc-text">4.1 端口、接口的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-%E4%B8%8E%E7%A8%8B%E5%BA%8F%E4%B8%AD%E6%96%AD%E6%96%B9%E5%BC%8F%E7%9B%B8%E6%AF%94%EF%BC%8CDMA%E6%96%B9%E5%BC%8F%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">4.2 与程序中断方式相比，DMA方式的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-%E5%B0%8F%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">4.3 小结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-%E4%BE%8B%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">4.4 例题</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        计算机组成原理期末复习（四）输入输出系统
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-06-17T07:31:49.000Z" class="dt-published" itemprop="datePublished">2021-06-17</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h4 id="4-1-端口、接口的区别"><a href="#4-1-端口、接口的区别" class="headerlink" title="4.1 端口、接口的区别"></a>4.1 端口、接口的区别</h4><p>接口(Interface)和端口(Port)是两个不同的概念。端口是指接口电路中的一些寄存器，这些寄存器分别用来存放数据信息、控制信息和状态信息，相应的端口分别称为数据端口、控制端口和状态端口。若干个端口加上相应的控制逻辑才能组成接口。CPU通过输入指令，从端口读入信息，通过输出指令，可将信息写入端口中。</p>
+<h4 id="4-2-与程序中断方式相比，DMA方式的特点"><a href="#4-2-与程序中断方式相比，DMA方式的特点" class="headerlink" title="4.2 与程序中断方式相比，DMA方式的特点"></a>4.2 与程序中断方式相比，DMA方式的特点</h4><ol>
+<li>从<strong>数据传送</strong>看，程序中断靠<strong>程序传送</strong>，DMA方式靠硬件传送</li>
+<li>从<strong>CPU响应时间</strong>看，程序中断方式是在一条指令执行结束时响应，而DMA方式可在命令周期内的<strong>任意</strong>存储周期结束时响应</li>
+<li>程序中断方式有<strong>处理异常事件</strong>的能力，DMA方式没有这种能力，主要用于大批数据的传送，如磁盘存取、图像处理、高速数据采集系统等，可提高数据吞吐量</li>
+<li>程序中断方式需要中断现行程序，故需保护现场；DMA方式不中断现行程序，无需保护现场</li>
+<li>DMA的优先级比程序中断优先级高</li>
+</ol>
+<h4 id="4-3-小结"><a href="#4-3-小结" class="headerlink" title="4.3 小结"></a>4.3 小结</h4><ol>
+<li>I&#x2F;O设备与主机信息传送的控制方式：<strong>程序查询方式、程序中断方式、DMA方式</strong></li>
+<li>计算机在执行程序的过程中，当出现异常情况或特殊请求时，计算机停止现行程序的运行，转向对这些异常情况或特殊请求对处理，处理结束后再返回到现行程序的间断处，继续执行原程序，这就是“中断”</li>
+<li>凡是能向CPU提出中断请求的各种因素统称为<strong>中断源</strong></li>
+<li>CPU总是在统一的时间，即每条指令执行阶段的最后时刻，查询所有的设备是否有中断请求</li>
+</ol>
+<h4 id="4-4-例题"><a href="#4-4-例题" class="headerlink" title="4.4 例题"></a>4.4 例题</h4><blockquote>
+<p>5.1 I&#x2F;O设备有哪些编址方式，各有何特点？</p>
+<p>统一编址：采用主存单元地址完全一样的格式，I&#x2F;O设备和主存占用同一个地址空间，CPU可像访问主存一样访问I&#x2F;O设备，不需要安排专门的I&#x2F;O指令</p>
+<p>独立编址：有完全不同于主存地址格式的地址编码，此时I&#x2F;O地址与主存地址是两个独立的空间，CPU需要通过专门的指令来访问该地址空间。</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>5.4 试比较程序查询方式、程序中断方式和DMA方式对CPU效率的影响。</p>
+<p>程序查询方式：需要cpu时刻咨询io，直到io准备好响应，工作效率很低。</p>
+<p>程序中断方式：不咨询设备是否已经准备就绪，继续执行自身程序，只有当io设备准备就绪cpu发出中断请求后才予以响应。这种方式消除了踏步现象，比程序咨询方式效率更高，提高了CPU资源利用率和工作效率。</p>
+<p>DMA方式：DMA控制器从cpu完全接管对总线的控制，数据交换不经过cpu，直接在内存和外围设备之间进行，以高速传送数据，大大减轻了cpu的数据交换工作压力，cpu工作效率更高。</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>说明中断向量地址和入口地址的区别和联系。</p>
+<p>中断向量地址和入口地址的区别：</p>
+<p>向量地址是硬件电路（向量编码器）产生的中断源的内存地址编号，中断入口地址是中断服务程序首址。</p>
+<p>中断向量地址和入口地址的联系：</p>
+<p>中断向量地址可理解为中断服务程序入口地址指示器（入口地址的地址），通过它访存可获得中断服务程序入口地址。 (两种方法：在向量地址所指单元内放一条JMP指令；主存中设向量地址表。）</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>什么是多重中断？实现多重中断的必要条件是什么？</p>
+<p>多重中断是指：当CPU执行某个中断服务程序的过程中，发生了更高级、更紧迫的事件，CPU暂停现行中断服务程序的执行，转去处理该事件的中断，处理完返回现行中断服务程序继续执行的过程。</p>
+<p>实现多重中断的必要条件是：在现行中断服务期间，中断允许触发器为1，即开中断。</p>
+</blockquote>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/17/jizu4/">https://blog.jujimeizuo.cn/2021/06/17/jizu4/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-%E7%AB%AF%E5%8F%A3%E3%80%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.</span> <span class="toc-text">4.1 端口、接口的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-%E4%B8%8E%E7%A8%8B%E5%BA%8F%E4%B8%AD%E6%96%AD%E6%96%B9%E5%BC%8F%E7%9B%B8%E6%AF%94%EF%BC%8CDMA%E6%96%B9%E5%BC%8F%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">4.2 与程序中断方式相比，DMA方式的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-%E5%B0%8F%E7%BB%93"><span class="toc-number">3.</span> <span class="toc-text">4.3 小结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-%E4%BE%8B%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">4.4 例题</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/17/jizu4/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&text=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&title=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&is_video=false&description=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机组成原理期末复习（四）输入输出系统&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/17/jizu4/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&title=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&title=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&title=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&title=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&name=计算机组成原理期末复习（四）输入输出系统&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/17/jizu4/&t=计算机组成原理期末复习（四）输入输出系统"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

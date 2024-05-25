@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="曼哈顿距离定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的曼哈顿距离为： $$d(A, B) &#x3D; |x_1 - x_2| + |y_1 - y_2|$$  性质  对称性：$d(A,B)&#x3D;d(B,A)$ 三角不等式：$d(A,C) \le d(A,B)+d(B,C)$   距离原点的曼哈顿距离为 1 组成的点：   切比雪夫距离定义两个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="曼哈顿距离与切比雪夫距离">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="曼哈顿距离定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的曼哈顿距离为： $$d(A, B) &#x3D; |x_1 - x_2| + |y_1 - y_2|$$  性质  对称性：$d(A,B)&#x3D;d(B,A)$ 三角不等式：$d(A,C) \le d(A,B)+d(B,C)$   距离原点的曼哈顿距离为 1 组成的点：   切比雪夫距离定义两个">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/04/manhattan.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/04/chebyshev.png">
+<meta property="article:published_time" content="2024-04-01T13:33:31.000Z">
+<meta property="article:modified_time" content="2024-04-02T00:41:14.236Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2024/04/manhattan.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>曼哈顿距离与切比雪夫距离</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2024/05/17/nvidia-smi-error/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/01/29/custom-embeddings-based-on-langchain/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&text=曼哈顿距离与切比雪夫距离"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&is_video=false&description=曼哈顿距离与切比雪夫距离"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=曼哈顿距离与切比雪夫距离&body=Check out this article: https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&name=曼哈顿距离与切比雪夫距离&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&t=曼哈顿距离与切比雪夫距离"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%BC%E5%93%88%E9%A1%BF%E8%B7%9D%E7%A6%BB"><span class="toc-number">1.</span> <span class="toc-text">曼哈顿距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E8%B7%9D%E7%A6%BB"><span class="toc-number">2.</span> <span class="toc-text">切比雪夫距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2"><span class="toc-number">3.</span> <span class="toc-text">转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BC%E5%93%88%E9%A1%BF%E8%BD%AC%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB"><span class="toc-number">3.1.</span> <span class="toc-text">曼哈顿转切比雪夫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E8%BD%AC%E6%9B%BC%E5%93%88%E9%A1%BF"><span class="toc-number">3.2.</span> <span class="toc-text">切比雪夫转曼哈顿</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%92%E7%AD%89%E5%BC%8F"><span class="toc-number">3.3.</span> <span class="toc-text">恒等式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        曼哈顿距离与切比雪夫距离
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-04-01T13:33:31.000Z" class="dt-published" itemprop="datePublished">2024-04-01</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/ACM/" rel="tag">ACM</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="曼哈顿距离"><a href="#曼哈顿距离" class="headerlink" title="曼哈顿距离"></a>曼哈顿距离</h2><p>定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的曼哈顿距离为：</p>
+<p>$$<br>d(A, B) &#x3D; |x_1 - x_2| + |y_1 - y_2|<br>$$</p>
+<blockquote>
+<p>性质</p>
+<ol>
+<li>对称性：$d(A,B)&#x3D;d(B,A)$</li>
+<li>三角不等式：$d(A,C) \le d(A,B)+d(B,C)$</li>
+</ol>
+</blockquote>
+<p><strong>距离原点的曼哈顿距离为 1 组成的点：</strong></p>
+<center><img src="https://cdn.jujimeizuo.cn/blog/2024/04/manhattan.png" alt="曼哈顿"></center>
+
+<h2 id="切比雪夫距离"><a href="#切比雪夫距离" class="headerlink" title="切比雪夫距离"></a>切比雪夫距离</h2><p>定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的切比雪夫距离为：</p>
+<p>$$<br>d(A, B) &#x3D; \max ( |x_1 - x_2|, |y_1 - y_2| )<br>$$</p>
+<p><strong>距离原点的切比雪夫距离为 1 组成的点：</strong></p>
+<center><img src="https://cdn.jujimeizuo.cn/blog/2024/04/chebyshev.png" alt="切比雪夫"></center>
+
+<h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><h3 id="曼哈顿转切比雪夫"><a href="#曼哈顿转切比雪夫" class="headerlink" title="曼哈顿转切比雪夫"></a>曼哈顿转切比雪夫</h3><p>将代表曼哈顿距离的正方形绕原点逆时针旋转 $\frac{\pi}{4}$，发现两个正方形是相似的，只需要把代表曼哈顿距离的正方形扩大 $\sqrt{2}$ 倍。</p>
+<p>发现原来在代表曼哈顿距离的正方形的四条边上的点 $A(x,y)$ 的坐标由旋转之后变为了<br>$$(x * \cos{\frac{\pi}{4}}-y * \sin{\frac{\pi}{4}}, y * \cos{\frac{\pi}{4}} + x * \sin{\frac{\pi}{4}})$$<br>然后扩大后变为<br>$$A^\prime(\sqrt{2}(x * \cos{\frac{\pi}{4}}-y * \sin{\frac{\pi}{4}}), \sqrt{2}(y * \cos{\frac{\pi}{4}} + x * \sin{\frac{\pi}{4}})) \to A^\prime (x-y, x+y)$$<br>这里的旋转事实上可以理解为坐标轴的旋转。</p>
+<h3 id="切比雪夫转曼哈顿"><a href="#切比雪夫转曼哈顿" class="headerlink" title="切比雪夫转曼哈顿"></a>切比雪夫转曼哈顿</h3><p>通过图形旋转，原来的点 $A(x,y) \to A^\prime(\frac{x+y}{2}, \frac{x-y}{2})$。（由上述逆变换证明）</p>
+<h3 id="恒等式"><a href="#恒等式" class="headerlink" title="恒等式"></a>恒等式</h3><p>$$<br>|x_1 - x_2| + |y_1 - y_2| &#x3D; \max(|x_1^\prime - x_2^\prime|, |y_1^\prime - y_2^\prime|)<br>$$</p>
+<p>其中等式左侧为 $(x_1,y_1)$ 和 $(x_2, y_2)$ 的<strong>曼哈顿距离</strong>，等式右侧 $(x^\prime - y^\prime)&#x3D;(x+y,y-x)$，计算的是 $(x_1^\prime - y_1^\prime)$ 和 $(x_2^\prime - y_2^\prime)$ 两点的曼哈顿距离投影到 $x^\prime$ 轴和 $y^\prime$  轴的线段长度的最大值，即<strong>切比雪夫距离</strong>。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimize-manhattan-distances/description/">3102. 最小化曼哈顿距离</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32878257">曼哈顿距离与切比雪夫距离的转换 - 知乎</a></li>
+<li><a target="_blank" rel="noopener" href="https://tom0727.github.io/post/063-%E6%9B%BC%E5%93%88%E9%A1%BF-%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E8%B7%9D%E7%A6%BB/">曼哈顿距离 和 切比雪夫距离 - tom0727’s blog</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.luogu.com/article/hxr7p6po">常用距离算法详解 - 洛谷专栏</a></li>
+</ul>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/">https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%BC%E5%93%88%E9%A1%BF%E8%B7%9D%E7%A6%BB"><span class="toc-number">1.</span> <span class="toc-text">曼哈顿距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E8%B7%9D%E7%A6%BB"><span class="toc-number">2.</span> <span class="toc-text">切比雪夫距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2"><span class="toc-number">3.</span> <span class="toc-text">转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BC%E5%93%88%E9%A1%BF%E8%BD%AC%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB"><span class="toc-number">3.1.</span> <span class="toc-text">曼哈顿转切比雪夫</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E8%BD%AC%E6%9B%BC%E5%93%88%E9%A1%BF"><span class="toc-number">3.2.</span> <span class="toc-text">切比雪夫转曼哈顿</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%92%E7%AD%89%E5%BC%8F"><span class="toc-number">3.3.</span> <span class="toc-text">恒等式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&text=曼哈顿距离与切比雪夫距离"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&is_video=false&description=曼哈顿距离与切比雪夫距离"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=曼哈顿距离与切比雪夫距离&body=Check out this article: https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&name=曼哈顿距离与切比雪夫距离&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&t=曼哈顿距离与切比雪夫距离"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

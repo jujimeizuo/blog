@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="回调函数是做为参数传递的一种函数，在早期C样式编程当中，回调函数必须依赖函数指针来实现。 而后的C++语言当中，又引入了 std::function 与 std::bind 来配合进行回调函数实现。 标准库中有大量函数应用到了回调函数，其中 std::sort 就是一个经典例子。 一、 回调函数回调函数的创建步骤大概为： 1，声明一个函数指针类型。 2，拟写使用回调函数的函数，将函数指针类型及变量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ 回调函数及 std::function 与 std::bind">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2022/11/20/callback/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="回调函数是做为参数传递的一种函数，在早期C样式编程当中，回调函数必须依赖函数指针来实现。 而后的C++语言当中，又引入了 std::function 与 std::bind 来配合进行回调函数实现。 标准库中有大量函数应用到了回调函数，其中 std::sort 就是一个经典例子。 一、 回调函数回调函数的创建步骤大概为： 1，声明一个函数指针类型。 2，拟写使用回调函数的函数，将函数指针类型及变量">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-11-20T13:32:56.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.863Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>C++ 回调函数及 std::function 与 std::bind</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2022/12/03/atcoder-abc280/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/11/18/getfilenumber/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2022/11/20/callback/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&text=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&title=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&is_video=false&description=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C++ 回调函数及 std::function 与 std::bind&body=Check out this article: https://blog.jujimeizuo.cn/2022/11/20/callback/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&title=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&title=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&title=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&title=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&name=C++ 回调函数及 std::function 与 std::bind&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2022/11/20/callback/&t=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">一、 回调函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81std-function-%E4%B8%8E-std-bind"><span class="toc-number">2.</span> <span class="toc-text">二、std::function 与 std::bind</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        C++ 回调函数及 std::function 与 std::bind
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-11-20T13:32:56.000Z" class="dt-published" itemprop="datePublished">2022-11-20</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/C/" rel="tag">C++</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p><strong>回调函数是做为参数传递的一种函数</strong>，在早期C样式编程当中，回调函数必须依赖函数指针来实现。</p>
+<p>而后的C++语言当中，又引入了 std::function 与 std::bind 来配合进行回调函数实现。</p>
+<p>标准库中有大量函数应用到了回调函数，其中 std::sort 就是一个经典例子。</p>
+<h2 id="一、-回调函数"><a href="#一、-回调函数" class="headerlink" title="一、 回调函数"></a>一、 回调函数</h2><p>回调函数的创建步骤大概为：</p>
+<p>1，声明一个函数指针类型。</p>
+<p>2，拟写使用回调函数的函数，将函数指针类型及变量名声明作为参数传递。</p>
+<p>3，拟写符合函数指针类型的实现函数，将实现函数的指针作为参数传递给使用它的函数。</p>
+<p>下面演示了一个最简单的回调函数定义及使用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*Calc)</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">CalcValue</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">const</span> Calc &amp;func)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">func</span>(a, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">6</span>;</span><br><span class="line">    <span class="type">int</span> c = <span class="built_in">CalcValue</span>(a, b, Add);</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Value: &quot;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，我们通过语法：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*Calc)</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>来定义了回调函数的指针类型，包括返回值类型、(*类型名)函数指针、参数表。</p>
+<p>继而又定义并且实现了回调函数的使用者函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">CalcValue</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">const</span> Calc &amp;func)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">func</span>(a, b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再去定义并实现符合函数指针类型的实现函数：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>必须要注意的是，实现函数的类型必须要和函数指针的类型声明一致，也就是返回值和参数表（个数、类型）要完全一致。</p>
+<p>这样就完成了一个简单且最基本的回调函数。</p>
+<p>那么，回调函数是什么情况下使用的呢？</p>
+<p>举个最经典的例子就是 <code>std::sort</code>，当你需要给一个存储有自定义结构体的 vector 进行排序时，编译器是无法知道如何对自定义结构体进行排序的。</p>
+<p>这时候就需要实现一个回调函数来告诉编译器如何排序：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">DataPool</span> &#123;</span><br><span class="line">    <span class="type">int</span> value = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> date = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">DataPool</span>(<span class="type">int</span> v, <span class="type">int</span> d) : <span class="built_in">value</span>(v), <span class="built_in">date</span>(d) &#123;&#125;;</span><br><span class="line">&#125;DataPool;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">SortCallBack</span><span class="params">(<span class="type">const</span> DataPool &amp;a, <span class="type">const</span> DataPool&amp; b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a.value &lt; b.value;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    vector&lt;DataPool&gt; vec;</span><br><span class="line">    vec.<span class="built_in">push_back</span>(<span class="built_in">DataPool</span>(<span class="number">2</span>, <span class="number">1</span>));</span><br><span class="line">    vec.<span class="built_in">push_back</span>(<span class="built_in">DataPool</span>(<span class="number">5</span>, <span class="number">2</span>));</span><br><span class="line">    vec.<span class="built_in">push_back</span>(<span class="built_in">DataPool</span>(<span class="number">1</span>, <span class="number">3</span>));</span><br><span class="line"></span><br><span class="line">    std::<span class="built_in">sort</span>(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>(), SortCallBack);</span><br><span class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，就相当于自定义了 struct 的排序规则，自然编译器也可以使用 <code>std::sort</code> 对自定义 struct 进行排序操作。</p>
+<h2 id="二、std-function-与-std-bind"><a href="#二、std-function-与-std-bind" class="headerlink" title="二、std::function 与 std::bind"></a>二、std::function 与 std::bind</h2><p>上面演示了最简单的回调函数创建及使用，然而，上面的代码却出现了一个局限性，就是：</p>
+<p>如果需要去回调一个类成员函数，函数指针则无法指向类成员函数。</p>
+<p>在基本C样式面向过程编程当中，这种局限性并不那么明显甚至可以说不存在。但是到了C++当中，这种弊端就显而易见了，解决方式便是使用 std::function 与 std::bind 互相配合。</p>
+<p>它们的头文件是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>std::function</li>
+</ul>
+<p>std::function 是一个模板类。作用是对C++中的可调用对象进行包装，例如普通函数、成员函数、模板函数、静态函数、lambda表达式等。</p>
+<p>它的最基本的作用是，简化调用的复杂程度，统一调用的方式。如果代码中混杂着大量普通函数、模板函数、lambda，使用 std::function 是非常有必要的。</p>
+<p>语法是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">【伪代码】std::function&lt;returnType(argType, argType，...)&gt; func;</span><br><span class="line"></span><br><span class="line">【常规情况】std::function&lt;<span class="type">int</span>(<span class="type">int</span>, <span class="type">int</span>)&gt; func;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，这个模板类当中对类型的声明方式是 &lt; 返回值类型 ( 参数类型1, 参数类型2, …) &gt;。</p>
+<p>你几乎可以拿它包装任何可调用对象，只需简单粗暴的将可调用对象作为右值赋值给它：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">CompareInt</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &gt; b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">std::function&lt;<span class="type">bool</span>(<span class="type">int</span>, <span class="type">int</span>)&gt; compareFunc = CompareInt;</span><br></pre></td></tr></table></figure>
+
+<p>那么如何使用它来调用类成员函数呢？这时就需要用到经常与 <code>std::function</code> 配合使用的 <code>std::bind</code>。</p>
+<ul>
+<li>std::bind</li>
+</ul>
+<p>它是一个基于模板的函数，顾明思意它的作用是绑定并返回一个 std::function 对象。</p>
+<p>那么什么是“绑定”？它本身作为延迟计算的思想的一种实现，作为一个调用过程当中的转发者而存在，返回一个 <code>std::function</code> 对象。</p>
+<p>它与 <code>std::function</code> 不同的是，function 是模板类，bind 是模板函数，而 bind 返回的可调用对象可以直接给 function 进行包装并保存。</p>
+<p>为什么要进行“包装”与“转发”呢？</p>
+<p>首先，不规范的解释是，function 的作用是包装，它可以包装类成员函数，但却无法生成类成员函数的可调用对象。而 <code>std::bind</code> 则是可以生成。</p>
+<p>因此，function 与 bind 结合后，便成为了 C++ 中类成员函数作为回调函数的一种规范的实现方式。</p>
+<p><code>std::bind</code> 的语法是：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* --- 普通函数 --- */</span></span><br><span class="line">【伪代码】std::<span class="built_in">bind</span>(&amp;funcName, std::placeholders::_1, ...);</span><br><span class="line"></span><br><span class="line">【常规情况】std::<span class="built_in">bind</span>(&amp;Add, std::placeholders::_1, std::placeholders::_2);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* --- 类成员函数 --- */</span></span><br><span class="line">【伪代码】std::<span class="built_in">bind</span>(&amp;className::funcName, classPtr, std::placeholders::_1, ...);</span><br><span class="line"></span><br><span class="line">【常规情况】std::<span class="built_in">bind</span>(&amp;BrainToolBox::Add, brain, std::placeholders::_1, std::placeholders::_2);</span><br></pre></td></tr></table></figure>
+
+<p>当用作普通函数的绑定时，第一个参数是可调用对象(普通函数、lambda等)，而第二个参数开始对应可调用对象的参数表。</p>
+<p><code>std::placeholders::_1</code> 代表可调用对象的第一个参数，<code>_2</code>就代表第二个参数，依此类推。</p>
+<p>当用作类成员函数的绑定时，第一个参数仍然是作为类成员的可调用对象引用，第二个参数则是对象的指针，而第三个参数开始对应可调用对象的参数表。</p>
+<p>同样使用 <code>std::placeholders::_*</code> 依次向后推。</p>
+<p>所以，与 <code>std::function</code> 相结合，便可以实现对类成员函数的调用：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">BrainToolBox</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">Add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123; <span class="keyword">return</span> a + b; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">4</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line">    std::shared_ptr&lt;BrainToolBox&gt; brain = std::<span class="built_in">make_shared</span>&lt;BrainToolBox&gt;();</span><br><span class="line">    std::function&lt;<span class="type">int</span>(<span class="type">int</span>, <span class="type">int</span>)&gt; addFunc = std::<span class="built_in">bind</span>(&amp;BrainToolBox::Add, brain, std::placeholders::_1, std::placeholders::_2);</span><br><span class="line"></span><br><span class="line">　　 <span class="type">int</span> c = <span class="built_in">addFunc</span>(a, b);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;c Value: &quot;</span> &lt;&lt; c &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对 <code>std::bind</code> 的额外注解：</p>
+<blockquote>
+<p>1，调用指向非静态成员函数指针或指向非静态数据成员指针时，首参数必须是引用或指针（可以包含智能指针，如 std::shared_ptr 与 std::unique_ptr），指向将访问其成员的对象。 2，到 bind 的参数被复制或移动，而且决不按引用传递，除非包装于 std::ref 或 std::cref 。 3，允许同一 bind 表达式中的多重占位符（例如多个 _1 ），但结果仅若对应参数（ u1 ）是左值或不可移动右值才良好定义。</p>
+</blockquote>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2022/11/20/callback/">https://blog.jujimeizuo.cn/2022/11/20/callback/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">一、 回调函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81std-function-%E4%B8%8E-std-bind"><span class="toc-number">2.</span> <span class="toc-text">二、std::function 与 std::bind</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2022/11/20/callback/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&text=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&title=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&is_video=false&description=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=C++ 回调函数及 std::function 与 std::bind&body=Check out this article: https://blog.jujimeizuo.cn/2022/11/20/callback/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&title=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&title=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&title=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&title=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2022/11/20/callback/&name=C++ 回调函数及 std::function 与 std::bind&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2022/11/20/callback/&t=C++ 回调函数及 std::function 与 std::bind"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

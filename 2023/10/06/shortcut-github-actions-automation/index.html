@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="为什么需要通过快捷指令实现自动化 最初的 Github Actions 需要 crontab 来定时进行自动化，这样做不仅消耗过多资源，而且在完成某个任务时不会立即获取新生成的数据。 如果我可以完成某个特定动作，例如关闭闹钟、充电、关闭 APP 时自动进行 Actions时，这样做非常高效，方法是可以利用快捷指令触发 Actions 同步数据 下面拿跑步举例，一般会用 app（我用的是 keep）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用 iOS 的快捷指令配合 GitHub Actions 实现自动化">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="为什么需要通过快捷指令实现自动化 最初的 Github Actions 需要 crontab 来定时进行自动化，这样做不仅消耗过多资源，而且在完成某个任务时不会立即获取新生成的数据。 如果我可以完成某个特定动作，例如关闭闹钟、充电、关闭 APP 时自动进行 Actions时，这样做非常高效，方法是可以利用快捷指令触发 Actions 同步数据 下面拿跑步举例，一般会用 app（我用的是 keep）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2023/10/workflow_dispatch.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2023/10/get-action-id.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2023/10/running-page-template.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2023/10/new-automation.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2023/10/select-close.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2023/10/select-shortcut.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2023/10/finish-automation.png">
+<meta property="article:published_time" content="2023-10-06T15:25:27.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.714Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="utils">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2023/10/workflow_dispatch.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>利用 iOS 的快捷指令配合 GitHub Actions 实现自动化</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/11/24/clash-for-linux/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/07/28/macos-connect-to-docker-to-using-gui-by-ssh/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&text=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&title=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&is_video=false&description=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化&body=Check out this article: https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&title=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&title=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&title=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&title=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&name=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&t=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E9%80%9A%E8%BF%87%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="toc-number">1.</span> <span class="toc-text">为什么需要通过快捷指令实现自动化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A6%E5%8F%91-Actions"><span class="toc-number">2.</span> <span class="toc-text">如何触发 Actions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E5%90%88%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">结合快捷指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4"><span class="toc-number">3.1.</span> <span class="toc-text">快捷指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="toc-number">3.2.</span> <span class="toc-text">自动化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">4.</span> <span class="toc-text">其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        利用 iOS 的快捷指令配合 GitHub Actions 实现自动化
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-10-06T15:25:27.000Z" class="dt-published" itemprop="datePublished">2023-10-06</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/utils/" rel="tag">utils</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="为什么需要通过快捷指令实现自动化"><a href="#为什么需要通过快捷指令实现自动化" class="headerlink" title="为什么需要通过快捷指令实现自动化"></a>为什么需要通过快捷指令实现自动化</h2><ul>
+<li>最初的 Github Actions 需要 crontab 来定时进行自动化，这样做不仅消耗过多资源，而且在完成某个任务时不会立即获取新生成的数据。</li>
+<li>如果我可以完成某个特定动作，例如关闭闹钟、充电、关闭 APP 时自动进行 Actions时，这样做非常高效，方法是可以利用快捷指令触发 Actions 同步数据</li>
+<li>下面拿跑步举例，一般会用 app（我用的是 keep）来记录跑步数据，实现的操作是当关闭 keep 时会自动进行 Actions，更新数据</li>
+</ul>
+<h2 id="如何触发-Actions"><a href="#如何触发-Actions" class="headerlink" title="如何触发 Actions"></a>如何触发 Actions</h2><ul>
+<li><p>首先在 yml 文件中增加 <code>workflow_dispatch</code>: 可以手动触发</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2023/10/workflow_dispatch.jpg" alt="srcworkflow_dispatch"></p>
+</li>
+<li><p>先拿到这个项目的 actions id (需要自行申请 token)</p>
+<ul>
+<li><p>在个人的 settings 中申请 项目的token，然后在项目里的 Secrets and variables 里的 Actions 设置密钥，内容为刚刚申请的 token</p>
+</li>
+<li><p>执行下面代码获取 actionid</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://api.github.com/repos/jujimeizuo/running_page/actions/workflows -H &quot;Authorization: token d8xxxxxxxxxx&quot; ## change to your config</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2023/10/get-action-id.jpg" alt="get-action-id"></p>
+</li>
+<li><p>拿到 action id 就可以利用 api post 触发 action 啦</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Content-Type:application/json&quot; -X POST -d &#x27;&#123;&quot;inputs&quot;: &#123;&#125;, &quot;ref&quot;:&quot;master&quot;&#125;&#x27; https://api.github.com/repos/jujimeizu/running_page/actions/workflows/: $&#123;actionid&#125;/dispatches -H &quot;Authorization: token d8e03d6xxxxxxxxxxxx&quot;  ## change to your config</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="结合快捷指令"><a href="#结合快捷指令" class="headerlink" title="结合快捷指令"></a>结合快捷指令</h2><h3 id="快捷指令"><a href="#快捷指令" class="headerlink" title="快捷指令"></a>快捷指令</h3><ul>
+<li>通过 icloud 获取 <a target="_blank" rel="noopener" href="https://www.icloud.com/shortcuts/4a5807a98b9a4e359815ff179c62bacb">running-page-template</a></li>
+<li>修改下面图片中字典的值即可</li>
+</ul>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2023/10/running-page-template.jpg" alt="running-page-template"></p>
+<h3 id="自动化"><a href="#自动化" class="headerlink" title="自动化"></a>自动化</h3><p><img src="https://cdn.jujimeizuo.cn/blog/2023/10/new-automation.png" alt="new-automation"> <img src="https://cdn.jujimeizuo.cn/blog/2023/10/select-close.png" alt="select-close"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2023/10/select-shortcut.png" alt="select-shortcut"> <img src="https://cdn.jujimeizuo.cn/blog/2023/10/finish-automation.png" alt="finish-automation"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>可以通过关闭闹钟来同步自己的起床记录——这也是 yihong 大神写的</li>
+<li>可以利用一个 action 触发另一个项目的 action，实现另一个 repo 的更新</li>
+<li>…</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/yihong0618/gitblog/issues/198">yihong0618 大神</a></li>
+</ul>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/">https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E9%80%9A%E8%BF%87%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="toc-number">1.</span> <span class="toc-text">为什么需要通过快捷指令实现自动化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A6%E5%8F%91-Actions"><span class="toc-number">2.</span> <span class="toc-text">如何触发 Actions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E5%90%88%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">结合快捷指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4"><span class="toc-number">3.1.</span> <span class="toc-text">快捷指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96"><span class="toc-number">3.2.</span> <span class="toc-text">自动化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">4.</span> <span class="toc-text">其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&text=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&title=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&is_video=false&description=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化&body=Check out this article: https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&title=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&title=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&title=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&title=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&name=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/&t=利用 iOS 的快捷指令配合 GitHub Actions 实现自动化"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

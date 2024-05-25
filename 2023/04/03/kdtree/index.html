@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="libnabo简介libnabo 是一个用于低维空间的快速 K 最近邻库。得益于 C++ 模板，它提供了一个干净、无遗留问题、与标量类型无关的 API。它当前的 CPU 实现受到ANN的强烈启发，但具有更紧凑的数据类型。平均而言，libnabo 比ANN快 5% 到 20% 。 libnabo 依赖于Eigen，一个现代 C++ 矩阵和线性代数库。libnabo 适用于 Eigen 的版本 2 或">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础算法算子库 - KD-Tree">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2023/04/03/kdtree/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="libnabo简介libnabo 是一个用于低维空间的快速 K 最近邻库。得益于 C++ 模板，它提供了一个干净、无遗留问题、与标量类型无关的 API。它当前的 CPU 实现受到ANN的强烈启发，但具有更紧凑的数据类型。平均而言，libnabo 比ANN快 5% 到 20% 。 libnabo 依赖于Eigen，一个现代 C++ 矩阵和线性代数库。libnabo 适用于 Eigen 的版本 2 或">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-04-03T07:42:30.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.710Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="基础算法算子库">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>基础算法算子库 - KD-Tree</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2023/04/23/rdtsc/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/02/27/cmake-file/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2023/04/03/kdtree/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&text=基础算法算子库 - KD-Tree"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&title=基础算法算子库 - KD-Tree"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&is_video=false&description=基础算法算子库 - KD-Tree"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基础算法算子库 - KD-Tree&body=Check out this article: https://blog.jujimeizuo.cn/2023/04/03/kdtree/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&title=基础算法算子库 - KD-Tree"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&title=基础算法算子库 - KD-Tree"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&title=基础算法算子库 - KD-Tree"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&title=基础算法算子库 - KD-Tree"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&name=基础算法算子库 - KD-Tree&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&t=基础算法算子库 - KD-Tree"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#libnabo"><span class="toc-number">1.</span> <span class="toc-text">libnabo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#installion"><span class="toc-number">1.2.</span> <span class="toc-text">installion</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#download"><span class="toc-number">1.2.1.</span> <span class="toc-text">download</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#prerequisites"><span class="toc-number">1.2.2.</span> <span class="toc-text">prerequisites</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#install"><span class="toc-number">1.2.3.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CmakeLists-txt"><span class="toc-number">1.2.4.</span> <span class="toc-text">CmakeLists.txt</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flann"><span class="toc-number">2.</span> <span class="toc-text">flann</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Installion"><span class="toc-number">2.2.</span> <span class="toc-text">Installion</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#download-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">download</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#install-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CMakeLists-txt"><span class="toc-number">2.2.3.</span> <span class="toc-text">CMakeLists.txt</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        基础算法算子库 - KD-Tree
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-04-03T07:42:30.000Z" class="dt-published" itemprop="datePublished">2023-04-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95%E7%AE%97%E5%AD%90%E5%BA%93/" rel="tag">基础算法算子库</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="libnabo"><a href="#libnabo" class="headerlink" title="libnabo"></a>libnabo</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>libnabo 是一个用于低维空间的快速 K 最近邻库。得益于 C++ 模板，它提供了一个干净、无遗留问题、与标量类型无关的 API。它当前的 CPU 实现受到ANN的强烈启发，但具有更紧凑的数据类型。平均而言，libnabo 比ANN快 5% 到 20% 。</p>
+<p>libnabo 依赖于Eigen，一个现代 C++ 矩阵和线性代数库。libnabo 适用于 Eigen 的版本 2 或 3。libnabo 还可以选择依赖Boost，这是一个用于 Python 绑定的 C++ 通用库。</p>
+<h3 id="installion"><a href="#installion" class="headerlink" title="installion"></a>installion</h3><h4 id="download"><a href="#download" class="headerlink" title="download"></a>download</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:ethz-asl/libnabo.git</span><br></pre></td></tr></table></figure>
+
+<h4 id="prerequisites"><a href="#prerequisites" class="headerlink" title="prerequisites"></a>prerequisites</h4><ul>
+<li><a target="_blank" rel="noopener" href="http://eigen.tuxfamily.org/index.php?title=Main_Page" title="Eigen">Eigen</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.boost.org/users/download/">Boost</a> （Option)</li>
+</ul>
+<h4 id="install"><a href="#install" class="headerlink" title="install"></a>install</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SRC_DIR=<span class="built_in">pwd</span></span><br><span class="line">BUILD_DIR=<span class="variable">$&#123;SRC_DIR&#125;</span>/build</span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="variable">$&#123;BUILD_DIR&#125;</span> &amp;&amp; <span class="built_in">cd</span> <span class="variable">$&#123;BUILD_DIR&#125;</span></span><br><span class="line">cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo <span class="variable">$&#123;SRC_DIR&#125;</span></span><br><span class="line"><span class="comment"># if Eigen or Boost are not available system-wide, run at that point:</span></span><br><span class="line"><span class="comment">#   cmake-gui .</span></span><br><span class="line"><span class="comment"># cmake-gui allows you to tell the location of Eigen or Boost</span></span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<h4 id="CmakeLists-txt"><a href="#CmakeLists-txt" class="headerlink" title="CmakeLists.txt"></a>CmakeLists.txt</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#--------------------</span></span><br><span class="line"><span class="comment"># DEPENDENCY: nabo</span></span><br><span class="line"><span class="comment">#--------------------</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">NOT</span> <span class="keyword">TARGET</span> nabo)</span><br><span class="line">  <span class="comment"># Find libnabo:</span></span><br><span class="line">  <span class="keyword">find_package</span>(libnabo REQUIRED PATHS <span class="variable">$&#123;LIBNABO_INSTALL_DIR&#125;</span>)</span><br><span class="line">  <span class="keyword">message</span>(STATUS <span class="string">&quot;libnabo found, version $&#123;libnabo_VERSION&#125; (include=$&#123;libnabo_INCLUDE_DIRS&#125; libs=$&#123;libnabo_LIBRARIES&#125;)&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>()</span><br><span class="line">  <span class="comment"># libnabo already part of this project (e.g. as a git submodule)</span></span><br><span class="line">  <span class="comment"># (This, plus the use of cmake target properties in libnabo, will also</span></span><br><span class="line">  <span class="comment"># introduce the required include directories, flags, etc.)</span></span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"><span class="comment"># This cmake target alias will be defined by either: </span></span><br><span class="line"><span class="comment"># a) libnabo sources if built as a git submodule in the same project than this library, or</span></span><br><span class="line"><span class="comment"># b) by libnabo-targets.cmake, included by find_package(libnabo) above.</span></span><br><span class="line"><span class="keyword">set</span>(libnabo_LIBRARIES libnabo::nabo)</span><br><span class="line"></span><br><span class="line"><span class="comment"># target_link_libraries THIRD_PARTY_LIBS is ok</span></span><br><span class="line"><span class="keyword">set</span>(THIRD_PARTY_LIBS</span><br><span class="line">        <span class="variable">$&#123;libnabo_LIBRARIES&#125;</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"><span class="comment"># ####### dependencies ########</span></span><br><span class="line"><span class="keyword">find_package</span>(Eigen3 REQUIRED)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;EIGEN3_INCLUDE_DIR&#125;</span>)</span><br><span class="line"><span class="keyword">include_directories</span>(<span class="variable">$&#123;NABO_INCLUDE_DIR&#125;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="flann"><a href="#flann" class="headerlink" title="flann"></a>flann</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>FLANN（近似近邻快速库）是一个用于执行快速近似近邻搜索的库。FLANN是用C++编写的，该库提供的C、MATLAB和Python接口。</p>
+<h3 id="Installion"><a href="#Installion" class="headerlink" title="Installion"></a>Installion</h3><h4 id="download-1"><a href="#download-1" class="headerlink" title="download"></a>download</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/flann-lib/flann.git </span><br></pre></td></tr></table></figure>
+
+<h4 id="install-1"><a href="#install-1" class="headerlink" title="install"></a>install</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> flann</span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON_BINDINGS=OFF -DBUILD_MATLAB_BINDINGS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_TESTS=OFF -DBUILD_D</span><br><span class="line">OC=OFF ..</span><br><span class="line">make -j5</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<h4 id="CMakeLists-txt"><a href="#CMakeLists-txt" class="headerlink" title="CMakeLists.txt"></a>CMakeLists.txt</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(flann REQUIRED)</span><br><span class="line"><span class="keyword">set</span>(THIRD_PARTY_LIBS</span><br><span class="line">        <span class="variable">$&#123;libflann_LIBRARIES&#125;</span></span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2023/04/03/kdtree/">https://blog.jujimeizuo.cn/2023/04/03/kdtree/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#libnabo"><span class="toc-number">1.</span> <span class="toc-text">libnabo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#installion"><span class="toc-number">1.2.</span> <span class="toc-text">installion</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#download"><span class="toc-number">1.2.1.</span> <span class="toc-text">download</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#prerequisites"><span class="toc-number">1.2.2.</span> <span class="toc-text">prerequisites</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#install"><span class="toc-number">1.2.3.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CmakeLists-txt"><span class="toc-number">1.2.4.</span> <span class="toc-text">CmakeLists.txt</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flann"><span class="toc-number">2.</span> <span class="toc-text">flann</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B-1"><span class="toc-number">2.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Installion"><span class="toc-number">2.2.</span> <span class="toc-text">Installion</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#download-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">download</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#install-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CMakeLists-txt"><span class="toc-number">2.2.3.</span> <span class="toc-text">CMakeLists.txt</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2023/04/03/kdtree/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&text=基础算法算子库 - KD-Tree"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&title=基础算法算子库 - KD-Tree"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&is_video=false&description=基础算法算子库 - KD-Tree"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基础算法算子库 - KD-Tree&body=Check out this article: https://blog.jujimeizuo.cn/2023/04/03/kdtree/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&title=基础算法算子库 - KD-Tree"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&title=基础算法算子库 - KD-Tree"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&title=基础算法算子库 - KD-Tree"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&title=基础算法算子库 - KD-Tree"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&name=基础算法算子库 - KD-Tree&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2023/04/03/kdtree/&t=基础算法算子库 - KD-Tree"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

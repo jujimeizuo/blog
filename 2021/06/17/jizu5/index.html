@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="5.1 有符号数5.1.1 原码表示法原码是机器数中最简单的一种表示形式，符号位为0表示正数，符号位为1表示负数，数值位即为真值的绝对值，故原码表示又称为带符号的绝对值表示。 整数原码定义[x]_原&#x3D;\left&#123;\begin&#123;matrix&#125; 0,x&amp; 2^n&gt;x&gt;0&amp; \ 2^n-x,&amp; 0\ge x&gt;-2^n &amp; \">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理期末复习（五）计算机的运算方法">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/06/17/jizu5/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="5.1 有符号数5.1.1 原码表示法原码是机器数中最简单的一种表示形式，符号位为0表示正数，符号位为1表示负数，数值位即为真值的绝对值，故原码表示又称为带符号的绝对值表示。 整数原码定义[x]_原&#x3D;\left&#123;\begin&#123;matrix&#125; 0,x&amp; 2^n&gt;x&gt;0&amp; \ 2^n-x,&amp; 0\ge x&gt;-2^n &amp; \">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-40.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-41.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-42.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-43.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-44.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-45.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-46.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/B5835E24-2341-425E-BB10-EE866F9A69FE.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/75AED03B-5911-4E6D-A63F-C27DC678BFDA.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-47.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-48.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-49.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/05F7859F-4788-4F3B-97E0-0D9172E88BEB.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-50.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/FCB3A323-8652-4E7B-B48A-9B8D25765330.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-51.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-52.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-53.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-54.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-55.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/71A0406B-20D9-4D80-98BE-02E695E0FCFF.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-56.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/481B6F94FE975A975197523BC7B72FBB.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/4DF787DD-4AC7-4C39-8B30-4F32AD558C76.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/732D658E-6A92-4FD6-8132-69FEC87BE802.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/958ADDA5-10FD-4D21-A717-65D6F5012EC6.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/ECD3F4E1-7DB6-4B56-B4B7-FAD58240D999.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="article:published_time" content="2021-06-17T12:27:19.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.829Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-40.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>计算机组成原理期末复习（五）计算机的运算方法</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/06/18/shuzituxiang7/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/06/17/shuzituxiang5/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/17/jizu5/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&text=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&title=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&is_video=false&description=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机组成原理期末复习（五）计算机的运算方法&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/17/jizu5/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&title=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&title=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&title=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&title=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&name=计算机组成原理期末复习（五）计算机的运算方法&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&t=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">5.1 有符号数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-1-%E5%8E%9F%E7%A0%81%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">5.1.1 原码表示法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E5%8E%9F%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">整数原码定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E6%95%B0%E5%8E%9F%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">小数原码定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-2-%E8%A1%A5%E7%A0%81%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">5.1.2 补码表示法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.2.1.</span> <span class="toc-text">补数的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E8%A1%A5%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">整数补码定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E6%95%B0%E8%A1%A5%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">小数补码定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-3-%E5%8F%8D%E7%A0%81%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">5.1.3 反码表示法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E5%8F%8D%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">整数反码定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E6%95%B0%E5%8F%8D%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">小数反码定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-4-%E7%A7%BB%E7%A0%81%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.4.</span> <span class="toc-text">5.1.4 移码表示法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.4.1.</span> <span class="toc-text">移码定义</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E6%95%B0%E7%9A%84%E5%AE%9A%E7%82%B9%E8%A1%A8%E7%A4%BA%E5%92%8C%E6%B5%AE%E7%82%B9%E8%A1%A8%E7%A4%BA"><span class="toc-number">2.</span> <span class="toc-text">5.2 数的定点表示和浮点表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-1-%E5%AE%9A%E7%82%B9%E8%A1%A8%E7%A4%BA"><span class="toc-number">2.1.</span> <span class="toc-text">5.2.1 定点表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-2-%E6%B5%AE%E7%82%B9%E8%A1%A8%E7%A4%BA"><span class="toc-number">2.2.</span> <span class="toc-text">5.2.2 浮点表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-3-%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.3.</span> <span class="toc-text">5.2.3 浮点数的表示形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-4-%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E8%8C%83%E5%9B%B4"><span class="toc-number">2.4.</span> <span class="toc-text">5.2.4 浮点数的表示范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-4-%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="toc-number">2.5.</span> <span class="toc-text">5.2.4 浮点数的规格化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E5%AE%9A%E7%82%B9%E6%95%B0%E5%92%8C%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">3.</span> <span class="toc-text">5.3 定点数和浮点数的比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-IEEE-754%E6%A0%87%E5%87%86"><span class="toc-number">4.</span> <span class="toc-text">5.4 IEEE 754标准</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-%E5%AE%9A%E7%82%B9%E8%BF%90%E7%AE%97"><span class="toc-number">5.</span> <span class="toc-text">5.5 定点运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-1-%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="toc-number">5.1.</span> <span class="toc-text">5.5.1 移位运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E4%BD%8D%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-number">5.1.1.</span> <span class="toc-text">移位的意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E7%A7%BB%E4%BD%8D%E7%9A%84%E8%A7%84%E5%88%99"><span class="toc-number">5.1.2.</span> <span class="toc-text">算数移位的规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E7%A7%BB%E4%BD%8D%E5%92%8C%E9%80%BB%E8%BE%91%E7%A7%BB%E4%BD%8D%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">5.1.3.</span> <span class="toc-text">算数移位和逻辑移位的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-2-%E5%8A%A0%E6%B3%95%E4%B8%8E%E5%87%8F%E6%B3%95%E8%BF%90%E7%AE%97"><span class="toc-number">5.2.</span> <span class="toc-text">5.5.2 加法与减法运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E5%8A%A0%E6%B3%95%E8%BF%90%E7%AE%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%85%AC%E5%BC%8F"><span class="toc-number">5.2.1.</span> <span class="toc-text">补码加法运算的基本公式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E5%87%8F%E6%B3%95%E8%BF%90%E7%AE%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%85%AC%E5%BC%8F"><span class="toc-number">5.2.2.</span> <span class="toc-text">补码减法运算的基本公式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD"><span class="toc-number">5.2.3.</span> <span class="toc-text">溢出判断</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E4%B8%80%E4%BD%8D%E7%AC%A6%E5%8F%B7%E4%BD%8D%E5%88%A4%E6%96%AD%E6%BA%A2%E5%87%BA"><span class="toc-number">5.2.3.1.</span> <span class="toc-text">用一位符号位判断溢出</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E4%B8%A4%E4%BD%8D%E7%AC%A6%E5%8F%B7%E4%BD%8D%E5%88%A4%E6%96%AD%E6%BA%A2%E5%87%BA"><span class="toc-number">5.2.3.2.</span> <span class="toc-text">用两位符号位判断溢出</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B"><span class="toc-number">5.2.4.</span> <span class="toc-text">补码加减运算控制流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-3-%E4%B9%98%E6%B3%95%E8%BF%90%E7%AE%97"><span class="toc-number">5.3.</span> <span class="toc-text">5.5.3 乘法运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%94%E7%AE%97%E4%B9%98%E6%B3%95%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">5.3.1.</span> <span class="toc-text">笔算乘法的改进</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81%E4%B9%98%E6%B3%95"><span class="toc-number">5.3.2.</span> <span class="toc-text">原码乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81%E4%B8%80%E4%BD%8D%E4%B9%98%E8%BF%90%E7%AE%97%E5%8E%9F%E5%88%99"><span class="toc-number">5.3.2.1.</span> <span class="toc-text">原码一位乘运算原则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%EF%BC%9A%E5%B7%B2%E7%9F%A5x-0-1110%EF%BC%8Cy-0-1101%EF%BC%8C%E6%B1%82-x%E2%8B%85y-%E5%8E%9F%E3%80%82"><span class="toc-number">5.3.2.2.</span> <span class="toc-text">例：已知x&#x3D;-0.1110，y&#x3D;-0.1101，求[x⋅y]原。</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E4%B9%98%E6%B3%95"><span class="toc-number">5.3.3.</span> <span class="toc-text">补码乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%EF%BC%9A%E5%B7%B2%E7%9F%A5-x-%E8%A1%A5-1-0101%EF%BC%8C-y-%E8%A1%A5-0-1101%EF%BC%8C%E6%B1%82-x%E2%8B%85y-%E8%A1%A5%E3%80%82"><span class="toc-number">5.3.3.1.</span> <span class="toc-text">例：已知[x]补&#x3D;1.0101，[y]补&#x3D;0.1101，求[x⋅y]补。</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Booth%E7%AE%97%E6%B3%95"><span class="toc-number">5.3.4.</span> <span class="toc-text">Booth算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%EF%BC%9A%E5%B7%B2%E7%9F%A5-x-%E8%A1%A5-0-1101%EF%BC%8C-y-%E8%A1%A5-0-1011%EF%BC%8C%E6%B1%82-x%E2%8B%85y-%E8%A1%A5%E3%80%82"><span class="toc-number">5.3.4.1.</span> <span class="toc-text">例：已知[x]补&#x3D;0.1101，[y]补&#x3D;0.1011，求[x⋅y]补。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-3-%E9%99%A4%E6%B3%95%E8%BF%90%E7%AE%97"><span class="toc-number">5.4.</span> <span class="toc-text">5.5.3 除法运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E7%AC%94%E7%AE%97%E9%99%A4%E6%B3%95"><span class="toc-number">5.4.1.</span> <span class="toc-text">分析笔算除法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81%E9%99%A4%E6%B3%95"><span class="toc-number">5.4.2.</span> <span class="toc-text">原码除法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E4%BD%99%E6%95%B0%E6%B3%95"><span class="toc-number">5.4.2.1.</span> <span class="toc-text">恢复余数法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E5%87%8F%E4%BA%A4%E6%9B%BF%E6%B3%95"><span class="toc-number">5.4.2.2.</span> <span class="toc-text">加减交替法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E9%99%A4%E6%B3%95"><span class="toc-number">5.4.3.</span> <span class="toc-text">补码除法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E5%8A%A0%E5%87%8F%E4%BA%A4%E6%9B%BF%E6%B3%95%E8%BF%90%E7%AE%97%E8%A7%84%E5%88%99"><span class="toc-number">5.4.3.1.</span> <span class="toc-text">补码加减交替法运算规则</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6-%E6%B5%AE%E7%82%B9%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97"><span class="toc-number">6.</span> <span class="toc-text">5.6 浮点四则运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-1-%E6%B5%AE%E7%82%B9%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97"><span class="toc-number">6.1.</span> <span class="toc-text">5.6.1 浮点加减运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-2-%E6%B5%AE%E7%82%B9%E4%B9%98%E9%99%A4%E6%B3%95%E8%BF%90%E7%AE%97"><span class="toc-number">6.2.</span> <span class="toc-text">5.6.2 浮点乘除法运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E7%A0%81%E8%BF%90%E7%AE%97"><span class="toc-number">6.2.1.</span> <span class="toc-text">阶码运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%BE%E6%95%B0%E8%BF%90%E7%AE%97"><span class="toc-number">6.2.2.</span> <span class="toc-text">尾数运算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BE%8B%E9%A2%98"><span class="toc-number">7.</span> <span class="toc-text">5.例题</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        计算机组成原理期末复习（五）计算机的运算方法
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-06-17T12:27:19.000Z" class="dt-published" itemprop="datePublished">2021-06-17</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="5-1-有符号数"><a href="#5-1-有符号数" class="headerlink" title="5.1 有符号数"></a>5.1 有符号数</h2><h3 id="5-1-1-原码表示法"><a href="#5-1-1-原码表示法" class="headerlink" title="5.1.1 原码表示法"></a>5.1.1 原码表示法</h3><p>原码是机器数中最简单的一种表示形式，符号位为0表示正数，符号位为1表示负数，数值位即为真值的绝对值，故原码表示又称为带符号的绝对值表示。</p>
+<h4 id="整数原码定义"><a href="#整数原码定义" class="headerlink" title="整数原码定义"></a><strong>整数原码定义</strong></h4><p><code>[x]_原=\left&#123;\begin&#123;matrix&#125; 0,x&amp; 2^n&gt;x&gt;0&amp; \ 2^n-x,&amp; 0\ge x&gt;-2^n &amp; \end&#123;matrix&#125;\right.</code></p>
+<p>式中，x为真值，n为整数的位数。</p>
+<h4 id="小数原码定义"><a href="#小数原码定义" class="headerlink" title="小数原码定义"></a><strong>小数原码定义</strong></h4><p><code>[x]_原=\left&#123;\begin&#123;matrix&#125; x,&amp; 1&gt;x \ge 0&amp; \ 1-x,&amp; 0\ge x&gt;-1 &amp; \end&#123;matrix&#125;\right.</code></p>
+<p>当x为0时，[+0.0000]原=0.0000，[−0.0000]原=1.0000 可见原码中的“零”有两种表示形式。</p>
+<h3 id="5-1-2-补码表示法"><a href="#5-1-2-补码表示法" class="headerlink" title="5.1.2 补码表示法"></a>5.1.2 补码表示法</h3><h4 id="补数的概念"><a href="#补数的概念" class="headerlink" title="补数的概念"></a>补数的概念</h4><p>只要确定了“模”，就可找到一个与负数灯架的整数来代替此负数，这样就可把减法运算用加法实现。</p>
+<ol>
+<li>一个负数可用它的正补数来代替，而这个正补数可以用模加上负数本身求得。</li>
+<li>一个正数和一个负数互为补数时，它们绝对值之和即为模数。</li>
+<li>正数的补数即该正数本身。</li>
+</ol>
+<h4 id="整数补码定义"><a href="#整数补码定义" class="headerlink" title="整数补码定义"></a>整数补码定义</h4><p><code>[x]_补=\left&#123;\begin&#123;matrix&#125; 0,x&amp; 2^n&gt;x \ge 0&amp; \ 2^&#123;n+1&#125;+x,&amp; 0&gt; x \ge -2^n (mod\;2^&#123;n+1&#125;) &amp; \end&#123;matrix&#125;\right.</code></p>
+<h4 id="小数补码定义"><a href="#小数补码定义" class="headerlink" title="小数补码定义"></a>小数补码定义</h4><p><code>[x]_补=\left&#123;\begin&#123;matrix&#125; x&amp; 1&gt;x \ge 0&amp; \ 2+x,&amp; 0&gt;x \ge -1(mod\;2^&#123;n+1&#125;) &amp; \end&#123;matrix&#125;\right.</code></p>
+<p>当x为0时，[+0]补=[−0]补=0.0000，即补码中的“零”只有一种表示形式。由于补码中的零只有一种表示形式，故它比原码能多表示一个“-1”。</p>
+<p>当模数为4时，形成双符号位的补码。这种双符号位的补码又称为<strong>变形补码</strong>，它在阶码运算和溢出判断中有其特殊作用。如x&#x3D;-0.1001，对mod 22而言，</p>
+<p>对于负数，由[x]补求[x]原和由[x]原求[x]补都可用规则<strong>除符号位外，每位求反，末尾加一</strong>。</p>
+<p>论真值是正还是负，由[x]补求[−x]补求都是采用规则<strong>连同符号位在内，每位取反，末尾加一</strong>。</p>
+<h3 id="5-1-3-反码表示法"><a href="#5-1-3-反码表示法" class="headerlink" title="5.1.3 反码表示法"></a>5.1.3 反码表示法</h3><p>反码同行用来作为由原码求补码或者由补码求原码的中间过渡。</p>
+<h4 id="整数反码定义"><a href="#整数反码定义" class="headerlink" title="整数反码定义"></a>整数反码定义</h4><p><code>[x]_反=\left&#123;\begin&#123;matrix&#125; 0,x&amp; 2^n&gt;x \ge 0&amp; \ (2^&#123;n+1&#125;-1)+x,&amp; 0 \ge x &gt; -2^n (mod\;(2^&#123;n+1&#125;-1)) &amp; \end&#123;matrix&#125;\right.</code></p>
+<h4 id="小数反码定义"><a href="#小数反码定义" class="headerlink" title="小数反码定义"></a>小数反码定义</h4><p><code>[x]_反=\left&#123;\begin&#123;matrix&#125; x&amp; 1&gt;x \ge 0&amp; \ (2-2^&#123;-n&#125;)+x,&amp; 0 \ge x &gt; -1(mod\;(2-2^&#123;-n&#125;)) &amp; \end&#123;matrix&#125;\right.</code></p>
+<p>当x为0时，[+0.0000]反=0.0000 [−0.0000]反=(10.0000−0.0001)−0.0000&#x3D;1.1111 可见[+0]反不等于[−0]反，反码中的“零”有两种表示形式。</p>
+<p>实际上，反码也可看作是mod(2−2−n)（对于小数）或mod（2n+1−1）（对于整数）的补码。与补码相比，仅在末尾差1，故也称小数的补码为2的补码，小数的反码为1的补码。</p>
+<p>对于负数，由[x]反求[x]原和由[x]原求[x]反都可用规则<strong>除符号位外，每位求反</strong>。</p>
+<blockquote>
+<p>三种机器数的特点可归纳如下：</p>
+<ul>
+<li>三种机器数的最高位均为符号位。符号位和数值部分之间可用“.”(对于小数)或“,”（对于整数）隔开</li>
+<li>当真值为正时，原码、补码和反码的表示形式均相同，即符号位用“0”表示，数值部分与真值相同。</li>
+<li>当真值为负时，原码、补码和反码的表示形式不同，但其符号位用“1”表示，而数值部分有这样的关系：<strong>补码是原码的“求反加一”，反码是原码的“每位求反”</strong>。</li>
+</ul>
+</blockquote>
+<h3 id="5-1-4-移码表示法"><a href="#5-1-4-移码表示法" class="headerlink" title="5.1.4 移码表示法"></a>5.1.4 移码表示法</h3><h4 id="移码定义"><a href="#移码定义" class="headerlink" title="移码定义"></a>移码定义</h4><p>[x]移=2n+x(2n&gt;x≥-2n)</p>
+<p>其实移码就是在真值上加一个常数2n。在数轴上移码所表示的范围恰好对应于真值在数轴上的范围向轴的正方向移动2n个单元，故称为移码。</p>
+<p>当x为0时，[+0]移=[−0]移=1.0000，即移码中的“零”只有一种表示形式，故它比原码能多表示一个负数。</p>
+<p>移码的最小真值为全0。利用移码的这一特点，当浮点数的阶码用移码表示时，就能很方便地判断阶码的大小。</p>
+<p>同一个真值的移码和补码仅差一个符号位，若将补码的符号位由“0”改为“1”或从“1”改为“0”，即可得该真值的移码。</p>
+<h2 id="5-2-数的定点表示和浮点表示"><a href="#5-2-数的定点表示和浮点表示" class="headerlink" title="5.2 数的定点表示和浮点表示"></a>5.2 数的定点表示和浮点表示</h2><p>共有两种方法表示小数点的存在，即定点表示和浮点表示。定点表示的数称为<strong>定点数</strong>，浮点表示的数称为<strong>浮点数</strong>。</p>
+<h3 id="5-2-1-定点表示"><a href="#5-2-1-定点表示" class="headerlink" title="5.2.1 定点表示"></a>5.2.1 定点表示</h3><p>小数点在某一位置的数为<strong>定点数</strong>，有以下两种格式。</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-40.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>当小数点位于数符和第一数值位之间时，机器内的数为纯小数；当小数点位于数值位之后时，机器内的数为纯整数。采用定点数的机器称为定点机。数值部分的位数n决定了定点机中数的表示范围。若机器数采用原码，小数定点机中的数的表示范围是−(1−2−n)<del>(1−2−n)，整数定点机中数的表示范围是−(2n−1)</del>(2n−1)。 在定点机中，由于小数点的位置固定不定，故当机器处理的数不是纯小数或纯整数时，必须乘上一个<strong>比例因子</strong>，否则会产生“溢出”。</p>
+<h3 id="5-2-2-浮点表示"><a href="#5-2-2-浮点表示" class="headerlink" title="5.2.2 浮点表示"></a>5.2.2 浮点表示</h3><p><strong>浮点数</strong>即小数点的位置可以浮动的数。</p>
+<p>通常浮点数被表示成</p>
+<p>N&#x3D;S×rj</p>
+<p>式中，S为尾数，j为阶码，r是基数。在计算机中，基数可取2、4、8、16等。 为了提高数据精度以及便于浮点数的比较，在计算机中规定浮点数的尾数用纯小数形式。将尾数最高位为1的浮点数称为 <strong>规格化数</strong>。浮点数表示成规格化形式后，其精度最高。</p>
+<h3 id="5-2-3-浮点数的表示形式"><a href="#5-2-3-浮点数的表示形式" class="headerlink" title="5.2.3 浮点数的表示形式"></a>5.2.3 浮点数的表示形式</h3><p>采用这种数据格式的机器称为<strong>浮点机</strong>。</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-41.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>浮点数由阶码j和尾数S两部分组成。阶码是整数，阶符和阶码的位数m合起来反映浮点数的表示范围及小数点的实际位置；尾数是小数，其位数n反映了浮点数的精度；尾数的符号Sf代表浮点数的正负。</p>
+<h3 id="5-2-4-浮点数的表示范围"><a href="#5-2-4-浮点数的表示范围" class="headerlink" title="5.2.4 浮点数的表示范围"></a>5.2.4 浮点数的表示范围</h3><p>设浮点数阶码的数值位取m位，尾数的数值位取n位，当浮点数为非规格化数时，它在数轴上的表示范围如下。</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-42.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>最大正数为22m−1×(1−2−n)；最小正数为2(-2m−1)×2−n；最大负数为−2(-2m−1)×2−n；最小负数为−22m−1×(1−2−n)。</p>
+<p>当浮点数阶码大于最大阶码时，称为上溢，此时机器停止运算，进行中断溢出处理；当浮点数阶码小于最小阶码时，称为下溢，此时溢出的数绝对值很小，通常将尾数各位强置为0，按机器零处理，此时机器可以继续运行。</p>
+<p>一旦浮点数的位数确定后，合理分配阶码和尾数的位数，直接影响浮点数的表示范围和精度。对于短实数（总位数为32位），阶码取8位（含阶符1位），尾数取24位（含数符1位）；对于长实数（总位数为64位），阶码取11位（含阶符1位），尾数取53位（含数符1位）；对于临时实数（总位数为80位），阶码取15位（含阶符1位），尾数取65位（含数符1位）。</p>
+<p>当一个浮点数尾数为0时，不论其阶码为何值；或阶码等于或小于它所能表示的最小数时，不管其尾数为何值，机器都把该浮点数作为零看待，并称之为机器零。如果浮点数的阶码用移码表示，尾数用补码表示，则当阶码为它所能表示的最小数2−m且尾数为0时，其阶码（移码）全为0，尾数（补码）也全为0，这样的机器零为000…00000，全零表示有利于简化机器中判“0”电路。</p>
+<h3 id="5-2-4-浮点数的规格化"><a href="#5-2-4-浮点数的规格化" class="headerlink" title="5.2.4 浮点数的规格化"></a>5.2.4 浮点数的规格化</h3><p>将非规格化数转换成规格化数的过程称为规格化。对于技术不同的浮点数，因其规格化数的形式不同，规格化过程也不同。</p>
+<ol>
+<li>当基数为2时，尾数最高位为1的数为规格化数。规格化时，尾数左移一位，阶码减1（称为左规）；尾数右移一位，阶码加1（称为右规）。</li>
+<li>当基数为4时，尾数最高两位不全为零的数为规格化数。规格化时，尾数左移两位，阶码减1；尾数右移两位，阶码加1。</li>
+<li>当基数为8时，尾数最高三位不全为零的数为规格化数。规格化时，尾数左移三位，阶码减1；尾数右移三位，阶码加1。</li>
+</ol>
+<p>一般来说，基数r越大，可表示的浮点数范围越大，而且所表示的数的个数也越多。但r越多，浮点数的精度反而下降。</p>
+<h2 id="5-3-定点数和浮点数的比较"><a href="#5-3-定点数和浮点数的比较" class="headerlink" title="5.3 定点数和浮点数的比较"></a>5.3 定点数和浮点数的比较</h2><ul>
+<li>当浮点机和定点机中数的位数相同时，浮点数的表示范围比定点数大得多。</li>
+<li>当浮点数为规格化数时，其相对精度远比定点数高。</li>
+<li>浮点数运算要分阶码部分和尾数部分，而且运算结果都要求规格化，故浮点运算步骤比定点运算步骤多，运算速度比定点运算的低，运算线路比定点运算的复杂。</li>
+<li>在溢出的判断方法上，浮点数是对规格化数的阶码进行判断，而定点数是对数值本身进行判断。</li>
+</ul>
+<p>浮点数在数的表示范围、数的精度、溢出处理和程序编程方面（不取比例因子）均优于定点数。到哪在运算规则、运算速度及硬件成本方面又不如定点数。</p>
+<h2 id="5-4-IEEE-754标准"><a href="#5-4-IEEE-754标准" class="headerlink" title="5.4 IEEE 754标准"></a>5.4 IEEE 754标准</h2><p>浮点数一般采用IEEE指定的国际标准，这种标注形式如下。</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-43.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>按IEEE标准，常用的浮点数有三种：</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-44.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><strong>阶码用移码表示</strong>，阶码的真值都被加上一个常数（偏移量），如短实数、长实数、临时实数的偏移量用十六进制数表示分别为7FH、3FFH、3FFFH。尾数部分通常都是规格化表示，即非“0”的有效位最高位总是“1”，但在IEEE标准中，有效位呈如下形式。</p>
+<p>1♠ffff……fff</p>
+<p>其中 ♠表示假想的二进制小数点。在实际表示中，对短实数和长实数，这个整数位的1省略，称 <strong>隐藏位</strong>；对于临时实数不采用隐藏位方案。</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-45.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h2 id="5-5-定点运算"><a href="#5-5-定点运算" class="headerlink" title="5.5 定点运算"></a>5.5 定点运算</h2><h3 id="5-5-1-移位运算"><a href="#5-5-1-移位运算" class="headerlink" title="5.5.1 移位运算"></a>5.5.1 移位运算</h3><h4 id="移位的意义"><a href="#移位的意义" class="headerlink" title="移位的意义"></a>移位的意义</h4><p>二进制表示的机器数在相对于小数点作n位左移或右移时，其实质就是该数乘以或除以2n。当某计算机没有乘除法运算线路时，可以采用移位和加法相结合，实现乘除运算。</p>
+<p>计算机中机器数的字长往往是固定的，当机器数左移n位或右移n位时，必然会使其n位低位或n位高位出现空位。对有符号数的移位称为算数移位。</p>
+<h4 id="算数移位的规则"><a href="#算数移位的规则" class="headerlink" title="算数移位的规则"></a>算数移位的规则</h4><p>对于正数，由于[x]原=[x]补=[x]反=真值，故移位后出现的空位均以0添之。对于负数，由于原码、补码和反码的表示形式不同，故当机器数移位时，对其空位的填补规则也不同。 <strong>不论是整数还是负数，移位后其符号位均不变。</strong></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-46.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<ol>
+<li>机器数为正时，不论是左移还是右移，添补的代码均为0.</li>
+<li>由于负数的原码数值部分与真值相同，故在移位时只要使符号位不变，其空位均添0即可。</li>
+<li>由于负数的反码各位除符号位外与负数的原码正好相反，故移位后所舔代码应与原码相反，即全部添1。</li>
+<li>负数的补码左移时，因空位出现在低位，则添补的代码与原码相同，即添0；右移时因空位出现在高位，则填补的代码应与反码相同，即添1。</li>
+</ol>
+<p>对于正数，三种机器数移位后符号位均不变，左移时最高数位丢1，结果出错；右移时最低数位丢1，影响精度。</p>
+<p>对于负数，三种机器数算术移位后符号位均不变。负数的原码左移时，高位丢1，结果出错；右移时，低位丢1，影响精度。负数的补码左移时，高位丢0，结果出错；右移时，低位丢1，影响精度。负数的反码左移时，高位丢0，结果出错；右移时，低位丢0，影响精度。</p>
+<h4 id="算数移位和逻辑移位的区别"><a href="#算数移位和逻辑移位的区别" class="headerlink" title="算数移位和逻辑移位的区别"></a>算数移位和逻辑移位的区别</h4><p>有符号数的移位称为<strong>算数移位</strong>，无符号数的移位称为<strong>逻辑移位</strong>。逻辑移位的规则是：<strong>逻辑左移时，高位移丢，低位添0；逻辑右移时，低位移丢，高位添0。</strong>为了避免算术左移时最高数位丢1，可采用带进位（Cy）的移位。算术左移时，符号位移至Cy，最高数位就可避免移丢。</p>
+<h3 id="5-5-2-加法与减法运算"><a href="#5-5-2-加法与减法运算" class="headerlink" title="5.5.2 加法与减法运算"></a>5.5.2 加法与减法运算</h3><h4 id="补码加法运算的基本公式"><a href="#补码加法运算的基本公式" class="headerlink" title="补码加法运算的基本公式"></a>补码加法运算的基本公式</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/B5835E24-2341-425E-BB10-EE866F9A69FE.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h4 id="补码减法运算的基本公式"><a href="#补码减法运算的基本公式" class="headerlink" title="补码减法运算的基本公式"></a>补码减法运算的基本公式</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/75AED03B-5911-4E6D-A63F-C27DC678BFDA.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h4 id="溢出判断"><a href="#溢出判断" class="headerlink" title="溢出判断"></a>溢出判断</h4><h5 id="用一位符号位判断溢出"><a href="#用一位符号位判断溢出" class="headerlink" title="用一位符号位判断溢出"></a>用一位符号位判断溢出</h5><p>只要实际参加操作的两个数符号相同，结果又与原操作数的符号不同，即为溢出。</p>
+<h5 id="用两位符号位判断溢出"><a href="#用两位符号位判断溢出" class="headerlink" title="用两位符号位判断溢出"></a>用两位符号位判断溢出</h5><p>2为符号位的补码，即变形补码，它是以4为模的，其定义为</p>
+<p><code>[x]_&#123;补&#125;=\left\&#123;\begin&#123;matrix&#125; x&amp; 1&gt;x \ge 0&amp; \\ 4+x,&amp; 0&gt; x \ge -1 (mod\;4) &amp; \end&#123;matrix&#125;\right.</code></p>
+<p>在用变形补码作加法时，2位符号位要连同数值部分一起参加运算，而且高位符号位产生的进位自动丢失，便可得正确结果，即</p>
+<p>[x]补’+[y]补’=[x+y]补’(mod 4)</p>
+<p>变形补码判断溢出的原则是： <strong>当2位符号位不同时，表示溢出，否则无溢出。</strong>不论是否发生溢出，高位（第1位）符号位永远代表真正的符号。</p>
+<h4 id="补码加减运算控制流程"><a href="#补码加减运算控制流程" class="headerlink" title="补码加减运算控制流程"></a>补码加减运算控制流程</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-47.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h3 id="5-5-3-乘法运算"><a href="#5-5-3-乘法运算" class="headerlink" title="5.5.3 乘法运算"></a>5.5.3 乘法运算</h3><h4 id="笔算乘法的改进"><a href="#笔算乘法的改进" class="headerlink" title="笔算乘法的改进"></a>笔算乘法的改进</h4><p>两数相乘的过程，可视为加法和移位两种运算。</p>
+<p>例：设A&#x3D;0.1101，B&#x3D;0.1011，求A×B。</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-48.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>运算规则如下：</p>
+<ul>
+<li>乘法运算可用移位和加法来实现，两个4位数相乘，总共需要4次加法运算和4次移位。</li>
+<li>由乘数的末尾值确定被乘数是否与原部分积相加，然后右移一位，形成新的部分积；同时乘数也右移一位，由次低位作为新的末位，空出最高位放部分积的最低位。</li>
+<li>每次作加法时，被乘数仅仅与原部分积的高位相加，其低位被移至成乘数所空出的高位位置。</li>
+</ul>
+<p>用一个寄存器存放被乘数，一个寄存器存放乘积的高位，另一个寄存器存放乘数及乘积的低位，再配上加法器及其他相应电路，就可组成乘法器。又因加法只在部分积的高位进行，故不但节省了器材，而且还缩短了运算时间。</p>
+<h4 id="原码乘法"><a href="#原码乘法" class="headerlink" title="原码乘法"></a>原码乘法</h4><p>上述讨论结果可直接用于原码一位乘，只需加上符号位处理即可。</p>
+<h5 id="原码一位乘运算原则"><a href="#原码一位乘运算原则" class="headerlink" title="原码一位乘运算原则"></a>原码一位乘运算原则</h5><p>以小数为例： 设  [x]原=x0.x1x2…xn [y]原=y0.y1y2…yn</p>
+<p>则[x]原⋅[y]原=x0⊕y0.(0.x1x2…xn)(0.y1y2…yn) 式中，0.x1x2…xn为x的绝对值，记作x*；0.y1y2…yn为y的绝对值，记作y∗。</p>
+<p>原码一位乘运算规则：</p>
+<ul>
+<li>乘积的符号位由两原码符号位异或运算结果决定。</li>
+<li>乘积的数值部分由两数绝对值相乘，其通式为：x∗⋅y∗=2−1(y1x∗+(…+2−1(yn−1x∗+2−1(ynx∗+0))…))</li>
+</ul>
+<h5 id="例：已知x-0-1110，y-0-1101，求-x⋅y-原。"><a href="#例：已知x-0-1110，y-0-1101，求-x⋅y-原。" class="headerlink" title="例：已知x&#x3D;-0.1110，y&#x3D;-0.1101，求[x⋅y]原。"></a>例：已知x&#x3D;-0.1110，y&#x3D;-0.1101，求[x⋅y]原。</h5><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-49.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>故[x⋅y]原=0.10110110</p>
+<h4 id="补码乘法"><a href="#补码乘法" class="headerlink" title="补码乘法"></a>补码乘法</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/05F7859F-4788-4F3B-97E0-0D9172E88BEB.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h5 id="例：已知-x-补-1-0101，-y-补-0-1101，求-x⋅y-补。"><a href="#例：已知-x-补-1-0101，-y-补-0-1101，求-x⋅y-补。" class="headerlink" title="例：已知[x]补=1.0101，[y]补=0.1101，求[x⋅y]补。"></a>例：已知[x]补=1.0101，[y]补=0.1101，求[x⋅y]补。</h5><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-50.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>故乘积[x⋅y]补=1.01110001。</p>
+<h4 id="Booth算法"><a href="#Booth算法" class="headerlink" title="Booth算法"></a>Booth算法</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/FCB3A323-8652-4E7B-B48A-9B8D25765330.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h5 id="例：已知-x-补-0-1101，-y-补-0-1011，求-x⋅y-补。"><a href="#例：已知-x-补-0-1101，-y-补-0-1011，求-x⋅y-补。" class="headerlink" title="例：已知[x]补=0.1101，[y]补=0.1011，求[x⋅y]补。"></a>例：已知[x]补=0.1101，[y]补=0.1011，求[x⋅y]补。</h5><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-51.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>故[x⋅y]补=0.10001111。</p>
+<h3 id="5-5-3-除法运算"><a href="#5-5-3-除法运算" class="headerlink" title="5.5.3 除法运算"></a>5.5.3 除法运算</h3><h4 id="分析笔算除法"><a href="#分析笔算除法" class="headerlink" title="分析笔算除法"></a>分析笔算除法</h4><p>特点可归纳如下：</p>
+<ul>
+<li>每次上商都是由心算来比较余数（被除数）和除数的大小，确定商为“1”还是为“0”。</li>
+<li>每做一次减法，总是保持余数不懂，低位补0，再减去右移后的除数。</li>
+<li>上商的位置不固定。</li>
+<li>商符单独处理。</li>
+</ul>
+<p>上述规则若照搬到计算机里实现有一定困难：</p>
+<ul>
+<li>机器不能“心算”上商，必须通过比较被除数（或余数）和除数绝对值大小来确定商值。</li>
+<li>按照每次减法总是保持余数不懂低位补0，再减去右移后的除数这一规则，在要求加法器的位数必须为除数的两倍。</li>
+<li>笔算求商时是从高位向低位逐位求的，而要求机器把每位商直接写到寄存器的不同位置也是不可取的。</li>
+</ul>
+<h4 id="原码除法"><a href="#原码除法" class="headerlink" title="原码除法"></a>原码除法</h4><p>小数定点除法对被除数和除数有一定的约束，即必须满足下列条件：</p>
+<ul>
+<li>0&lt;被除数≤除数</li>
+</ul>
+<p>实现除法运算时，还应避免除数为0或被除数为0。 原码除法中由于对余数的处理不同，又可分为 恢复余数法和 不恢复余数法（加减交替法）两种。</p>
+<h5 id="恢复余数法"><a href="#恢复余数法" class="headerlink" title="恢复余数法"></a>恢复余数法</h5><p>特点是：当余数为负时，需加上除数，将其恢复成原来的余数。</p>
+<p>例：已知x=−0.1011，y=−0.1101，求[x&#x2F;y]原。</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-52.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>故商值为0.1101，商的符号位为x0⊕y0=1⊕1=0，故[x&#x2F;y]原=0.1101。</p>
+<p>第一次上的商在商的整数位上，这对小数除法而言，可用它作溢出判断。即当该位为“1”时，表示此除法溢出，不能进行，应由程序进行处理；当该位为“0”时，说明除法合法，可以进行。 在恢复余数法中，每当余数为负时，都需恢复余数，这就延长了机器出发的时间，操作也很不规则，对线路结构不利。加减交替法可克服这些缺点。</p>
+<h5 id="加减交替法"><a href="#加减交替法" class="headerlink" title="加减交替法"></a>加减交替法</h5><p>加减交替法又称为不恢复余数法，可以认为它是恢复余数法的一种改进算法。</p>
+<p>分析原码恢复余数法得知：</p>
+<ul>
+<li>当余数Ri&gt;0时，可上商“1”，再对Ri左移一位后减除数，即2Ri−y∗。</li>
+<li>当余数Ri&lt;0时，可上商“0”，然后先做Ri+y∗，即完成恢复余数的运算，再做2(Ri+y∗)−y∗，即2Ri+y∗。</li>
+</ul>
+<p>故原码恢复余数法可归纳为：</p>
+<ul>
+<li>当Ri&gt;0时，上商“1”，做2Ri−y∗的运算。</li>
+<li>当Ri&lt;0时，上商“0”，做2Ri+y∗的运算。</li>
+</ul>
+<p>例：已知x=−0.1011，y=−0.1101，求[x&#x2F;y]原。</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-53.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>故商值为0.1101，商的符号位为x0⊕y0=1⊕0=1，故[x&#x2F;y]原=1.1101。</p>
+<h4 id="补码除法"><a href="#补码除法" class="headerlink" title="补码除法"></a>补码除法</h4><h5 id="补码加减交替法运算规则"><a href="#补码加减交替法运算规则" class="headerlink" title="补码加减交替法运算规则"></a>补码加减交替法运算规则</h5><p>补码除法的符号位和数值部分是一起参加运算的。 <strong>1.欲确定商值，必须先比较被除数和除数的大小，然后才能求得商值。</strong> 比较被除数和除数的大小</p>
+<ul>
+<li>当被除数与除数同号时，做减法，若得到的余数与除数同号，表示“够减”，否则表示“不够减”。</li>
+<li>当被除数与除数异号时，做加法，若得到的余数与除数同号，表示“够减”，否则表示“不够减”。</li>
+</ul>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-54.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>商值的确定</p>
+<ul>
+<li>如果[x]补与[y]补同号，商为正，则“够减”时上商“1”，“不够减”时上商“0”。</li>
+<li>如果[x]补与[y]补异号，商为负，则“够减”时上商“0”，“不够减”时上商“1”。</li>
+</ul>
+<p><strong>2.在补码除法中，商符是在求商的过程中自动形成的。</strong></p>
+<p><strong>3.新余数[Ri+1]补的获得方法与原码加减交替法极相似</strong></p>
+<p>例：已知x=0.1001，y=0.1101，求[x&#x2F;y]补。</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-55.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>所以[x&#x2F;y]补=0.1011。</p>
+<h2 id="5-6-浮点四则运算"><a href="#5-6-浮点四则运算" class="headerlink" title="5.6 浮点四则运算"></a>5.6 浮点四则运算</h2><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/71A0406B-20D9-4D80-98BE-02E695E0FCFF.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h3 id="5-6-1-浮点加减运算"><a href="#5-6-1-浮点加减运算" class="headerlink" title="5.6.1 浮点加减运算"></a>5.6.1 浮点加减运算</h3><p>浮点数加减运算必须按以下几步进行：</p>
+<ol>
+<li>对阶，使两数的小数点位置对齐。</li>
+<li>尾数求和，将对阶后的两尾数按定点加减运算规则求和（差）。</li>
+<li>规格化，为增加有效数字的位数，提高运算精度，必须将求和（差）后的尾数规格化。</li>
+<li>舍入，为提高精度，要考虑尾数右移时丢失的数值位。</li>
+<li>溢出判断，即判断结果是否溢出。</li>
+</ol>
+<h3 id="5-6-2-浮点乘除法运算"><a href="#5-6-2-浮点乘除法运算" class="headerlink" title="5.6.2 浮点乘除法运算"></a>5.6.2 浮点乘除法运算</h3><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-56.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h4 id="阶码运算"><a href="#阶码运算" class="headerlink" title="阶码运算"></a>阶码运算</h4><h4 id="尾数运算"><a href="#尾数运算" class="headerlink" title="尾数运算"></a>尾数运算</h4><h2 id="5-例题"><a href="#5-例题" class="headerlink" title="5.例题"></a>5.例题</h2><blockquote>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/481B6F94FE975A975197523BC7B72FBB.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/4DF787DD-4AC7-4C39-8B30-4F32AD558C76.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>6.5 已知[x]补，求[x]原和x。</p>
+<p>[x1]补=1.1100;  [x2]补=1.1001;  [x3]补=0.1110;  [x4]补=1.0000;</p>
+<p>[x5]补=1,0101;  [x6]补=1,1100;  [x7]补=0,0111;  [x8]补=1,0000</p>
+<p>[x]补与[x]原、x的对应关系如下：</p>
+<p>[x]补</p>
+<p>1.1100</p>
+<p>1.1001</p>
+<p>0.1110</p>
+<p>1.0000</p>
+<p>1,0101</p>
+<p>1,1100</p>
+<p>0,0111</p>
+<p>1,0000</p>
+<p>[x]原</p>
+<p>1.0100</p>
+<p>1.0111</p>
+<p>0.1110</p>
+<p>无</p>
+<p>1,1011</p>
+<p>1,0100</p>
+<p>0,0111</p>
+<p>无</p>
+<p>x</p>
+<p>-0.0100</p>
+<p>-0.0111</p>
+<p>0.1110</p>
+<p>-1</p>
+<p>-1011</p>
+<p>-100</p>
+<p>0,0111</p>
+<p>-10000</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>6.11 已知机器数字长为4位（含1位符号位），写出整数定点机和小数定点机中原码、补码和反码的全部形式，并注明其对应的十进制真值。</p>
+<p>整数定点机</p>
+<p>小数定点机</p>
+<p>原码</p>
+<p>补码</p>
+<p>反码</p>
+<p>真值</p>
+<p>原码</p>
+<p>补码</p>
+<p>反码</p>
+<p>真值</p>
+<p>0,000</p>
+<p>0,000</p>
+<p>0,000</p>
+<p>+0</p>
+<p>0.000</p>
+<p>0.000</p>
+<p>0.000</p>
+<p>+0</p>
+<p>0,001</p>
+<p>0,001</p>
+<p>0,001</p>
+<p>1</p>
+<p>0.001</p>
+<p>0.001</p>
+<p>0.001</p>
+<p>0.125</p>
+<p>0,010</p>
+<p>0,010</p>
+<p>0,010</p>
+<p>2</p>
+<p>0.010</p>
+<p>0.010</p>
+<p>0.010</p>
+<p>0.250</p>
+<p>0,011</p>
+<p>0,011</p>
+<p>0,011</p>
+<p>3</p>
+<p>0.011</p>
+<p>0.011</p>
+<p>0.011</p>
+<p>0.375</p>
+<p>0,100</p>
+<p>0,100</p>
+<p>0,100</p>
+<p>4</p>
+<p>0.100</p>
+<p>0.100</p>
+<p>0.100</p>
+<p>0.500</p>
+<p>0,101</p>
+<p>0,101</p>
+<p>0,101</p>
+<p>5</p>
+<p>0.101</p>
+<p>0.101</p>
+<p>0.101</p>
+<p>0.625</p>
+<p>0,110</p>
+<p>0,110</p>
+<p>0,110</p>
+<p>6</p>
+<p>0.110</p>
+<p>0.110</p>
+<p>0.110</p>
+<p>0.750</p>
+<p>0,111</p>
+<p>0,111</p>
+<p>0,111</p>
+<p>7</p>
+<p>0.111</p>
+<p>0.111</p>
+<p>0.111</p>
+<p>0.875</p>
+<p>1,000</p>
+<p>0,000</p>
+<p>1,111</p>
+<p>-0</p>
+<p>1.000</p>
+<p>0.000</p>
+<p>1.111</p>
+<p>-0</p>
+<p>1,001</p>
+<p>1,111</p>
+<p>1,110</p>
+<p>-1</p>
+<p>1.001</p>
+<p>1.111</p>
+<p>1.110</p>
+<p>-0.125</p>
+<p>1,010</p>
+<p>1,110</p>
+<p>1,101</p>
+<p>-2</p>
+<p>1.010</p>
+<p>1.110</p>
+<p>1.101</p>
+<p>-0.250</p>
+<p>1,011</p>
+<p>1,101</p>
+<p>1,100</p>
+<p>-3</p>
+<p>1.011</p>
+<p>1.101</p>
+<p>1.100</p>
+<p>-0.375</p>
+<p>1,100</p>
+<p>1,100</p>
+<p>1,011</p>
+<p>-4</p>
+<p>1.100</p>
+<p>1.100</p>
+<p>1.011</p>
+<p>-0.500</p>
+<p>1,101</p>
+<p>1,011</p>
+<p>1,010</p>
+<p>-5</p>
+<p>1.101</p>
+<p>1.011</p>
+<p>1.010</p>
+<p>-0.625</p>
+<p>1,110</p>
+<p>1,010</p>
+<p>1,001</p>
+<p>-6</p>
+<p>1.110</p>
+<p>1.010</p>
+<p>1.001</p>
+<p>-0.750</p>
+<p>1,111</p>
+<p>1,001</p>
+<p>1,000</p>
+<p>-7</p>
+<p>1.111</p>
+<p>1.001</p>
+<p>1.000</p>
+<p>-0.875</p>
+<p>无</p>
+<p>1,000</p>
+<p>无</p>
+<p>-8</p>
+<p>无</p>
+<p>1.000</p>
+<p>无</p>
+<p>-1</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/732D658E-6A92-4FD6-8132-69FEC87BE802.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/958ADDA5-10FD-4D21-A717-65D6F5012EC6.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>6.20 用原码一位乘、两位乘和补码一位乘（Booth算法）、两位乘计算x·y。</p>
+<p>（1）x&#x3D; 0.110 111，y&#x3D; -0.101 110；</p>
+<p>（2）x&#x3D; -0.010 111，y&#x3D; -0.010 101；</p>
+<p>（3）x&#x3D; 19，y&#x3D; 35；</p>
+<p>（4）x&#x3D; 0.110 11，y&#x3D; -0.111 01。</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>6.27 </p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/ECD3F4E1-7DB6-4B56-B4B7-FAD58240D999.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p>（1）</p>
+<p>x&#x3D;2101*0.101100.      y&#x3D;2100*(-0.100100).</p>
+<p>[x]补=00,101;00.101100.  [y]补=00,100;1.011100</p>
+<p>1)对阶</p>
+<p>[E]补=[Jx]补+[-Jy]补=00,101+11,100&#x3D;00,001&gt;0</p>
+<p>应Jy向Jx对齐，则</p>
+<p>[Jy]补=00,100+00,001&#x3D;[Jx]补</p>
+<p>[y]补=00,101;11.101110</p>
+<p>2)尾数运算</p>
+<p>[Sx]补+[Sy]补=00.101100+11.101110&#x3D;00.011010&gt;0</p>
+<p>3)规格化</p>
+<p>左规1位，阶码减1</p>
+<p>4)舍入：无</p>
+<p>5)溢出：无</p>
+<p>则x+y&#x3D;2100*0.110100&#x3D;24*(13&#x2F;16)</p>
+</blockquote>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/17/jizu5/">https://blog.jujimeizuo.cn/2021/06/17/jizu5/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">5.1 有符号数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-1-%E5%8E%9F%E7%A0%81%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">5.1.1 原码表示法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E5%8E%9F%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.1.</span> <span class="toc-text">整数原码定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E6%95%B0%E5%8E%9F%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.2.</span> <span class="toc-text">小数原码定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-2-%E8%A1%A5%E7%A0%81%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">5.1.2 补码表示法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E6%95%B0%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.2.1.</span> <span class="toc-text">补数的概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E8%A1%A5%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.2.</span> <span class="toc-text">整数补码定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E6%95%B0%E8%A1%A5%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.3.</span> <span class="toc-text">小数补码定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-3-%E5%8F%8D%E7%A0%81%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">5.1.3 反码表示法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E5%8F%8D%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">整数反码定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%8F%E6%95%B0%E5%8F%8D%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">小数反码定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-4-%E7%A7%BB%E7%A0%81%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="toc-number">1.4.</span> <span class="toc-text">5.1.4 移码表示法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E7%A0%81%E5%AE%9A%E4%B9%89"><span class="toc-number">1.4.1.</span> <span class="toc-text">移码定义</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E6%95%B0%E7%9A%84%E5%AE%9A%E7%82%B9%E8%A1%A8%E7%A4%BA%E5%92%8C%E6%B5%AE%E7%82%B9%E8%A1%A8%E7%A4%BA"><span class="toc-number">2.</span> <span class="toc-text">5.2 数的定点表示和浮点表示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-1-%E5%AE%9A%E7%82%B9%E8%A1%A8%E7%A4%BA"><span class="toc-number">2.1.</span> <span class="toc-text">5.2.1 定点表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-2-%E6%B5%AE%E7%82%B9%E8%A1%A8%E7%A4%BA"><span class="toc-number">2.2.</span> <span class="toc-text">5.2.2 浮点表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-3-%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E5%BD%A2%E5%BC%8F"><span class="toc-number">2.3.</span> <span class="toc-text">5.2.3 浮点数的表示形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-4-%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A1%A8%E7%A4%BA%E8%8C%83%E5%9B%B4"><span class="toc-number">2.4.</span> <span class="toc-text">5.2.4 浮点数的表示范围</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-4-%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E8%A7%84%E6%A0%BC%E5%8C%96"><span class="toc-number">2.5.</span> <span class="toc-text">5.2.4 浮点数的规格化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E5%AE%9A%E7%82%B9%E6%95%B0%E5%92%8C%E6%B5%AE%E7%82%B9%E6%95%B0%E7%9A%84%E6%AF%94%E8%BE%83"><span class="toc-number">3.</span> <span class="toc-text">5.3 定点数和浮点数的比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-IEEE-754%E6%A0%87%E5%87%86"><span class="toc-number">4.</span> <span class="toc-text">5.4 IEEE 754标准</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5-%E5%AE%9A%E7%82%B9%E8%BF%90%E7%AE%97"><span class="toc-number">5.</span> <span class="toc-text">5.5 定点运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-1-%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="toc-number">5.1.</span> <span class="toc-text">5.5.1 移位运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%BB%E4%BD%8D%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-number">5.1.1.</span> <span class="toc-text">移位的意义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E7%A7%BB%E4%BD%8D%E7%9A%84%E8%A7%84%E5%88%99"><span class="toc-number">5.1.2.</span> <span class="toc-text">算数移位的规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E7%A7%BB%E4%BD%8D%E5%92%8C%E9%80%BB%E8%BE%91%E7%A7%BB%E4%BD%8D%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">5.1.3.</span> <span class="toc-text">算数移位和逻辑移位的区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-2-%E5%8A%A0%E6%B3%95%E4%B8%8E%E5%87%8F%E6%B3%95%E8%BF%90%E7%AE%97"><span class="toc-number">5.2.</span> <span class="toc-text">5.5.2 加法与减法运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E5%8A%A0%E6%B3%95%E8%BF%90%E7%AE%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%85%AC%E5%BC%8F"><span class="toc-number">5.2.1.</span> <span class="toc-text">补码加法运算的基本公式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E5%87%8F%E6%B3%95%E8%BF%90%E7%AE%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%85%AC%E5%BC%8F"><span class="toc-number">5.2.2.</span> <span class="toc-text">补码减法运算的基本公式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%A2%E5%87%BA%E5%88%A4%E6%96%AD"><span class="toc-number">5.2.3.</span> <span class="toc-text">溢出判断</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E4%B8%80%E4%BD%8D%E7%AC%A6%E5%8F%B7%E4%BD%8D%E5%88%A4%E6%96%AD%E6%BA%A2%E5%87%BA"><span class="toc-number">5.2.3.1.</span> <span class="toc-text">用一位符号位判断溢出</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%94%A8%E4%B8%A4%E4%BD%8D%E7%AC%A6%E5%8F%B7%E4%BD%8D%E5%88%A4%E6%96%AD%E6%BA%A2%E5%87%BA"><span class="toc-number">5.2.3.2.</span> <span class="toc-text">用两位符号位判断溢出</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B"><span class="toc-number">5.2.4.</span> <span class="toc-text">补码加减运算控制流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-3-%E4%B9%98%E6%B3%95%E8%BF%90%E7%AE%97"><span class="toc-number">5.3.</span> <span class="toc-text">5.5.3 乘法运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%94%E7%AE%97%E4%B9%98%E6%B3%95%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">5.3.1.</span> <span class="toc-text">笔算乘法的改进</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81%E4%B9%98%E6%B3%95"><span class="toc-number">5.3.2.</span> <span class="toc-text">原码乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81%E4%B8%80%E4%BD%8D%E4%B9%98%E8%BF%90%E7%AE%97%E5%8E%9F%E5%88%99"><span class="toc-number">5.3.2.1.</span> <span class="toc-text">原码一位乘运算原则</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%EF%BC%9A%E5%B7%B2%E7%9F%A5x-0-1110%EF%BC%8Cy-0-1101%EF%BC%8C%E6%B1%82-x%E2%8B%85y-%E5%8E%9F%E3%80%82"><span class="toc-number">5.3.2.2.</span> <span class="toc-text">例：已知x&#x3D;-0.1110，y&#x3D;-0.1101，求[x⋅y]原。</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E4%B9%98%E6%B3%95"><span class="toc-number">5.3.3.</span> <span class="toc-text">补码乘法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%EF%BC%9A%E5%B7%B2%E7%9F%A5-x-%E8%A1%A5-1-0101%EF%BC%8C-y-%E8%A1%A5-0-1101%EF%BC%8C%E6%B1%82-x%E2%8B%85y-%E8%A1%A5%E3%80%82"><span class="toc-number">5.3.3.1.</span> <span class="toc-text">例：已知[x]补&#x3D;1.0101，[y]补&#x3D;0.1101，求[x⋅y]补。</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Booth%E7%AE%97%E6%B3%95"><span class="toc-number">5.3.4.</span> <span class="toc-text">Booth算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%EF%BC%9A%E5%B7%B2%E7%9F%A5-x-%E8%A1%A5-0-1101%EF%BC%8C-y-%E8%A1%A5-0-1011%EF%BC%8C%E6%B1%82-x%E2%8B%85y-%E8%A1%A5%E3%80%82"><span class="toc-number">5.3.4.1.</span> <span class="toc-text">例：已知[x]补&#x3D;0.1101，[y]补&#x3D;0.1011，求[x⋅y]补。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-3-%E9%99%A4%E6%B3%95%E8%BF%90%E7%AE%97"><span class="toc-number">5.4.</span> <span class="toc-text">5.5.3 除法运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%9E%90%E7%AC%94%E7%AE%97%E9%99%A4%E6%B3%95"><span class="toc-number">5.4.1.</span> <span class="toc-text">分析笔算除法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81%E9%99%A4%E6%B3%95"><span class="toc-number">5.4.2.</span> <span class="toc-text">原码除法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E4%BD%99%E6%95%B0%E6%B3%95"><span class="toc-number">5.4.2.1.</span> <span class="toc-text">恢复余数法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8A%A0%E5%87%8F%E4%BA%A4%E6%9B%BF%E6%B3%95"><span class="toc-number">5.4.2.2.</span> <span class="toc-text">加减交替法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E9%99%A4%E6%B3%95"><span class="toc-number">5.4.3.</span> <span class="toc-text">补码除法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81%E5%8A%A0%E5%87%8F%E4%BA%A4%E6%9B%BF%E6%B3%95%E8%BF%90%E7%AE%97%E8%A7%84%E5%88%99"><span class="toc-number">5.4.3.1.</span> <span class="toc-text">补码加减交替法运算规则</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6-%E6%B5%AE%E7%82%B9%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97"><span class="toc-number">6.</span> <span class="toc-text">5.6 浮点四则运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-1-%E6%B5%AE%E7%82%B9%E5%8A%A0%E5%87%8F%E8%BF%90%E7%AE%97"><span class="toc-number">6.1.</span> <span class="toc-text">5.6.1 浮点加减运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-2-%E6%B5%AE%E7%82%B9%E4%B9%98%E9%99%A4%E6%B3%95%E8%BF%90%E7%AE%97"><span class="toc-number">6.2.</span> <span class="toc-text">5.6.2 浮点乘除法运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%98%B6%E7%A0%81%E8%BF%90%E7%AE%97"><span class="toc-number">6.2.1.</span> <span class="toc-text">阶码运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%BE%E6%95%B0%E8%BF%90%E7%AE%97"><span class="toc-number">6.2.2.</span> <span class="toc-text">尾数运算</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BE%8B%E9%A2%98"><span class="toc-number">7.</span> <span class="toc-text">5.例题</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/17/jizu5/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&text=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&title=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&is_video=false&description=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机组成原理期末复习（五）计算机的运算方法&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/17/jizu5/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&title=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&title=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&title=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&title=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&name=计算机组成原理期末复习（五）计算机的运算方法&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/17/jizu5/&t=计算机组成原理期末复习（五）计算机的运算方法"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

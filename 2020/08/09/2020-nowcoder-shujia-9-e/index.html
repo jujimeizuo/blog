@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="传送门：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;5674&#x2F;E 题意 $求\prod_{i&#x3D;a}^b\prod_{i&#x3D;c}^dgcd(x^i, y^j) mod998244353的值$ 思路观察上式，我们知道$gcd$是$x,y$的所有质因子个数的$min(a,b)$，即$gcd(x,y)&#x3D;\sum_{i&#x3D;1}^np_i^{mi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【2020年牛客暑假第九场】E题 Groundhog Chasing Death">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="传送门：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;5674&#x2F;E 题意 $求\prod_{i&#x3D;a}^b\prod_{i&#x3D;c}^dgcd(x^i, y^j) mod998244353的值$ 思路观察上式，我们知道$gcd$是$x,y$的所有质因子个数的$min(a,b)$，即$gcd(x,y)&#x3D;\sum_{i&#x3D;1}^np_i^{mi">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2020/08/20200808213125440.png">
+<meta property="article:published_time" content="2020-08-09T07:21:29.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.709Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2020/08/20200808213125440.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>【2020年牛客暑假第九场】E题 Groundhog Chasing Death</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/08/10/mobius-inversion/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/08/06/hdu-6827/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&text=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&title=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&is_video=false&description=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【2020年牛客暑假第九场】E题 Groundhog Chasing Death&body=Check out this article: https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&title=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&title=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&title=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&title=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&name=【2020年牛客暑假第九场】E题 Groundhog Chasing Death&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&t=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E5%85%88%E6%9E%9A%E4%B8%BE-i-%E5%86%8D%E6%9E%9A%E4%B8%BE%E5%85%AC%E5%85%B1%E8%B4%A8%E5%9B%A0%E5%AD%90"><span class="toc-number">2.0.1.</span> <span class="toc-text">方法一：先枚举$i$再枚举公共质因子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code%EF%BC%88286ms%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">Code（286ms）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E5%85%88%E6%9E%9A%E4%B8%BE%E5%85%AC%E5%85%B1%E8%B4%A8%E5%9B%A0%E5%AD%90%E5%86%8D%E6%9E%9A%E4%B8%BE-i-%E5%92%8C-j"><span class="toc-number">2.1.1.</span> <span class="toc-text">方法二：先枚举公共质因子再枚举$i$和$j$</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-691ms"><span class="toc-number">2.2.</span> <span class="toc-text">Code (691ms)</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        【2020年牛客暑假第九场】E题 Groundhog Chasing Death
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-09T07:21:29.000Z" class="dt-published" itemprop="datePublished">2020-08-09</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/ACM/" rel="tag">ACM</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>传送门：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/5674/E">https://ac.nowcoder.com/acm/contest/5674/E</a></p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p><img src="https://cdn.jujimeizuo.cn/blog/2020/08/20200808213125440.png"></p>
+<p>$求\prod_{i&#x3D;a}^b\prod_{i&#x3D;c}^dgcd(x^i, y^j) mod998244353的值$</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>观察上式，我们知道$gcd$是$x,y$的所有质因子个数的$min(a,b)$，即$gcd(x,y)&#x3D;\sum_{i&#x3D;1}^np_i^{min(ai,bi）}$（ai,bi分别是x,y公共质因子的次幂） 所以，我们可以统计$x,y$的每个公共质因子的次幂，然后再全部整合累乘得出答案。</p>
+<p>一步一步分析： 要求$\prod_{i&#x3D;a}^b \prod_{i&#x3D;c}^dgcd(x^i, y^j)$ 其实求的就是$\prod_{px ,py}p_k^{\sum_{i&#x3D;a}^{b}\sum_{j&#x3D;c}^dmin(Ai,Bj)}$(A,B分别为x,y分解出质因子p的次幂) 先统计x,y所有的公共质因子的次幂，然后再累乘即可 所以我们可以先质数筛把\sqrt{1e9}以内的所有质数筛出来，所以范围我定为2e5以内的质数了，然后再分解x和y的质因子，分别把公共质因子p和该因子的次幂cx,cy存在数组里，方便下面步骤的实现 然后单独分析单个公共质因子p，得$p^{\sum_{i&#x3D;a}^b\sum_{j&#x3D;c}^d min(Ai,Bj)}$ $先比较Ai和Bj的大小：$ $\qquad当Ai \leq Bj时，即j \geq \left \lceil \frac{Ai}{B}\right \rceil，p^{min(Ai,Bj)}&#x3D;p^{Ai}$ $\qquad当Ai &gt; Bj时，即j &lt; \left \lceil \frac{Ai}{B}\right \rceil，p^{min(Ai,Bj)}&#x3D;p^{Bj}$</p>
+<p>接下来就有两种求解方式了，实质上是一种，只不过枚举顺序有点变化而已。</p>
+<h4 id="方法一：先枚举-i-再枚举公共质因子"><a href="#方法一：先枚举-i-再枚举公共质因子" class="headerlink" title="方法一：先枚举$i$再枚举公共质因子"></a>方法一：先枚举$i$再枚举公共质因子</h4><p>这个方法有点一小麻烦，理解有点困难。</p>
+<p>因为先把$i$确定下来之后，$j$也就确定下来了，因为$j&#x3D; \left \lceil \frac{Ai}{B}\right \rceil$。 再来看这个式子：$\sum_{i&#x3D;a}^{b}\sum_{j&#x3D;c}^dmin(Ai,Bj)$ 因为枚举的是$i$，并且$j$已经确定了，再根据大小比较，所以上面的式子就是两种变化：$$\sum_{i&#x3D;a}^{b}\sum_{j&#x3D;max(\left \lceil \frac{Ai}{B}\right \rceil,c)}^dAi$$ $$\sum_{i&#x3D;a}^{b}\sum_{j&#x3D;c}^dBj$$ 所以就有以下三种情况： $\qquad 当j&lt;c时，\sum_{i&#x3D;a}^{b}\sum_{j&#x3D;c}^dmin(Ai,Bj)&#x3D;Ai*(d+c-1)$</p>
+<p>$\qquad 当j&gt;d时，\sum_{i&#x3D;a}^{b}\sum_{j&#x3D;c}^dmin(Ai,Bj)&#x3D;B*\frac{(c+d)*(d-c+1)}{2}$</p>
+<p>$\qquad 当c\leq j \leq d时，\sum_{i&#x3D;a}^{b}\sum_{j&#x3D;c}^dmin(Ai,Bj)&#x3D;Ai*(d-j+1)+B*\frac{(j+c-1)*(j-c)}{2}$</p>
+<p>当把所有的公共质因子的总次幂求出来之后就可以进行累乘得出答案，再求总次幂的过程中可以用欧拉降幂优化一下， 并且模数$998244353$正好是一个质数，所以$\varphi(998244353)&#x3D;998244353-1$。</p>
+<h3 id="Code（286ms）"><a href="#Code（286ms）" class="headerlink" title="Code（286ms）"></a>Code（286ms）</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> ld;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; pdd;</span><br><span class="line"></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> INF 0x7f7f7f</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> mem(a, b) memset(a , b , sizeof(a))</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> FOR(i, x, n) for(int i = x;i &lt;= n; i++)</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="comment">// const int maxn = 1e5 + 10;</span></span><br><span class="line"><span class="comment">// const double eps = 1e-6;</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">2e5</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> prime[N];</span><br><span class="line"><span class="type">bool</span> is_prime[N];</span><br><span class="line"><span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> px[N], cx[N], py[N], cy[N], mx, my; <span class="comment">// 是x和y分解的质因子和质因子的次幂和质因子的个数</span></span><br><span class="line">ll mi[N]; <span class="comment">// 求解出来每个质因子的总次幂</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>&#123;</span><br><span class="line">    <span class="type">int</span> cx, cy;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">vector&lt;node&gt; v1; <span class="comment">// x和y的公共质因子的个数</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; v2; <span class="comment">// x和y的公共质因子的值</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">sieve</span><span class="params">()</span> <span class="comment">// 质数筛</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">mem</span>(is_prime, <span class="literal">true</span>);</span><br><span class="line">    is_prime[<span class="number">0</span>] = is_prime[<span class="number">1</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>;i &lt; N; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(is_prime[i])</span><br><span class="line">        &#123;</span><br><span class="line">            prime[++cnt] = i;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>;j &lt;= cnt &amp;&amp; i * prime[j] &lt; N; j++) &#123;</span><br><span class="line">                is_prime[i * prime[j]] = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">if</span>(i % prime[j] == <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Divide</span><span class="params">(ll n, <span class="type">int</span> *p, <span class="type">int</span> *c, <span class="type">int</span> &amp;m)</span> <span class="comment">// 分解质因子</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>;i * i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(n % i == <span class="number">0</span>) &#123;</span><br><span class="line">            p[++m] = i;</span><br><span class="line">            <span class="keyword">while</span>(n % i == <span class="number">0</span>) &#123;</span><br><span class="line">                c[m]++;</span><br><span class="line">                n /= i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(n &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        p[++m] = n;</span><br><span class="line">        c[m] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">quick_pow</span><span class="params">(ll a, ll b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b) &#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>) ans = ans * a % mod;</span><br><span class="line">        a = a * a % mod;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">sieve</span>();</span><br><span class="line">    ll a, b, c, d, x, y;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld%lld%lld%lld%lld&quot;</span>,&amp;a,&amp;b,&amp;c,&amp;d,&amp;x,&amp;y);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Divide</span>(x, px, cx, mx); <span class="comment">// 分解x和y的质因子（值、个数）并存在数组里</span></span><br><span class="line">    <span class="built_in">Divide</span>(y, py, cy, my);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> ppx = <span class="number">1</span>, ppy = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(ppx &lt;= mx &amp;&amp; ppy &lt;= my) &#123; <span class="comment">// 寻找x和y的公共质因子并存在数组里</span></span><br><span class="line">        <span class="keyword">if</span>(px[ppx] == py[ppy]) &#123;</span><br><span class="line">            v1.<span class="built_in">push_back</span>(node&#123;cx[ppx], cy[ppy]&#125;);</span><br><span class="line">            v2.<span class="built_in">push_back</span>(px[ppx]);</span><br><span class="line">            ppx++; ppy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(px[ppx] &lt; py[ppy]) ppx++;</span><br><span class="line">        <span class="keyword">else</span> ppy++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = a;i &lt;= b; i++) &#123; <span class="comment">// 枚举i</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> k = <span class="number">0</span>;k &lt; v1.<span class="built_in">size</span>(); k++) &#123; <span class="comment">// 每个质因子的个数A和B</span></span><br><span class="line">            <span class="comment">// int p = v2[k]; // 提取质因子</span></span><br><span class="line">            <span class="type">int</span> ccx = v1[k].cx, ccy = v1[k].cy; <span class="comment">// 提取质因子个数</span></span><br><span class="line">            <span class="type">int</span> j = (ccx * i + ccy - <span class="number">1</span>) / ccy; <span class="comment">// 本来是ccx*i/ccy，不过要保证向上取整，即+(B-1)/B就可以保证了，或者使用ceil()函数</span></span><br><span class="line">            <span class="keyword">if</span>(j &lt; c) &#123;</span><br><span class="line">                ll t = <span class="number">1ll</span> * (d - c + <span class="number">1</span>);</span><br><span class="line">                mi[k] = (mi[k] + t * i * ccx) % (mod - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(j &gt; d) &#123;</span><br><span class="line">                ll t = <span class="number">1ll</span> * (d + c) * (d - c + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">                mi[k] = (mi[k] + t * ccy) % (mod - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                ll t1 = <span class="number">1ll</span> * (d - j + <span class="number">1</span>);</span><br><span class="line">                ll t2 = <span class="number">1ll</span> * (j - c) * (c + j - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">                mi[k] = (mi[k] + t1 * ccx * i) % (mod - <span class="number">1</span>);</span><br><span class="line">                mi[k] = (mi[k] + t2 * ccy) % (mod - <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; v1.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(mi[i] == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        ans = ans * <span class="built_in">quick_pow</span>(v2[i], mi[i]) % mod;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>,ans);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios_base::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="comment">//cin.tie(nullptr);</span></span><br><span class="line">    <span class="comment">//cout.tie(nullptr);</span></span><br><span class="line">#<span class="meta">#<span class="keyword">ifdef</span> FZT_ACM_LOCAL</span></span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;in.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;out.txt&quot;</span>, <span class="string">&quot;w&quot;</span>, stdout);</span><br><span class="line">    <span class="type">signed</span> test_index_for_debug = <span class="number">1</span>;</span><br><span class="line">    <span class="type">char</span> acm_local_for_debug = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (acm_local_for_debug == <span class="string">&#x27;$&#x27;</span>) <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (test_index_for_debug &gt; <span class="number">20</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">runtime_error</span>(<span class="string">&quot;Check the stdin!!!&quot;</span>);</span><br><span class="line">        <span class="keyword">auto</span> start_clock_for_debug = <span class="built_in">clock</span>();</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">        <span class="keyword">auto</span> end_clock_for_debug = <span class="built_in">clock</span>();</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Test &quot;</span> &lt;&lt; test_index_for_debug &lt;&lt; <span class="string">&quot; successful&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;Test &quot;</span> &lt;&lt; test_index_for_debug++ &lt;&lt; <span class="string">&quot; Run Time: &quot;</span></span><br><span class="line">             &lt;&lt; <span class="built_in">double</span>(end_clock_for_debug - start_clock_for_debug) / CLOCKS_PER_SEC &lt;&lt; <span class="string">&quot;s&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;--------------------------------------------------&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">while</span> (cin &gt;&gt; acm_local_for_debug &amp;&amp; cin.<span class="built_in">putback</span>(acm_local_for_debug));</span><br><span class="line">#<span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">#<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法二：先枚举公共质因子再枚举-i-和-j"><a href="#方法二：先枚举公共质因子再枚举-i-和-j" class="headerlink" title="方法二：先枚举公共质因子再枚举$i$和$j$"></a>方法二：先枚举公共质因子再枚举$i$和$j$</h4><p>这个方法稍微简单一点，便于理解。</p>
+<p>根据下面两个两个大小关系，我们可以先通过枚举每个公共质因子，然后两个循环枚举$i$和$j$比大小，确定每个质因子的总次幂即可。 $当Ai \leq Bj时，即j \geq \left \lceil \frac{Ai}{B}\right \rceil，p^{min(Ai,Bj)}&#x3D;p^{Ai}$ $当Ai &gt; Bj时，即j &lt; \left \lceil \frac{Ai}{B}\right \rceil，p^{min(Ai,Bj)}&#x3D;p^{Bj}$</p>
+<p>所以我们可以得到下面两个式子求解公共质因子$p$的总次幂： $$\sum_{i&#x3D;a}^{b}\sum_{j&#x3D;max(\left \lceil \frac{Ai}{B}\right \rceil,c)}^dAi$$ $$\sum_{j&#x3D;c}^{d}\sum_{i&#x3D;max(\left \lceil \frac{Bj}{A}\right \rceil,a)}^bBj$$</p>
+<p>当然，这里有几个小问题。</p>
+<ul>
+<li>$j \geq \left \lceil \frac{Ai}{B}\right \rceil$，如果这里没有正好整除的时候，那还行，因为我们需要的时向上取整，但是如果正好整除呢，那么我们需要$j+1$即$j&#x3D;\frac{Ai}{B}+1$</li>
+<li>举一个小栗子，枚举$i$的时候，因为$j&#x3D;max(\left \lceil \frac{Ai}{B}\right \rceil,c)$，要是$j&gt;d$，那么就不进行下面的操作，同理枚举$j$。</li>
+</ul>
+<p>每处理一个公共质因子，把他的总次幂求解出来之后，即可将他用快速幂并加到答案$ans$里，因为可以用到欧拉降幂，所以快速幂之前的$pow1+pow2$先$mod$就不是$998244353$，而是$998244353-1$，不然会出错的。</p>
+<h3 id="Code-691ms"><a href="#Code-691ms" class="headerlink" title="Code (691ms)"></a>Code (691ms)</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> ld;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; pdd;</span><br><span class="line"></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> INF 0x7f7f7f</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> mem(a, b) memset(a , b , sizeof(a))</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> FOR(i, x, n) for(int i = x;i &lt;= n; i++)</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="comment">// const int maxn = 1e5 + 10;</span></span><br><span class="line"><span class="comment">// const double eps = 1e-6;</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">2e5</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> prime[N];</span><br><span class="line"><span class="type">bool</span> is_prime[N];</span><br><span class="line"><span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> px[N], cx[N], py[N], cy[N], mx, my; <span class="comment">// 是x和y分解的质因子和质因子的次幂和质因子的个数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">node</span>&#123;</span><br><span class="line">    <span class="type">int</span> cx, cy;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">vector&lt;node&gt; v1; <span class="comment">// x和y的公共质因子的个数</span></span><br><span class="line">vector&lt;<span class="type">int</span>&gt; v2; <span class="comment">// x和y的公共质因子的值</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">sieve</span><span class="params">()</span> <span class="comment">// 质数筛</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">mem</span>(is_prime, <span class="literal">true</span>);</span><br><span class="line">    is_prime[<span class="number">0</span>] = is_prime[<span class="number">1</span>] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>;i &lt; N; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(is_prime[i])</span><br><span class="line">        &#123;</span><br><span class="line">            prime[++cnt] = i;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">1</span>;j &lt;= cnt &amp;&amp; i * prime[j] &lt; N; j++) &#123;</span><br><span class="line">                is_prime[i * prime[j]] = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">if</span>(i % prime[j] == <span class="number">0</span>)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Divide</span><span class="params">(ll n, <span class="type">int</span> *p, <span class="type">int</span> *c, <span class="type">int</span> &amp;m)</span> <span class="comment">// 分解质因子</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    m = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>;i * i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(n % i == <span class="number">0</span>) &#123;</span><br><span class="line">            p[++m] = i;</span><br><span class="line">            <span class="keyword">while</span>(n % i == <span class="number">0</span>) &#123;</span><br><span class="line">                c[m]++;</span><br><span class="line">                n /= i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(n &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        p[++m] = n;</span><br><span class="line">        c[m] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">quick_pow</span><span class="params">(ll a, ll b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b) &#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>) ans = ans * a % mod;</span><br><span class="line">        a = a * a % mod;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">sieve</span>();</span><br><span class="line">    ll a, b, c, d, x, y;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld%lld%lld%lld%lld%lld&quot;</span>,&amp;a,&amp;b,&amp;c,&amp;d,&amp;x,&amp;y);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Divide</span>(x, px, cx, mx); <span class="comment">// 分解x和y的质因子（值、个数）并存在数组里</span></span><br><span class="line">    <span class="built_in">Divide</span>(y, py, cy, my);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> ppx = <span class="number">1</span>, ppy = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(ppx &lt;= mx &amp;&amp; ppy &lt;= my) &#123; <span class="comment">// 寻找x和y的公共质因子并存在数组里</span></span><br><span class="line">        <span class="keyword">if</span>(px[ppx] == py[ppy]) &#123;</span><br><span class="line">            v1.<span class="built_in">push_back</span>(node&#123;cx[ppx], cy[ppy]&#125;);</span><br><span class="line">            v2.<span class="built_in">push_back</span>(px[ppx]);</span><br><span class="line">            ppx++; ppy++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(px[ppx] &lt; py[ppy]) ppx++;</span><br><span class="line">        <span class="keyword">else</span> ppy++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> k = <span class="number">0</span>;k &lt; v2.<span class="built_in">size</span>(); k++) &#123; <span class="comment">// 枚举每个公共质因子</span></span><br><span class="line"></span><br><span class="line">        ll pow1 = <span class="number">0</span>, pow2 = <span class="number">0</span>; <span class="comment">// 下面两个循环的次幂</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(ll i = a;i &lt;= b; i++) &#123; <span class="comment">// 先枚举i</span></span><br><span class="line">            ll j;</span><br><span class="line">            <span class="keyword">if</span>(v1[k].cx * i % v1[k].cy == <span class="number">0</span>)</span><br><span class="line">                j = <span class="built_in">max</span>(v1[k].cx * i / v1[k].cy, c);</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                j = <span class="built_in">max</span>(v1[k].cx * i / v1[k].cy + <span class="number">1</span>, c); <span class="comment">// 向上取整并且没有整除</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(j &lt;= d)</span><br><span class="line">                pow1 = (pow1 + i * (d - j + <span class="number">1</span>) % (mod - <span class="number">1</span>)) % (mod - <span class="number">1</span>); <span class="comment">// 欧拉降幂</span></span><br><span class="line">        &#125;</span><br><span class="line">        pow1 = pow1 * v1[k].cx % (mod - <span class="number">1</span>); <span class="comment">// 不要忘了系数</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(ll j = c;j &lt;= d; j++) &#123; <span class="comment">// 再枚举j</span></span><br><span class="line"></span><br><span class="line">            ll i = <span class="built_in">max</span>(v1[k].cy * j / v1[k].cx + <span class="number">1</span>, a);<span class="comment">// 因为上面枚举i的时候处理一次重复的情况，所以这里就不需要再考虑了</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(i &lt;= b)</span><br><span class="line">                pow2 = (pow2 + j * (b - i + <span class="number">1</span>) % (mod - <span class="number">1</span>)) % (mod - <span class="number">1</span>); <span class="comment">// 欧拉降幂</span></span><br><span class="line">        &#125;</span><br><span class="line">        pow2 = pow2 * v1[k].cy % (mod - <span class="number">1</span>); <span class="comment">// 不要忘了系数</span></span><br><span class="line"></span><br><span class="line">        ans = ans * <span class="built_in">quick_pow</span>(v2[k], (pow1 + pow2) % (mod - <span class="number">1</span>)) % mod;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>,ans);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios_base::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="comment">//cin.tie(nullptr);</span></span><br><span class="line">    <span class="comment">//cout.tie(nullptr);</span></span><br><span class="line">#<span class="meta">#<span class="keyword">ifdef</span> FZT_ACM_LOCAL</span></span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;in.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;out.txt&quot;</span>, <span class="string">&quot;w&quot;</span>, stdout);</span><br><span class="line">    <span class="type">signed</span> test_index_for_debug = <span class="number">1</span>;</span><br><span class="line">    <span class="type">char</span> acm_local_for_debug = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (acm_local_for_debug == <span class="string">&#x27;$&#x27;</span>) <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (test_index_for_debug &gt; <span class="number">20</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">runtime_error</span>(<span class="string">&quot;Check the stdin!!!&quot;</span>);</span><br><span class="line">        <span class="keyword">auto</span> start_clock_for_debug = <span class="built_in">clock</span>();</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">        <span class="keyword">auto</span> end_clock_for_debug = <span class="built_in">clock</span>();</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Test &quot;</span> &lt;&lt; test_index_for_debug &lt;&lt; <span class="string">&quot; successful&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;Test &quot;</span> &lt;&lt; test_index_for_debug++ &lt;&lt; <span class="string">&quot; Run Time: &quot;</span></span><br><span class="line">             &lt;&lt; <span class="built_in">double</span>(end_clock_for_debug - start_clock_for_debug) / CLOCKS_PER_SEC &lt;&lt; <span class="string">&quot;s&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;--------------------------------------------------&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">while</span> (cin &gt;&gt; acm_local_for_debug &amp;&amp; cin.<span class="built_in">putback</span>(acm_local_for_debug));</span><br><span class="line">#<span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">#<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>感谢赛中和赛后牌王的“热情”指导,牌王无敌！！！</strong></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/">https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E5%85%88%E6%9E%9A%E4%B8%BE-i-%E5%86%8D%E6%9E%9A%E4%B8%BE%E5%85%AC%E5%85%B1%E8%B4%A8%E5%9B%A0%E5%AD%90"><span class="toc-number">2.0.1.</span> <span class="toc-text">方法一：先枚举$i$再枚举公共质因子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code%EF%BC%88286ms%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">Code（286ms）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E5%85%88%E6%9E%9A%E4%B8%BE%E5%85%AC%E5%85%B1%E8%B4%A8%E5%9B%A0%E5%AD%90%E5%86%8D%E6%9E%9A%E4%B8%BE-i-%E5%92%8C-j"><span class="toc-number">2.1.1.</span> <span class="toc-text">方法二：先枚举公共质因子再枚举$i$和$j$</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-691ms"><span class="toc-number">2.2.</span> <span class="toc-text">Code (691ms)</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&text=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&title=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&is_video=false&description=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【2020年牛客暑假第九场】E题 Groundhog Chasing Death&body=Check out this article: https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&title=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&title=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&title=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&title=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&name=【2020年牛客暑假第九场】E题 Groundhog Chasing Death&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/08/09/2020-nowcoder-shujia-9-e/&t=【2020年牛客暑假第九场】E题 Groundhog Chasing Death"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

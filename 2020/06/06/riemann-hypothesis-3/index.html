@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="黎曼函数的由来到了这里，我们可以看出了$\varepsilon(s)$和素数存在了千丝万缕的关系，于是人们认为$\varepsilon(s)$可能是破解素数规律的至强法宝，在了解黎曼函数与素数的关系之前，我们先来看看素数的分布规律。 素数定理了解素数定理之前，先了解素数的分布规律，统计一下一段里素数的个数。如下图所示： $$ \left[ \begin{array}{ccc} 1-10&amp;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="黎曼猜想（三）黎曼猜想">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="黎曼函数的由来到了这里，我们可以看出了$\varepsilon(s)$和素数存在了千丝万缕的关系，于是人们认为$\varepsilon(s)$可能是破解素数规律的至强法宝，在了解黎曼函数与素数的关系之前，我们先来看看素数的分布规律。 素数定理了解素数定理之前，先了解素数的分布规律，统计一下一段里素数的个数。如下图所示： $$ \left[ \begin{array}{ccc} 1-10&amp;&amp;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2020/06/20200603173716335.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2020/06/20200605165107475.jpg">
+<meta property="article:published_time" content="2020-06-06T03:14:33.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.830Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="interesting">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2020/06/20200603173716335.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>黎曼猜想（三）黎曼猜想</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/07/12/2020-nowcoder-shujia-1-j/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/06/06/riemann-hypothesis-2/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&text=黎曼猜想（三）黎曼猜想"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&title=黎曼猜想（三）黎曼猜想"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&is_video=false&description=黎曼猜想（三）黎曼猜想"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=黎曼猜想（三）黎曼猜想&body=Check out this article: https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&title=黎曼猜想（三）黎曼猜想"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&title=黎曼猜想（三）黎曼猜想"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&title=黎曼猜想（三）黎曼猜想"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&title=黎曼猜想（三）黎曼猜想"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&name=黎曼猜想（三）黎曼猜想&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&t=黎曼猜想（三）黎曼猜想"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%8E%E6%9B%BC%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="toc-number">1.</span> <span class="toc-text">黎曼函数的由来</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B4%A0%E6%95%B0%E5%AE%9A%E7%90%86"><span class="toc-number">1.0.1.</span> <span class="toc-text">素数定理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%8E%E6%9B%BC%E5%87%BD%E6%95%B0"><span class="toc-number">1.0.2.</span> <span class="toc-text">黎曼函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%8E%E6%9B%BC%E7%8C%9C%E6%83%B3"><span class="toc-number">2.</span> <span class="toc-text">黎曼猜想</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%8E%E6%9B%BC%E7%8C%9C%E6%83%B3%E7%9A%84%E5%90%8E%E7%BB%A7%E6%95%85%E4%BA%8B"><span class="toc-number">2.0.1.</span> <span class="toc-text">黎曼猜想的后继故事</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E5%B1%95"><span class="toc-number">2.0.2.</span> <span class="toc-text">进展</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%84%9F%E6%83%B3"><span class="toc-number">3.</span> <span class="toc-text">感想</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        黎曼猜想（三）黎曼猜想
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-06-06T03:14:33.000Z" class="dt-published" itemprop="datePublished">2020-06-06</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/interesting/" rel="tag">interesting</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="黎曼函数的由来"><a href="#黎曼函数的由来" class="headerlink" title="黎曼函数的由来"></a>黎曼函数的由来</h2><p>到了这里，我们可以看出了$\varepsilon(s)$和素数存在了千丝万缕的关系，于是人们认为$\varepsilon(s)$可能是破解素数规律的至强法宝，在了解黎曼函数与素数的关系之前，我们先来看看素数的分布规律。</p>
+<h4 id="素数定理"><a href="#素数定理" class="headerlink" title="素数定理"></a>素数定理</h4><p>了解素数定理之前，先了解素数的分布规律，统计一下一段里素数的个数。如下图所示：</p>
+<p>$$ \left[ \begin{array}{ccc} 1-10&amp;&amp;4 \ 1-100&amp;&amp;25 \ 1-1000&amp;&amp;168 \ ….&amp;&amp;…. \end{array} \right] $$</p>
+<p>后来有人想，有没有一个式子，通过给定的x能求出小于x的素数的个数，最早给出这个答案就是高斯大神！</p>
+<p>据说高斯15岁的时候给出了这么一个猜想：对于给定的自然数x，小于x的素数的个数约等于$\frac{x}{\ln{x}}$个，但是高斯没有高调地发表出来。</p>
+<p>后来是同时期的数学家勒让德公布出了这个结果，是当时3L大数学家——拉格朗日、勒让德、拉普拉斯之一。</p>
+<p>但是人们一听说高斯早就发现了这个公式，那这个功劳就揣在高斯的口袋里了，哈哈哈。</p>
+<p>素数定理： 设x≥1，以π(x)表示不超过x的素数的个数，当x→∞时，$\pi(x)$～$Li(x)$（对数积分函数）或$\pi(x)$～$\frac{x}{ln(x)}$（素数计数函数）。</p>
+<p>即： $$\pi(x) ～ \frac{x}{\ln{x}} 或 Li(x) &#x3D; \int_{2} ^{x}{\frac{dt}{\ln{t}}}$$ <strong>x越大，误差越小，但还是存在误差项</strong></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2020/06/20200603173716335.png"></p>
+<p>中间是最准确的素数计数函数，但是看起来$Li(x)$比$\pi(x)$更准确一点，但两个函数都不能准确地描述素数分布的规律，这时，高斯的学生黎曼出现了！！！</p>
+<p>黎曼在欧拉的基础上把$\varepsilon$函数进行了解析延拓就称为黎曼$\zeta$函数，之前提到过s是必须要大于1的，才是收敛，才是有意义的，s小于1是发散的，是无意义的。 那黎曼就想，能不能通过办法，让s在所有的复数域都具有意义，这个方法就是解析延拓。最后黎曼得出来，在所有的复平面内，只有1一个奇点没有意义，其他点都具有意义，也就是都是收敛的。所以这个拓展了定义域之后，这个函数就叫黎曼$\zeta$函数。并且黎曼通过这个函数提出了著名的黎曼猜想。 （关于解析延拓可看上篇博客）</p>
+<p>最终，在黎曼当上了柏林的科学院通讯院士，为了回应这个荣誉，黎曼发表了一篇8页的论文《论小于某给定数值的素数个数》。从此黎曼函数横空出世。</p>
+<h4 id="黎曼函数"><a href="#黎曼函数" class="headerlink" title="黎曼函数"></a>黎曼函数</h4><p>黎曼$\zeta$函数主要是研究素数分布的情况才出现的。 先来看一下$\zeta(x)$的函数式： $$\zeta(s) &#x3D; 1 + \frac{1}{2^{s}} + \frac{1}{3^{s}} + \frac{1}{4^{s}}+…$$ 在来看一下黎曼$\zeta$函数经过解析延拓后的积分形式： $$\zeta(x) &#x3D; \frac{\Gamma (1-s)}{2\pi i}\oint_r\frac{z^{s-1}e^{-z}}{1-e^{z}} dz$$ 这个函数又被称为亚纯函数。</p>
+<p>其中$\Gamma (s)$（伽马函数）就是表示$(s-1)！$（阶乘）。 （这个式子只能看看就好，常人无法理解，卑微的我更无法理解）</p>
+<p>这样，黎曼就把欧拉级数的定义域从s&gt;1通过解析延拓将其扩大，扩大到除了1这一个奇点外的所有复平面内。（复数都知道吧，不单是实数，虚数也可以）</p>
+<p>先尝试带几个数进去看看。 $$\zeta(-1)&#x3D;-\frac{1}{12}\ \zeta(-2) &#x3D; 0\ \zeta(-3) &#x3D; \frac{1}{120} $$</p>
+<p>黎曼通过解析延拓出来的结果和欧拉当时算出来的结果是相同的。那么黎曼猜想是怎么来的呢？</p>
+<p>然后就到了今天的主题——黎曼猜想。</p>
+<h2 id="黎曼猜想"><a href="#黎曼猜想" class="headerlink" title="黎曼猜想"></a>黎曼猜想</h2><p>黎曼通过把黎曼$\zeta$函数推导后，得出下面的式子： $$\zeta(s) &#x3D; 2\Gamma (1-s)(2\pi)^{s-1}\sin(\frac{\pi s}{2})\zeta(1-s)$$</p>
+<p>肉眼可见，上面式子中令$\sin(\frac{\pi s}{2})&#x3D;0$就得到了一些函数零点，比如-2，-4，-6…这些个零点被称为平凡零点。</p>
+<p>然后我们让上面式子强行等于0，就是求$\zeta(s)$除了平凡零点外的非平凡零点，那么黎曼猜想就来了。</p>
+<p>黎曼猜测，所有的非平凡零点的实部都在$x &#x3D; 0$和$x &#x3D; 1$这两条临界线之内，这一块区域叫做临界区域或者关键区域。有可能零点的实部都在$x &#x3D; \frac{1}{2}$这条临界线上。但是黎曼无法证明。</p>
+<p>具体图像如下所示：</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2020/06/20200605165107475.jpg"></p>
+<p>而黎曼$\zeta$函数的零点又与素数的分布情况紧密相连，所以，如果有人能证实黎曼猜想，这将是轰动全球的大事件。</p>
+<h4 id="黎曼猜想的后继故事"><a href="#黎曼猜想的后继故事" class="headerlink" title="黎曼猜想的后继故事"></a>黎曼猜想的后继故事</h4><p>在1900年国际数学大会上，希尔伯特在演讲中提出了23个数学问题，其中第八个就是黎曼猜想，与他并列第八的就是哥德巴赫猜想。</p>
+<p>在2000年的千禧年，美国的克雷数学研究所提出了7个 千禧难题，全是数学猜想，其中黎曼猜想就在其中，只要能证明其中一个就能拿到100万美元，其中的庞加莱猜想已经被证明了。这个人会是你吗？</p>
+<h4 id="进展"><a href="#进展" class="headerlink" title="进展"></a>进展</h4><p>1896年法国的两个学者阿达玛和普森两个人证明了所有的非平凡零点的实部都在$x &#x3D; 0$和$x &#x3D; 1$这两条临界线里；</p>
+<p>1932年，黎曼-西格尔公式出世，以后计算零点的方法要方便得多。</p>
+<p>后来通过计算机，德国的IBM实验室（项目现在已经取消了），已经计算出了有了1万亿个非平凡零点，而这些非平凡零点都在$x &#x3D; \frac{1}{2}$这条线上。</p>
+<h2 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h2><p>最后，花了一周的时间来写这几篇博客，以前就想写这方面的博客，这次终于完结了，其实写这些东西对我来说没有太多的帮助，这只是出于对数学的兴趣（其实我数学很垃圾），爱好使然吧！ 不得不说这些人的智慧是非比寻常的。那就来看看黎曼的人生事迹： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xE411u7Zp">https://www.bilibili.com/video/BV1xE411u7Zp</a></p>
+<p>参考： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oW411U7Bk?t=589">https://www.bilibili.com/video/BV1oW411U7Bk?t=589</a> <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1rW411m7GL">https://www.bilibili.com/video/BV1rW411m7GL</a> <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV12x41187QH?from=search&seid=17055570753699382374">https://www.bilibili.com/video/BV12x41187QH?from=search&seid=17055570753699382374</a></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/">https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%8E%E6%9B%BC%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%B1%E6%9D%A5"><span class="toc-number">1.</span> <span class="toc-text">黎曼函数的由来</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B4%A0%E6%95%B0%E5%AE%9A%E7%90%86"><span class="toc-number">1.0.1.</span> <span class="toc-text">素数定理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%8E%E6%9B%BC%E5%87%BD%E6%95%B0"><span class="toc-number">1.0.2.</span> <span class="toc-text">黎曼函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%8E%E6%9B%BC%E7%8C%9C%E6%83%B3"><span class="toc-number">2.</span> <span class="toc-text">黎曼猜想</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%8E%E6%9B%BC%E7%8C%9C%E6%83%B3%E7%9A%84%E5%90%8E%E7%BB%A7%E6%95%85%E4%BA%8B"><span class="toc-number">2.0.1.</span> <span class="toc-text">黎曼猜想的后继故事</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E5%B1%95"><span class="toc-number">2.0.2.</span> <span class="toc-text">进展</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%84%9F%E6%83%B3"><span class="toc-number">3.</span> <span class="toc-text">感想</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&text=黎曼猜想（三）黎曼猜想"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&title=黎曼猜想（三）黎曼猜想"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&is_video=false&description=黎曼猜想（三）黎曼猜想"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=黎曼猜想（三）黎曼猜想&body=Check out this article: https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&title=黎曼猜想（三）黎曼猜想"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&title=黎曼猜想（三）黎曼猜想"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&title=黎曼猜想（三）黎曼猜想"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&title=黎曼猜想（三）黎曼猜想"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&name=黎曼猜想（三）黎曼猜想&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-3/&t=黎曼猜想（三）黎曼猜想"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

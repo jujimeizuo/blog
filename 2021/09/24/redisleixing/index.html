@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="1. NoSQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="rediss-数据类型">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/09/24/redisleixing/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="1. NoSQL">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632646360378.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632646410269.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632646422141.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632646442039.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632473946054.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474345917.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474418121.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474452155.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474513302.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474553482.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474583601.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474622298.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474665561.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474717857.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474728589.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474775307.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632643699298.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475047844.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475096207.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475184254.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475254467.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475380084.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475484205.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475553716.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632643911652.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475948773.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476072915.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476697115.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476474867.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476522194.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476605108.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476724171.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476771483.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476803379.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476840575.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476896464.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632643954408.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477064797.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477127825.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477143763.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477172245.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477185068.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477211405.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477222068.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477296157.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477331468.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477435541.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477391019.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477447668.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632643989267.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477692339.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477703371.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477745829.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477816044.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477844890.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477866011.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477881187.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477896459.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477919981.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644102803.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478034715.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478071159.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478107108.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478230841.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478172600.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478326343.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644429996.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644452415.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644484448.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644672064.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644689711.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644719576.png">
+<meta property="article:published_time" content="2021-09-24T11:43:12.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.829Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632646360378.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>rediss-数据类型</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/09/26/redisshiwu/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/09/15/dockerimp/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&text=rediss-数据类型"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&title=rediss-数据类型"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&is_video=false&description=rediss-数据类型"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=rediss-数据类型&body=Check out this article: https://blog.jujimeizuo.cn/2021/09/24/redisleixing/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&title=rediss-数据类型"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&title=rediss-数据类型"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&title=rediss-数据类型"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&title=rediss-数据类型"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&name=rediss-数据类型&description=&lt;h2 id=&#34;1-NoSQL&#34;&gt;&lt;a href=&#34;#1-NoSQL&#34; class=&#34;headerlink&#34; title=&#34;1. NoSQL&#34;&gt;&lt;/a&gt;1. NoSQL&lt;/h2&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&t=rediss-数据类型"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-NoSQL"><span class="toc-number">1.</span> <span class="toc-text">1. NoSQL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E5%8D%95%E6%9C%BAMysql%E6%97%B6%E4%BB%A3"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.1 单机Mysql时代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-Memcached-%E7%BC%93%E5%AD%98-Mysql-%E5%9E%82%E7%9B%B4%E6%8B%86%E5%88%86%EF%BC%88%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%89"><span class="toc-number">1.0.2.</span> <span class="toc-text">1.2 Memcached(缓存) + Mysql + 垂直拆分（读写分离）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8-%E6%B0%B4%E5%B9%B3%E6%8B%86%E5%88%86-Mysql%E9%9B%86%E7%BE%A4"><span class="toc-number">1.0.3.</span> <span class="toc-text">1.3 分库分表 + 水平拆分 + Mysql集群</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-%E5%A6%82%E4%BB%8A%E6%9C%80%E8%BF%91%E7%9A%84%E5%B9%B4%E4%BB%A3"><span class="toc-number">1.0.4.</span> <span class="toc-text">1.4 如今最近的年代</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AFNoSQL"><span class="toc-number">2.</span> <span class="toc-text">2. 为什么是NoSQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-NoSQL%E7%9A%84%E5%9B%9B%E5%A4%A7%E5%88%86%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">3. NoSQL的四大分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E9%94%AE%E5%80%BC-Key-Value-%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.0.1.</span> <span class="toc-text">3.1 键值(Key-Value)存储数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E5%88%97%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.0.2.</span> <span class="toc-text">3.2 列存储数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E6%96%87%E6%A1%A3%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.0.3.</span> <span class="toc-text">3.3 文档型数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-%E5%9B%BE%E5%BD%A2-Graph-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.0.4.</span> <span class="toc-text">3.4 图形(Graph)数据库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-NoSQL%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">4.</span> <span class="toc-text">4. NoSQL应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BB%80%E4%B9%88%E6%98%AFRedis"><span class="toc-number">5.</span> <span class="toc-text">5. 什么是Redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Redis%E7%89%B9%E7%82%B9"><span class="toc-number">6.</span> <span class="toc-text">6. Redis特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Ridis%E5%AE%89%E8%A3%85"><span class="toc-number">7.</span> <span class="toc-text">7. Ridis安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-redis%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">8.</span> <span class="toc-text">8. redis常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-set-get%E5%91%BD%E4%BB%A4%EF%BC%8C%E5%AD%98%E5%80%BC%EF%BC%8C%E5%8F%96%E5%80%BC"><span class="toc-number">8.0.1.</span> <span class="toc-text">8.1 set get命令，存值，取值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-%E5%88%87%E6%8D%A2%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%8Credis%E9%BB%98%E8%AE%A4%E6%9C%8916%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%8C%E9%BB%98%E8%AE%A4%E4%BD%BF%E7%94%A80%E5%8F%B7%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%8C%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87select%E5%88%87%E6%8D%A2"><span class="toc-number">8.0.2.</span> <span class="toc-text">8.2 切换数据库，redis默认有16个数据库，默认使用0号数据库，可以通过select切换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-%E6%B8%85%E7%A9%BA%E5%BD%93%E5%89%8D%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9Aflushdb-%E6%B8%85%E7%A9%BA%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9Aflushall"><span class="toc-number">8.0.3.</span> <span class="toc-text">8.3 清空当前数据库：flushdb,清空所有数据库：flushall</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89key-keys"><span class="toc-number">8.0.4.</span> <span class="toc-text">8.4 查询所有key: keys*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-5-%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%A7%E5%B0%8F%EF%BC%9Adbsize"><span class="toc-number">8.0.5.</span> <span class="toc-text">8.5 查询数据库的大小：dbsize</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-6-%E6%9F%A5%E7%9C%8Bkey%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%EF%BC%9Aexists-keyName-%E5%AD%98%E5%9C%A8%E8%BF%94%E5%9B%9E1%EF%BC%8C%E5%90%A6%E5%88%99%E8%BF%94%E5%9B%9E0"><span class="toc-number">8.0.6.</span> <span class="toc-text">8.6 查看key是否存在：exists keyName,存在返回1，否则返回0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-7-%E7%A7%BB%E9%99%A4Key-move-keyName-1"><span class="toc-number">8.0.7.</span> <span class="toc-text">8.7 移除Key: move keyName 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-8-%E4%B8%BAkey%E8%AE%BE%E7%BD%AE%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4-expire-keyName-timeout"><span class="toc-number">8.0.8.</span> <span class="toc-text">8.8 为key设置过期时间: expire keyName timeout</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-9-%E6%9F%A5%E7%9C%8Bkey%E7%9A%84%E5%89%A9%E4%BD%99%E5%AD%98%E6%B4%BB%E6%97%B6%E9%97%B4%EF%BC%9Attl-keyName"><span class="toc-number">8.0.9.</span> <span class="toc-text">8.9 查看key的剩余存活时间：ttl keyName</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-10-%E6%9F%A5%E7%9C%8Bkey%E7%9A%84%E7%B1%BB%E5%9E%8B%EF%BC%9Atype-keyName"><span class="toc-number">8.0.10.</span> <span class="toc-text">8.10 查看key的类型：type keyName</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-String%E8%AF%A6%E8%A7%A3"><span class="toc-number">9.</span> <span class="toc-text">9. String详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-1-strlen-%E6%B1%82value%E7%9A%84%E9%95%BF%E5%BA%A6%EF%BC%8Cappend%EF%BC%9A%E8%BF%BD%E5%8A%A0"><span class="toc-number">9.0.1.</span> <span class="toc-text">9.1 strlen:求value的长度，append：追加</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-2-%E8%87%AA%E5%A2%9E-%E8%87%AA%E5%87%8F%E6%93%8D%E4%BD%9C%EF%BC%9Aincr-incrby-decr-decrby"><span class="toc-number">9.0.2.</span> <span class="toc-text">9.2 自增,自减操作：incr incrby decr decrby</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%8C%83%E5%9B%B4%E6%93%8D%E4%BD%9C%EF%BC%9Agetrange-setrange"><span class="toc-number">9.0.3.</span> <span class="toc-text">9.3 字符串的范围操作：getrange,setrange</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-4-%E8%AE%BE%E7%BD%AE%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%EF%BC%9Asetex%EF%BC%88%E5%A6%82%E6%9E%9C%E5%AD%98%E5%9C%A8Key%E5%88%99%E8%A6%86%E7%9B%96%EF%BC%8C%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%88%99%E5%88%9B%E5%BB%BA%EF%BC%89%EF%BC%8Csetnx-%E5%A6%82%E6%9E%9C%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%B0%B1%E8%AE%BE%E7%BD%AE"><span class="toc-number">9.0.4.</span> <span class="toc-text">9.4 设置过期时间：setex（如果存在Key则覆盖，不存在则创建），setnx(如果不存在就设置)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-5-%E6%89%B9%E9%87%8F%E8%AE%BE%E7%BD%AE%E5%92%8C%E8%8E%B7%E5%8F%96%E5%80%BC%EF%BC%9Amset-mget-msetnx-%E6%93%8D%E4%BD%9C%E4%B8%BA%E5%8E%9F%E5%AD%90%E6%80%A7%EF%BC%8C%E8%A6%81%E4%B9%88%E9%83%BD%E6%88%90%E5%8A%9F%EF%BC%8C%E8%A6%81%E4%B9%88%E9%83%BD%E5%A4%B1%E8%B4%A5"><span class="toc-number">9.0.5.</span> <span class="toc-text">9.5 批量设置和获取值：mset,mget, msetnx(操作为原子性，要么都成功，要么都失败)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-6-%E5%AD%98%E5%8F%96%E5%AF%B9%E8%B1%A1"><span class="toc-number">9.0.6.</span> <span class="toc-text">9.6 存取对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-7-%E7%BB%84%E5%90%88%E6%93%8D%E4%BD%9C%EF%BC%9Agetset%E5%85%88%E8%8E%B7%E5%8F%96%E5%86%8D%E8%AE%BE%E7%BD%AE-%E5%A6%82%E6%9E%9C%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%B0%B1%E8%BF%94%E5%9B%9Enil"><span class="toc-number">9.0.7.</span> <span class="toc-text">9.7 组合操作：getset先获取再设置,如果不存在就返回nil</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-list%E8%AF%A6%E8%A7%A3"><span class="toc-number">10.</span> <span class="toc-text">10. list详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10-1-%E5%B7%A6%E6%8F%92%EF%BC%9Alpush-%E5%B7%A6%E5%88%A0%EF%BC%9Alpop"><span class="toc-number">10.0.1.</span> <span class="toc-text">10.1 左插：lpush,左删：lpop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-2-%E5%8F%B3%E6%8F%92%EF%BC%9Arpush-%E5%8F%B3%E5%88%A0%EF%BC%9Arpop"><span class="toc-number">10.0.2.</span> <span class="toc-text">10.2 右插：rpush,右删：rpop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-3-%E8%8E%B7%E5%8F%96%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%EF%BC%9Alrange"><span class="toc-number">10.0.3.</span> <span class="toc-text">10.3 获取列表元素：lrange</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-4-%E9%80%9A%E8%BF%87%E4%B8%8B%E6%A0%87%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%EF%BC%9Alindex"><span class="toc-number">10.0.4.</span> <span class="toc-text">10.4 通过下标获取元素：lindex</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-5-%E8%8E%B7%E5%8F%96%E5%88%97%E8%A1%A8%E9%95%BF%E5%BA%A6%EF%BC%9Allen"><span class="toc-number">10.0.5.</span> <span class="toc-text">10.5 获取列表长度：llen</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-6-%E7%A7%BB%E9%99%A4%E5%85%B7%E4%BD%93%E7%9A%84%E5%80%BC%E6%89%80%E5%9C%A8%E7%9A%84%E9%94%AE%E5%80%BC%E5%AF%B9-lrem-%E5%88%97%E8%A1%A8-%E7%A7%BB%E9%99%A4%E5%87%A0%E4%B8%AA-%E7%A7%BB%E9%99%A4%E7%9A%84%E5%85%B7%E4%BD%93value"><span class="toc-number">10.0.6.</span> <span class="toc-text">10.6 移除具体的值所在的键值对:lrem 列表 移除几个 移除的具体value</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-7-%E6%88%AA%E5%8F%96%E6%93%8D%E4%BD%9C%EF%BC%9Altrim-%E5%88%97%E8%A1%A8-%E6%88%AA%E5%8F%96%E7%9A%84%E5%BC%80%E5%A7%8B%E4%B8%8B%E6%A0%87-%E6%88%AA%E5%8F%96%E7%9A%84%E7%BB%93%E6%9D%9F%E4%B8%8B%E6%A0%87"><span class="toc-number">10.0.7.</span> <span class="toc-text">10.7 截取操作：ltrim 列表 截取的开始下标 截取的结束下标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-8-rpoplpush-%E7%A7%BB%E9%99%A4%E5%88%97%E8%A1%A8%E4%B8%AD%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E5%B9%B6%E5%B0%86%E8%BF%99%E4%B8%AA%E5%85%83%E7%B4%A0%E6%94%BE%E5%88%B0%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%88%97%E8%A1%A8%E4%B8%AD"><span class="toc-number">10.0.8.</span> <span class="toc-text">10.8 rpoplpush:移除列表中的最后一个元素并将这个元素放到一个新的列表中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-9-%E5%88%A4%E6%96%AD%E5%88%97%E8%A1%A8%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%EF%BC%9AEXISTS-list"><span class="toc-number">10.0.9.</span> <span class="toc-text">10.9 判断列表是否存在：EXISTS list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-10-lset-%E6%9B%B4%E6%96%B0%E5%88%97%E8%A1%A8%E4%B8%AD%E6%8C%87%E5%AE%9A%E4%B8%8B%E6%A0%87%E7%9A%84%E5%85%83%E7%B4%A0%E7%9A%84value-%E5%89%8D%E6%8F%90%E6%98%AF%E8%AF%A5%E4%B8%8B%E6%A0%87%E5%BF%85%E9%A1%BB%E6%9C%89%E5%80%BC%EF%BC%8C%E5%90%A6%E5%88%99%E6%8A%A5%E9%94%99"><span class="toc-number">10.0.10.</span> <span class="toc-text">10.10 lset:更新列表中指定下标的元素的value,前提是该下标必须有值，否则报错</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-11-%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD%E6%8F%92%E5%85%A5%E5%80%BC%EF%BC%9A%E5%89%8D%E6%8F%92%E5%92%8C%E5%90%8E%E6%8F%92%EF%BC%9Alinsert"><span class="toc-number">10.0.11.</span> <span class="toc-text">10.11 在列表中插入值：前插和后插：linsert</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-set%E8%AF%A6%E8%A7%A3"><span class="toc-number">11.</span> <span class="toc-text">11. set详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-1-%E6%B7%BB%E5%8A%A0%EF%BC%9Asadd"><span class="toc-number">11.0.1.</span> <span class="toc-text">11.1 添加：sadd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-2-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89-smembers"><span class="toc-number">11.0.2.</span> <span class="toc-text">11.2 查看所有: smembers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-%E6%9F%A5%E8%AF%A2set%E7%9A%84%E5%85%83%E7%B4%A0%E4%B8%AA%E6%95%B0%EF%BC%9Ascard"><span class="toc-number">11.0.3.</span> <span class="toc-text">11.3 查询set的元素个数：scard</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-4-%E5%88%A4%E6%96%ADset%E4%B8%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%9F%90%E5%85%83%E7%B4%A0%EF%BC%9Asismember"><span class="toc-number">11.0.4.</span> <span class="toc-text">11.4 判断set中是否存在某元素：sismember</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-5-%E7%A7%BB%E9%99%A4%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0%EF%BC%9Asrem"><span class="toc-number">11.0.5.</span> <span class="toc-text">11.5 移除某个元素：srem</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-6-%E9%9A%8F%E6%9C%BA%E6%8A%BD%E5%8F%96%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%EF%BC%9ASRANDMEMBER"><span class="toc-number">11.0.6.</span> <span class="toc-text">11.6 随机抽取一个元素：SRANDMEMBER</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-7-%E9%9A%8F%E6%9C%BA%E7%A7%BB%E9%99%A4%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%EF%BC%9Aspop"><span class="toc-number">11.0.7.</span> <span class="toc-text">11.7 随机移除一个元素：spop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-8-%E5%B0%86%E4%B8%80%E4%B8%AA%E9%9B%86%E5%90%88%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E7%A7%BB%E5%8A%A8%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E9%9B%86%E5%90%88%E4%B8%AD%EF%BC%9Asmove"><span class="toc-number">11.0.8.</span> <span class="toc-text">11.8 将一个集合中的元素移动到另一个集合中：smove</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-9-%E9%9B%86%E5%90%88%E4%B9%8B%E9%97%B4%E6%B1%82%E4%BA%A4%E5%B9%B6%E8%A1%A5%E9%9B%86%EF%BC%9Asinter-sunite-sdiff"><span class="toc-number">11.0.9.</span> <span class="toc-text">11.9 集合之间求交并补集：sinter sunite sdiff</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%AE%E9%9B%86sdiff"><span class="toc-number">11.1.</span> <span class="toc-text">差集sdiff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E9%9B%86sinter"><span class="toc-number">11.2.</span> <span class="toc-text">交集sinter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E9%9B%86sunion"><span class="toc-number">11.3.</span> <span class="toc-text">并集sunion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-hash%E8%AF%A6%E8%A7%A3"><span class="toc-number">12.</span> <span class="toc-text">12. hash详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#12-1-%E5%90%91hash%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%80%BC%EF%BC%9Ahset"><span class="toc-number">12.0.1.</span> <span class="toc-text">12.1 向hash中添加值：hset</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-2-%E5%BE%97%E5%88%B0hash%E4%B8%AD%E7%9A%84%E6%8C%87%E5%AE%9Afiled%E7%9A%84%E5%80%BC%EF%BC%9Ahget"><span class="toc-number">12.0.2.</span> <span class="toc-text">12.2 得到hash中的指定filed的值：hget</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-3-%E5%BE%97%E5%88%B0hash%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%80%BC-hgetall"><span class="toc-number">12.0.3.</span> <span class="toc-text">12.3 得到hash中的所有值:hgetall</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-4-%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0%E5%92%8C%E8%8E%B7%E5%8F%96%EF%BC%9Ahmset-hmget"><span class="toc-number">12.0.4.</span> <span class="toc-text">12.4 批量添加和获取：hmset hmget</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-5-%E5%88%A0%E9%99%A4%E6%8C%87%E5%AE%9A%E7%9A%84%E5%AD%97%E6%AE%B5%EF%BC%9Ahdel"><span class="toc-number">12.0.5.</span> <span class="toc-text">12.5 删除指定的字段：hdel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-6-%E8%8E%B7%E5%8F%96hash%E7%9A%84%E5%AD%97%E6%AE%B5%E9%95%BF%E5%BA%A6%EF%BC%9Ahlen"><span class="toc-number">12.0.6.</span> <span class="toc-text">12.6 获取hash的字段长度：hlen</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-7-%E5%88%A4%E6%96%ADhash%E4%B8%AD%E7%9A%84%E5%AD%97%E6%AE%B5%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%EF%BC%9Ahexist"><span class="toc-number">12.0.7.</span> <span class="toc-text">12.7 判断hash中的字段是否存在：hexist</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-8-%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E7%9A%84key-%E5%AD%97%E6%AE%B5-hkeys-%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E7%9A%84value%EF%BC%9Ahvals"><span class="toc-number">12.0.8.</span> <span class="toc-text">12.8 获取所有的key(字段)hkeys,获取所有的value：hvals</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-9-%E6%8C%87%E5%AE%9A%E5%A2%9E%E9%87%8F%EF%BC%9Ahincrby"><span class="toc-number">12.0.9.</span> <span class="toc-text">12.9 指定增量：hincrby</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-Zset%E8%AF%A6%E8%A7%A3"><span class="toc-number">13.</span> <span class="toc-text">13. Zset详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#13-1-%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%EF%BC%9Azadd"><span class="toc-number">13.0.1.</span> <span class="toc-text">13.1 添加数据：zadd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-2-%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%80%BC-%E6%8C%89%E7%85%A7%E7%B4%A2%E5%BC%95%E8%8E%B7%E5%8F%96%EF%BC%9Azrange"><span class="toc-number">13.0.2.</span> <span class="toc-text">13.2 获取所有值,按照索引获取：zrange</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-3-%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%80%BC%EF%BC%8C%E6%8C%89%E7%85%A7score%E8%8E%B7%E5%8F%96%EF%BC%9Azrangebyscore"><span class="toc-number">13.0.3.</span> <span class="toc-text">13.3 获取所有值，按照score获取：zrangebyscore</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-4-%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0%EF%BC%9Azrem"><span class="toc-number">13.0.4.</span> <span class="toc-text">13.4 移除元素：zrem</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-5-%E5%BE%97%E5%88%B0%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AA%E6%95%B0-zcard"><span class="toc-number">13.0.5.</span> <span class="toc-text">13.5 得到元素的个数:zcard</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-6-%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E7%9A%84%E6%88%90%E5%91%98%E6%95%B0%E9%87%8F%EF%BC%9Azcount"><span class="toc-number">13.0.6.</span> <span class="toc-text">13.6 获取指定区间的成员数量：zcount</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-geospatial"><span class="toc-number">14.</span> <span class="toc-text">14. geospatial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-bitmaps"><span class="toc-number">15.</span> <span class="toc-text">15. bitmaps</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-1-%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%EF%BC%9Asetbit"><span class="toc-number">15.0.1.</span> <span class="toc-text">15.1 存储数据：setbit</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-2-%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E4%B8%8B%E6%A0%87%E7%9A%84%E5%80%BC%EF%BC%9Agetbit"><span class="toc-number">15.0.2.</span> <span class="toc-text">15.2 获取指定下标的值：getbit</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-3-%E7%BB%9F%E8%AE%A1bitmap%E4%B8%AD1%E7%9A%84%E4%BD%8D%E6%95%B0%EF%BC%9Abitcount"><span class="toc-number">15.0.3.</span> <span class="toc-text">15.3 统计bitmap中1的位数：bitcount</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-hyperloglogs"><span class="toc-number">16.</span> <span class="toc-text">16. hyperloglogs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#16-1-%E6%B7%BB%E5%8A%A0%EF%BC%9Apfadd"><span class="toc-number">16.0.1.</span> <span class="toc-text">16.1 添加：pfadd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-2-%E8%AE%A1%E6%95%B0%EF%BC%9Apfcount"><span class="toc-number">16.0.2.</span> <span class="toc-text">16.2 计数：pfcount</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-3-%E5%90%88%E5%B9%B6%EF%BC%9Apfmerge"><span class="toc-number">16.0.3.</span> <span class="toc-text">16.3 合并：pfmerge</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        rediss-数据类型
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-09-24T11:43:12.000Z" class="dt-published" itemprop="datePublished">2021-09-24</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Redis/" rel="tag">Redis</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="1-NoSQL"><a href="#1-NoSQL" class="headerlink" title="1. NoSQL"></a>1. NoSQL</h2><span id="more"></span>
+<p>NoSQL(Not Only SQL )，意即不仅仅是SQL, 泛指非关系型的数据库。Nosql这个技术门类,早期就有人提出,发展至2009年趋势越发高涨。</p>
+<h4 id="1-1-单机Mysql时代"><a href="#1-1-单机Mysql时代" class="headerlink" title="1.1 单机Mysql时代"></a>1.1 单机Mysql时代</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632646360378.png" alt="file"></p>
+<h4 id="1-2-Memcached-缓存-Mysql-垂直拆分（读写分离）"><a href="#1-2-Memcached-缓存-Mysql-垂直拆分（读写分离）" class="headerlink" title="1.2 Memcached(缓存) + Mysql + 垂直拆分（读写分离）"></a>1.2 Memcached(缓存) + Mysql + 垂直拆分（读写分离）</h4><p>网站80%的情况都是在读，每次都要去查询数据库的话就十分的麻烦！所以说我们希望减轻数据库的压力，我们可以使用缓存来保证效率！ <img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632646410269.png" alt="file"></p>
+<h4 id="1-3-分库分表-水平拆分-Mysql集群"><a href="#1-3-分库分表-水平拆分-Mysql集群" class="headerlink" title="1.3 分库分表 + 水平拆分 + Mysql集群"></a>1.3 分库分表 + 水平拆分 + Mysql集群</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632646422141.png" alt="file"></p>
+<h4 id="1-4-如今最近的年代"><a href="#1-4-如今最近的年代" class="headerlink" title="1.4 如今最近的年代"></a>1.4 如今最近的年代</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632646442039.png" alt="file"></p>
+<h2 id="2-为什么是NoSQL"><a href="#2-为什么是NoSQL" class="headerlink" title="2. 为什么是NoSQL"></a>2. 为什么是NoSQL</h2><p><strong>NoSQL &#x3D; Not Only SQL（不仅仅是SQL）</strong></p>
+<p>Not Only Structured Query Language</p>
+<p>关系型数据库：列+行，同一个表下数据的结构是一样的。</p>
+<p>非关系型数据库：数据存储没有固定的格式，并且可以进行横向扩展。</p>
+<p>NoSQL泛指非关系型数据库，随着web2.0互联网的诞生，传统的关系型数据库很难对付web2.0时代！尤其是超大规模的高并发的社区，暴露出来很多难以克服的问题，NoSQL在当今大数据环境下发展的十分迅速，Redis是发展最快的。</p>
+<p>随着互联网网站的兴起，传统的关系数据库在应付动态网站，特别是超大规模和高并发的纯动态网站已经显得力不从心，暴露了很多难以克服的问题。如商城网站中对<strong>商品数据频繁查询</strong>、<strong>对热搜商品的排行统计</strong>、<strong>订单超时问题</strong>、以及<strong>微信朋友圈（音频，视频）存储</strong>等相关使用传统的关系型数据库实现就显得非常复杂，虽然能实现相应功能但是在性能上却不是那么乐观。nosql这个技术门类的出现，更好的解决了这些问题，它告诉了世界不仅仅是sql。</p>
+<p><strong>了解：3V + 3高</strong></p>
+<p>大数据时代的3V ：主要是描述问题的</p>
+<ol>
+<li>海量Velume</li>
+<li>多样Variety</li>
+<li>实时Velocity</li>
+</ol>
+<p>大数据时代的3高 ： 主要是对程序的要求</p>
+<ol>
+<li>高并发</li>
+<li>高可扩</li>
+<li>高性能</li>
+</ol>
+<h2 id="3-NoSQL的四大分类"><a href="#3-NoSQL的四大分类" class="headerlink" title="3. NoSQL的四大分类"></a>3. NoSQL的四大分类</h2><h4 id="3-1-键值-Key-Value-存储数据库"><a href="#3-1-键值-Key-Value-存储数据库" class="headerlink" title="3.1 键值(Key-Value)存储数据库"></a>3.1 键值(Key-Value)存储数据库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 1.说明: </span></span><br><span class="line">- 这一类数据库主要会使用到一个哈希表，这个表中有一个特定的键和一个指针指向特定的数据。</span><br><span class="line"><span class="comment">## 2.特点</span></span><br><span class="line">- Key/value模型对于IT系统来说的优势在于简单、易部署。  </span><br><span class="line">- 但是如果DBA只对部分值进行查询或更新的时候，Key/value就显得效率低下了。</span><br><span class="line"><span class="comment">## 3.相关产品</span></span><br><span class="line">- Tokyo Cabinet/Tyrant,</span><br><span class="line">- Redis</span><br><span class="line">- SSDB</span><br><span class="line">- Voldemort </span><br><span class="line">- Oracle BDB</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-列存储数据库"><a href="#3-2-列存储数据库" class="headerlink" title="3.2 列存储数据库"></a>3.2 列存储数据库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 1.说明</span></span><br><span class="line">- 这部分数据库通常是用来应对分布式存储的海量数据。</span><br><span class="line"><span class="comment">## 2.特点</span></span><br><span class="line">- 键仍然存在，但是它们的特点是指向了多个列。这些列是由列家族来安排的。</span><br><span class="line"><span class="comment">## 3.相关产品</span></span><br><span class="line">- Cassandra、HBase、Riak.</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-文档型数据库"><a href="#3-3-文档型数据库" class="headerlink" title="3.3 文档型数据库"></a>3.3 文档型数据库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 1.说明</span></span><br><span class="line">- 文档型数据库的灵感是来自于Lotus Notes办公软件的，而且它同第一种键值存储相类似该类型的数据模型是版本化的文档，半结构化的文档以特定的格式存储，比如JSON。文档型数据库可 以看作是键值数据库的升级版，允许之间嵌套键值。而且文档型数据库比键值数据库的查询效率更高</span><br><span class="line"><span class="comment">## 2.特点</span></span><br><span class="line">- 以文档形式存储</span><br><span class="line"><span class="comment">## 3.相关产品</span></span><br><span class="line">- MongoDB、CouchDB、 MongoDb(4.x). 国内也有文档型数据库SequoiaDB，已经开源。  </span><br></pre></td></tr></table></figure>
+
+<h4 id="3-4-图形-Graph-数据库"><a href="#3-4-图形-Graph-数据库" class="headerlink" title="3.4 图形(Graph)数据库"></a>3.4 图形(Graph)数据库</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 1.说明</span></span><br><span class="line">- 图形结构的数据库同其他行列以及刚性结构的SQL数据库不同，它是使用灵活的图形模型，并且能够扩展到多个服务器上。</span><br><span class="line">- NoSQL数据库没有标准的查询语言(SQL)，因此进行数据库查询需要制定数据模型。许多NoSQL数据库都有REST式的数据接口或者查询API。</span><br><span class="line"><span class="comment">## 2.特点</span></span><br><span class="line"><span class="comment">## 3.相关产品</span></span><br><span class="line">- Neo4J、InfoGrid、 Infinite Graph、</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-NoSQL应用场景"><a href="#4-NoSQL应用场景" class="headerlink" title="4. NoSQL应用场景"></a>4. NoSQL应用场景</h2><ul>
+<li>数据模型比较简单</li>
+<li>需要灵活性更强的IT系统</li>
+<li>对数据库性能要求较高</li>
+<li>不需要高度的数据一致性</li>
+</ul>
+<h2 id="5-什么是Redis"><a href="#5-什么是Redis" class="headerlink" title="5. 什么是Redis"></a>5. 什么是Redis</h2><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632473946054.png" alt="file"></p>
+<p>Redis 开源 遵循BSD 基于内存数据存储 被用于作为 数据库 缓存 消息中间件 <strong>redis是一个内存型的数据库</strong></p>
+<h2 id="6-Redis特点"><a href="#6-Redis特点" class="headerlink" title="6. Redis特点"></a>6. Redis特点</h2><ul>
+<li>Redis是一个高性能key&#x2F;value内存型数据库</li>
+<li>Redis支持丰富的数据类型</li>
+<li>Redis支持持久化</li>
+<li>Redis单线程,单进程</li>
+</ul>
+<p><strong>单线程不一定比多线程慢，在CPU中，多线程需要跳转，而单线程不需要，减少了跳转的消耗，所以在某些场景里单线程可能比多线程快。</strong></p>
+<h2 id="7-Ridis安装"><a href="#7-Ridis安装" class="headerlink" title="7. Ridis安装"></a>7. Ridis安装</h2><p>略</p>
+<h2 id="8-redis常用命令"><a href="#8-redis常用命令" class="headerlink" title="8. redis常用命令"></a>8. redis常用命令</h2><h4 id="8-1-set-get命令，存值，取值"><a href="#8-1-set-get命令，存值，取值" class="headerlink" title="8.1 set get命令，存值，取值"></a>8.1 set get命令，存值，取值</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474345917.png" alt="file"></p>
+<h4 id="8-2-切换数据库，redis默认有16个数据库，默认使用0号数据库，可以通过select切换"><a href="#8-2-切换数据库，redis默认有16个数据库，默认使用0号数据库，可以通过select切换" class="headerlink" title="8.2 切换数据库，redis默认有16个数据库，默认使用0号数据库，可以通过select切换"></a>8.2 切换数据库，redis默认有16个数据库，默认使用0号数据库，可以通过select切换</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474418121.png" alt="file"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474452155.png" alt="file"></p>
+<h4 id="8-3-清空当前数据库：flushdb-清空所有数据库：flushall"><a href="#8-3-清空当前数据库：flushdb-清空所有数据库：flushall" class="headerlink" title="8.3 清空当前数据库：flushdb,清空所有数据库：flushall"></a>8.3 清空当前数据库：flushdb,清空所有数据库：flushall</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474513302.png" alt="file"></p>
+<h4 id="8-4-查询所有key-keys"><a href="#8-4-查询所有key-keys" class="headerlink" title="8.4 查询所有key: keys*"></a>8.4 查询所有key: keys*</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474553482.png" alt="file"></p>
+<h4 id="8-5-查询数据库的大小：dbsize"><a href="#8-5-查询数据库的大小：dbsize" class="headerlink" title="8.5 查询数据库的大小：dbsize"></a>8.5 查询数据库的大小：dbsize</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474583601.png" alt="file"></p>
+<h4 id="8-6-查看key是否存在：exists-keyName-存在返回1，否则返回0"><a href="#8-6-查看key是否存在：exists-keyName-存在返回1，否则返回0" class="headerlink" title="8.6 查看key是否存在：exists keyName,存在返回1，否则返回0"></a>8.6 查看key是否存在：exists keyName,存在返回1，否则返回0</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474622298.png" alt="file"></p>
+<h4 id="8-7-移除Key-move-keyName-1"><a href="#8-7-移除Key-move-keyName-1" class="headerlink" title="8.7 移除Key: move keyName 1"></a>8.7 移除Key: move keyName 1</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474665561.png" alt="file"></p>
+<h4 id="8-8-为key设置过期时间-expire-keyName-timeout"><a href="#8-8-为key设置过期时间-expire-keyName-timeout" class="headerlink" title="8.8 为key设置过期时间: expire keyName timeout"></a>8.8 为key设置过期时间: expire keyName timeout</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474717857.png" alt="file"></p>
+<h4 id="8-9-查看key的剩余存活时间：ttl-keyName"><a href="#8-9-查看key的剩余存活时间：ttl-keyName" class="headerlink" title="8.9 查看key的剩余存活时间：ttl keyName"></a>8.9 查看key的剩余存活时间：ttl keyName</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474728589.png" alt="file"></p>
+<h4 id="8-10-查看key的类型：type-keyName"><a href="#8-10-查看key的类型：type-keyName" class="headerlink" title="8.10 查看key的类型：type keyName"></a>8.10 查看key的类型：type keyName</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632474775307.png" alt="file"></p>
+<h2 id="9-String详解"><a href="#9-String详解" class="headerlink" title="9. String详解"></a>9. String详解</h2><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632643699298.png" alt="file"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">命令                         说明                      </span><br><span class="line">-------------------------  ----------------------- </span><br><span class="line"><span class="built_in">set</span>                        设置一个key/value           </span><br><span class="line">get                        根据key获得对应的value         </span><br><span class="line">mset                       一次设置多个key value         </span><br><span class="line">mget                       一次获得多个key的value         </span><br><span class="line">getset                     获得原始key的值，同时设置新值        </span><br><span class="line">strlen                     获得对应key存储value的长度       </span><br><span class="line">append                     为对应key的value追加内容        </span><br><span class="line">getrange 索引0开始             截取value的内容              </span><br><span class="line">setex                      设置一个key存活的有效期（秒）        </span><br><span class="line">psetex                     设置一个key存活的有效期（毫秒）       </span><br><span class="line">setnx                      存在不做任何操作,不存在添加          </span><br><span class="line">msetnx原子操作(只要有一个存在不做任何操作)  可以同时设置多个key,只有有一个存在都不保存 </span><br><span class="line">decr                       进行数值类型的-1操作             </span><br><span class="line">decrby                     根据提供的数据进行减法操作           </span><br><span class="line">Incr                       进行数值类型的+1操作             </span><br><span class="line">incrby                     根据提供的数据进行加法操作           </span><br><span class="line">Incrbyfloat                根据提供的数据加入浮点数            </span><br></pre></td></tr></table></figure>
+
+<h4 id="9-1-strlen-求value的长度，append：追加"><a href="#9-1-strlen-求value的长度，append：追加" class="headerlink" title="9.1 strlen:求value的长度，append：追加"></a>9.1 strlen:求value的长度，append：追加</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475047844.png" alt="file"></p>
+<h4 id="9-2-自增-自减操作：incr-incrby-decr-decrby"><a href="#9-2-自增-自减操作：incr-incrby-decr-decrby" class="headerlink" title="9.2 自增,自减操作：incr incrby decr decrby"></a>9.2 自增,自减操作：incr incrby decr decrby</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475096207.png" alt="file"></p>
+<h4 id="9-3-字符串的范围操作：getrange-setrange"><a href="#9-3-字符串的范围操作：getrange-setrange" class="headerlink" title="9.3 字符串的范围操作：getrange,setrange"></a>9.3 字符串的范围操作：getrange,setrange</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475184254.png" alt="file"></p>
+<h4 id="9-4-设置过期时间：setex（如果存在Key则覆盖，不存在则创建），setnx-如果不存在就设置"><a href="#9-4-设置过期时间：setex（如果存在Key则覆盖，不存在则创建），setnx-如果不存在就设置" class="headerlink" title="9.4 设置过期时间：setex（如果存在Key则覆盖，不存在则创建），setnx(如果不存在就设置)"></a>9.4 设置过期时间：setex（如果存在Key则覆盖，不存在则创建），setnx(如果不存在就设置)</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475254467.png" alt="file"></p>
+<h4 id="9-5-批量设置和获取值：mset-mget-msetnx-操作为原子性，要么都成功，要么都失败"><a href="#9-5-批量设置和获取值：mset-mget-msetnx-操作为原子性，要么都成功，要么都失败" class="headerlink" title="9.5 批量设置和获取值：mset,mget, msetnx(操作为原子性，要么都成功，要么都失败)"></a>9.5 批量设置和获取值：mset,mget, msetnx(操作为原子性，要么都成功，要么都失败)</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475380084.png" alt="file"></p>
+<h4 id="9-6-存取对象"><a href="#9-6-存取对象" class="headerlink" title="9.6 存取对象"></a>9.6 存取对象</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475484205.png" alt="file"></p>
+<h4 id="9-7-组合操作：getset先获取再设置-如果不存在就返回nil"><a href="#9-7-组合操作：getset先获取再设置-如果不存在就返回nil" class="headerlink" title="9.7 组合操作：getset先获取再设置,如果不存在就返回nil"></a>9.7 组合操作：getset先获取再设置,如果不存在就返回nil</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475553716.png" alt="file"></p>
+<blockquote>
+<p>String类似的使用场景：value除了是我们的字符串还可以是我们的数字！</p>
+<ul>
+<li>计数器</li>
+<li>统计多单位的数量</li>
+<li>粉丝数</li>
+<li>对象缓存存储</li>
+</ul>
+</blockquote>
+<h2 id="10-list详解"><a href="#10-list详解" class="headerlink" title="10. list详解"></a>10. list详解</h2><p>list的命令都是l开头,list 列表 相当于java中list 集合 特点 元素有序 且 可以重复</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632643911652.png" alt="file"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">命令       说明                    </span><br><span class="line">-------  --------------------- </span><br><span class="line">lpush    将某个值加入到一个key列表头部      </span><br><span class="line">lpushx   同lpush,但是必须要保证这个key存在 </span><br><span class="line">rpush    将某个值加入到一个key列表末尾      </span><br><span class="line">rpushx   同rpush,但是必须要保证这个key存在 </span><br><span class="line">lpop     返回和移除列表左边的第一个元素       </span><br><span class="line">rpop     返回和移除列表右边的第一个元素       </span><br><span class="line">lrange   获取某一个下标区间内的元素         </span><br><span class="line">llen     获取列表元素个数              </span><br><span class="line">lset     设置某一个指定索引的值(索引必须存在)   </span><br><span class="line">lindex   获取某一个指定索引位置的元素        </span><br><span class="line">lrem     删除重复元素                </span><br><span class="line">ltrim    保留列表中特定区间内的元素         </span><br><span class="line">linsert  在某一个元素之前，之后插入新元素      </span><br></pre></td></tr></table></figure>
+
+<h4 id="10-1-左插：lpush-左删：lpop"><a href="#10-1-左插：lpush-左删：lpop" class="headerlink" title="10.1 左插：lpush,左删：lpop"></a>10.1 左插：lpush,左删：lpop</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632475948773.png" alt="file"></p>
+<h4 id="10-2-右插：rpush-右删：rpop"><a href="#10-2-右插：rpush-右删：rpop" class="headerlink" title="10.2 右插：rpush,右删：rpop"></a>10.2 右插：rpush,右删：rpop</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476072915.png" alt="file"></p>
+<h4 id="10-3-获取列表元素：lrange"><a href="#10-3-获取列表元素：lrange" class="headerlink" title="10.3 获取列表元素：lrange"></a>10.3 获取列表元素：lrange</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476697115.png" alt="file"></p>
+<h4 id="10-4-通过下标获取元素：lindex"><a href="#10-4-通过下标获取元素：lindex" class="headerlink" title="10.4 通过下标获取元素：lindex"></a>10.4 通过下标获取元素：lindex</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476474867.png" alt="file"></p>
+<h4 id="10-5-获取列表长度：llen"><a href="#10-5-获取列表长度：llen" class="headerlink" title="10.5 获取列表长度：llen"></a>10.5 获取列表长度：llen</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476522194.png" alt="file"></p>
+<h4 id="10-6-移除具体的值所在的键值对-lrem-列表-移除几个-移除的具体value"><a href="#10-6-移除具体的值所在的键值对-lrem-列表-移除几个-移除的具体value" class="headerlink" title="10.6 移除具体的值所在的键值对:lrem 列表 移除几个 移除的具体value"></a>10.6 移除具体的值所在的键值对:lrem 列表 移除几个 移除的具体value</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476605108.png" alt="file"></p>
+<h4 id="10-7-截取操作：ltrim-列表-截取的开始下标-截取的结束下标"><a href="#10-7-截取操作：ltrim-列表-截取的开始下标-截取的结束下标" class="headerlink" title="10.7 截取操作：ltrim 列表 截取的开始下标 截取的结束下标"></a>10.7 截取操作：ltrim 列表 截取的开始下标 截取的结束下标</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476724171.png" alt="file"></p>
+<h4 id="10-8-rpoplpush-移除列表中的最后一个元素并将这个元素放到一个新的列表中"><a href="#10-8-rpoplpush-移除列表中的最后一个元素并将这个元素放到一个新的列表中" class="headerlink" title="10.8 rpoplpush:移除列表中的最后一个元素并将这个元素放到一个新的列表中"></a>10.8 rpoplpush:移除列表中的最后一个元素并将这个元素放到一个新的列表中</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476771483.png" alt="file"></p>
+<h4 id="10-9-判断列表是否存在：EXISTS-list"><a href="#10-9-判断列表是否存在：EXISTS-list" class="headerlink" title="10.9 判断列表是否存在：EXISTS list"></a>10.9 判断列表是否存在：EXISTS list</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476803379.png" alt="file"></p>
+<h4 id="10-10-lset-更新列表中指定下标的元素的value-前提是该下标必须有值，否则报错"><a href="#10-10-lset-更新列表中指定下标的元素的value-前提是该下标必须有值，否则报错" class="headerlink" title="10.10 lset:更新列表中指定下标的元素的value,前提是该下标必须有值，否则报错"></a>10.10 lset:更新列表中指定下标的元素的value,前提是该下标必须有值，否则报错</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476840575.png" alt="file"></p>
+<h4 id="10-11-在列表中插入值：前插和后插：linsert"><a href="#10-11-在列表中插入值：前插和后插：linsert" class="headerlink" title="10.11 在列表中插入值：前插和后插：linsert"></a>10.11 在列表中插入值：前插和后插：linsert</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632476896464.png" alt="file"></p>
+<h2 id="11-set详解"><a href="#11-set详解" class="headerlink" title="11. set详解"></a>11. set详解</h2><p>set是无序不重复集合，set命令都是s开头 <img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632643954408.png" alt="file"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">命令           说明                        </span><br><span class="line">-----------  ------------------------- </span><br><span class="line">sadd         为集合添加元素                   </span><br><span class="line">smembers     显示集合中所有元素 无序              </span><br><span class="line">scard        返回集合中元素的个数                </span><br><span class="line">spop         随机返回一个元素 并将元素在集合中删除       </span><br><span class="line">smove        从一个集合中向另一个集合移动元素 必须是同一种类型 </span><br><span class="line">srem         从集合中删除一个元素                </span><br><span class="line">sismember    判断一个集合中是否含有这个元素           </span><br><span class="line">srandmember  随机返回元素                    </span><br><span class="line">sdiff        去掉第一个集合中其它集合含有的相同元素       </span><br><span class="line">sinter       求交集                       </span><br><span class="line">sunion       求和集                       </span><br></pre></td></tr></table></figure>
+
+<h4 id="11-1-添加：sadd"><a href="#11-1-添加：sadd" class="headerlink" title="11.1 添加：sadd"></a>11.1 添加：sadd</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477064797.png" alt="file"></p>
+<h4 id="11-2-查看所有-smembers"><a href="#11-2-查看所有-smembers" class="headerlink" title="11.2 查看所有: smembers"></a>11.2 查看所有: smembers</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477127825.png" alt="file"></p>
+<h4 id="11-3-查询set的元素个数：scard"><a href="#11-3-查询set的元素个数：scard" class="headerlink" title="11.3 查询set的元素个数：scard"></a>11.3 查询set的元素个数：scard</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477143763.png" alt="file"></p>
+<h4 id="11-4-判断set中是否存在某元素：sismember"><a href="#11-4-判断set中是否存在某元素：sismember" class="headerlink" title="11.4 判断set中是否存在某元素：sismember"></a>11.4 判断set中是否存在某元素：sismember</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477172245.png" alt="file"></p>
+<h4 id="11-5-移除某个元素：srem"><a href="#11-5-移除某个元素：srem" class="headerlink" title="11.5 移除某个元素：srem"></a>11.5 移除某个元素：srem</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477185068.png" alt="file"></p>
+<h4 id="11-6-随机抽取一个元素：SRANDMEMBER"><a href="#11-6-随机抽取一个元素：SRANDMEMBER" class="headerlink" title="11.6 随机抽取一个元素：SRANDMEMBER"></a>11.6 随机抽取一个元素：SRANDMEMBER</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477211405.png" alt="file"></p>
+<h4 id="11-7-随机移除一个元素：spop"><a href="#11-7-随机移除一个元素：spop" class="headerlink" title="11.7 随机移除一个元素：spop"></a>11.7 随机移除一个元素：spop</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477222068.png" alt="file"></p>
+<h4 id="11-8-将一个集合中的元素移动到另一个集合中：smove"><a href="#11-8-将一个集合中的元素移动到另一个集合中：smove" class="headerlink" title="11.8 将一个集合中的元素移动到另一个集合中：smove"></a>11.8 将一个集合中的元素移动到另一个集合中：smove</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477296157.png" alt="file"></p>
+<h4 id="11-9-集合之间求交并补集：sinter-sunite-sdiff"><a href="#11-9-集合之间求交并补集：sinter-sunite-sdiff" class="headerlink" title="11.9 集合之间求交并补集：sinter sunite sdiff"></a>11.9 集合之间求交并补集：sinter sunite sdiff</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477331468.png" alt="file"></p>
+<h3 id="差集sdiff"><a href="#差集sdiff" class="headerlink" title="差集sdiff"></a>差集sdiff</h3><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477435541.png" alt="file"></p>
+<h3 id="交集sinter"><a href="#交集sinter" class="headerlink" title="交集sinter"></a>交集sinter</h3><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477391019.png" alt="file"></p>
+<h3 id="并集sunion"><a href="#并集sunion" class="headerlink" title="并集sunion"></a>并集sunion</h3><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477447668.png" alt="file"></p>
+<h2 id="12-hash详解"><a href="#12-hash详解" class="headerlink" title="12. hash详解"></a>12. hash详解</h2><p>hash的形式：key filed vlaue,相当于java中的map集合 hash命令都是h开头</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632643989267.png" alt="file"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">命令            说明              </span><br><span class="line">------------  --------------- </span><br><span class="line">hset          设置一个key/value对  </span><br><span class="line">hget          获得一个key对应的value </span><br><span class="line">hgetall       获得所有的key/value对 </span><br><span class="line">hdel          删除某一个key/value对 </span><br><span class="line">hexists       判断一个key是否存在     </span><br><span class="line">hkeys         获得所有的key        </span><br><span class="line">hvals         获得所有的value      </span><br><span class="line">hmset         设置多个key/value   </span><br><span class="line">hmget         获得多个key的value   </span><br><span class="line">hsetnx        设置一个不存在的key的值   </span><br><span class="line">hincrby       为value进行加法运算    </span><br><span class="line">hincrbyfloat  为value加入浮点值     </span><br></pre></td></tr></table></figure>
+
+<h4 id="12-1-向hash中添加值：hset"><a href="#12-1-向hash中添加值：hset" class="headerlink" title="12.1 向hash中添加值：hset"></a>12.1 向hash中添加值：hset</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477692339.png" alt="file"></p>
+<h4 id="12-2-得到hash中的指定filed的值：hget"><a href="#12-2-得到hash中的指定filed的值：hget" class="headerlink" title="12.2 得到hash中的指定filed的值：hget"></a>12.2 得到hash中的指定filed的值：hget</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477703371.png" alt="file"></p>
+<h4 id="12-3-得到hash中的所有值-hgetall"><a href="#12-3-得到hash中的所有值-hgetall" class="headerlink" title="12.3 得到hash中的所有值:hgetall"></a>12.3 得到hash中的所有值:hgetall</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477745829.png" alt="file"></p>
+<h4 id="12-4-批量添加和获取：hmset-hmget"><a href="#12-4-批量添加和获取：hmset-hmget" class="headerlink" title="12.4 批量添加和获取：hmset hmget"></a>12.4 批量添加和获取：hmset hmget</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477816044.png" alt="file"></p>
+<h4 id="12-5-删除指定的字段：hdel"><a href="#12-5-删除指定的字段：hdel" class="headerlink" title="12.5 删除指定的字段：hdel"></a>12.5 删除指定的字段：hdel</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477844890.png" alt="file"></p>
+<h4 id="12-6-获取hash的字段长度：hlen"><a href="#12-6-获取hash的字段长度：hlen" class="headerlink" title="12.6 获取hash的字段长度：hlen"></a>12.6 获取hash的字段长度：hlen</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477866011.png" alt="file"></p>
+<h4 id="12-7-判断hash中的字段是否存在：hexist"><a href="#12-7-判断hash中的字段是否存在：hexist" class="headerlink" title="12.7 判断hash中的字段是否存在：hexist"></a>12.7 判断hash中的字段是否存在：hexist</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477881187.png" alt="file"></p>
+<h4 id="12-8-获取所有的key-字段-hkeys-获取所有的value：hvals"><a href="#12-8-获取所有的key-字段-hkeys-获取所有的value：hvals" class="headerlink" title="12.8 获取所有的key(字段)hkeys,获取所有的value：hvals"></a>12.8 获取所有的key(字段)hkeys,获取所有的value：hvals</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477896459.png" alt="file"></p>
+<h4 id="12-9-指定增量：hincrby"><a href="#12-9-指定增量：hincrby" class="headerlink" title="12.9 指定增量：hincrby"></a>12.9 指定增量：hincrby</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632477919981.png" alt="file"></p>
+<p><strong>hash变更的数据 user name age,尤其是是用户信息之类的，经常变动的信息！ hash 更适合于对象的存储，String更加适合字符串存储！</strong></p>
+<h2 id="13-Zset详解"><a href="#13-Zset详解" class="headerlink" title="13. Zset详解"></a>13. Zset详解</h2><p>zset是有序不可重复的集合,zset命令都是z开头 <img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644102803.png" alt="file"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">命令                      说明             </span><br><span class="line">----------------------  -------------- </span><br><span class="line">zadd                    添加一个有序集合元素     </span><br><span class="line">zcard                   返回集合的元素个数      </span><br><span class="line">zrange 升序 zrevrange 降序  返回一个范围内的元素     </span><br><span class="line">zrangebyscore           按照分数查找一个范围内的元素 </span><br><span class="line">zrank                   返回排名           </span><br><span class="line">zrevrank                倒序排名           </span><br><span class="line">zscore                  显示某一个元素的分数     </span><br><span class="line">zrem                    移除某一个元素        </span><br><span class="line">zincrby                 给某个特定元素加分      </span><br></pre></td></tr></table></figure>
+
+<h4 id="13-1-添加数据：zadd"><a href="#13-1-添加数据：zadd" class="headerlink" title="13.1 添加数据：zadd"></a>13.1 添加数据：zadd</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478034715.png" alt="file"></p>
+<h4 id="13-2-获取所有值-按照索引获取：zrange"><a href="#13-2-获取所有值-按照索引获取：zrange" class="headerlink" title="13.2 获取所有值,按照索引获取：zrange"></a>13.2 获取所有值,按照索引获取：zrange</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478071159.png" alt="file"></p>
+<h4 id="13-3-获取所有值，按照score获取：zrangebyscore"><a href="#13-3-获取所有值，按照score获取：zrangebyscore" class="headerlink" title="13.3 获取所有值，按照score获取：zrangebyscore"></a>13.3 获取所有值，按照score获取：zrangebyscore</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478107108.png" alt="file"></p>
+<h4 id="13-4-移除元素：zrem"><a href="#13-4-移除元素：zrem" class="headerlink" title="13.4 移除元素：zrem"></a>13.4 移除元素：zrem</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478230841.png" alt="file"></p>
+<h4 id="13-5-得到元素的个数-zcard"><a href="#13-5-得到元素的个数-zcard" class="headerlink" title="13.5 得到元素的个数:zcard"></a>13.5 得到元素的个数:zcard</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478172600.png" alt="file"></p>
+<h4 id="13-6-获取指定区间的成员数量：zcount"><a href="#13-6-获取指定区间的成员数量：zcount" class="headerlink" title="13.6 获取指定区间的成员数量：zcount"></a>13.6 获取指定区间的成员数量：zcount</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632478326343.png" alt="file"></p>
+<p><strong>ZSET 官方 可排序SET sortSet</strong></p>
+<h2 id="14-geospatial"><a href="#14-geospatial" class="headerlink" title="14. geospatial"></a>14. geospatial</h2><h2 id="15-bitmaps"><a href="#15-bitmaps" class="headerlink" title="15. bitmaps"></a>15. bitmaps</h2><p><strong>bitmap即位存储，适用于只有两面性的内容。如：可以用bitmap存储用户是否登录，是否注册，是否打卡等等。bitmap的值只有0和1两个值。</strong></p>
+<h4 id="15-1-存储数据：setbit"><a href="#15-1-存储数据：setbit" class="headerlink" title="15.1 存储数据：setbit"></a>15.1 存储数据：setbit</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644429996.png" alt="file"></p>
+<h4 id="15-2-获取指定下标的值：getbit"><a href="#15-2-获取指定下标的值：getbit" class="headerlink" title="15.2 获取指定下标的值：getbit"></a>15.2 获取指定下标的值：getbit</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644452415.png" alt="file"></p>
+<h4 id="15-3-统计bitmap中1的位数：bitcount"><a href="#15-3-统计bitmap中1的位数：bitcount" class="headerlink" title="15.3 统计bitmap中1的位数：bitcount"></a>15.3 统计bitmap中1的位数：bitcount</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644484448.png" alt="file"></p>
+<h2 id="16-hyperloglogs"><a href="#16-hyperloglogs" class="headerlink" title="16. hyperloglogs"></a>16. hyperloglogs</h2><p><strong>用于统计基数（即不重复的数据）,可以用于统计网页访问量</strong></p>
+<h4 id="16-1-添加：pfadd"><a href="#16-1-添加：pfadd" class="headerlink" title="16.1 添加：pfadd"></a>16.1 添加：pfadd</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644672064.png" alt="file"></p>
+<h4 id="16-2-计数：pfcount"><a href="#16-2-计数：pfcount" class="headerlink" title="16.2 计数：pfcount"></a>16.2 计数：pfcount</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644689711.png" alt="file"></p>
+<h4 id="16-3-合并：pfmerge"><a href="#16-3-合并：pfmerge" class="headerlink" title="16.3 合并：pfmerge"></a>16.3 合并：pfmerge</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1632644719576.png" alt="file"></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/09/24/redisleixing/">https://blog.jujimeizuo.cn/2021/09/24/redisleixing/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-NoSQL"><span class="toc-number">1.</span> <span class="toc-text">1. NoSQL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E5%8D%95%E6%9C%BAMysql%E6%97%B6%E4%BB%A3"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.1 单机Mysql时代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-Memcached-%E7%BC%93%E5%AD%98-Mysql-%E5%9E%82%E7%9B%B4%E6%8B%86%E5%88%86%EF%BC%88%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%EF%BC%89"><span class="toc-number">1.0.2.</span> <span class="toc-text">1.2 Memcached(缓存) + Mysql + 垂直拆分（读写分离）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8-%E6%B0%B4%E5%B9%B3%E6%8B%86%E5%88%86-Mysql%E9%9B%86%E7%BE%A4"><span class="toc-number">1.0.3.</span> <span class="toc-text">1.3 分库分表 + 水平拆分 + Mysql集群</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-%E5%A6%82%E4%BB%8A%E6%9C%80%E8%BF%91%E7%9A%84%E5%B9%B4%E4%BB%A3"><span class="toc-number">1.0.4.</span> <span class="toc-text">1.4 如今最近的年代</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AFNoSQL"><span class="toc-number">2.</span> <span class="toc-text">2. 为什么是NoSQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-NoSQL%E7%9A%84%E5%9B%9B%E5%A4%A7%E5%88%86%E7%B1%BB"><span class="toc-number">3.</span> <span class="toc-text">3. NoSQL的四大分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E9%94%AE%E5%80%BC-Key-Value-%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.0.1.</span> <span class="toc-text">3.1 键值(Key-Value)存储数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E5%88%97%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.0.2.</span> <span class="toc-text">3.2 列存储数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E6%96%87%E6%A1%A3%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.0.3.</span> <span class="toc-text">3.3 文档型数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-%E5%9B%BE%E5%BD%A2-Graph-%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">3.0.4.</span> <span class="toc-text">3.4 图形(Graph)数据库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-NoSQL%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">4.</span> <span class="toc-text">4. NoSQL应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BB%80%E4%B9%88%E6%98%AFRedis"><span class="toc-number">5.</span> <span class="toc-text">5. 什么是Redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Redis%E7%89%B9%E7%82%B9"><span class="toc-number">6.</span> <span class="toc-text">6. Redis特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Ridis%E5%AE%89%E8%A3%85"><span class="toc-number">7.</span> <span class="toc-text">7. Ridis安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-redis%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">8.</span> <span class="toc-text">8. redis常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-1-set-get%E5%91%BD%E4%BB%A4%EF%BC%8C%E5%AD%98%E5%80%BC%EF%BC%8C%E5%8F%96%E5%80%BC"><span class="toc-number">8.0.1.</span> <span class="toc-text">8.1 set get命令，存值，取值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-%E5%88%87%E6%8D%A2%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%8Credis%E9%BB%98%E8%AE%A4%E6%9C%8916%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%8C%E9%BB%98%E8%AE%A4%E4%BD%BF%E7%94%A80%E5%8F%B7%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%8C%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87select%E5%88%87%E6%8D%A2"><span class="toc-number">8.0.2.</span> <span class="toc-text">8.2 切换数据库，redis默认有16个数据库，默认使用0号数据库，可以通过select切换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-%E6%B8%85%E7%A9%BA%E5%BD%93%E5%89%8D%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9Aflushdb-%E6%B8%85%E7%A9%BA%E6%89%80%E6%9C%89%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9Aflushall"><span class="toc-number">8.0.3.</span> <span class="toc-text">8.3 清空当前数据库：flushdb,清空所有数据库：flushall</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-4-%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89key-keys"><span class="toc-number">8.0.4.</span> <span class="toc-text">8.4 查询所有key: keys*</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-5-%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%A7%E5%B0%8F%EF%BC%9Adbsize"><span class="toc-number">8.0.5.</span> <span class="toc-text">8.5 查询数据库的大小：dbsize</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-6-%E6%9F%A5%E7%9C%8Bkey%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%EF%BC%9Aexists-keyName-%E5%AD%98%E5%9C%A8%E8%BF%94%E5%9B%9E1%EF%BC%8C%E5%90%A6%E5%88%99%E8%BF%94%E5%9B%9E0"><span class="toc-number">8.0.6.</span> <span class="toc-text">8.6 查看key是否存在：exists keyName,存在返回1，否则返回0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-7-%E7%A7%BB%E9%99%A4Key-move-keyName-1"><span class="toc-number">8.0.7.</span> <span class="toc-text">8.7 移除Key: move keyName 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-8-%E4%B8%BAkey%E8%AE%BE%E7%BD%AE%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4-expire-keyName-timeout"><span class="toc-number">8.0.8.</span> <span class="toc-text">8.8 为key设置过期时间: expire keyName timeout</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-9-%E6%9F%A5%E7%9C%8Bkey%E7%9A%84%E5%89%A9%E4%BD%99%E5%AD%98%E6%B4%BB%E6%97%B6%E9%97%B4%EF%BC%9Attl-keyName"><span class="toc-number">8.0.9.</span> <span class="toc-text">8.9 查看key的剩余存活时间：ttl keyName</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-10-%E6%9F%A5%E7%9C%8Bkey%E7%9A%84%E7%B1%BB%E5%9E%8B%EF%BC%9Atype-keyName"><span class="toc-number">8.0.10.</span> <span class="toc-text">8.10 查看key的类型：type keyName</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-String%E8%AF%A6%E8%A7%A3"><span class="toc-number">9.</span> <span class="toc-text">9. String详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-1-strlen-%E6%B1%82value%E7%9A%84%E9%95%BF%E5%BA%A6%EF%BC%8Cappend%EF%BC%9A%E8%BF%BD%E5%8A%A0"><span class="toc-number">9.0.1.</span> <span class="toc-text">9.1 strlen:求value的长度，append：追加</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-2-%E8%87%AA%E5%A2%9E-%E8%87%AA%E5%87%8F%E6%93%8D%E4%BD%9C%EF%BC%9Aincr-incrby-decr-decrby"><span class="toc-number">9.0.2.</span> <span class="toc-text">9.2 自增,自减操作：incr incrby decr decrby</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%8C%83%E5%9B%B4%E6%93%8D%E4%BD%9C%EF%BC%9Agetrange-setrange"><span class="toc-number">9.0.3.</span> <span class="toc-text">9.3 字符串的范围操作：getrange,setrange</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-4-%E8%AE%BE%E7%BD%AE%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%EF%BC%9Asetex%EF%BC%88%E5%A6%82%E6%9E%9C%E5%AD%98%E5%9C%A8Key%E5%88%99%E8%A6%86%E7%9B%96%EF%BC%8C%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%88%99%E5%88%9B%E5%BB%BA%EF%BC%89%EF%BC%8Csetnx-%E5%A6%82%E6%9E%9C%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%B0%B1%E8%AE%BE%E7%BD%AE"><span class="toc-number">9.0.4.</span> <span class="toc-text">9.4 设置过期时间：setex（如果存在Key则覆盖，不存在则创建），setnx(如果不存在就设置)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-5-%E6%89%B9%E9%87%8F%E8%AE%BE%E7%BD%AE%E5%92%8C%E8%8E%B7%E5%8F%96%E5%80%BC%EF%BC%9Amset-mget-msetnx-%E6%93%8D%E4%BD%9C%E4%B8%BA%E5%8E%9F%E5%AD%90%E6%80%A7%EF%BC%8C%E8%A6%81%E4%B9%88%E9%83%BD%E6%88%90%E5%8A%9F%EF%BC%8C%E8%A6%81%E4%B9%88%E9%83%BD%E5%A4%B1%E8%B4%A5"><span class="toc-number">9.0.5.</span> <span class="toc-text">9.5 批量设置和获取值：mset,mget, msetnx(操作为原子性，要么都成功，要么都失败)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-6-%E5%AD%98%E5%8F%96%E5%AF%B9%E8%B1%A1"><span class="toc-number">9.0.6.</span> <span class="toc-text">9.6 存取对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-7-%E7%BB%84%E5%90%88%E6%93%8D%E4%BD%9C%EF%BC%9Agetset%E5%85%88%E8%8E%B7%E5%8F%96%E5%86%8D%E8%AE%BE%E7%BD%AE-%E5%A6%82%E6%9E%9C%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%B0%B1%E8%BF%94%E5%9B%9Enil"><span class="toc-number">9.0.7.</span> <span class="toc-text">9.7 组合操作：getset先获取再设置,如果不存在就返回nil</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-list%E8%AF%A6%E8%A7%A3"><span class="toc-number">10.</span> <span class="toc-text">10. list详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10-1-%E5%B7%A6%E6%8F%92%EF%BC%9Alpush-%E5%B7%A6%E5%88%A0%EF%BC%9Alpop"><span class="toc-number">10.0.1.</span> <span class="toc-text">10.1 左插：lpush,左删：lpop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-2-%E5%8F%B3%E6%8F%92%EF%BC%9Arpush-%E5%8F%B3%E5%88%A0%EF%BC%9Arpop"><span class="toc-number">10.0.2.</span> <span class="toc-text">10.2 右插：rpush,右删：rpop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-3-%E8%8E%B7%E5%8F%96%E5%88%97%E8%A1%A8%E5%85%83%E7%B4%A0%EF%BC%9Alrange"><span class="toc-number">10.0.3.</span> <span class="toc-text">10.3 获取列表元素：lrange</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-4-%E9%80%9A%E8%BF%87%E4%B8%8B%E6%A0%87%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%EF%BC%9Alindex"><span class="toc-number">10.0.4.</span> <span class="toc-text">10.4 通过下标获取元素：lindex</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-5-%E8%8E%B7%E5%8F%96%E5%88%97%E8%A1%A8%E9%95%BF%E5%BA%A6%EF%BC%9Allen"><span class="toc-number">10.0.5.</span> <span class="toc-text">10.5 获取列表长度：llen</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-6-%E7%A7%BB%E9%99%A4%E5%85%B7%E4%BD%93%E7%9A%84%E5%80%BC%E6%89%80%E5%9C%A8%E7%9A%84%E9%94%AE%E5%80%BC%E5%AF%B9-lrem-%E5%88%97%E8%A1%A8-%E7%A7%BB%E9%99%A4%E5%87%A0%E4%B8%AA-%E7%A7%BB%E9%99%A4%E7%9A%84%E5%85%B7%E4%BD%93value"><span class="toc-number">10.0.6.</span> <span class="toc-text">10.6 移除具体的值所在的键值对:lrem 列表 移除几个 移除的具体value</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-7-%E6%88%AA%E5%8F%96%E6%93%8D%E4%BD%9C%EF%BC%9Altrim-%E5%88%97%E8%A1%A8-%E6%88%AA%E5%8F%96%E7%9A%84%E5%BC%80%E5%A7%8B%E4%B8%8B%E6%A0%87-%E6%88%AA%E5%8F%96%E7%9A%84%E7%BB%93%E6%9D%9F%E4%B8%8B%E6%A0%87"><span class="toc-number">10.0.7.</span> <span class="toc-text">10.7 截取操作：ltrim 列表 截取的开始下标 截取的结束下标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-8-rpoplpush-%E7%A7%BB%E9%99%A4%E5%88%97%E8%A1%A8%E4%B8%AD%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E5%B9%B6%E5%B0%86%E8%BF%99%E4%B8%AA%E5%85%83%E7%B4%A0%E6%94%BE%E5%88%B0%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%88%97%E8%A1%A8%E4%B8%AD"><span class="toc-number">10.0.8.</span> <span class="toc-text">10.8 rpoplpush:移除列表中的最后一个元素并将这个元素放到一个新的列表中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-9-%E5%88%A4%E6%96%AD%E5%88%97%E8%A1%A8%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%EF%BC%9AEXISTS-list"><span class="toc-number">10.0.9.</span> <span class="toc-text">10.9 判断列表是否存在：EXISTS list</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-10-lset-%E6%9B%B4%E6%96%B0%E5%88%97%E8%A1%A8%E4%B8%AD%E6%8C%87%E5%AE%9A%E4%B8%8B%E6%A0%87%E7%9A%84%E5%85%83%E7%B4%A0%E7%9A%84value-%E5%89%8D%E6%8F%90%E6%98%AF%E8%AF%A5%E4%B8%8B%E6%A0%87%E5%BF%85%E9%A1%BB%E6%9C%89%E5%80%BC%EF%BC%8C%E5%90%A6%E5%88%99%E6%8A%A5%E9%94%99"><span class="toc-number">10.0.10.</span> <span class="toc-text">10.10 lset:更新列表中指定下标的元素的value,前提是该下标必须有值，否则报错</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-11-%E5%9C%A8%E5%88%97%E8%A1%A8%E4%B8%AD%E6%8F%92%E5%85%A5%E5%80%BC%EF%BC%9A%E5%89%8D%E6%8F%92%E5%92%8C%E5%90%8E%E6%8F%92%EF%BC%9Alinsert"><span class="toc-number">10.0.11.</span> <span class="toc-text">10.11 在列表中插入值：前插和后插：linsert</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-set%E8%AF%A6%E8%A7%A3"><span class="toc-number">11.</span> <span class="toc-text">11. set详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-1-%E6%B7%BB%E5%8A%A0%EF%BC%9Asadd"><span class="toc-number">11.0.1.</span> <span class="toc-text">11.1 添加：sadd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-2-%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89-smembers"><span class="toc-number">11.0.2.</span> <span class="toc-text">11.2 查看所有: smembers</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-3-%E6%9F%A5%E8%AF%A2set%E7%9A%84%E5%85%83%E7%B4%A0%E4%B8%AA%E6%95%B0%EF%BC%9Ascard"><span class="toc-number">11.0.3.</span> <span class="toc-text">11.3 查询set的元素个数：scard</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-4-%E5%88%A4%E6%96%ADset%E4%B8%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E6%9F%90%E5%85%83%E7%B4%A0%EF%BC%9Asismember"><span class="toc-number">11.0.4.</span> <span class="toc-text">11.4 判断set中是否存在某元素：sismember</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-5-%E7%A7%BB%E9%99%A4%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0%EF%BC%9Asrem"><span class="toc-number">11.0.5.</span> <span class="toc-text">11.5 移除某个元素：srem</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-6-%E9%9A%8F%E6%9C%BA%E6%8A%BD%E5%8F%96%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%EF%BC%9ASRANDMEMBER"><span class="toc-number">11.0.6.</span> <span class="toc-text">11.6 随机抽取一个元素：SRANDMEMBER</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-7-%E9%9A%8F%E6%9C%BA%E7%A7%BB%E9%99%A4%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%EF%BC%9Aspop"><span class="toc-number">11.0.7.</span> <span class="toc-text">11.7 随机移除一个元素：spop</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-8-%E5%B0%86%E4%B8%80%E4%B8%AA%E9%9B%86%E5%90%88%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E7%A7%BB%E5%8A%A8%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E9%9B%86%E5%90%88%E4%B8%AD%EF%BC%9Asmove"><span class="toc-number">11.0.8.</span> <span class="toc-text">11.8 将一个集合中的元素移动到另一个集合中：smove</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-9-%E9%9B%86%E5%90%88%E4%B9%8B%E9%97%B4%E6%B1%82%E4%BA%A4%E5%B9%B6%E8%A1%A5%E9%9B%86%EF%BC%9Asinter-sunite-sdiff"><span class="toc-number">11.0.9.</span> <span class="toc-text">11.9 集合之间求交并补集：sinter sunite sdiff</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%AE%E9%9B%86sdiff"><span class="toc-number">11.1.</span> <span class="toc-text">差集sdiff</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%A4%E9%9B%86sinter"><span class="toc-number">11.2.</span> <span class="toc-text">交集sinter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B6%E9%9B%86sunion"><span class="toc-number">11.3.</span> <span class="toc-text">并集sunion</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-hash%E8%AF%A6%E8%A7%A3"><span class="toc-number">12.</span> <span class="toc-text">12. hash详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#12-1-%E5%90%91hash%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%80%BC%EF%BC%9Ahset"><span class="toc-number">12.0.1.</span> <span class="toc-text">12.1 向hash中添加值：hset</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-2-%E5%BE%97%E5%88%B0hash%E4%B8%AD%E7%9A%84%E6%8C%87%E5%AE%9Afiled%E7%9A%84%E5%80%BC%EF%BC%9Ahget"><span class="toc-number">12.0.2.</span> <span class="toc-text">12.2 得到hash中的指定filed的值：hget</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-3-%E5%BE%97%E5%88%B0hash%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%80%BC-hgetall"><span class="toc-number">12.0.3.</span> <span class="toc-text">12.3 得到hash中的所有值:hgetall</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-4-%E6%89%B9%E9%87%8F%E6%B7%BB%E5%8A%A0%E5%92%8C%E8%8E%B7%E5%8F%96%EF%BC%9Ahmset-hmget"><span class="toc-number">12.0.4.</span> <span class="toc-text">12.4 批量添加和获取：hmset hmget</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-5-%E5%88%A0%E9%99%A4%E6%8C%87%E5%AE%9A%E7%9A%84%E5%AD%97%E6%AE%B5%EF%BC%9Ahdel"><span class="toc-number">12.0.5.</span> <span class="toc-text">12.5 删除指定的字段：hdel</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-6-%E8%8E%B7%E5%8F%96hash%E7%9A%84%E5%AD%97%E6%AE%B5%E9%95%BF%E5%BA%A6%EF%BC%9Ahlen"><span class="toc-number">12.0.6.</span> <span class="toc-text">12.6 获取hash的字段长度：hlen</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-7-%E5%88%A4%E6%96%ADhash%E4%B8%AD%E7%9A%84%E5%AD%97%E6%AE%B5%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%EF%BC%9Ahexist"><span class="toc-number">12.0.7.</span> <span class="toc-text">12.7 判断hash中的字段是否存在：hexist</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-8-%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E7%9A%84key-%E5%AD%97%E6%AE%B5-hkeys-%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E7%9A%84value%EF%BC%9Ahvals"><span class="toc-number">12.0.8.</span> <span class="toc-text">12.8 获取所有的key(字段)hkeys,获取所有的value：hvals</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-9-%E6%8C%87%E5%AE%9A%E5%A2%9E%E9%87%8F%EF%BC%9Ahincrby"><span class="toc-number">12.0.9.</span> <span class="toc-text">12.9 指定增量：hincrby</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-Zset%E8%AF%A6%E8%A7%A3"><span class="toc-number">13.</span> <span class="toc-text">13. Zset详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#13-1-%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%EF%BC%9Azadd"><span class="toc-number">13.0.1.</span> <span class="toc-text">13.1 添加数据：zadd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-2-%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%80%BC-%E6%8C%89%E7%85%A7%E7%B4%A2%E5%BC%95%E8%8E%B7%E5%8F%96%EF%BC%9Azrange"><span class="toc-number">13.0.2.</span> <span class="toc-text">13.2 获取所有值,按照索引获取：zrange</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-3-%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%80%BC%EF%BC%8C%E6%8C%89%E7%85%A7score%E8%8E%B7%E5%8F%96%EF%BC%9Azrangebyscore"><span class="toc-number">13.0.3.</span> <span class="toc-text">13.3 获取所有值，按照score获取：zrangebyscore</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-4-%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0%EF%BC%9Azrem"><span class="toc-number">13.0.4.</span> <span class="toc-text">13.4 移除元素：zrem</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-5-%E5%BE%97%E5%88%B0%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%AA%E6%95%B0-zcard"><span class="toc-number">13.0.5.</span> <span class="toc-text">13.5 得到元素的个数:zcard</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-6-%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E7%9A%84%E6%88%90%E5%91%98%E6%95%B0%E9%87%8F%EF%BC%9Azcount"><span class="toc-number">13.0.6.</span> <span class="toc-text">13.6 获取指定区间的成员数量：zcount</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-geospatial"><span class="toc-number">14.</span> <span class="toc-text">14. geospatial</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-bitmaps"><span class="toc-number">15.</span> <span class="toc-text">15. bitmaps</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-1-%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%EF%BC%9Asetbit"><span class="toc-number">15.0.1.</span> <span class="toc-text">15.1 存储数据：setbit</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-2-%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E4%B8%8B%E6%A0%87%E7%9A%84%E5%80%BC%EF%BC%9Agetbit"><span class="toc-number">15.0.2.</span> <span class="toc-text">15.2 获取指定下标的值：getbit</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-3-%E7%BB%9F%E8%AE%A1bitmap%E4%B8%AD1%E7%9A%84%E4%BD%8D%E6%95%B0%EF%BC%9Abitcount"><span class="toc-number">15.0.3.</span> <span class="toc-text">15.3 统计bitmap中1的位数：bitcount</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-hyperloglogs"><span class="toc-number">16.</span> <span class="toc-text">16. hyperloglogs</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#16-1-%E6%B7%BB%E5%8A%A0%EF%BC%9Apfadd"><span class="toc-number">16.0.1.</span> <span class="toc-text">16.1 添加：pfadd</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-2-%E8%AE%A1%E6%95%B0%EF%BC%9Apfcount"><span class="toc-number">16.0.2.</span> <span class="toc-text">16.2 计数：pfcount</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-3-%E5%90%88%E5%B9%B6%EF%BC%9Apfmerge"><span class="toc-number">16.0.3.</span> <span class="toc-text">16.3 合并：pfmerge</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&text=rediss-数据类型"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&title=rediss-数据类型"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&is_video=false&description=rediss-数据类型"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=rediss-数据类型&body=Check out this article: https://blog.jujimeizuo.cn/2021/09/24/redisleixing/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&title=rediss-数据类型"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&title=rediss-数据类型"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&title=rediss-数据类型"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&title=rediss-数据类型"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&name=rediss-数据类型&description=&lt;h2 id=&#34;1-NoSQL&#34;&gt;&lt;a href=&#34;#1-NoSQL&#34; class=&#34;headerlink&#34; title=&#34;1. NoSQL&#34;&gt;&lt;/a&gt;1. NoSQL&lt;/h2&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/09/24/redisleixing/&t=rediss-数据类型"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

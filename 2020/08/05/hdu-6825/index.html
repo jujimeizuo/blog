@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="题目链接：http:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;6825 题意You are given a set S&#x3D;{1..n}. It guarantees that n is odd. You have to do the following operations until there is only 1 element in the set:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【2020年杭电暑假第五场】6825 Set1">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="题目链接：http:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;6825 题意You are given a set S&#x3D;{1..n}. It guarantees that n is odd. You have to do the following operations until there is only 1 element in the set:">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-05T13:38:53.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.715Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>【2020年杭电暑假第五场】6825 Set1</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/08/06/hdu-6827/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/08/05/hdu-6814/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&text=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&title=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&is_video=false&description=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【2020年杭电暑假第五场】6825 Set1&body=Check out this article: https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&title=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&title=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&title=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&title=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&name=【2020年杭电暑假第五场】6825 Set1&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&t=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6-%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="toc-number">2.0.1.</span> <span class="toc-text">方法一：组合数学+数学推导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9Adp"><span class="toc-number">2.0.2.</span> <span class="toc-text">方法二：dp</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-3026MS"><span class="toc-number">3.</span> <span class="toc-text">Code(3026MS)</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        【2020年杭电暑假第五场】6825 Set1
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-08-05T13:38:53.000Z" class="dt-published" itemprop="datePublished">2020-08-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/ACM/" rel="tag">ACM</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>题目链接：<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=6825">http://acm.hdu.edu.cn/showproblem.php?pid=6825</a></p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>You are given a set S&#x3D;{1..n}. It guarantees that n is odd. You have to do the following operations until there is only 1 element in the set:</p>
+<p>Firstly, delete the smallest element of S. Then randomly delete another element from S.</p>
+<p>For each i∈[1,n], determine the probability of i being left in the S.</p>
+<p>It can be shown that the answers can be represented by PQ, where P and Q are coprime integers, and print the value of P×Q−1 mod 998244353.</p>
+<p>Input The first line containing the only integer T(T∈[1,40]) denoting the number of test cases.</p>
+<p>For each test case:</p>
+<p>The first line contains a integer n .</p>
+<p>It guarantees that: ∑n∈[1,5×106].</p>
+<p>Output For each test case, you should output n integers, i-th of them means the probability of i being left in the S.</p>
+<p>Sample Input 1 3</p>
+<p>Sample Output 0 499122177 499122177</p>
+<p>给出一个$n$，有$[1,n]$中$n$个数。 每次有如下操作：先删去最小的元素，再随机删掉一个元素。 求每个数留下来的概率期望。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h4 id="方法一：组合数学-数学推导"><a href="#方法一：组合数学-数学推导" class="headerlink" title="方法一：组合数学+数学推导"></a>方法一：组合数学+数学推导</h4><p>考虑元素$i$留下来的方案数，那么他前面有$i-1$个数，后面有$n-i$个数。 我们易得当$n-i\geq i-1$时，i才会被留下来，即$i\leq\frac{n}{2}$时都是$0$，往后才有值。所以我们可以直接输出前$\frac{n}{2}$个$0$。</p>
+<p>然后在处理后面的数字。 我们设每次删除最小元素为操作一，随机删除元素为操作二。 即$i$后面的$n-i$个数一定是操作二删除的，所以第一步，我们让后面$n-i$个数与前面$i-1$中的$n-i$个一一对应删除就行。（在$i-1$中选$n-i$个数出来在给他排序） 设第$i$个数被留下来的方案数为$cnt[i]$，则 $$cnt[i] &#x3D; C_{i-1}^{n-i}*A_{n-i}^{n-i} &#x3D; \frac{(i-1)!}{(2i-n-1)!}$$</p>
+<p>然后在考虑剩下的$(i-1)-(n-i)&#x3D;(2i-n-1)$个数，根据前面，在其中选择两两删除。 $(2i-n-1)$两两选择有$$C_{2i-n-1}^2*C_{2i-n-3}^2…C_4^2*C_2^2$$ $$\frac{(2i-n-1)!}{2!*(2i-n-3)!}*\frac{(2i-n-3)!}{2!*(2i-n-5)!}*…*\frac{2!}{2!*0!}$$ $$\frac{(2i-n-1)!}{(2!)^{\frac{2i-n-1}{2}}}$$</p>
+<p>到这里还没有结束，然后我想了好久，是我太捞了。 比如$[1,6]$，我们选择的时候会重复选择多次，比如 $(1,2)(3,4)(5,6)$ $(1,2)(5,6)(3,4)$ $(3,4)(1,2)(5,6)$ $(3,4)(5,6)(1,2)$ $(5,6)(1,2)(3,4)$ $(5,6)(3,4)(1,2)$ 这些都是上面包括的情况，因为选的先后次序不同，所以会出现重复的情况，一共出现相同的组合$(\frac{n}{2})!$，所以我们要在上面的基础上再除以$(\frac{2i-n-1}{2})!$ 那么剩下数$(2i-n-1)$中两两选择的方案数为 $$\frac{(2i-n-1)!}{(2!)^{\frac{2i-n-1}{2}}*(\frac{2i-n-1}{2})!}$$ 最后整合上述所有情况，第$i$个数被留下的总方案数为 $$cnt[i] &#x3D; \frac{(i-1)!}{(2i-n-1)!}*\frac{(2i-n-1)!}{(2!)^{\frac{2i-n-1}{2}}*(\frac{2i-n-1}{2})!}$$ 化简得 $$cnt[i] &#x3D; \frac{(i-1)!}{(2!)^{\frac{2i-n-1}{2}}*(\frac{2i-n-1}{2})!}$$</p>
+<p>总方案数为$sum&#x3D;\sum_{i&#x3D;1}^ncnt[i]$ 第$i$个数被留下的概率期望为$p[[i]&#x3D;\frac{cnt[i]}{sum}$ 时间复杂度为$O(n)$</p>
+<p>事先预处理所有的阶乘和阶乘逆元。</p>
+<h4 id="方法二：dp"><a href="#方法二：dp" class="headerlink" title="方法二：dp"></a>方法二：dp</h4><p>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/luyouqi233/p/13434815.html">https://www.cnblogs.com/luyouqi233/p/13434815.html</a> dp方法我也不太会，哭了。</p>
+<h2 id="Code-3026MS"><a href="#Code-3026MS" class="headerlink" title="Code(3026MS)"></a>Code(3026MS)</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> ld;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; pdd;</span><br><span class="line"></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> INF 0x7f7f7f</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> mem(a, b) memset(a , b , sizeof(a))</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> FOR(i, x, n) for(int i = x;i &lt;= n; i++)</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> ll mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="comment">// const int maxn = 1e5 + 10;</span></span><br><span class="line"><span class="comment">// const double eps = 1e-6;</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">5e6</span> + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">ll F[N];</span><br><span class="line">ll invn[N];</span><br><span class="line">ll invF[N];</span><br><span class="line">ll cnt[N];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">quick_pow</span><span class="params">(ll a, ll b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>) ans = ans * a % mod;</span><br><span class="line">        a = a * a % mod;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    F[<span class="number">0</span>] = F[<span class="number">1</span>] = invn[<span class="number">0</span>] = invn[<span class="number">1</span>] = invF[<span class="number">0</span>] = invF[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>;i &lt; N; i++)&#123;</span><br><span class="line">        F[i] = F[i - <span class="number">1</span>] * i % mod;</span><br><span class="line">        invn[i] = (mod - mod / i) * invn[mod % i] % mod;</span><br><span class="line">        invF[i] = invF[i - <span class="number">1</span>] * invn[i] % mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Init</span>();</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> T;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;T);</span><br><span class="line"></span><br><span class="line">    ll inv2 = <span class="number">499122177</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(T--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> n;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">&quot;1\n&quot;</span>);</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>;i &lt;= n / <span class="number">2</span>; i++)</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot; 0&quot;</span>);</span><br><span class="line"></span><br><span class="line">            ll ans = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i = n / <span class="number">2</span> + <span class="number">1</span>;i &lt;= n; i++) &#123;</span><br><span class="line">                cnt[i] = F[i - <span class="number">1</span>] * invF[(<span class="number">2</span> * i - n - <span class="number">1</span>) / <span class="number">2</span>] % mod * <span class="built_in">quick_pow</span>(inv2, (<span class="number">2</span> * i - n - <span class="number">1</span>) / <span class="number">2</span>) % mod;</span><br><span class="line">                ans = (ans + cnt[i]) % mod;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            ll sum = <span class="built_in">quick_pow</span>(ans, mod - <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> i = n / <span class="number">2</span> + <span class="number">1</span>;i &lt;= n; i++) &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;% lld&quot;</span>,sum * cnt[i] % mod);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios_base::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="comment">//cin.tie(nullptr);</span></span><br><span class="line">    <span class="comment">//cout.tie(nullptr);</span></span><br><span class="line">#<span class="meta">#<span class="keyword">ifdef</span> FZT_ACM_LOCAL</span></span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;in.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;out.txt&quot;</span>, <span class="string">&quot;w&quot;</span>, stdout);</span><br><span class="line">    <span class="type">signed</span> test_index_for_debug = <span class="number">1</span>;</span><br><span class="line">    <span class="type">char</span> acm_local_for_debug = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (acm_local_for_debug == <span class="string">&#x27;$&#x27;</span>) <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (test_index_for_debug &gt; <span class="number">20</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">runtime_error</span>(<span class="string">&quot;Check the stdin!!!&quot;</span>);</span><br><span class="line">        <span class="keyword">auto</span> start_clock_for_debug = <span class="built_in">clock</span>();</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">        <span class="keyword">auto</span> end_clock_for_debug = <span class="built_in">clock</span>();</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Test &quot;</span> &lt;&lt; test_index_for_debug &lt;&lt; <span class="string">&quot; successful&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;Test &quot;</span> &lt;&lt; test_index_for_debug++ &lt;&lt; <span class="string">&quot; Run Time: &quot;</span></span><br><span class="line">             &lt;&lt; <span class="built_in">double</span>(end_clock_for_debug - start_clock_for_debug) / CLOCKS_PER_SEC &lt;&lt; <span class="string">&quot;s&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;--------------------------------------------------&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">while</span> (cin &gt;&gt; acm_local_for_debug &amp;&amp; cin.<span class="built_in">putback</span>(acm_local_for_debug));</span><br><span class="line">#<span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">#<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/">https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6-%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="toc-number">2.0.1.</span> <span class="toc-text">方法一：组合数学+数学推导</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9Adp"><span class="toc-number">2.0.2.</span> <span class="toc-text">方法二：dp</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-3026MS"><span class="toc-number">3.</span> <span class="toc-text">Code(3026MS)</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&text=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&title=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&is_video=false&description=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【2020年杭电暑假第五场】6825 Set1&body=Check out this article: https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&title=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&title=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&title=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&title=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&name=【2020年杭电暑假第五场】6825 Set1&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/08/05/hdu-6825/&t=【2020年杭电暑假第五场】6825 Set1"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

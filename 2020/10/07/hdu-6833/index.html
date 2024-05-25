@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="传送门：http:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;6833 借鉴大佬： https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_44282912&#x2F;article&#x2F;details&#x2F;107844614 https:&#x2F;&#x2F;blog.csdn.net&#x2F;oampamp1&#x2F;article&#x2F;details&#x2F;107865300 题意$$求解\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【2020杭电多校第六场】 6833 Very Easy Math Problem">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="传送门：http:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;6833 借鉴大佬： https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_44282912&#x2F;article&#x2F;details&#x2F;107844614 https:&#x2F;&#x2F;blog.csdn.net&#x2F;oampamp1&#x2F;article&#x2F;details&#x2F;107865300 题意$$求解\">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-07T10:11:46.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.091Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>【2020杭电多校第六场】 6833 Very Easy Math Problem</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/10/08/luogu-p4157/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/10/07/hdu-1074/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&text=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&title=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&is_video=false&description=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【2020杭电多校第六场】 6833 Very Easy Math Problem&body=Check out this article: https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&title=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&title=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&title=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&title=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&name=【2020杭电多校第六场】 6833 Very Easy Math Problem&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&t=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code%EF%BC%882121MS%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">Code（2121MS）</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        【2020杭电多校第六场】 6833 Very Easy Math Problem
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-10-07T10:11:46.000Z" class="dt-published" itemprop="datePublished">2020-10-07</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/ACM/" rel="tag">ACM</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>传送门：<a target="_blank" rel="noopener" href="http://acm.hdu.edu.cn/showproblem.php?pid=6833">http://acm.hdu.edu.cn/showproblem.php?pid=6833</a></p>
+<p>借鉴大佬： <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44282912/article/details/107844614">https://blog.csdn.net/weixin_44282912&#x2F;article&#x2F;details&#x2F;107844614</a> <a target="_blank" rel="noopener" href="https://blog.csdn.net/oampamp1/article/details/107865300">https://blog.csdn.net/oampamp1/article/details/107865300</a></p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>$$求解\sum_{a_1&#x3D;1}^n\sum_{a_2&#x3D;1}^n…\sum_{a_x&#x3D;1}^n\left(\prod_{j&#x3D;1}^xa_j^k\right)f(gcd(a_1,a_2…a_x))gcd(a_1,a_2…a_x)$$</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>$令d&#x3D;gcd(a_1,a_2…a_x)得：$</p>
+<p>$$\sum_{a_1&#x3D;1}^n\sum_{a_2&#x3D;1}^n…\sum_{a_x&#x3D;1}^n\left(\prod_{j&#x3D;1}^xa_j^k\right)f(d)d$$</p>
+<p>$枚举d得：$</p>
+<p>$$\sum_{d&#x3D;1}^ndf(d)\sum_{a_1&#x3D;1}^n\sum_{a_2&#x3D;1}^n…\sum_{a_x&#x3D;1}^n\left(\prod_{j&#x3D;1}^xa_j^k\right)[gcd(a_1,a_2…a_x)&#x3D;d]$$</p>
+<p>$$\sum_{d&#x3D;1}^nd^{kx+1}f(d)\sum_{a_1&#x3D;1}^{\left \lfloor \frac{n}{d} \right \rfloor }\sum_{a_2&#x3D;1}^{\left \lfloor \frac{n}{d} \right \rfloor }…\sum_{a_x&#x3D;1}^{\left \lfloor \frac{n}{d} \right \rfloor }\left(\prod_{j&#x3D;1}^xa_j^k\right)[gcd(a_1,a_2…a_x)&#x3D;1]$$</p>
+<p>$$\sum_{d&#x3D;1}^nd^{kx+1}f(d)\sum_{a_1&#x3D;1}^{\left \lfloor \frac{n}{d} \right \rfloor }\sum_{a_2&#x3D;1}^{\left \lfloor \frac{n}{d} \right \rfloor }…\sum_{a_x&#x3D;1}^{\left \lfloor \frac{n}{d} \right \rfloor }\left(\prod_{j&#x3D;1}^xa_j^k\right)\sum_{ta_1\;ta2\;…\;ta_x}\mu(t)$$</p>
+<p>$$\sum_{d&#x3D;1}^nd^{kx+1}f(d)\left (\sum_{i&#x3D;1}^{\left \lfloor \frac{n}{d} \right \rfloor }i^k\right)^x\sum_{ta_1\;ta2\;…\;ta_x}\mu(t)$$</p>
+<p>$枚举t得：$</p>
+<p>$$\sum_{d&#x3D;1}^nd^{kx+1}f(d)\sum_{t&#x3D;1}^{\left \lfloor \frac{n}{d} \right \rfloor }\mu(t)\left (\sum_{i&#x3D;1}^{\left \lfloor \frac{n}{dt} \right \rfloor }(it)^k\right)^x$$</p>
+<p>$$\sum_{d&#x3D;1}^nd^{kx+1}f(d)\sum_{t&#x3D;1}^{\left \lfloor \frac{n}{d} \right \rfloor }\mu(t)t^{kx}\left (\sum_{i&#x3D;1}^{\left \lfloor \frac{n}{dt} \right \rfloor }i^k\right)^x$$</p>
+<p>$令T&#x3D;dt并枚举T得：$</p>
+<p>$$\sum_{T&#x3D;1}^n\left (\sum_{i&#x3D;1}^{\left \lfloor \frac{n}{dt} \right \rfloor }i^k\right)^xT^{kx}\sum_{dT}df(d)\mu(\frac{T}{d})$$</p>
+<p>$令g(T)&#x3D;\sum_{dT}df(d)\mu(\frac{T}{d})，则$</p>
+<p>$$\sum_{T&#x3D;1}^n\left (\sum_{i&#x3D;1}^{\left \lfloor \frac{n}{T} \right \rfloor }i^k\right)^xT^{kx}g(T)$$</p>
+<p>$O(nlogn)筛f和g，并对T^{kx}g(T)和\sum_{i&#x3D;1}^{\left \lfloor \frac{n}{T} \right \rfloor }i^k做前缀和，最后\sqrt n分块计算，复杂度为O(nlogn+T\sqrt n)$</p>
+<h2 id="Code（2121MS）"><a href="#Code（2121MS）" class="headerlink" title="Code（2121MS）"></a>Code（2121MS）</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> ld;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; pdd;</span><br><span class="line"></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> lowbit(x) x &amp; (-x)</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> mem(a, b) memset(a , b , sizeof(a))</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> FOR(i, x, n) for(int i = x;i &lt;= n; i++)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// const ll mod = 998244353;</span></span><br><span class="line"><span class="type">const</span> ll mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"><span class="comment">// const double eps = 1e-6;</span></span><br><span class="line"><span class="comment">// const double pi = acos(-1);</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">2e5</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">ll T, k, x;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> mu[N]; <span class="comment">// 莫比乌斯函数</span></span><br><span class="line"><span class="type">bool</span> is_prime[N];</span><br><span class="line"><span class="type">int</span> prime[N];</span><br><span class="line"><span class="type">int</span> cnt;</span><br><span class="line">ll g[N], f[N];</span><br><span class="line">ll sumG[N], sumi[N];</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">quick_pow</span><span class="params">(ll a, ll b)</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(b) &#123;</span><br><span class="line">        <span class="keyword">if</span>(b &amp; <span class="number">1</span>) ans = ans * a % mod;</span><br><span class="line">        a = a * a % mod;</span><br><span class="line">        b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Mobi</span><span class="params">()</span> <span class="comment">// 莫比乌斯函数初始化</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    f[<span class="number">1</span>] = mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    is_prime[<span class="number">0</span>] = is_prime[<span class="number">1</span>] = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>;i &lt; N; i++) &#123;</span><br><span class="line">        f[i] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (!is_prime[i]) &#123;</span><br><span class="line">            mu[i] = <span class="number">-1</span>;</span><br><span class="line">            prime[++cnt] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= cnt &amp;&amp; i * prime[j] &lt; N; j++) &#123;</span><br><span class="line">            is_prime[i * prime[j]] = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) &#123;</span><br><span class="line">                mu[i * prime[j]] = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            mu[i * prime[j]] = -mu[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 筛f函数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> d = <span class="number">2</span>;d * d &lt; N; d++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = d * d;i &lt; N; i += d * d) &#123;</span><br><span class="line">            f[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 筛g函数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> d = <span class="number">1</span>;d &lt; N; d++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = d;i &lt; N; i += d) &#123;</span><br><span class="line">            g[i] = (g[i] + <span class="number">1ll</span> * d * f[d] % mod * mu[i / d] % mod + mod) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 处理sumG函数和sumi函数前缀和</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt; N; i++) &#123;</span><br><span class="line">        ll t = <span class="built_in">quick_pow</span>(i, k);</span><br><span class="line">        sumi[i] = (sumi[i - <span class="number">1</span>] + t) % mod;</span><br><span class="line">        sumG[i] = (sumG[i - <span class="number">1</span>] + <span class="built_in">quick_pow</span>(t, x) * g[i] % mod) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; T &gt;&gt; k &gt;&gt; x;</span><br><span class="line">    <span class="built_in">Mobi</span>();</span><br><span class="line">    <span class="keyword">while</span>(T--) &#123;</span><br><span class="line">        <span class="type">int</span> n;</span><br><span class="line">        cin &gt;&gt; n;</span><br><span class="line">        ll ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> l = <span class="number">1</span>, r;l &lt;= n; l = r + <span class="number">1</span>) &#123;</span><br><span class="line">            r = <span class="built_in">min</span>(n, n / (n / l));</span><br><span class="line">            ans = (ans + (sumG[r] - sumG[l - <span class="number">1</span>] + mod) % mod * <span class="built_in">quick_pow</span>(sumi[n / l], x) % mod) % mod;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios_base::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="comment">//cin.tie(nullptr);</span></span><br><span class="line">    <span class="comment">//cout.tie(nullptr);</span></span><br><span class="line">#<span class="meta">#<span class="keyword">ifdef</span> FZT_ACM_LOCAL</span></span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;in.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;out.txt&quot;</span>, <span class="string">&quot;w&quot;</span>, stdout);</span><br><span class="line">    <span class="type">signed</span> test_index_for_debug = <span class="number">1</span>;</span><br><span class="line">    <span class="type">char</span> acm_local_for_debug = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (acm_local_for_debug == <span class="string">&#x27;$&#x27;</span>) <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (test_index_for_debug &gt; <span class="number">20</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">runtime_error</span>(<span class="string">&quot;Check the stdin!!!&quot;</span>);</span><br><span class="line">        <span class="keyword">auto</span> start_clock_for_debug = <span class="built_in">clock</span>();</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">        <span class="keyword">auto</span> end_clock_for_debug = <span class="built_in">clock</span>();</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Test &quot;</span> &lt;&lt; test_index_for_debug &lt;&lt; <span class="string">&quot; successful&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;Test &quot;</span> &lt;&lt; test_index_for_debug++ &lt;&lt; <span class="string">&quot; Run Time: &quot;</span></span><br><span class="line">             &lt;&lt; <span class="built_in">double</span>(end_clock_for_debug - start_clock_for_debug) / CLOCKS_PER_SEC &lt;&lt; <span class="string">&quot;s&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;--------------------------------------------------&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">while</span> (cin &gt;&gt; acm_local_for_debug &amp;&amp; cin.<span class="built_in">putback</span>(acm_local_for_debug));</span><br><span class="line">#<span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">#<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/">https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code%EF%BC%882121MS%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">Code（2121MS）</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&text=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&title=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&is_video=false&description=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【2020杭电多校第六场】 6833 Very Easy Math Problem&body=Check out this article: https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&title=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&title=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&title=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&title=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&name=【2020杭电多校第六场】 6833 Very Easy Math Problem&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/10/07/hdu-6833/&t=【2020杭电多校第六场】 6833 Very Easy Math Problem"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="传送门：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;5672&#x2F;C 题意给一棵树，每个节点的初始权值为0，有以下三种操作：  $1\; x\; w$，将所以点的权值都加上w-dis(x,y)，dis为x到y的最短路径的边数 $2\; x$，将x点与0取较小值min(x, 0)。 $3\; x$，查询x点的权值。  思路第一个操作中，不难想到与LCA的联系，即： $&amp;#x3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【2020年牛客暑假第七场】C题 A National Pandemic">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="传送门：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;5672&#x2F;C 题意给一棵树，每个节点的初始权值为0，有以下三种操作：  $1\; x\; w$，将所以点的权值都加上w-dis(x,y)，dis为x到y的最短路径的边数 $2\; x$，将x点与0取较小值min(x, 0)。 $3\; x$，查询x点的权值。  思路第一个操作中，不难想到与LCA的联系，即： $&amp;#x3">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2020/12/20201211140940270.png">
+<meta property="article:published_time" content="2020-12-10T06:22:18.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.829Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2020/12/20201211140940270.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>【2020年牛客暑假第七场】C题 A National Pandemic</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/12/17/2020-icpc-shanghai-i/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/12/06/2018-2019-icpc-nwerc-2018-a/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&text=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&title=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&is_video=false&description=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【2020年牛客暑假第七场】C题 A National Pandemic&body=Check out this article: https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&title=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&title=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&title=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&title=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&name=【2020年牛客暑假第七场】C题 A National Pandemic&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&t=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code%EF%BC%88336MS%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">Code（336MS）</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        【2020年牛客暑假第七场】C题 A National Pandemic
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-12-10T06:22:18.000Z" class="dt-published" itemprop="datePublished">2020-12-10</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/ACM/" rel="tag">ACM</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>传送门：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/5672/C">https://ac.nowcoder.com/acm/contest/5672/C</a></p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给一棵树，每个节点的初始权值为0，有以下三种操作：</p>
+<ul>
+<li>$1\; x\; w$，将所以点的权值都加上w-dis(x,y)，dis为x到y的最短路径的边数</li>
+<li>$2\; x$，将x点与0取较小值min(x, 0)。</li>
+<li>$3\; x$，查询x点的权值。</li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>第一个操作中，不难想到与LCA的联系，即：</p>
+<p>$&#x3D;w-dis(1,x)-dis(1,y)+dis(1, lca(x, y))$ $&#x3D;w-dep[x]-dep[y]+dis[lca(x,y)]$</p>
+<p><strong>这里的dep[1]是从0开始算的，不是dep[1] &#x3D;1;</strong></p>
+<p>每次操作1的时候，都会对每个点增加w-dep[x]和减去每个点的dep[y] 所以用一个全局变量Sum维护w-dep[x]，用num维护的操作一的次数即可。</p>
+<p>那么怎么维护dis[lca(x,y)]呢？先来看看这个图：</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2020/12/20201211140940270.png"></p>
+<p>所以我们不用每次求两个点的LCA，那样做复杂度爆炸!</p>
+<p><strong>我们只需要将根节点1到节点x之间的简单路径每次增加2即可。</strong></p>
+<p><strong>因为对于其他点，当我们查询dis(1,y)时，只增加经过lca到节点1之间的权值，而y到lca之间的权值没有增加，我们也不想要增加，这样就得到我们想要的效果。</strong></p>
+<p>对于维护树上路径的权值，我们可以先轻重链剖分，再用线段树维护即可。</p>
+<p>=&#x3D;注意：我们用线段树维护的是树上路径的点权值，而不是边权值，dis是边数，又n个点有n-1条边，也就是每次进行操作一的时候重复加上1个2了，所以我们减去num*2。&#x3D;&#x3D;</p>
+<p>对于操作2，只有x的权值&gt;0时，才会与0进行比较。</p>
+<p>可以先求出x点的权值，如果大于0，开一个del数组维护一下 即$del[x] +&#x3D; (f &gt; 0 ?: f:0)$</p>
+<p>这样做之后，每次求权值的时候都减去del[x]就行了。</p>
+<p><strong>最后注意一下初始化就ac了。</strong></p>
+<h2 id="Code（336MS）"><a href="#Code（336MS）" class="headerlink" title="Code（336MS）"></a>Code（336MS）</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br></pre></td><td class="code"><pre><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">double</span> ld;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; pdd;</span><br><span class="line"></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> INF 0x3f3f3f3f</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> lowbit(x) x &amp; (-x)</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> mem(a, b) memset(a , b , sizeof(a))</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> FOR(i, x, n) for(int i = x;i &lt;= n; i++)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// const ll mod = 998244353;</span></span><br><span class="line"><span class="comment">// const ll mod = 1e9 + 7;</span></span><br><span class="line"><span class="comment">// const double eps = 1e-6;</span></span><br><span class="line"><span class="comment">// const double PI = acos(-1);</span></span><br><span class="line"><span class="comment">// const double R = 0.57721566490153286060651209;</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span> + <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*-----------------建边-----------------*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Edge</span> &#123;</span><br><span class="line">    <span class="type">int</span> v, next;</span><br><span class="line">&#125;e[N &lt;&lt; <span class="number">1</span>];</span><br><span class="line"><span class="type">int</span> head[N], cnt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> v)</span> </span>&#123;</span><br><span class="line">    e[++cnt].v = v;</span><br><span class="line">    e[cnt].next = head[u];</span><br><span class="line">    head[u] = cnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*----------------轻重链剖分----------------*/</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> siz[N], fa[N], dep[N], son[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs1</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> par)</span> </span>&#123;</span><br><span class="line">    dep[u] = dep[fa[u] = par] + (siz[u] = <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = head[u]; i; i = e[i].next) &#123;</span><br><span class="line">        <span class="type">int</span> v = e[i].v;</span><br><span class="line">        <span class="keyword">if</span>(v == par) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="built_in">dfs1</span>(v, u);</span><br><span class="line">        siz[u] += siz[v];</span><br><span class="line">        <span class="keyword">if</span>(!son[u]  siz[v] &gt; siz[son[u]])</span><br><span class="line">            son[u] = v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> top[N], nodeof[N], dfn[N], tim;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs2</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> topf)</span> </span>&#123;</span><br><span class="line">    nodeof[dfn[u] = ++tim] = u;</span><br><span class="line">    top[u] = topf;</span><br><span class="line">    <span class="keyword">if</span>(!son[u]) <span class="keyword">return</span> ;</span><br><span class="line">    <span class="built_in">dfs2</span>(son[u], topf);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = head[u];i ; i = e[i].next) &#123;</span><br><span class="line">        <span class="type">int</span> v = e[i].v;</span><br><span class="line">        <span class="keyword">if</span>(v == son[u]  v == fa[u]) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="built_in">dfs2</span>(v, v);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> lc u &lt;&lt; 1</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> rc u &lt;&lt; 1  1</span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> mid (t[u].l + t[u].r) / 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*-----------线段树------------------*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">Node</span> &#123;</span><br><span class="line">    <span class="type">int</span> l, r;</span><br><span class="line">    ll sum, tag;</span><br><span class="line">&#125;t[N &lt;&lt; <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">push_up</span><span class="params">(<span class="type">int</span> u)</span> </span>&#123;</span><br><span class="line">    t[u].sum = t[lc].sum + t[rc].sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">push_down</span><span class="params">(<span class="type">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!t[u].tag) <span class="keyword">return</span> ;</span><br><span class="line">    t[lc].sum += t[u].tag * (t[lc].r - t[lc].l + <span class="number">1</span>);</span><br><span class="line">    t[rc].sum += t[u].tag * (t[rc].r - t[rc].l + <span class="number">1</span>);</span><br><span class="line">    t[lc].tag += t[u].tag;</span><br><span class="line">    t[rc].tag += t[u].tag;</span><br><span class="line">    t[u].tag = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">build</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> l, <span class="type">int</span> r)</span> </span>&#123;</span><br><span class="line">    t[u].l = l; t[u].r = r; t[u].tag = t[u].sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(l == r) &#123;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">int</span> m = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">build</span>(lc, l, m);</span><br><span class="line">    <span class="built_in">build</span>(rc, m + <span class="number">1</span>, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">modify</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> ql, <span class="type">int</span> qr, ll v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ql &lt;= t[u].l &amp;&amp; t[u].r &lt;= qr) &#123;</span><br><span class="line">        t[u].sum += (t[u].r - t[u].l + <span class="number">1</span>) * v;</span><br><span class="line">        t[u].tag += v;</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">push_down</span>(u);</span><br><span class="line">    <span class="keyword">if</span>(ql &lt;= mid) <span class="built_in">modify</span>(lc, ql, qr, v);</span><br><span class="line">    <span class="keyword">if</span>(qr &gt; mid)  <span class="built_in">modify</span>(rc, ql, qr, v);</span><br><span class="line">    <span class="built_in">push_up</span>(u);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">query</span><span class="params">(<span class="type">int</span> u, <span class="type">int</span> ql, <span class="type">int</span> qr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ql &lt;= t[u].l &amp;&amp; t[u].r &lt;= qr) &#123;</span><br><span class="line">        <span class="keyword">return</span> t[u].sum;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">push_down</span>(u);</span><br><span class="line">    ll ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(ql &lt;= mid) ans += <span class="built_in">query</span>(lc, ql, qr);</span><br><span class="line">    <span class="keyword">if</span>(qr &gt; mid)  ans += <span class="built_in">query</span>(rc, ql, qr);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">modify_chain</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y, <span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(top[x] != top[y]) &#123;</span><br><span class="line">        <span class="keyword">if</span>(dep[top[x]] &lt; dep[top[y]]) <span class="built_in">swap</span>(x, y);</span><br><span class="line">        <span class="built_in">modify</span>(<span class="number">1</span>, dfn[top[x]], dfn[x], val);</span><br><span class="line">        x = fa[top[x]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dep[x] &gt; dep[y]) <span class="built_in">swap</span>(x, y);</span><br><span class="line">    <span class="built_in">modify</span>(<span class="number">1</span>, dfn[x], dfn[y], val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">query_chain</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    ll ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(top[x] != top[y]) &#123;</span><br><span class="line">        <span class="keyword">if</span>(dep[top[x]] &lt; dep[top[y]]) <span class="built_in">swap</span>(x, y);</span><br><span class="line">        ans += <span class="built_in">query</span>(<span class="number">1</span>, dfn[top[x]], dfn[x]);</span><br><span class="line">        x = fa[top[x]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dep[x] &gt; dep[y]) <span class="built_in">swap</span>(x, y);</span><br><span class="line">    ans += <span class="built_in">query</span>(<span class="number">1</span>, dfn[x], dfn[y]);</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ll Sum, num;</span><br><span class="line">ll del[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cnt = tim = Sum = num = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">mem</span>(dfn, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">mem</span>(siz, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">mem</span>(e, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">mem</span>(son, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">mem</span>(del, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">mem</span>(dep, <span class="number">-1</span>);</span><br><span class="line">    <span class="built_in">mem</span>(head, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> _; cin &gt;&gt; _;</span><br><span class="line">    <span class="keyword">while</span>(_--) &#123;</span><br><span class="line">        <span class="built_in">init</span>();</span><br><span class="line">        <span class="type">int</span> n, m;</span><br><span class="line">        cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="type">int</span> u, v;</span><br><span class="line">            cin &gt;&gt; u &gt;&gt; v;</span><br><span class="line">            <span class="built_in">add</span>(u, v);</span><br><span class="line">            <span class="built_in">add</span>(v, u);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">dfs1</span>(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="built_in">dfs2</span>(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">build</span>(<span class="number">1</span>, <span class="number">1</span>, n);</span><br><span class="line">        <span class="comment">// w - dep[x] - dep[y] + 2 * dep[lca(x, y)]</span></span><br><span class="line">        <span class="keyword">while</span>(m--) &#123;</span><br><span class="line">            <span class="type">int</span> opt; cin &gt;&gt; opt;</span><br><span class="line">            <span class="keyword">if</span>(opt == <span class="number">1</span>) &#123;</span><br><span class="line">                <span class="type">int</span> x, val; cin &gt;&gt; x &gt;&gt; val;</span><br><span class="line">                Sum += val - dep[x];</span><br><span class="line">                num++;</span><br><span class="line">                <span class="built_in">modify_chain</span>(<span class="number">1</span>, x, <span class="number">2</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(opt == <span class="number">2</span>) &#123;</span><br><span class="line">                <span class="type">int</span> x; cin &gt;&gt; x;</span><br><span class="line">                ll f = Sum - num * dep[x] + <span class="built_in">query_chain</span>(<span class="number">1</span>, x) - del[x] - <span class="number">2</span> * num;</span><br><span class="line">                <span class="keyword">if</span>(f &gt; <span class="number">0</span>) del[x] += f;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(opt == <span class="number">3</span>) &#123;</span><br><span class="line">                <span class="type">int</span> x; cin &gt;&gt; x;</span><br><span class="line">                cout &lt;&lt; Sum - num * dep[x] + <span class="built_in">query_chain</span>(<span class="number">1</span>, x) - del[x] - <span class="number">2</span> * num &lt;&lt; endl;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ios_base::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="comment">//cin.tie(nullptr);</span></span><br><span class="line">    <span class="comment">//cout.tie(nullptr);</span></span><br><span class="line">#<span class="meta">#<span class="keyword">ifdef</span> FZT_ACM_LOCAL</span></span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;in.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, stdin);</span><br><span class="line">    <span class="built_in">freopen</span>(<span class="string">&quot;out.txt&quot;</span>, <span class="string">&quot;w&quot;</span>, stdout);</span><br><span class="line">    <span class="type">signed</span> test_index_for_debug = <span class="number">1</span>;</span><br><span class="line">    <span class="type">char</span> acm_local_for_debug = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (acm_local_for_debug == <span class="string">&#x27;$&#x27;</span>) <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (test_index_for_debug &gt; <span class="number">20</span>)</span><br><span class="line">            <span class="keyword">throw</span> <span class="built_in">runtime_error</span>(<span class="string">&quot;Check the stdin!!!&quot;</span>);</span><br><span class="line">        <span class="keyword">auto</span> start_clock_for_debug = <span class="built_in">clock</span>();</span><br><span class="line">        <span class="built_in">solve</span>();</span><br><span class="line">        <span class="keyword">auto</span> end_clock_for_debug = <span class="built_in">clock</span>();</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;Test &quot;</span> &lt;&lt; test_index_for_debug &lt;&lt; <span class="string">&quot; successful&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cerr &lt;&lt; <span class="string">&quot;Test &quot;</span> &lt;&lt; test_index_for_debug++ &lt;&lt; <span class="string">&quot; Run Time: &quot;</span></span><br><span class="line">             &lt;&lt; <span class="built_in">double</span>(end_clock_for_debug - start_clock_for_debug) / CLOCKS_PER_SEC &lt;&lt; <span class="string">&quot;s&quot;</span> &lt;&lt; endl;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;--------------------------------------------------&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125; <span class="keyword">while</span> (cin &gt;&gt; acm_local_for_debug &amp;&amp; cin.<span class="built_in">putback</span>(acm_local_for_debug));</span><br><span class="line">#<span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">#<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/">https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code%EF%BC%88336MS%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">Code（336MS）</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&text=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&title=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&is_video=false&description=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=【2020年牛客暑假第七场】C题 A National Pandemic&body=Check out this article: https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&title=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&title=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&title=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&title=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&name=【2020年牛客暑假第七场】C题 A National Pandemic&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/12/10/2020-nowcoder-shujia7-c/&t=【2020年牛客暑假第七场】C题 A National Pandemic"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

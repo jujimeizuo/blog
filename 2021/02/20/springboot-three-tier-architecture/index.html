@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="首先创建一个springboot项目。  model层model层也叫pojo层或者entity层，个人比较喜欢pojo层。 一般数据库的一张表对应一个pojo层，并且表中所有字段都在pojo层都一一对应。 eg：一张Goods表  然后要先建一个pojo的package，代表它是实体层。 再在该package下创建一个Goods的java文件，创建的对象都是和表里字段一一对应，如下所示： 123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring boot 三层框架dao层、service层、controller层+实体model层">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="首先创建一个springboot项目。  model层model层也叫pojo层或者entity层，个人比较喜欢pojo层。 一般数据库的一张表对应一个pojo层，并且表中所有字段都在pojo层都一一对应。 eg：一张Goods表  然后要先建一个pojo的package，代表它是实体层。 再在该package下创建一个Goods的java文件，创建的对象都是和表里字段一一对应，如下所示： 123">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/202102201819220.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/20210220185731148.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/20210220185938611.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/20210220190615764.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/20210220190739783.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/20210220190846808.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/20210220190913559.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/20210220191221241.png">
+<meta property="article:published_time" content="2021-02-20T12:10:49.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.092Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="Springboot">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/202102201819220.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Spring boot 三层框架dao层、service层、controller层+实体model层</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/02/22/2021-nowcoder-hanjia-5-b/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/02/19/2021-nowcoder-hanjia-4-b/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&text=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&title=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&is_video=false&description=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Spring boot 三层框架dao层、service层、controller层+实体model层&body=Check out this article: https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&title=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&title=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&title=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&title=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&name=Spring boot 三层框架dao层、service层、controller层+实体model层&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&t=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#model%E5%B1%82"><span class="toc-number">1.</span> <span class="toc-text">model层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dao%E5%B1%82"><span class="toc-number">2.</span> <span class="toc-text">dao层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#service%E5%B1%82"><span class="toc-number">3.</span> <span class="toc-text">service层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#controller%E5%B1%82"><span class="toc-number">4.</span> <span class="toc-text">controller层</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Spring boot 三层框架dao层、service层、controller层+实体model层
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-02-20T12:10:49.000Z" class="dt-published" itemprop="datePublished">2021-02-20</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Springboot/" rel="tag">Springboot</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>首先创建一个springboot项目。</p>
+<hr>
+<h2 id="model层"><a href="#model层" class="headerlink" title="model层"></a>model层</h2><p>model层也叫pojo层或者entity层，个人比较喜欢pojo层。 一般数据库的一张表对应一个pojo层，并且表中所有字段都在pojo层都一一对应。</p>
+<p>eg：一张Goods表</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/02/202102201819220.png"></p>
+<p>然后要先建一个pojo的package，代表它是实体层。 再在该package下创建一个Goods的java文件，创建的对象都是和表里字段一一对应，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> pojo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.*;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Goods</span> &#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    商品编号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String GNo;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    商品名称</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String GName;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    商品价格</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Double GPrice;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的lombok的作用时为了简化代码，因为对于private这样的对象，想要调用它的时候，需要get和set两个方法，而有了lombok之后就可以不用写，直接用即可。 不过要添加依赖和注解@Data，lombok还有很多其他用法，之后可能会出一篇博客。</p>
+<p>通过maven下载依赖：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">    &lt;optional&gt;<span class="literal">true</span>&lt;/optional&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这样数据库里的字段，我们就可以用对象来表示。</p>
+<hr>
+<p>但是model不属于springboot的三层框架。 主要说明是dao层、service层和controller层。 这些已经是属于后端了。</p>
+<p>对于一个项目，安全性是非常有必要的，所以springboot很好地体现了这一点。</p>
+<p>比如： 想要访问数据库并且操作，只能通过dao层向数据库发送sql语句，将这些结果通过接口传给service层。 想要处理数据，要先向dao层请求数据，对dao层传过来的数据进行加工处理，将这些处理好的数据通过接口传给controller层。 客户想要查询或修改数据时，要先向service层请求数据，收集service层传过来的数据，将这些数据通过接口显示给客户，一般通过html等方法给客户。 下面会一一说明。</p>
+<hr>
+<h2 id="dao层"><a href="#dao层" class="headerlink" title="dao层"></a>dao层</h2><p>dao层也叫mapper层，数据持久层，个人比较喜欢mapper层。 对数据库进行持久化操作，他的方法是针对数据库操作的，基本用到的就是增删改查。它只是个接口，只有方法名字，具体实现在mapper.xml中。</p>
+<p>既然mapper层是直接与数据库相挂钩的，所以要先连接数据库。 可以在sqlMapConfig.xml文件或者application.properties文件里添加数据库属性等，如下所示：</p>
+<ul>
+<li>sqlMapConfig.xml添加属性：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 加载属性文件 --&gt;</span><br><span class="line">&lt;properties resource=<span class="string">&quot;/config/db.properties&quot;</span>&gt;&lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 和spring整合后environment配置将废除 --&gt;</span><br><span class="line">&lt;environments <span class="keyword">default</span>=<span class="string">&quot;development&quot;</span>&gt;</span><br><span class="line">    &lt;environment id=<span class="string">&quot;development&quot;</span>&gt;</span><br><span class="line">        &lt;!-- 使用jdbc事务管理 --&gt;</span><br><span class="line">        &lt;transactionManager type=<span class="string">&quot;JDBC&quot;</span> /&gt;</span><br><span class="line">        &lt;!-- 数据库连接池,由mybatis管理 --&gt;</span><br><span class="line">        &lt;dataSource type=<span class="string">&quot;POOLED&quot;</span>&gt;</span><br><span class="line">            &lt;property name=<span class="string">&quot;driver&quot;</span> value=<span class="string">&quot;$&#123;jdbc.driver&#125;&quot;</span> /&gt;</span><br><span class="line">            &lt;property name=<span class="string">&quot;url&quot;</span> value=<span class="string">&quot;$&#123;jdbc.url&#125;&quot;</span> /&gt;</span><br><span class="line">            &lt;property name=<span class="string">&quot;username&quot;</span> value=<span class="string">&quot;$&#123;jdbc.username&#125;&quot;</span> /&gt;</span><br><span class="line">            &lt;property name=<span class="string">&quot;password&quot;</span> value=<span class="string">&quot;$&#123;jdbc.password&#125;&quot;</span> /&gt;</span><br><span class="line">        &lt;/dataSource&gt;</span><br><span class="line">    &lt;/environment&gt;</span><br><span class="line">&lt;/environments&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在 SqlMapConfig.xml就不需要对数据库连接参数硬编码。</p>
+<ul>
+<li>application.properties添加属性：</li>
+</ul>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/02/20210220185731148.png"></p>
+<p>方便对参数进行统一管理，其他 xml 可以应用该配置文件。</p>
+<p>然后检查是否连上数据库，请看下图：</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/02/20210220185938611.png"></p>
+<p>然后自己配置数据库。</p>
+<p>数据库连接上了，到了两个文件的编写，我采用mybatis框架。</p>
+<p>如何编写mapper.xml，对数据库增删改查？</p>
+<p><strong>在学习MyBatis框架的过程中，发现在idea里面没法创建Mapper.xml映射文件，创建出的xml文件没有Mapper.xml文件的基本格式，下面说明如何在idea中创建Mapper.xml映射文件模板。</strong></p>
+<p>File → Settings… → Editor → File and Code Templates</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/02/20210220190615764.jpg"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/02/20210220190739783.png"></p>
+<p>点击”+”号，并输入文件的名称和文件的类型，编辑好模板后点击Apply即可创建成功}</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/02/20210220190846808.png"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/02/20210220190913559.png"></p>
+<p><strong>mapper.xml文件模版</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span> ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper PUBLIC <span class="string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span> </span><br><span class="line"><span class="string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span> &gt;</span><br><span class="line">&lt;mapper namespace=<span class="string">&quot;&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<p>创建GoodsMapper.xml文件。</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/02/20210220191221241.png"></p>
+<p>编写内容：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span> ?&gt;</span><br><span class="line">&lt;!DOCTYPE mapper PUBLIC <span class="string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span><br><span class="line">        <span class="string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span> &gt;</span><br><span class="line">&lt;mapper namespace=<span class="string">&quot;mapper.GoodsMapper&quot;</span>&gt;</span><br><span class="line">    &lt;!--增加商品--&gt;</span><br><span class="line">    &lt;insert id=<span class="string">&quot;insertGoods&quot;</span> parameterType=<span class="string">&quot;mapper.GoodsMapper&quot;</span>&gt;</span><br><span class="line">        insert into <span class="title function_">Goods</span><span class="params">(GNo, GName, GPrice)</span> values(##&#123;GNo&#125;,##&#123;GName&#125;,##&#123;GPrice&#125;)</span><br><span class="line">    &lt;/insert&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--删除商品--&gt;</span><br><span class="line">    &lt;delete id=<span class="string">&quot;deleteGoods&quot;</span> parameterType=<span class="string">&quot;java.String&quot;</span>&gt;</span><br><span class="line">        delete from Goods where id=##&#123;id&#125;</span><br><span class="line">    &lt;/delete&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--修改商品--&gt;</span><br><span class="line">    &lt;update id=<span class="string">&quot;uodateGoods&quot;</span> parameterType=<span class="string">&quot;mapper.GoodsMapper&quot;</span>&gt;</span><br><span class="line">        update Goods set GNo=##&#123;GNo&#125;, GName=##&#123;GName&#125;, GPrice=##&#123;GPrice&#125; where id=##&#123;id&#125;</span><br><span class="line">    &lt;/update&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!--查找商品--&gt;</span><br><span class="line">    &lt;select id=<span class="string">&quot;findGoods&quot;</span> parameterType=<span class="string">&quot;java.String&quot;</span> resultType=<span class="string">&quot;mapper.GoodsMapper&quot;</span>&gt;</span><br><span class="line">        select *from Goods where id=##&#123;id&#125;</span><br><span class="line">    &lt;/select&gt;</span><br><span class="line">&lt;/mapper&gt;</span><br></pre></td></tr></table></figure>
+
+<p>创建GoodsMapper的接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> mapper;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pojo.Goods;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">GoodsMapper</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *增加商品</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> goods</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throw</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">insertGoods</span><span class="params">(Goods goods)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除商品</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> GNo</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throw</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">deleteGoods</span><span class="params">(String GNo)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 修改商品</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> goods</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throw</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">updateGoods</span><span class="params">(Goods goods)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据GNo查找</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throw</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Goods <span class="title function_">findByGNo</span><span class="params">(String GNo)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不需要编写接口对实现类了，只要这两个文件的映射关系对应好就ok，这不在本文的讲述范围内。</p>
+<hr>
+<h2 id="service层"><a href="#service层" class="headerlink" title="service层"></a>service层</h2><p>service层叫业务逻辑层，存放业务逻辑处理，不直接对数据库进行操作，有接口和接口实现类，提供controller层调用的方法。</p>
+<p>创建两个文件，一个存放接口类，一个存放接口实现类。</p>
+<p>GoodsService接口类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> service.Goods;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pojo.Goods;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">GoodsService</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">insertGoods</span><span class="params">(Goods goods)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">deleteGoods</span><span class="params">(String GNo)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">updateGood</span><span class="params">(Goods goods)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">findByGNo</span><span class="params">(String GNo)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>GoodsServiceImpl接口实现类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> service.Goods;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> mapper.GoodsMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"><span class="keyword">import</span> pojo.Goods;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GoodsServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">GoodsService</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> GoodsMapper goodsMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">insertGoods</span><span class="params">(Goods goods)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        goodsMapper.insertGoods(goods);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">deleteGoods</span><span class="params">(String GNo)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        goodsMapper.deleteGoods(GNo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateGood</span><span class="params">(Goods goods)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        goodsMapper.updateGoods(goods);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">findByGNo</span><span class="params">(String GNo)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        goodsMapper.findByGNo(GNo);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>就这样，service层与mapper层建立起了联系，service层可以调用mapper层的方法。</strong></p>
+<hr>
+<h2 id="controller层"><a href="#controller层" class="headerlink" title="controller层"></a>controller层</h2><p>controller层叫控制器层，负责前后端交互，接受前端请求，调用service层，接收service层返回的数据，最后返回具体的页面和数据到客户端。</p>
+<p>同样，也需要两个文件，接口类和接口实现类。</p>
+<p>GoodsControllerI接口类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Controller.Goods;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pojo.Goods;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">GoodsController</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">insertGoods</span><span class="params">(Goods goods)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">deleteGoods</span><span class="params">(String GNo)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">updateGood</span><span class="params">(Goods goods)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">findByGNo</span><span class="params">(String GNo)</span> <span class="keyword">throws</span> Exception;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>GoodsControllerImpl接口实现类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> Controller.Goods;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> pojo.Goods;</span><br><span class="line"><span class="keyword">import</span> service.Goods.GoodsService;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GoodsControllerImpl</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> GoodsService goodsService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/index&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">insertGoods</span><span class="params">(Goods goods)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        goodsService.insertGoods(goods);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;/index&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/index&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">deleteGoods</span><span class="params">(String GNo)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        goodsService.deleteGoods(GNo);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;/index&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/index&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">updateGoods</span><span class="params">(Goods goods)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        goodsService.updateGood(goods);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;/index&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/index&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">findByGNo</span><span class="params">(String GNo)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Goods</span> <span class="variable">goods</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Goods</span>();</span><br><span class="line">        goods = goodsService.findByGNo(GNo);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;/index&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，客户可以通过请求的方式，将数据从前端传给Controller层，然后一层一层传下去，在一层一层地传上来，实现了后端开发。</p>
+<p>是不是发现和前端没什么关系？ 是的，springboot还有一个优点就是实现了前后端分离，从而工作人员分配任务的时候更加具有条理性。而三层的架构可以让程序员很快地知道bug出现在哪里，哪一层，哪一文件，很快的修改bug。</p>
+<p><strong>呜呼，总而言之，springboot作为web开发的一个主流框架，正式因为这些优秀点让它脱颖而出。</strong></p>
+<p><strong>这一篇写得好累。</strong></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/">https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#model%E5%B1%82"><span class="toc-number">1.</span> <span class="toc-text">model层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dao%E5%B1%82"><span class="toc-number">2.</span> <span class="toc-text">dao层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#service%E5%B1%82"><span class="toc-number">3.</span> <span class="toc-text">service层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#controller%E5%B1%82"><span class="toc-number">4.</span> <span class="toc-text">controller层</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&text=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&title=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&is_video=false&description=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Spring boot 三层框架dao层、service层、controller层+实体model层&body=Check out this article: https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&title=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&title=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&title=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&title=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&name=Spring boot 三层框架dao层、service层、controller层+实体model层&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/02/20/springboot-three-tier-architecture/&t=Spring boot 三层框架dao层、service层、controller层+实体model层"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

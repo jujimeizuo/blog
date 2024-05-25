@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Docker常用命令帮助命令 docker version ## 显示Docker版本信息 docker info ## 显示Docker系统信息，包括镜像数、容器数、正在运行的镜像数、暂停的镜像数、停止的镜像数等 docker –help ## 显示docker指令的信息 docker 指令 –help ## 显示具体某一个docker指令的可选项docker 指令 –help ## 显示具体某">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker常用命令">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/09/14/dockerml/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="Docker常用命令帮助命令 docker version ## 显示Docker版本信息 docker info ## 显示Docker系统信息，包括镜像数、容器数、正在运行的镜像数、暂停的镜像数、停止的镜像数等 docker –help ## 显示docker指令的信息 docker 指令 –help ## 显示具体某一个docker指令的可选项docker 指令 –help ## 显示具体某">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631619962208.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620096012.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620195894.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620344810.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620452939.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620406980.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620581235.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620595815.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620876616.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620901664.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631621011902.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631621090534.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631621146517.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631621187935.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631621235356.png">
+<meta property="article:published_time" content="2021-09-14T11:44:14.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.119Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631619962208.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Docker常用命令</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/09/15/dockerimp/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/09/13/maven/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/09/14/dockerml/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&text=Docker常用命令"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&title=Docker常用命令"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&is_video=false&description=Docker常用命令"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker常用命令&body=Check out this article: https://blog.jujimeizuo.cn/2021/09/14/dockerml/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&title=Docker常用命令"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&title=Docker常用命令"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&title=Docker常用命令"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&title=Docker常用命令"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&name=Docker常用命令&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&t=Docker常用命令"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.</span> <span class="toc-text">Docker常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="toc-number">1.0.1.</span> <span class="toc-text">帮助命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="toc-number">1.0.2.</span> <span class="toc-text">镜像命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-images"><span class="toc-number">1.1.</span> <span class="toc-text">docker images</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-search"><span class="toc-number">1.2.</span> <span class="toc-text">docker search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-pull"><span class="toc-number">1.3.</span> <span class="toc-text">docker pull</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-rmi"><span class="toc-number">1.4.</span> <span class="toc-text">docker rmi</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.1.</span> <span class="toc-text">容器命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%AE%B9%E5%99%A8%E5%B9%B6%E5%90%AF%E5%8A%A8%EF%BC%88docker-run%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">新建容器并启动（docker run）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E4%BB%A5%E5%8F%8A%E8%A7%A3%E9%87%8A"><span class="toc-number">2.</span> <span class="toc-text">常用可选参数以及解释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8%EF%BC%88docker-ps%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">列出所有运行的容器（docker ps）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E9%80%80%E5%87%BA%EF%BC%88exit%E3%80%81Ctrl-P-Q%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">容器退出（exit、Ctrl+P+Q）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%AE%B9%E5%99%A8%EF%BC%88docker-rm%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">删除容器（docker rm）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.1.</span> <span class="toc-text">常用其他命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8-d"><span class="toc-number">2.4.</span> <span class="toc-text">后台启动容器 (-d)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97%EF%BC%88docker-logs%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">查看日志（docker logs）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E4%B8%AD%E8%BF%90%E8%A1%8C%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%BF%A1%E6%81%AF%EF%BC%88docker-top%EF%BC%89"><span class="toc-number">2.6.</span> <span class="toc-text">查看容器中运行的进程信息（docker top）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8-%E9%95%9C%E5%83%8F%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%EF%BC%88docker-inspect%EF%BC%89"><span class="toc-number">2.7.</span> <span class="toc-text">查看容器 &#x2F; 镜像的元数据（docker inspect）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="toc-number">2.8.</span> <span class="toc-text">进入正在运行的容器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-exec"><span class="toc-number">2.8.1.</span> <span class="toc-text">docker exec</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-attach"><span class="toc-number">2.8.2.</span> <span class="toc-text">docker attach</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BA%E5%88%AB"><span class="toc-number">2.8.3.</span> <span class="toc-text">区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E5%AE%B9%E5%99%A8%E5%86%85%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6%E5%88%B0%E4%B8%BB%E6%9C%BA%E4%B8%8A%EF%BC%88docker-cp%EF%BC%89"><span class="toc-number">2.9.</span> <span class="toc-text">从容器内拷贝文件到主机上（docker cp）</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Docker常用命令
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-09-14T11:44:14.000Z" class="dt-published" itemprop="datePublished">2021-09-14</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Docker/" rel="tag">Docker</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h2><h4 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h4><ol>
+<li>docker version ## 显示Docker版本信息</li>
+<li>docker info ## 显示Docker系统信息，包括镜像数、容器数、正在运行的镜像数、暂停的镜像数、停止的镜像数等</li>
+<li>docker –help ## 显示docker指令的信息</li>
+<li>docker 指令 –help ## 显示具体某一个docker指令的可选项docker 指令 –help ## 显示具体某一个docker指令的可选项</li>
+</ol>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631619962208.png" alt="file"></p>
+<h4 id="镜像命令"><a href="#镜像命令" class="headerlink" title="镜像命令"></a>镜像命令</h4><h3 id="docker-images"><a href="#docker-images" class="headerlink" title="docker images"></a>docker images</h3><ol>
+<li>docker images ## 显示你本地主机上（买的服务器或安装的Linux虚拟机）所有下载的镜像信息</li>
+</ol>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620096012.png" alt="file"></p>
+<p>执行该指令之后，信息显示如上图所示，对每个标签的解释如下：</p>
+<ol>
+<li>REPOSITORY ## 镜像的仓库源（也就是镜像名）</li>
+<li>TAG ## 镜像的标签（也就是镜像的版本，如果不指定，则默认为lastest，也就是最新版）</li>
+<li>IMAGE ID ## 镜像的ID（同一个镜像的不同版本，拥有不同的镜像ID）</li>
+<li>CREATED ## 镜像的创建时间</li>
+<li>SIZE ## 镜像的大小</li>
+</ol>
+<p>通过<strong>docker images –help</strong>可以看到该指令的一些可选项，现对几个常用的可选项做一解释：</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620195894.png" alt="file"></p>
+<ol>
+<li>-a ## 列出本地所有镜像</li>
+<li>-q ## 只列出镜像的ID</li>
+<li>--digests ## 显示镜像的摘要信息</li>
+</ol>
+<h3 id="docker-search"><a href="#docker-search" class="headerlink" title="docker search"></a>docker search</h3><ol>
+<li>docker search 某个镜像的名称 ## 搜索镜像，例如：docker search mysql</li>
+</ol>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620344810.png" alt="file"></p>
+<ol>
+<li>NAME ## 镜像名</li>
+<li>DESCRIPTION ## 镜像描述</li>
+<li>STARS ## 收藏数（类似于GitHub上的STARS，STARS越多，表示越受欢迎，下载次数越多）</li>
+</ol>
+<p>如果我们只想搜索STARS不小于5000的镜像呢？我们可以采用一些过滤条件。</p>
+<p>通过<strong>docker search –help</strong>指令来查看一些可选参数。从图中可以看出，我们可以采用<strong>-f或–filter filter</strong>指令来进行过滤。</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620452939.png" alt="file"></p>
+<ol>
+<li>以下四种方式均可</li>
+<li>docker search –filter&#x3D;stars&#x3D;5000 mysql</li>
+<li>docker search –filter stars&#x3D;5000 mysql</li>
+<li>docker search -f&#x3D;stars&#x3D;5000 mysql</li>
+<li>docker search -f stars&#x3D;5000 mysql</li>
+</ol>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620406980.png" alt="file"></p>
+<h3 id="docker-pull"><a href="#docker-pull" class="headerlink" title="docker pull"></a>docker pull</h3><ol>
+<li>docker pull mysql ## 下载镜像（这里如果不指定TAG，默认就是lastest最新版）</li>
+</ol>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620581235.png" alt="file"></p>
+<ol>
+<li>docker pull mysql:5.7 需要注意的是，这个镜像的版本一定得是DockerHub上有的版本。不然会下载</li>
+</ol>
+<h3 id="docker-rmi"><a href="#docker-rmi" class="headerlink" title="docker rmi"></a>docker rmi</h3><p>首先使用<strong>docker rmi –help</strong>来看一下这个命令都有哪些可选项。如下图所示：</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620595815.png" alt="file"></p>
+<p>可以看到有<strong>-f</strong>参数</p>
+<ol>
+<li>删除镜像</li>
+<li>docker rmi -f 镜像id ## 删除单个镜像</li>
+<li>docker rmi -f 镜像名:tag 镜像名:tag ## 删除多个</li>
+<li>docker rmi -f $(docker images -qa) ## 删除全部</li>
+</ol>
+<h4 id="容器命令"><a href="#容器命令" class="headerlink" title="容器命令"></a>容器命令</h4><p>有镜像才能创建容器，我们这里使用centos的镜像来测试，就是虚拟一个centos</p>
+<h3 id="新建容器并启动（docker-run）"><a href="#新建容器并启动（docker-run）" class="headerlink" title="新建容器并启动（docker run）"></a>新建容器并启动（docker run）</h3><p><strong>docker run</strong>命令就是<strong>docker create</strong>和<strong>docker start</strong>命令的组合</p>
+<ol>
+<li><p>docker run [OPTIONS] 镜像名 [COMMAND][ARGS…]</p>
+</li>
+<li><h2 id="常用可选参数以及解释"><a href="#常用可选参数以及解释" class="headerlink" title="常用可选参数以及解释"></a>常用可选参数以及解释</h2></li>
+<li><p>--name ## 给容器取一个名字</p>
+</li>
+<li><p>--rm ## 容器退出后，自动删除容器</p>
+</li>
+<li><p>-i ## 以交互模式运行容器，通常与-t同时使用，即-it</p>
+</li>
+<li><p>-t ## 分配一个虚拟的终端，在docker中启动bash就会有提示符，通常与-i通知使用，即-it</p>
+</li>
+<li><p>-d ## 在后台运行容器。等同于进入容器后按Ctrl+P+Q。所以可以docker attach回去。在后台运行的容器，只能通过网络和它交互。</p>
+</li>
+<li><p>-p ## 设置端口转发。-p:hostport:containerport</p>
+</li>
+</ol>
+<p>测试如下：</p>
+<p>使用centos进行交互模式启动容器，在容器内执行&#x2F;bin&#x2F;bash命令 <img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620876616.png" alt="file"></p>
+<p>由上图可以看出，地址已经变成容器内部了。</p>
+<h3 id="列出所有运行的容器（docker-ps）"><a href="#列出所有运行的容器（docker-ps）" class="headerlink" title="列出所有运行的容器（docker ps）"></a>列出所有运行的容器（docker ps）</h3><ol>
+<li>docker ps [OPTIONS]</li>
+</ol>
+<p>我们首先使用<strong>docker ps –help</strong>指令来看一下都有哪些可选参数：</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631620901664.png" alt="file"></p>
+<ol>
+<li>-a ## 列出所有正在运行的容器 + 历史运行过的容器</li>
+<li>-l ## 列出最近创建的一个容器以及该容器的信息</li>
+<li>-n int ## 列出最近n个创建的容器以及容器的信息</li>
+<li>-q ## 列出容器的编号</li>
+<li>-s ## 列出容器的大小</li>
+</ol>
+<h3 id="容器退出（exit、Ctrl-P-Q）"><a href="#容器退出（exit、Ctrl-P-Q）" class="headerlink" title="容器退出（exit、Ctrl+P+Q）"></a>容器退出（exit、Ctrl+P+Q）</h3><ol>
+<li>exit ## 容器停止并退出</li>
+<li>Ctrl + P + Q ## 容器不停止退出，也就是进入后台模式，等同于docker run的参数 -d</li>
+</ol>
+<h3 id="删除容器（docker-rm）"><a href="#删除容器（docker-rm）" class="headerlink" title="删除容器（docker rm）"></a>删除容器（docker rm）</h3><ol>
+<li>docker rm 容器id ## 删除指定容器</li>
+<li>docker rm -f $(docker ps -aq) ## 删除所有容器（常用）</li>
+<li>docker ps -aq xargs docker -rm ## 删除所有容器（不常用）</li>
+</ol>
+<h4 id="常用其他命令"><a href="#常用其他命令" class="headerlink" title="常用其他命令"></a>常用其他命令</h4><h3 id="后台启动容器-d"><a href="#后台启动容器-d" class="headerlink" title="后台启动容器 (-d)"></a>后台启动容器 (-d)</h3><ol>
+<li>docker run -d 容器名 ## 后台启动容器</li>
+<li>问题: 使用docker ps 查看，发现容器已经退出了！</li>
+<li>解释：Docker容器后台运行，就必须有一个前台进程，容器运行的命令如果不是那些一直挂起的命令，就会自动退出。</li>
+<li>比如，你运行了nginx服务，但是docker前台没有运行应用，这种情况下，容器启动后，会立即自杀，因为他觉得没有程序了，所以最好的情况是，将你的应用使用前台进程的方式运行启动。</li>
+</ol>
+<h3 id="查看日志（docker-logs）"><a href="#查看日志（docker-logs）" class="headerlink" title="查看日志（docker logs）"></a>查看日志（docker logs）</h3><ol>
+<li>docker logs 容器id</li>
+</ol>
+<p><strong>docker logs</strong>有以下可选参数：</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631621011902.png" alt="file"></p>
+<ol>
+<li>-t ## 显示时间戳</li>
+<li>-f ## 打印最新的日志</li>
+<li>--tail 数字 ## 数字—显示多少条</li>
+</ol>
+<h3 id="查看容器中运行的进程信息（docker-top）"><a href="#查看容器中运行的进程信息（docker-top）" class="headerlink" title="查看容器中运行的进程信息（docker top）"></a>查看容器中运行的进程信息（docker top）</h3><ol>
+<li>docker top 容器id</li>
+</ol>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631621090534.png" alt="file"></p>
+<h3 id="查看容器-镜像的元数据（docker-inspect）"><a href="#查看容器-镜像的元数据（docker-inspect）" class="headerlink" title="查看容器 &#x2F; 镜像的元数据（docker inspect）"></a>查看容器 &#x2F; 镜像的元数据（docker inspect）</h3><ol>
+<li>docker inspect 容器id</li>
+</ol>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631621146517.png" alt="file"></p>
+<h3 id="进入正在运行的容器"><a href="#进入正在运行的容器" class="headerlink" title="进入正在运行的容器"></a>进入正在运行的容器</h3><h4 id="docker-exec"><a href="#docker-exec" class="headerlink" title="docker exec"></a>docker exec</h4><p>这个命令是用已经运行的容器执行命令。需要注意的是，如果容器关闭后再次运行，那么用exec命令执行的命令是不会自己再次执行的</p>
+<ol>
+<li>docker exec 容器id</li>
+</ol>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631621187935.png" alt="file"></p>
+<ol>
+<li>-d ## 让命令在后台执行</li>
+<li>-e ## 设置环境变量</li>
+<li>-it ## 使用交互模式进入</li>
+<li>-u -w ## 分别设置命令运行的用户和work directory。也就是如果要改变用户或者工作目录，就是用-u或-w</li>
+</ol>
+<h4 id="docker-attach"><a href="#docker-attach" class="headerlink" title="docker attach"></a>docker attach</h4><p>attach命令把一个后台运行的容器搞到前台来，这样就可以看到他们的输出，并且使用输入了。</p>
+<ol>
+<li>docker attach 容器id</li>
+</ol>
+<p>attach命令的可选参数如下： <img src="https://cdn.jujimeizuo.cn/blog/2021/09/image-1631621235356.png" alt="file"></p>
+<ol>
+<li>--no-stdin ## 关闭输入</li>
+<li>--sig-proxy ## 信号转发，默认开启，这样DMD进程就可以收到你的信号了</li>
+</ol>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><p><strong>exec</strong>是在容器中打开新的终端，并且可以启动新的进程</p>
+<p><strong>attach</strong>是直接进入容器启动命令的终端，不会启动新的进程</p>
+<h3 id="从容器内拷贝文件到主机上（docker-cp）"><a href="#从容器内拷贝文件到主机上（docker-cp）" class="headerlink" title="从容器内拷贝文件到主机上（docker cp）"></a>从容器内拷贝文件到主机上（docker cp）</h3><ol>
+<li><p>docker cp 容器id:容器内路径 目的主机路径</p>
+</li>
+<li><p>例如：</p>
+</li>
+<li><p>docker cp f261f17bb39d:&#x2F;home&#x2F;f1 &#x2F;home</p>
+</li>
+</ol>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/09/14/dockerml/">https://blog.jujimeizuo.cn/2021/09/14/dockerml/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.</span> <span class="toc-text">Docker常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="toc-number">1.0.1.</span> <span class="toc-text">帮助命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="toc-number">1.0.2.</span> <span class="toc-text">镜像命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-images"><span class="toc-number">1.1.</span> <span class="toc-text">docker images</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-search"><span class="toc-number">1.2.</span> <span class="toc-text">docker search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-pull"><span class="toc-number">1.3.</span> <span class="toc-text">docker pull</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-rmi"><span class="toc-number">1.4.</span> <span class="toc-text">docker rmi</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.4.1.</span> <span class="toc-text">容器命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%AE%B9%E5%99%A8%E5%B9%B6%E5%90%AF%E5%8A%A8%EF%BC%88docker-run%EF%BC%89"><span class="toc-number">1.5.</span> <span class="toc-text">新建容器并启动（docker run）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0%E4%BB%A5%E5%8F%8A%E8%A7%A3%E9%87%8A"><span class="toc-number">2.</span> <span class="toc-text">常用可选参数以及解释</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%97%E5%87%BA%E6%89%80%E6%9C%89%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8%EF%BC%88docker-ps%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">列出所有运行的容器（docker ps）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E9%80%80%E5%87%BA%EF%BC%88exit%E3%80%81Ctrl-P-Q%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">容器退出（exit、Ctrl+P+Q）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%AE%B9%E5%99%A8%EF%BC%88docker-rm%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">删除容器（docker rm）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4"><span class="toc-number">2.3.1.</span> <span class="toc-text">常用其他命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8-d"><span class="toc-number">2.4.</span> <span class="toc-text">后台启动容器 (-d)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%97%A5%E5%BF%97%EF%BC%88docker-logs%EF%BC%89"><span class="toc-number">2.5.</span> <span class="toc-text">查看日志（docker logs）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8%E4%B8%AD%E8%BF%90%E8%A1%8C%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%BF%A1%E6%81%AF%EF%BC%88docker-top%EF%BC%89"><span class="toc-number">2.6.</span> <span class="toc-text">查看容器中运行的进程信息（docker top）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8-%E9%95%9C%E5%83%8F%E7%9A%84%E5%85%83%E6%95%B0%E6%8D%AE%EF%BC%88docker-inspect%EF%BC%89"><span class="toc-number">2.7.</span> <span class="toc-text">查看容器 &#x2F; 镜像的元数据（docker inspect）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E5%AE%B9%E5%99%A8"><span class="toc-number">2.8.</span> <span class="toc-text">进入正在运行的容器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-exec"><span class="toc-number">2.8.1.</span> <span class="toc-text">docker exec</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#docker-attach"><span class="toc-number">2.8.2.</span> <span class="toc-text">docker attach</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BA%E5%88%AB"><span class="toc-number">2.8.3.</span> <span class="toc-text">区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E5%AE%B9%E5%99%A8%E5%86%85%E6%8B%B7%E8%B4%9D%E6%96%87%E4%BB%B6%E5%88%B0%E4%B8%BB%E6%9C%BA%E4%B8%8A%EF%BC%88docker-cp%EF%BC%89"><span class="toc-number">2.9.</span> <span class="toc-text">从容器内拷贝文件到主机上（docker cp）</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/09/14/dockerml/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&text=Docker常用命令"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&title=Docker常用命令"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&is_video=false&description=Docker常用命令"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Docker常用命令&body=Check out this article: https://blog.jujimeizuo.cn/2021/09/14/dockerml/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&title=Docker常用命令"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&title=Docker常用命令"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&title=Docker常用命令"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&title=Docker常用命令"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&name=Docker常用命令&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/09/14/dockerml/&t=Docker常用命令"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

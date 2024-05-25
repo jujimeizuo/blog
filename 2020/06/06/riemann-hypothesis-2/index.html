@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="全体自然数之和等于$-\frac{1}{12}$有人一定听说过全体自然数之和等于$-\frac{1}{12}$，那我们这期就来聊聊这究竟是为什么呢？这个结果又和什么有关系呢？ 之前我们说过这样的一个式子： $$\varepsilon (s) &#x3D; 1 + \frac{1}{2^{s}} + \frac{1}{3^{s}} + \frac{1}{4^{s}} +\frac{1}{5^{s}}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="黎曼猜想（二）全体自然数之和等于-1&#x2F;12和解析延拓">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="全体自然数之和等于$-\frac{1}{12}$有人一定听说过全体自然数之和等于$-\frac{1}{12}$，那我们这期就来聊聊这究竟是为什么呢？这个结果又和什么有关系呢？ 之前我们说过这样的一个式子： $$\varepsilon (s) &#x3D; 1 + \frac{1}{2^{s}} + \frac{1}{3^{s}} + \frac{1}{4^{s}} +\frac{1}{5^{s}}">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2020/06/20200604170224297.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2020/06/20200604170503197.png">
+<meta property="article:published_time" content="2020-06-06T03:14:31.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.091Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="interesting">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2020/06/20200604170224297.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>黎曼猜想（二）全体自然数之和等于-1/12和解析延拓</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/06/06/riemann-hypothesis-3/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/06/06/riemann-hypothesis-1/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&text=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&title=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&is_video=false&description=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓&body=Check out this article: https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&title=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&title=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&title=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&title=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&name=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&t=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E8%87%AA%E7%84%B6%E6%95%B0%E4%B9%8B%E5%92%8C%E7%AD%89%E4%BA%8E-frac-1-12"><span class="toc-number">1.</span> <span class="toc-text">全体自然数之和等于$-\frac{1}{12}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90%E5%BB%B6%E6%8B%93"><span class="toc-number">2.</span> <span class="toc-text">解析延拓</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">2.0.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%97%E5%AD%90"><span class="toc-number">2.0.2.</span> <span class="toc-text">栗子</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        黎曼猜想（二）全体自然数之和等于-1/12和解析延拓
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-06-06T03:14:31.000Z" class="dt-published" itemprop="datePublished">2020-06-06</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/interesting/" rel="tag">interesting</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="全体自然数之和等于-frac-1-12"><a href="#全体自然数之和等于-frac-1-12" class="headerlink" title="全体自然数之和等于$-\frac{1}{12}$"></a>全体自然数之和等于$-\frac{1}{12}$</h2><p>有人一定听说过全体自然数之和等于$-\frac{1}{12}$，那我们这期就来聊聊这究竟是为什么呢？这个结果又和什么有关系呢？</p>
+<p>之前我们说过这样的一个式子： $$\varepsilon (s) &#x3D; 1 + \frac{1}{2^{s}} + \frac{1}{3^{s}} + \frac{1}{4^{s}} +\frac{1}{5^{s}} + \frac{1}{6^{s}}+… $$</p>
+<p>当s &#x3D; 1时； $$\varepsilon (1) &#x3D; 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} +\frac{1}{5} + \frac{1}{6}+… $$</p>
+<p>这是调和级数，是发散的。</p>
+<p>当s &#x3D; 2时； $$\varepsilon (2) &#x3D; 1 + \frac{1}{2^{2}} + \frac{1}{3^{2}} + \frac{1}{4^{2}} +\frac{1}{5^{2}} + \frac{1}{6^{2}}+… $$</p>
+<p>这就是巴塞尔问题，答案是$\frac{\pi^{2}}{6}$。</p>
+<p>但是当s &lt; 1时，答案又是什么呢？</p>
+<p>欧拉给出了这么几个答案：</p>
+<p>$$\varepsilon (-1) &#x3D; 1 + 2 + 3 + 4 + 5… &#x3D; -\frac{1}{12} \ \varepsilon (-2) &#x3D; 0 \ \varepsilon (-3) &#x3D; -\frac{1}{120}$$</p>
+<p>是不是很神奇，那让我们看一下欧拉的证明方法。</p>
+<p>欧拉把这个函数$\frac{x}{(1-x)^{2}}$幂级数展开得： $$\frac{x}{(1-x)^{2}} &#x3D; x + 2x^{2} + 3x^{3} + 4x^{4} + ….$$</p>
+<p>令x &#x3D; -1得： $$-\frac{1}{4} &#x3D; -1 + 2 - 3 + 4 - …..$$ $$ -\frac{1}{4}&#x3D; -(1 + 3 + 5 + …) + (2 + 4 + 6 + …)$$ $$-\frac{1}{4} &#x3D; -(1 + 2 + 3 + 4 + ..) + (2 *2 +4*2 + 6*2+…)$$ $$-\frac{1}{4}&#x3D;3 * (1 + 2 + 3 + 4 + ….)$$ $$1 + 2 + 3 + 4 + … &#x3D; -\frac{1}{12}$$</p>
+<p>这只是欧拉的证明方法，还有很多其他版本的证明方法后续再补充。</p>
+<p>（全体自然数之和在数学家的眼里是错误的，但是在物理学家的眼里那就不一定错误了。）</p>
+<p>到了这里，为什么全体自然数之和等于$-\frac{1}{12}$，在上一期说过，s在这个欧拉级数里必须是大于1才有意义，当s &#x3D; -1的时候是无意义的，那么怎么会出现这个这个结果，答案就是解析延拓。</p>
+<h2 id="解析延拓"><a href="#解析延拓" class="headerlink" title="解析延拓"></a>解析延拓</h2><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>解析：如果一个函数$f(x)$在某一点a处可导，并且在a的领域也处处可导，即这个函数$f(x)$在a点是解析的，如果$f(x)$在区域D内的任意一点都是解析的，那么$f(x)$在区域D内是解析的。</p>
+<p>通俗的来说，解析延拓就是将一个函数$f(x)$的定义域“扩大”，但这个“扩大”不是随意扩大，解析延拓是唯一的，条件就是$f(x)$是在一个区域内是处处可导的，那么就可以将这个区域扩大到全局，也就是局部函数-&gt;全局函数，而且也是处处可导的。处处可导是什么意思呢？就是处处是光滑。</p>
+<p>那我们来举个栗子。</p>
+<h4 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h4><p>我们一定看过这样的一个数列： $$1 + x + x^{2} + x^{3} + ….$$</p>
+<p>用等比数列求和可得(-1 &lt; x &lt; 1)：</p>
+<p>$$1 + x + x^{2} + x^{3} + …. &#x3D; \frac{1}{1 - x}$$</p>
+<p>那我们先把这个函数用图像画出来，当-1 &lt; x &lt; 1时，左边是严格等于右边的，所以图像是：</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2020/06/20200604170224297.png"></p>
+<p>左边的数列只有在-1&lt;x&lt;1时才会是上图所呈现的，但是对于右边，貌似我们还可以画出x的定义域内的图像，图像如下：</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2020/06/20200604170503197.png"></p>
+<p>这样我们就把左边的数列进行了解析延拓，扩大了定义域，但是上图除了-1&lt;x&lt;1，之外的范围都不存在，让我们来带几个值进去。 当$x &#x3D; \frac{1}{2}$时： $$1 + \frac{1}{2} + (\frac{1}{2})^{2} + (\frac{1}{2})^{3} + …. &#x3D; 2$$ 这是完全正确的。 当$x &#x3D; -1$时： $$1 + -1 + 1 - 1 + …. &#x3D; \frac{1}{2}$$</p>
+<p>这个式子对不对自己细品。。。 对于左边x &#x3D; -1是没有意义的，但是对于解析延拓出来的右边函数是具有意义的。</p>
+<p>所以说，全体自然数之和等于$-\frac{1}{12}$是解析延拓出来的结果，是错误的。</p>
+<p>那么欧拉级数解析延拓出来的函数是什么样子呢？让我们下期再来讲讲黎曼函数。</p>
+<p>参考： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MW411S7Tg">https://www.bilibili.com/video/BV1MW411S7Tg</a> <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oW411U7Bk">https://www.bilibili.com/video/BV1oW411U7Bk</a> <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40155097/article/details/86670230">https://blog.csdn.net/qq_40155097&#x2F;article&#x2F;details&#x2F;86670230</a></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/">https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E4%BD%93%E8%87%AA%E7%84%B6%E6%95%B0%E4%B9%8B%E5%92%8C%E7%AD%89%E4%BA%8E-frac-1-12"><span class="toc-number">1.</span> <span class="toc-text">全体自然数之和等于$-\frac{1}{12}$</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E6%9E%90%E5%BB%B6%E6%8B%93"><span class="toc-number">2.</span> <span class="toc-text">解析延拓</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-number">2.0.1.</span> <span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%97%E5%AD%90"><span class="toc-number">2.0.2.</span> <span class="toc-text">栗子</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&text=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&title=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&is_video=false&description=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓&body=Check out this article: https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&title=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&title=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&title=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&title=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&name=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/&t=黎曼猜想（二）全体自然数之和等于-1/12和解析延拓"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

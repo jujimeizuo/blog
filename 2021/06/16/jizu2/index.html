@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="3.1 系统总线 主存总线与DMA总线不能同时对主存进行存取， 总线分类（按照连接部件不同划分）：片内总线、系统总线、通信总线。 系统总线按照传输信息不同，分数据总线【双向传输总线】、地址总线、控制总线【一般来说是单向的】。 通信总线按照传输方式不同，分串行通信【远距离传输】、并行通信【近距离传输】。 总线特性：机械特性、电气特性、功能特性、时间特性。 总线周期分为四个阶段：申请分配阶段、寻址阶段">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理期末复习（二）系统总线">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/06/16/jizu2/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="3.1 系统总线 主存总线与DMA总线不能同时对主存进行存取， 总线分类（按照连接部件不同划分）：片内总线、系统总线、通信总线。 系统总线按照传输信息不同，分数据总线【双向传输总线】、地址总线、控制总线【一般来说是单向的】。 通信总线按照传输方式不同，分串行通信【远距离传输】、并行通信【近距离传输】。 总线特性：机械特性、电气特性、功能特性、时间特性。 总线周期分为四个阶段：申请分配阶段、寻址阶段">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="article:published_time" content="2021-06-16T09:34:29.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.709Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>计算机组成原理期末复习（二）系统总线</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/06/16/jizu3/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/06/16/jizu1/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/16/jizu2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&text=计算机组成原理期末复习（二）系统总线"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&title=计算机组成原理期末复习（二）系统总线"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&is_video=false&description=计算机组成原理期末复习（二）系统总线"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机组成原理期末复习（二）系统总线&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/16/jizu2/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&title=计算机组成原理期末复习（二）系统总线"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&title=计算机组成原理期末复习（二）系统总线"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&title=计算机组成原理期末复习（二）系统总线"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&title=计算机组成原理期末复习（二）系统总线"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&name=计算机组成原理期末复习（二）系统总线&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&t=计算机组成原理期末复习（二）系统总线"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BA%BF"><span class="toc-number">1.</span> <span class="toc-text">3.1 系统总线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E4%BE%8B%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">3.2 例题</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        计算机组成原理期末复习（二）系统总线
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-06-16T09:34:29.000Z" class="dt-published" itemprop="datePublished">2021-06-16</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h4 id="3-1-系统总线"><a href="#3-1-系统总线" class="headerlink" title="3.1 系统总线"></a>3.1 系统总线</h4><ol>
+<li>主存总线与DMA总线<strong>不能同时</strong>对主存进行存取，</li>
+<li>总线分类（按照连接部件不同划分）：<strong>片内总线、系统总线、通信总线</strong>。</li>
+<li>系统总线按照传输信息不同，分<strong>数据总线【双向传输总线】、地址总线、控制总线【一般来说是单向的】</strong>。</li>
+<li>通信总线按照传输方式不同，分<strong>串行通信【远距离传输】、并行通信【近距离传输】</strong>。</li>
+<li>总线特性：<strong>机械特性、电气特性、功能特性、时间特性</strong>。</li>
+<li>总线周期分为四个阶段：<strong>申请分配阶段、寻址阶段、传数阶段、结束阶段</strong>。</li>
+<li>总线通信方式：<strong>同步通信、异步通信、半同步通信、分离式通信</strong>。</li>
+<li>对各不相同速度的部件而言，必须按<strong>最慢速度</strong>的部件来设置公共时钟。</li>
+<li><strong>波特率</strong>是指单位时间内传送二级制数的位数，单位用**bps(位&#x2F;秒)**，记作波特。</li>
+<li><strong>比特率</strong>是指单位时间内传送二进制<strong>有效数据</strong>的位数，单位用<strong>bps</strong>表示。</li>
+</ol>
+<p> </p>
+<h4 id="3-2-例题"><a href="#3-2-例题" class="headerlink" title="3.2 例题"></a>3.2 例题</h4><blockquote>
+<p>3.1 什么是总线？总线传输有何特点？为了减轻总线的负载，总线上的部件都应具备什么特点？</p>
+<p>总线是多个部件共享的传输部件。</p>
+<p>总线传输的特点是：某一时刻只能有一路信息在总线上传输，即分时使用。</p>
+<p>为了减轻总线负载，总线上的部件应通过三态驱动缓冲电路与总线连通。</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>3.2 总线如何分类？什么是系统总线？系统总线又分为几类，它们各又何作用，是单向的，还是双向的，它们与机器字长、存储字长、存储单元有何关系？</p>
+<p>按照连接部件的不同，总线可以分为片内总线、系统总线和通信总线。</p>
+<p>系统总线是连接CPU、主存、I&#x2F;O各部件之间的信息传输线。</p>
+<p>系统总线按照传输信息不同又分为地址线、数据线和控制线。地址线是单向的，其根数越多，寻址空间越大，即CPU能访问的存储单元的个数越多；数据线是双向的，其根数与存储字长相同，是机器字长的整数倍。</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>3.4 为什么要设置总线判优控制？常见的集中式总线控制有几种，各有何特点，哪种方式响应时间最快，哪种方式对电路故障最敏感？</p>
+<p>总线判优控制解决多个部件同时申请总线时的使用权分配问题。</p>
+<p>常见的集中式总线控制有三种：</p>
+<ol>
+<li>链式查询：连线简单，易于扩充，对电路故障最敏感。</li>
+<li>计数器定时查询：优先级设置较灵活，对故障不敏感，连线及控制过程较复杂。</li>
+<li>独立请求：速度最快，但硬件器件用量大，连线多，成本较高。<img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></li>
+</ol>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>3.5 解释概念：总线宽度、总线带宽、总线复用、总线的主设备（或主模块）、总线的从设备（或从模块）、总线的传输周期、总线的通信控制。</p>
+<p>总线宽度：通常指数据总线的总根数；</p>
+<p>总线带宽：总线的数据传输率，指单位时间内总线上传输数据的位数；</p>
+<p>总线复用：指同一条信号线可以分时传输不同的信号；</p>
+<p>总线的主设备（或主模块）：指一次总线传输期间，拥有总线控制权的设备（模块）；</p>
+<p>总线的从设备（或从模块）：指一次总线传输期间，配合主设备完成数据传输的设备（模块），他只能被动接受主设备发来的命令；</p>
+<p>总线的传输周期：指总线完成一次完整而可靠的传输所需时间；</p>
+<p>总线的通信控制：指总线传送过程中双方的时间配合方式。</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>3.14 设总线的时钟频率为8MHz，一个总线周期等于一个时钟周期，如果一个总线周期中并行传输16位数据，试问总线的带宽是多少？</p>
+<p>由题意 1s有8M个时钟周期，即总线周期，</p>
+<p>总线带宽&#x3D;8M*16&#x2F;8B&#x3D;16MBps</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>3.15 在一个32位的总线系统中，总线的时钟频率为66MHz，假设总线最短传输周期为4个时钟周期，试计算总线的最大数据传输率。若想提高数据传输率，可采取什么措施？</p>
+<p>由题意 1s有66M个时钟周期，</p>
+<p>即有66M&#x2F;4个总线最短传输周期，</p>
+<p>数据传输率&#x3D;66M&#x2F;4*32&#x2F;8B&#x3D;66MBps</p>
+<p>如果想要提高数据传输率，可以增加总线位数、提高时钟频率。</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>3.16 异步串行传送系统中，字符格式为：1个起始位、8个数据位、1个校验位、2个终值位。若要求每秒传送120个字符，试求传送的波特率和比特率。</p>
+<p>波特率&#x3D;120*(1+8+1+2)&#x3D;1440bps</p>
+<p>比特率&#x3D;120*8&#x3D;960bps</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>假设总线的时钟频率为100MHz，总线的传输周期为4个时钟周期，总线的宽度为32位，试求总线的数据传输率。</p>
+<p>由题意 1s 有100M个时钟周期，</p>
+<p>即有100M&#x2F;4&#x3D;25M个总线周期，</p>
+<p>数据传输率&#x3D;25M*32&#x2F;8B&#x3D;100MBps</p>
+</blockquote>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/16/jizu2/">https://blog.jujimeizuo.cn/2021/06/16/jizu2/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E7%B3%BB%E7%BB%9F%E6%80%BB%E7%BA%BF"><span class="toc-number">1.</span> <span class="toc-text">3.1 系统总线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E4%BE%8B%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">3.2 例题</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/16/jizu2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&text=计算机组成原理期末复习（二）系统总线"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&title=计算机组成原理期末复习（二）系统总线"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&is_video=false&description=计算机组成原理期末复习（二）系统总线"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机组成原理期末复习（二）系统总线&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/16/jizu2/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&title=计算机组成原理期末复习（二）系统总线"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&title=计算机组成原理期末复习（二）系统总线"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&title=计算机组成原理期末复习（二）系统总线"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&title=计算机组成原理期末复习（二）系统总线"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&name=计算机组成原理期末复习（二）系统总线&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/16/jizu2/&t=计算机组成原理期末复习（二）系统总线"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

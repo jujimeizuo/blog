@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="7.1 CPU的结构7.1.1 CPU的功能（1）取指令 控制器必须具备能自动地从存储器中取出指令的功能 （2）分析指令 分析指令包括两部分内容：其一，分析此指令要完成什么操作，即控制器需发出什么操作命令；其二，分析参与这次操作的操作数地址，即操作数的有效地址。 （3）执行指令 执行指令就是根据分析指令产生的“操作命令”和“操作数地址”的要求，形成操作控制信号序列，通过对运算器、存储器以及I&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理期末复习（七）CPU的结构和性能">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/06/20/jizu7/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="7.1 CPU的结构7.1.1 CPU的功能（1）取指令 控制器必须具备能自动地从存储器中取出指令的功能 （2）分析指令 分析指令包括两部分内容：其一，分析此指令要完成什么操作，即控制器需发出什么操作命令；其二，分析参与这次操作的操作数地址，即操作数的有效地址。 （3）执行指令 执行指令就是根据分析指令产生的“操作命令”和“操作数地址”的要求，形成操作控制信号序列，通过对运算器、存储器以及I&amp;#x">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-79.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/1.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/FD0F9CD4-2619-4F9F-95BE-3BF546880A2A.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/F1DD9958-7255-4ED5-9195-4FFC8E1FACE2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/FA7FC9E8-6EDC-4E83-9CE3-5E295976F5C8.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/722BDA51-2D08-4733-BA7B-DDC1E2BC17F8.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/lALPD0sXSsEKvqfNAg7NBWE_1377_526.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/A43F0FDD-6DC3-4920-BB5B-1F5F6CBCD373.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/708FAC65-A3D6-4AC1-9F1E-77E702420951.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/455157F9-80F5-4DD7-9C48-297E3A7FBAF8.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/CD48DB4FF87D2E795DEA787F7168187D.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/F6F2BF88-5357-4DB2-823D-35F47D87F907.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-80.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="article:published_time" content="2021-06-20T11:10:36.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.709Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-79.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>计算机组成原理期末复习（七）CPU的结构和性能</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/06/20/jizu8/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/06/20/jizu6/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/20/jizu7/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&text=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&title=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&is_video=false&description=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机组成原理期末复习（七）CPU的结构和性能&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/20/jizu7/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&title=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&title=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&title=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&title=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&name=计算机组成原理期末复习（七）CPU的结构和性能&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&t=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-CPU%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">7.1 CPU的结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-1-CPU%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="toc-number"></span> <span class="toc-text">7.1.1 CPU的功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-2-CPU%E7%BB%93%E6%9E%84%E6%A1%86%E5%9B%BE"><span class="toc-number"></span> <span class="toc-text">7.1.2 CPU结构框图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-3-CPU%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number"></span> <span class="toc-text">7.1.3 CPU的寄存器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%8F%AF%E8%A7%81%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">用户可见寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E5%92%8C%E7%8A%B6%E6%80%81%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">控制和状态寄存器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-4-%E6%8E%A7%E5%88%B6%E5%8D%95%E5%85%83%E5%92%8C%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F"><span class="toc-number"></span> <span class="toc-text">7.1.4 控制单元和中断系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-%E6%8C%87%E4%BB%A4%E5%91%A8%E6%9C%9F"><span class="toc-number">1.</span> <span class="toc-text">7.2 指令周期</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-1-%E6%A6%82%E5%BF%B5"><span class="toc-number"></span> <span class="toc-text">7.2.1 概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-2-%E6%8C%87%E4%BB%A4%E5%91%A8%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number"></span> <span class="toc-text">7.2.2 指令周期的数据流</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%96%E5%80%BC%E5%91%A8%E6%9C%9F%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number">1.</span> <span class="toc-text">取值周期数据流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%B4%E5%9D%80%E5%91%A8%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number">2.</span> <span class="toc-text">间址周期的数据流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%91%A8%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number">3.</span> <span class="toc-text">执行周期的数据流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%91%A8%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number">4.</span> <span class="toc-text">中断周期的数据流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-%E6%8C%87%E4%BB%A4%E6%B5%81%E6%B0%B4"><span class="toc-number">5.</span> <span class="toc-text">7.3 指令流水</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-1-%E6%8C%87%E4%BB%A4%E6%B5%81%E6%B0%B4%E5%8E%9F%E7%90%86"><span class="toc-number"></span> <span class="toc-text">7.3.1 指令流水原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-2-%E5%BD%B1%E5%93%8D%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%80%A7%E8%83%BD%E7%9A%84%E5%9B%A0%E7%B4%A0"><span class="toc-number"></span> <span class="toc-text">7.3.2 影响流水线性能的因素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E7%9B%B8%E5%85%B3"><span class="toc-number">1.</span> <span class="toc-text">结构相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3"><span class="toc-number">2.</span> <span class="toc-text">数据相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E7%9B%B8%E5%85%B3"><span class="toc-number">3.</span> <span class="toc-text">控制相关</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-3-%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%80%A7%E8%83%BD"><span class="toc-number"></span> <span class="toc-text">7.3.3 流水线性能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%9E%E5%90%90%E7%8E%87"><span class="toc-number">1.</span> <span class="toc-text">吞吐率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E6%AF%94"><span class="toc-number">2.</span> <span class="toc-text">加速比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%88%E7%8E%87"><span class="toc-number">3.</span> <span class="toc-text">效率</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-4-%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%A7%8D%E7%9A%84%E5%A4%9A%E5%8F%91%E6%8A%80%E6%9C%AF%E3%80%82"><span class="toc-number"></span> <span class="toc-text">7.3.4 流水线种的多发技术。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-5-%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-number"></span> <span class="toc-text">7.3.5 流水线结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">指令流水线结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="toc-number">2.</span> <span class="toc-text">运算流水线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-4-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">7.4 中断系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-1-%E6%A6%82%E8%BF%B0"><span class="toc-number"></span> <span class="toc-text">7.4.1 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E8%B5%B7%E4%B8%AD%E6%96%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%9B%A0%E7%B4%A0"><span class="toc-number">1.</span> <span class="toc-text">引起中断的各种因素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-2-%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%E6%A0%87%E8%AE%B0%E5%92%8C%E4%B8%AD%E6%96%AD%E5%88%A4%E4%BC%98%E9%80%BB%E8%BE%91"><span class="toc-number"></span> <span class="toc-text">7.4.2 中断请求标记和中断判优逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%E6%A0%87%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">中断请求标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%88%A4%E4%BC%98%E9%80%BB%E8%BE%91"><span class="toc-number">2.</span> <span class="toc-text">中断判优逻辑</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-3-%E4%B8%AD%E6%96%AD%E6%9C%8D%E5%8A%A1%E7%A8%8B%E5%BA%8F%E5%85%A5%E5%8F%A3%E5%9C%B0%E5%9D%80%E7%9A%84%E5%AF%BB%E6%89%BE"><span class="toc-number"></span> <span class="toc-text">7.4.3 中断服务程序入口地址的寻找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-4-%E4%B8%AD%E6%96%AD%E5%93%8D%E5%BA%94"><span class="toc-number"></span> <span class="toc-text">7.4.4 中断响应</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E4%B8%AD%E6%96%AD%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">响应中断的条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E4%B8%AD%E6%96%AD%E6%97%B6%E9%97%B4"><span class="toc-number">2.</span> <span class="toc-text">响应中断时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E9%9A%90%E6%8C%87%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">中断隐指令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-5-%E4%BF%9D%E6%8A%A4%E7%8E%B0%E5%9C%BA%E5%92%8C%E6%81%A2%E5%A4%8D%E7%8E%B0%E5%9C%BA"><span class="toc-number"></span> <span class="toc-text">7.4.5 保护现场和恢复现场</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-6-%E4%B8%AD%E6%96%AD%E5%B1%8F%E8%94%BD%E6%8A%80%E6%9C%AF"><span class="toc-number"></span> <span class="toc-text">7.4.6 中断屏蔽技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E9%87%8D%E4%B8%AD%E6%96%AD%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">多重中断概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%A4%9A%E9%87%8D%E4%B8%AD%E6%96%AD%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">实现多重中断的条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%8F%E8%94%BD%E6%8A%80%E6%9C%AF"><span class="toc-number">3.</span> <span class="toc-text">屏蔽技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E9%87%8D%E4%B8%AD%E6%96%AD%E7%9A%84%E6%96%AD%E7%82%B9%E4%BF%9D%E6%8A%A4"><span class="toc-number">4.</span> <span class="toc-text">多重中断的断点保护</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-5-%E5%B0%8F%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">7.5 小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E8%B5%B7%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%80%A7%E8%83%BD%E7%9A%84%E5%9B%A0%E7%B4%A0"><span class="toc-number"></span> <span class="toc-text">引起流水线性能的因素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E8%B5%B7%E4%B8%AD%E6%96%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%9B%A0%E7%B4%A0-1"><span class="toc-number"></span> <span class="toc-text">引起中断的各种因素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-6-%E4%BE%8B%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">7.6 例题</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        计算机组成原理期末复习（七）CPU的结构和性能
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-06-20T11:10:36.000Z" class="dt-published" itemprop="datePublished">2021-06-20</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h4 id="7-1-CPU的结构"><a href="#7-1-CPU的结构" class="headerlink" title="7.1 CPU的结构"></a>7.1 CPU的结构</h4><h3 id="7-1-1-CPU的功能"><a href="#7-1-1-CPU的功能" class="headerlink" title="7.1.1 CPU的功能"></a>7.1.1 CPU的功能</h3><p>（1）取指令 控制器必须具备能自动地从存储器中取出指令的功能</p>
+<p>（2）分析指令 分析指令包括两部分内容：其一，分析此指令要完成什么操作，即控制器需发出什么操作命令；其二，分析参与这次操作的操作数地址，即操作数的有效地址。</p>
+<p>（3）执行指令 执行指令就是根据分析指令产生的“操作命令”和“操作数地址”的要求，形成操作控制信号序列，通过对运算器、存储器以及I&#x2F;O设备的操作，执行每条指令。</p>
+<p>CPU必须具有控制程序的顺序执行（称指令控制）、产生完成每条指令的控制命令（称操作控制）、对各种操作加以时间上的控制（称时间控制）、对数据进行算术运算和逻辑运算（称数据加工）、处理中断等功能。</p>
+<h3 id="7-1-2-CPU结构框图"><a href="#7-1-2-CPU结构框图" class="headerlink" title="7.1.2 CPU结构框图"></a>7.1.2 CPU结构框图</h3><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-79.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h3 id="7-1-3-CPU的寄存器"><a href="#7-1-3-CPU的寄存器" class="headerlink" title="7.1.3 CPU的寄存器"></a>7.1.3 CPU的寄存器</h3><p>CPU中的寄存器大致可分为两类：一类属于<strong>用户可见寄存器</strong>，用户可对这类寄存器编程，以及通过优化使CPU因使用这类寄存器而减少对主存的访问次数；另一类属于<strong>控制和状态寄存器</strong>，用户不可对这类寄存器编程，它们被控制部件使用，以控制CPU的操作，也可被带有特权的操作系统程序使用，从而控制程序的执行。</p>
+<h4 id="用户可见寄存器"><a href="#用户可见寄存器" class="headerlink" title="用户可见寄存器"></a>用户可见寄存器</h4><p>（1）通用寄存器 通用寄存器可由程序设计者指定许多功能，可用于存放操作数，也可作为满足某种寻址方式所需的寄存器。寄存器间接寻址时还可用通用寄存器存放有效地址的地址。</p>
+<p>（2）数据寄存器 数据寄存器用于存放操作数，其位数应满足多数数据类型的数值范围。</p>
+<p>（3）地址寄存器 地址寄存器用于存放地址，其本身可以具有通用性，也可用于特殊的寻址方式。</p>
+<p>（4）条件码寄存器 条件码是CPU根据运算结果由硬件设置的位。将条件码放到一个或多个寄存器中，就构成了条件码寄存器。</p>
+<h4 id="控制和状态寄存器"><a href="#控制和状态寄存器" class="headerlink" title="控制和状态寄存器"></a>控制和状态寄存器</h4><p>MAR：存储器地址寄存器，用于存放将被访问的存储单元的地址。 MDR：存储器数据寄存器，用于存放欲存入存储器中的数据或最近从存储器中读出的数据。 PC：程序计数器，存放现行指令的地址，通常具有计数功能。当遇到转移类指令时，PC的值可被修改。 IR：指令寄存器，存放当前欲执行的指令。 PSW：程序状态字寄存器，存放条件码和其他状态信息。 在具有中断系统的机器中还有中断标记寄存器。</p>
+<h3 id="7-1-4-控制单元和中断系统"><a href="#7-1-4-控制单元和中断系统" class="headerlink" title="7.1.4 控制单元和中断系统"></a>7.1.4 控制单元和中断系统</h3><p>控制单元（CU）是提供完成计算机全部指令操作的微操作命令序列部件。微操作命令序列的形成方法有两种：一种是组合逻辑设计方法，为<strong>硬连线逻辑</strong>；另一种是微程序设计方法，为<strong>存储逻辑</strong>。</p>
+<h4 id="7-2-指令周期"><a href="#7-2-指令周期" class="headerlink" title="7.2 指令周期"></a>7.2 指令周期</h4><h3 id="7-2-1-概念"><a href="#7-2-1-概念" class="headerlink" title="7.2.1 概念"></a>7.2.1 概念</h3><p>CPU每取出并执行一条指令所需的全部时间称为<strong>指令周期</strong>，也即CPU完成一条指令的时间。取指阶段完成取指令和分析指令的操作，又称<strong>取指周期</strong>；执行阶段完成执行指令的操作，又称<strong>执行周期</strong>。</p>
+<h3 id="7-2-2-指令周期的数据流"><a href="#7-2-2-指令周期的数据流" class="headerlink" title="7.2.2 指令周期的数据流"></a>7.2.2 指令周期的数据流</h3><h4 id="取值周期数据流"><a href="#取值周期数据流" class="headerlink" title="取值周期数据流"></a>取值周期数据流</h4><h4 id="间址周期的数据流"><a href="#间址周期的数据流" class="headerlink" title="间址周期的数据流"></a>间址周期的数据流</h4><h4 id="执行周期的数据流"><a href="#执行周期的数据流" class="headerlink" title="执行周期的数据流"></a>执行周期的数据流</h4><h4 id="中断周期的数据流"><a href="#中断周期的数据流" class="headerlink" title="中断周期的数据流"></a>中断周期的数据流</h4><h4 id="7-3-指令流水"><a href="#7-3-指令流水" class="headerlink" title="7.3 指令流水"></a>7.3 指令流水</h4><p>（1）提高器件的性能 （2）改进系统的结构，开发系统的并行性 并行：包含同时性和并发性两方面。同时性指两个或多个事件在同一时刻发生，并发性指两个或多个事件在同一时间段发生。在同一时刻或同一时间段内完成两种或两种以上性质相同或不同的功能，只要在时间上互相重叠，就存在并行性。 并行性体现在不同等级上。通常分为4个级别：作业级或程序级、任务级或进程级、指令之间级和指令内部级。前两级为粗粒度，又称为过程级；后两级为细粒度，又称为指令级。粗粒度并行性一般用算法实现，细粒度并行性一般用硬件实现。粗粒度并行性是在多个处理机上分别运行多个进程，由多台处理机合作完成一个程序；细粒度并行性是指在处理机的操作级和指令级的并行性，其中指令的流水作业就是一项重要技术。</p>
+<h3 id="7-3-1-指令流水原理"><a href="#7-3-1-指令流水原理" class="headerlink" title="7.3.1 指令流水原理"></a>7.3.1 指令流水原理</h3><p>把指令的处理过程分为取指令和执行指令两个阶段，在不采用流水技术的计算机里，取指令和执行指令是周而复始地出现，各条指令按顺序串行执行的。</p>
+<h3 id="7-3-2-影响流水线性能的因素"><a href="#7-3-2-影响流水线性能的因素" class="headerlink" title="7.3.2 影响流水线性能的因素"></a>7.3.2 影响流水线性能的因素</h3><p>在流水过程中会出现三种相关，使流水线不断流实现起来很困难，即结构相关、数据相关、控制相关。 结构相关：当多条指令进入流水线后，硬件资源满足不了指令重叠执行的要求时产生的。 数据相关：指令在流水线中重叠执行时，当后继指令需要用到前面的执行结果时发生的。 控制相关：当流水线遇到分支指令和其他改变PC值的指令时引起的。</p>
+<p>假设流水线由5段组成，它们分别是取指令（IF）、指令译码&#x2F;读寄存器（ID）、执行&#x2F;访存有效地址计算（EX）、存储器访问（MEM）、结果写回寄存器（WB）。</p>
+<h4 id="结构相关"><a href="#结构相关" class="headerlink" title="结构相关"></a>结构相关</h4><h4 id="数据相关"><a href="#数据相关" class="headerlink" title="数据相关"></a>数据相关</h4><h4 id="控制相关"><a href="#控制相关" class="headerlink" title="控制相关"></a>控制相关</h4><h3 id="7-3-3-流水线性能"><a href="#7-3-3-流水线性能" class="headerlink" title="7.3.3 流水线性能"></a>7.3.3 流水线性能</h3><p>流水线性能通常用<strong>吞吐率、加速比、效率</strong>3项指标来衡量。</p>
+<h4 id="吞吐率"><a href="#吞吐率" class="headerlink" title="吞吐率"></a>吞吐率</h4><p>在指令级流水线中，<strong>吞吐率</strong>是指单位时间内流水线所完成指令或输出结果的数量。吞吐率又有<strong>最大吞吐率</strong>和<strong>实际吞吐率</strong>之分。</p>
+<p><strong>最大吞吐率</strong>是指流水线在连续流动达到稳定状态后所获得的吞吐率。对于m段的指令流水线而言，若各段的时间均为Δt，则最大吞吐率为</p>
+<p><code>T_&#123;pmax&#125;=\frac&#123;1&#125;&#123;\triangle t&#125;</code> 流水线仅在连续流动时才可达到最大吞吐率。实际吞吐率总是小于最大吞吐率。 实际吞吐率是指流水线完成n条指令的实际吞吐率。实际吞吐率为 <code>T_p=\frac&#123;T_&#123;pmax&#125;&#125;&#123;1+(m-1)/n&#125;</code></p>
+<h4 id="加速比"><a href="#加速比" class="headerlink" title="加速比"></a>加速比</h4><p>流水线的加速比是指m段流水线的速度与等功能的非流水线的速度之比。加速比Sp为 <code>S_p=\frac&#123;m&#125;&#123;1+(m-1)/n&#125;</code></p>
+<h4 id="效率"><a href="#效率" class="headerlink" title="效率"></a>效率</h4><p>效率是指流水线中各功能段的利用率。通常用流水线各段处于工作时间的时空区与流水线中各段总的时空区之比来衡量流水线的效率。 <code>E=T_p\triangle t</code></p>
+<h3 id="7-3-4-流水线种的多发技术。"><a href="#7-3-4-流水线种的多发技术。" class="headerlink" title="7.3.4 流水线种的多发技术。"></a>7.3.4 流水线种的多发技术。</h3><p>除了采用好的指令调度算法、重新组织指令执行顺序、降低相关带来的干扰以及优化编译外，还可开发流水线中的多发技术，设法在一个时钟周期内，产生更多的结果。常见的多发技术有超标量技术、超流水线技术、超长指令字技术。</p>
+<h3 id="7-3-5-流水线结构"><a href="#7-3-5-流水线结构" class="headerlink" title="7.3.5 流水线结构"></a>7.3.5 流水线结构</h3><h4 id="指令流水线结构"><a href="#指令流水线结构" class="headerlink" title="指令流水线结构"></a>指令流水线结构</h4><p>指令流水线是将指令的整个执行过程用流水线进行分段处理，典型的指令执行过程分为“取指令——指令译码——形成地址——取操作数——执行指令——回写结果——修改指令指针”这几个阶段。 指令流水线对机器性能的改善程度取决于把处理过程分解为多少个相等的时间段数。</p>
+<h4 id="运算流水线"><a href="#运算流水线" class="headerlink" title="运算流水线"></a>运算流水线</h4><p>流水线相邻两段在执行不同的操作，因此在相邻两段之间必须设置锁存器或寄存器，以保证在一个时钟周期内流水线的输入信号不变。这一指导思想也适用于指令流水。</p>
+<h4 id="7-4-中断系统"><a href="#7-4-中断系统" class="headerlink" title="7.4 中断系统"></a>7.4 中断系统</h4><h3 id="7-4-1-概述"><a href="#7-4-1-概述" class="headerlink" title="7.4.1 概述"></a>7.4.1 概述</h3><h4 id="引起中断的各种因素"><a href="#引起中断的各种因素" class="headerlink" title="引起中断的各种因素"></a>引起中断的各种因素</h4><p>（1）人为设置的中断 这种中断一般称为自愿中断，因为它是程序中人为设置的，故一旦机器执行这种人为中断，便自愿停止现行程序而转入中断处理。 （2）程序性事故 如定点溢出、浮点溢出、操作码不能识别、除法中出现“非法”等，这些都属于由程序设计不周而引起的中断。 （3）硬件故障 （4）I&#x2F;O设备 I&#x2F;O设备被启动以后，一旦准备就绪，便向CPU发出中断请求。 （5）外部事件 用户通过键盘来中断现行程序属于外部事件中断。</p>
+<p>通常将能引起中断的各个因素称为中断源。中断源可分为两大类：一类为不可屏蔽中断，这类中断CPU不能禁止，如电源掉电；另一类为可屏蔽中断，对可屏蔽中断源的请求，CPU可根据该中断源是否被屏蔽来确定是否给予响应。若未屏蔽则能响应；若已被屏蔽，则CPU不能响应。</p>
+<h3 id="7-4-2-中断请求标记和中断判优逻辑"><a href="#7-4-2-中断请求标记和中断判优逻辑" class="headerlink" title="7.4.2 中断请求标记和中断判优逻辑"></a>7.4.2 中断请求标记和中断判优逻辑</h3><h4 id="中断请求标记"><a href="#中断请求标记" class="headerlink" title="中断请求标记"></a>中断请求标记</h4><h4 id="中断判优逻辑"><a href="#中断判优逻辑" class="headerlink" title="中断判优逻辑"></a>中断判优逻辑</h4><h3 id="7-4-3-中断服务程序入口地址的寻找"><a href="#7-4-3-中断服务程序入口地址的寻找" class="headerlink" title="7.4.3 中断服务程序入口地址的寻找"></a>7.4.3 中断服务程序入口地址的寻找</h3><p>通常有两种方法寻找入口地址：硬件向量法和软件查询法。</p>
+<h3 id="7-4-4-中断响应"><a href="#7-4-4-中断响应" class="headerlink" title="7.4.4 中断响应"></a>7.4.4 中断响应</h3><h4 id="响应中断的条件"><a href="#响应中断的条件" class="headerlink" title="响应中断的条件"></a>响应中断的条件</h4><p>当EINT&#x3D;1，且有中断请求（即中断请求标记触发器INTR&#x3D;1）时，CPU可以响应中断。</p>
+<h4 id="响应中断时间"><a href="#响应中断时间" class="headerlink" title="响应中断时间"></a>响应中断时间</h4><p>之所以CPU在指令的执行周期后进入中断周期，是因为CPU在执行周期的结束时刻同一向所有中断源发中断查询信号，只有此时CPU才能获知哪个中断源有请求。 可在指令执行过程中设置若干个查询断点，CPU在每个“查询断点”时刻均发中断查询信号，以便发现有中断请求便可及时响应。</p>
+<h4 id="中断隐指令"><a href="#中断隐指令" class="headerlink" title="中断隐指令"></a>中断隐指令</h4><p>（1）保护程序断点 （2）寻找中断服务程序的入口地址 （3）关中断</p>
+<h3 id="7-4-5-保护现场和恢复现场"><a href="#7-4-5-保护现场和恢复现场" class="headerlink" title="7.4.5 保护现场和恢复现场"></a>7.4.5 保护现场和恢复现场</h3><p>保护现场：应该包括保护程序断点和保护CPU内部各寄存器内容的现场两个方面。程序断点的现场由中断隐指令完成，各寄存器内的现场可在中断服务程序中由用户（或系统）用机器指令编程实现。</p>
+<p>恢复现场：是指在中断返回前，必须将寄存器的内容回复到中断处理前的状态，这部分工作也由中断服务程序完成。</p>
+<h3 id="7-4-6-中断屏蔽技术"><a href="#7-4-6-中断屏蔽技术" class="headerlink" title="7.4.6 中断屏蔽技术"></a>7.4.6 中断屏蔽技术</h3><h4 id="多重中断概念"><a href="#多重中断概念" class="headerlink" title="多重中断概念"></a>多重中断概念</h4><p>当CPU正在执行某个中断服务程序时，另一个中断源又提出了新的中断请求，而CPU又响应了这个系难道请求，暂时停止正在运行的服务程序，转去执行新的中断服务程序，这称为多重中断，又称为中断嵌套。如果的CPU对新请求不予响应，待执行完当前的服务程序后再响应，即为单重中断。</p>
+<h4 id="实现多重中断的条件"><a href="#实现多重中断的条件" class="headerlink" title="实现多重中断的条件"></a>实现多重中断的条件</h4><p>1.提前设置“开中断”指令。 多重中断“开中断”指令的位置前于单重中断，从而保证了多重中断允许出现中断嵌套。 2.优先级别高的中断源有权中断优先级别低的中断源。 为了保证级别低的中断源不干扰级别高的中断源的中断处理过程，保证上述2的试试，可采用屏蔽技术。</p>
+<h4 id="屏蔽技术"><a href="#屏蔽技术" class="headerlink" title="屏蔽技术"></a>屏蔽技术</h4><p>（1）屏蔽触发器与屏蔽字 （2）屏蔽技术可改变优先等级 （3）屏蔽技术的其他作用</p>
+<h4 id="多重中断的断点保护"><a href="#多重中断的断点保护" class="headerlink" title="多重中断的断点保护"></a>多重中断的断点保护</h4><h4 id="7-5-小结"><a href="#7-5-小结" class="headerlink" title="7.5 小结"></a>7.5 小结</h4><ol>
+<li><p>CPU实质包括运算器和控制器，功能：取指令、分析指令（分析此指令要完成什么操作，分析参与这次操作的操作数地址）、执行指令</p>
+</li>
+<li><p>MAR（存储器地址寄存器）、MDR（存储器数据寄存器）、PC（程序计数器）、IR（指令寄存器）</p>
+</li>
+<li><p>CPU每取出并执行一条指令所需的全部时间称为指令周期。</p>
+<h3 id="引起流水线性能的因素"><a href="#引起流水线性能的因素" class="headerlink" title="引起流水线性能的因素"></a>引起流水线性能的因素</h3><p>结构相关、数据相关、控制相关</p>
+<h3 id="引起中断的各种因素-1"><a href="#引起中断的各种因素-1" class="headerlink" title="引起中断的各种因素"></a>引起中断的各种因素</h3><p>人为设置的中断、程序性事故、硬件故障、I&#x2F;O设备、外部事件</p>
+</li>
+</ol>
+<h4 id="7-6-例题"><a href="#7-6-例题" class="headerlink" title="7.6 例题"></a>7.6 例题</h4><blockquote>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/1.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/FD0F9CD4-2619-4F9F-95BE-3BF546880A2A.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/2.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/F1DD9958-7255-4ED5-9195-4FFC8E1FACE2.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>8.12 在5个功能段的指令流水线中，假设每段的执行时间分别为10ns，8ns，10ns，10ns和7ns。对于完成12条指令的流水线而言，其加速比为多少？该流水线的实际吞吐率为多少？</p>
+<p>根据流水线时空图，第一条指令出结果需要5个时钟周期，当流水线满载时，每个时钟周期可以出一个结果，即执行完一条指令。完成12条指令需要16个时钟周期，故实际吞吐率为:</p>
+<p> 12&#x2F;(10ns* 16)&#x3D;0.75*10^8条指令&#x2F;秒</p>
+<p>对于本题五级流水线而言，处理12条指令所需的时钟周期数为T&#x3D;5+ (12-1) &#x3D;16个， 而非流水线处理12条指令需要5*12&#x3D;60个，故该流水处理器的加速比为   60&#x2F;16&#x3D;3.75。</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>8.18 什么是中断隐指令，有哪些功能？</p>
+<p><strong>中断隐指令</strong>：CPU响应中断后，即进入中断周期。</p>
+<p>功能：</p>
+<ol>
+<li>保护程序断点</li>
+<li>寻找中断服务程序的入口地址</li>
+<li>关中断</li>
+</ol>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>8.19 中断系统中采用屏蔽技术有何作用？</p>
+<ol>
+<li>屏蔽触发器与屏蔽字</li>
+<li>屏蔽技术可改变优先等级</li>
+<li>屏蔽技术的其他作用</li>
+</ol>
+</blockquote>
+<p> </p>
+<blockquote>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/FA7FC9E8-6EDC-4E83-9CE3-5E295976F5C8.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/722BDA51-2D08-4733-BA7B-DDC1E2BC17F8.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<blockquote>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/lALPD0sXSsEKvqfNAg7NBWE_1377_526.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/A43F0FDD-6DC3-4920-BB5B-1F5F6CBCD373.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>8.26 设某机配有A、B、C三台设备，其优先顺序按A-B-C降序排列，为改变中断处理次序，它们的中断屏蔽字设置如下：</p>
+<p>设备</p>
+<p>屏蔽字</p>
+<p>A</p>
+<p>111</p>
+<p>B</p>
+<p>010</p>
+<p>C</p>
+<p>011</p>
+<p> </p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/708FAC65-A3D6-4AC1-9F1E-77E702420951.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/455157F9-80F5-4DD7-9C48-297E3A7FBAF8.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/CD48DB4FF87D2E795DEA787F7168187D.jpg"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/F6F2BF88-5357-4DB2-823D-35F47D87F907.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-80.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/20/jizu7/">https://blog.jujimeizuo.cn/2021/06/20/jizu7/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-1-CPU%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">7.1 CPU的结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-1-CPU%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="toc-number"></span> <span class="toc-text">7.1.1 CPU的功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-2-CPU%E7%BB%93%E6%9E%84%E6%A1%86%E5%9B%BE"><span class="toc-number"></span> <span class="toc-text">7.1.2 CPU结构框图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-3-CPU%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number"></span> <span class="toc-text">7.1.3 CPU的寄存器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%8F%AF%E8%A7%81%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">用户可见寄存器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E5%92%8C%E7%8A%B6%E6%80%81%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">控制和状态寄存器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-4-%E6%8E%A7%E5%88%B6%E5%8D%95%E5%85%83%E5%92%8C%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F"><span class="toc-number"></span> <span class="toc-text">7.1.4 控制单元和中断系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-2-%E6%8C%87%E4%BB%A4%E5%91%A8%E6%9C%9F"><span class="toc-number">1.</span> <span class="toc-text">7.2 指令周期</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-1-%E6%A6%82%E5%BF%B5"><span class="toc-number"></span> <span class="toc-text">7.2.1 概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-2-%E6%8C%87%E4%BB%A4%E5%91%A8%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number"></span> <span class="toc-text">7.2.2 指令周期的数据流</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%96%E5%80%BC%E5%91%A8%E6%9C%9F%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number">1.</span> <span class="toc-text">取值周期数据流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%B4%E5%9D%80%E5%91%A8%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number">2.</span> <span class="toc-text">间址周期的数据流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%91%A8%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number">3.</span> <span class="toc-text">执行周期的数据流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%91%A8%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="toc-number">4.</span> <span class="toc-text">中断周期的数据流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-3-%E6%8C%87%E4%BB%A4%E6%B5%81%E6%B0%B4"><span class="toc-number">5.</span> <span class="toc-text">7.3 指令流水</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-1-%E6%8C%87%E4%BB%A4%E6%B5%81%E6%B0%B4%E5%8E%9F%E7%90%86"><span class="toc-number"></span> <span class="toc-text">7.3.1 指令流水原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-2-%E5%BD%B1%E5%93%8D%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%80%A7%E8%83%BD%E7%9A%84%E5%9B%A0%E7%B4%A0"><span class="toc-number"></span> <span class="toc-text">7.3.2 影响流水线性能的因素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E7%9B%B8%E5%85%B3"><span class="toc-number">1.</span> <span class="toc-text">结构相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3"><span class="toc-number">2.</span> <span class="toc-text">数据相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6%E7%9B%B8%E5%85%B3"><span class="toc-number">3.</span> <span class="toc-text">控制相关</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-3-%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%80%A7%E8%83%BD"><span class="toc-number"></span> <span class="toc-text">7.3.3 流水线性能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%9E%E5%90%90%E7%8E%87"><span class="toc-number">1.</span> <span class="toc-text">吞吐率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E6%AF%94"><span class="toc-number">2.</span> <span class="toc-text">加速比</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%88%E7%8E%87"><span class="toc-number">3.</span> <span class="toc-text">效率</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-4-%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%A7%8D%E7%9A%84%E5%A4%9A%E5%8F%91%E6%8A%80%E6%9C%AF%E3%80%82"><span class="toc-number"></span> <span class="toc-text">7.3.4 流水线种的多发技术。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-5-%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-number"></span> <span class="toc-text">7.3.5 流水线结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%B5%81%E6%B0%B4%E7%BA%BF%E7%BB%93%E6%9E%84"><span class="toc-number">1.</span> <span class="toc-text">指令流水线结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%B5%81%E6%B0%B4%E7%BA%BF"><span class="toc-number">2.</span> <span class="toc-text">运算流水线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-4-%E4%B8%AD%E6%96%AD%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.</span> <span class="toc-text">7.4 中断系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-1-%E6%A6%82%E8%BF%B0"><span class="toc-number"></span> <span class="toc-text">7.4.1 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%95%E8%B5%B7%E4%B8%AD%E6%96%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%9B%A0%E7%B4%A0"><span class="toc-number">1.</span> <span class="toc-text">引起中断的各种因素</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-2-%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%E6%A0%87%E8%AE%B0%E5%92%8C%E4%B8%AD%E6%96%AD%E5%88%A4%E4%BC%98%E9%80%BB%E8%BE%91"><span class="toc-number"></span> <span class="toc-text">7.4.2 中断请求标记和中断判优逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%E6%A0%87%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">中断请求标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E5%88%A4%E4%BC%98%E9%80%BB%E8%BE%91"><span class="toc-number">2.</span> <span class="toc-text">中断判优逻辑</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-3-%E4%B8%AD%E6%96%AD%E6%9C%8D%E5%8A%A1%E7%A8%8B%E5%BA%8F%E5%85%A5%E5%8F%A3%E5%9C%B0%E5%9D%80%E7%9A%84%E5%AF%BB%E6%89%BE"><span class="toc-number"></span> <span class="toc-text">7.4.3 中断服务程序入口地址的寻找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-4-%E4%B8%AD%E6%96%AD%E5%93%8D%E5%BA%94"><span class="toc-number"></span> <span class="toc-text">7.4.4 中断响应</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E4%B8%AD%E6%96%AD%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">响应中断的条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E4%B8%AD%E6%96%AD%E6%97%B6%E9%97%B4"><span class="toc-number">2.</span> <span class="toc-text">响应中断时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E9%9A%90%E6%8C%87%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">中断隐指令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-5-%E4%BF%9D%E6%8A%A4%E7%8E%B0%E5%9C%BA%E5%92%8C%E6%81%A2%E5%A4%8D%E7%8E%B0%E5%9C%BA"><span class="toc-number"></span> <span class="toc-text">7.4.5 保护现场和恢复现场</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-6-%E4%B8%AD%E6%96%AD%E5%B1%8F%E8%94%BD%E6%8A%80%E6%9C%AF"><span class="toc-number"></span> <span class="toc-text">7.4.6 中断屏蔽技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E9%87%8D%E4%B8%AD%E6%96%AD%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">多重中断概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E5%A4%9A%E9%87%8D%E4%B8%AD%E6%96%AD%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">实现多重中断的条件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%8F%E8%94%BD%E6%8A%80%E6%9C%AF"><span class="toc-number">3.</span> <span class="toc-text">屏蔽技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E9%87%8D%E4%B8%AD%E6%96%AD%E7%9A%84%E6%96%AD%E7%82%B9%E4%BF%9D%E6%8A%A4"><span class="toc-number">4.</span> <span class="toc-text">多重中断的断点保护</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-5-%E5%B0%8F%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">7.5 小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E8%B5%B7%E6%B5%81%E6%B0%B4%E7%BA%BF%E6%80%A7%E8%83%BD%E7%9A%84%E5%9B%A0%E7%B4%A0"><span class="toc-number"></span> <span class="toc-text">引起流水线性能的因素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E8%B5%B7%E4%B8%AD%E6%96%AD%E7%9A%84%E5%90%84%E7%A7%8D%E5%9B%A0%E7%B4%A0-1"><span class="toc-number"></span> <span class="toc-text">引起中断的各种因素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-6-%E4%BE%8B%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">7.6 例题</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/20/jizu7/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&text=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&title=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&is_video=false&description=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机组成原理期末复习（七）CPU的结构和性能&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/20/jizu7/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&title=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&title=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&title=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&title=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&name=计算机组成原理期末复习（七）CPU的结构和性能&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/20/jizu7/&t=计算机组成原理期末复习（七）CPU的结构和性能"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

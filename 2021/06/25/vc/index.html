@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="常用句柄类型及其说明句柄类型 说明 HWND 标识窗口句柄 HINSTANCE 标识当前实例句柄 HCURSOR 标识光标句柄 HFONT 标识字体句柄 HPEN 标识画笔句柄 HBRUSH 标识画刷句柄 HDC 标识设备环境句柄 HBITMAP 标识位图句柄 HICON 标识图标句柄 HMENU 标识菜单句柄 HFILE 标识文件句柄 窗口窗口是Windows应用程序基本的操作单元，是应用程序与">
+<meta property="og:type" content="article">
+<meta property="og:title" content="桌面应用开发期末复习——VC++">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/06/25/vc/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="常用句柄类型及其说明句柄类型 说明 HWND 标识窗口句柄 HINSTANCE 标识当前实例句柄 HCURSOR 标识光标句柄 HFONT 标识字体句柄 HPEN 标识画笔句柄 HBRUSH 标识画刷句柄 HDC 标识设备环境句柄 HBITMAP 标识位图句柄 HICON 标识图标句柄 HMENU 标识菜单句柄 HFILE 标识文件句柄 窗口窗口是Windows应用程序基本的操作单元，是应用程序与">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-06-25T11:08:48.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.829Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="桌面应用开发">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>桌面应用开发期末复习——VC++</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/09/13/maven/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/06/20/jizu8/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/25/vc/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&text=桌面应用开发期末复习——VC++"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&title=桌面应用开发期末复习——VC++"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&is_video=false&description=桌面应用开发期末复习——VC++"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=桌面应用开发期末复习——VC++&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/25/vc/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&title=桌面应用开发期末复习——VC++"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&title=桌面应用开发期末复习——VC++"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&title=桌面应用开发期末复习——VC++"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&title=桌面应用开发期末复习——VC++"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&name=桌面应用开发期末复习——VC++&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/25/vc/&t=桌面应用开发期末复习——VC++"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%A5%E6%9F%84%E7%B1%BB%E5%9E%8B%E5%8F%8A%E5%85%B6%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">常用句柄类型及其说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3"><span class="toc-number">2.</span> <span class="toc-text">窗口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E6%B6%88%E6%81%AF"><span class="toc-number">3.</span> <span class="toc-text">Windows应用程序常用消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.</span> <span class="toc-text">Windows中的事件驱动程序设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#p44-3-3-%E8%AF%B4%E6%98%8E%E5%85%B6%E4%BC%98%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">p44 3.3 说明其优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-number">6.</span> <span class="toc-text">Windows应用程序的组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A8%8B%E5%BA%8F%E7%BB%84%E6%88%90%E7%BB%93%E6%9E%84"><span class="toc-number">7.</span> <span class="toc-text">源程序组成结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%98%BE%E7%A4%BA%E6%A0%87%E8%AF%86%E5%8F%8A%E5%85%B6%E8%AF%B4%E6%98%8E"><span class="toc-number">8.</span> <span class="toc-text">常用显示标识及其说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%88%B7%E6%96%B0"><span class="toc-number">9.</span> <span class="toc-text">图像刷新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B7%E6%96%B0%E8%AF%B7%E6%B1%82"><span class="toc-number">9.1.</span> <span class="toc-text">刷新请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%AF%B9%E5%88%B7%E6%96%B0%E8%AF%B7%E6%B1%82%E7%9A%84%E5%93%8D%E5%BA%94"><span class="toc-number">9.2.</span> <span class="toc-text">系统对刷新请求的响应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B7%E6%96%B0%E6%96%B9%E6%B3%95"><span class="toc-number">9.3.</span> <span class="toc-text">刷新方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BeginPaint%E4%B8%8EGetDC%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">10.</span> <span class="toc-text">BeginPaint与GetDC的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E7%AC%94%E3%80%81%E7%94%BB%E5%88%B7"><span class="toc-number">11.</span> <span class="toc-text">画笔、画刷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E8%BF%87%E7%A8%8B"><span class="toc-number">12.</span> <span class="toc-text">文本输出过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D"><span class="toc-number">12.1.</span> <span class="toc-text">绝对定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D"><span class="toc-number">12.2.</span> <span class="toc-text">相对定位</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%8C%BA%E9%BC%A0%E6%A0%87%E6%B6%88%E6%81%AF"><span class="toc-number">13.</span> <span class="toc-text">用户区鼠标消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wParam%E7%9A%84%E5%80%BC"><span class="toc-number">14.</span> <span class="toc-text">wParam的值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BC%A0%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%AE%9E%E4%BE%8B"><span class="toc-number">15.</span> <span class="toc-text">鼠标应用程序实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%AF%9D%E6%A1%86"><span class="toc-number">16.</span> <span class="toc-text">对话框</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%AF%B9%E8%AF%9D%E6%A1%86%E7%9A%84%E7%BC%96%E7%A8%8B%E6%96%B9%E6%B3%95"><span class="toc-number">16.1.</span> <span class="toc-text">模式对话框的编程方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E6%A8%A1%E5%BC%8F%E5%AF%B9%E8%AF%9D%E6%A1%86%E7%9A%84%E7%BC%96%E7%A8%8B%E6%96%B9%E6%B3%95"><span class="toc-number">16.2.</span> <span class="toc-text">非模式对话框的编程方法</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        桌面应用开发期末复习——VC++
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-06-25T11:08:48.000Z" class="dt-published" itemprop="datePublished">2021-06-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91/" rel="tag">桌面应用开发</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="常用句柄类型及其说明"><a href="#常用句柄类型及其说明" class="headerlink" title="常用句柄类型及其说明"></a>常用句柄类型及其说明</h2><p>句柄类型</p>
+<p>说明</p>
+<p>HWND</p>
+<p>标识窗口句柄</p>
+<p>HINSTANCE</p>
+<p>标识当前实例句柄</p>
+<p>HCURSOR</p>
+<p>标识光标句柄</p>
+<p>HFONT</p>
+<p>标识字体句柄</p>
+<p>HPEN</p>
+<p>标识画笔句柄</p>
+<p>HBRUSH</p>
+<p>标识画刷句柄</p>
+<p>HDC</p>
+<p>标识设备环境句柄</p>
+<p>HBITMAP</p>
+<p>标识位图句柄</p>
+<p>HICON</p>
+<p>标识图标句柄</p>
+<p>HMENU</p>
+<p>标识菜单句柄</p>
+<p>HFILE</p>
+<p>标识文件句柄</p>
+<h2 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h2><p>窗口是Windows应用程序基本的操作单元，是应用程序与用户之间交互的接口环境，也是系统管理应用程序的基本单位。 应用程序的运行过程即窗口内部、窗口与窗口之间、窗口与系统之间进行数据处理与数据交换的过程。</p>
+<h2 id="Windows应用程序常用消息"><a href="#Windows应用程序常用消息" class="headerlink" title="Windows应用程序常用消息"></a>Windows应用程序常用消息</h2><p>WM_KEYDOWN：按下一个非系统键时产生的消息。 WM_CHAR：按下一个非系统键时产生的消息。 WM_CREATE：由CreateWindow函数发出的消息。 WM_CLOSE：关闭窗口时产生此消息。 WM_DESTROY：消除窗口时由DestroyWindow函数发出此消息。 WM_QUIT：推出应用程序时由PostQuitMessage函数发出的消息。 WM_PAINT：当发生用户区移动或显示事件、用户窗口改变大小的事件、程序通过滚动条滚动窗口时，均产生一条次消息。</p>
+<h2 id="Windows中的事件驱动程序设计"><a href="#Windows中的事件驱动程序设计" class="headerlink" title="Windows中的事件驱动程序设计"></a>Windows中的事件驱动程序设计</h2><p>Windows的应用程序是事件驱动的。事件驱动的程序不是由过程的顺序来控制，而是由事件的发生来控制。 事件驱动程序设计是围绕着信息的产生与处理而展开的。 事件驱动程序方法提供了许多便利，对于那些需要大范围用户干预的应用程序来说，更显其优越性。</p>
+<h2 id="p44-3-3-说明其优点"><a href="#p44-3-3-说明其优点" class="headerlink" title="p44 3.3 说明其优点"></a>p44 3.3 说明其优点</h2><h2 id="Windows应用程序的组成"><a href="#Windows应用程序的组成" class="headerlink" title="Windows应用程序的组成"></a>Windows应用程序的组成</h2><p>扩展名</p>
+<p>文件类型</p>
+<p>备注</p>
+<p>c或cpp</p>
+<p>C语言源程序文件</p>
+<p>h</p>
+<p>头文件</p>
+<p>头文件包含源程序文件需要的外部常量、变量、数据结构和函数定义和说明</p>
+<p>def</p>
+<p>模块定义文件</p>
+<p>模块定义文件定义程序模块的属性</p>
+<p>rc</p>
+<p>资源描述文件</p>
+<p>资源描述文件定义源程序使用的资源</p>
+<p>vcproj</p>
+<p>项目文件</p>
+<p>各种源程序文件编译后生成项目文件，经进一步编译成为可执行文件</p>
+<h2 id="源程序组成结构"><a href="#源程序组成结构" class="headerlink" title="源程序组成结构"></a>源程序组成结构</h2><ol>
+<li>WinMain函数（函数说明、初始化(窗口类定义、注册窗口类、创建窗口、显示窗口)、消息循环）</li>
+<li>窗口函数（WndProc）</li>
+<li>数据类型（LONG、DWORD、UINT、BOOL、LOTSTR、LPCTSTR、LPSTR、LPCSTR）</li>
+<li>数据结构（MSG、WNDCLASSEX、POINT、RECT）</li>
+</ol>
+<h2 id="常用显示标识及其说明"><a href="#常用显示标识及其说明" class="headerlink" title="常用显示标识及其说明"></a>常用显示标识及其说明</h2><p>标识</p>
+<p>说明</p>
+<p>SW_HIDE</p>
+<p>隐藏窗口</p>
+<p>SW_SHOW</p>
+<p>按当前的位置和大小激活窗口</p>
+<p>SW——SHOWNA</p>
+<p>按当前的状态显示窗口</p>
+<p>SW_SHOWNORMAL</p>
+<p>显示并激活窗口</p>
+<h2 id="图像刷新"><a href="#图像刷新" class="headerlink" title="图像刷新"></a>图像刷新</h2><p>图形刷新是绘图过程中必须考虑的问题，图形刷新包括刷新的请求、系统对刷新请求的响应以及具体的刷新方法。</p>
+<h3 id="刷新请求"><a href="#刷新请求" class="headerlink" title="刷新请求"></a>刷新请求</h3><p>Windows应用程序大部分的用户操作都集中在用户区内，在窗口大小调整、窗口移动或其他对象覆盖时，都必须刷新窗口内用户区的内容，以恢复用户区内应有的显示形态。</p>
+<p>Windows系统通常发送WM_PAINT消息将刷新请求传递给应用程序。当刷新时，系统在应用程序的消息队列中加入该消息，以通知窗口函数执行刷新处理。</p>
+<h3 id="系统对刷新请求的响应"><a href="#系统对刷新请求的响应" class="headerlink" title="系统对刷新请求的响应"></a>系统对刷新请求的响应</h3><p>窗口移动后的刷新 被覆盖区域的刷新 对象穿越后的刷新</p>
+<h3 id="刷新方法"><a href="#刷新方法" class="headerlink" title="刷新方法"></a>刷新方法</h3><p>内存中保持一个显示输出的副本，当需要重新绘制窗口时，将副本复制到相应的窗口中。适用于刷新位图等复杂图形。 记录曾经发生的事件，在窗口需要刷新时重新调用窗口执行这个事件。 重新绘制图形。常采用于简单图形，将图形绘制处理程序放在WM_PAINT响应模块中。</p>
+<h2 id="BeginPaint与GetDC的区别"><a href="#BeginPaint与GetDC的区别" class="headerlink" title="BeginPaint与GetDC的区别"></a>BeginPaint与GetDC的区别</h2><p>项目\函数</p>
+<p>BeginPaint函数</p>
+<p>GetDC函数</p>
+<p>使用环境</p>
+<p>只用于图像刷新时获取设备环境</p>
+<p>使用较广泛</p>
+<p>操作区域</p>
+<p>无效区域</p>
+<p>特定窗口的客户区或整个窗口</p>
+<p>释放设备环境所用函数</p>
+<p>由EndPaint函数释放</p>
+<p>由ReleaseDC函数释放</p>
+<h2 id="画笔、画刷"><a href="#画笔、画刷" class="headerlink" title="画笔、画刷"></a>画笔、画刷</h2><ol>
+<li>画笔、画刷的创建 定义：HPEN hP; 获取Windows系统定义的四种画笔：hP&#x3D;(HPEN)GetStockObject(DC_PEN)； 创建新画笔：hP&#x3D;CreatePen();</li>
+</ol>
+<p>定义：HBRUSH hBr; hBr &#x3D; (HBRUSH)GetStockObject(BLACK_BRUSH); CreateSolidBrush();</p>
+<ol start="2">
+<li>将画笔选入设备环境 hPenOld&#x3D;SelectObject(hdc, hP)； 直到选入营外一种画笔为止，SelectObject函数的返回值中保存上一次使用的画笔句柄hPenOld。</li>
+</ol>
+<p>hBrOld&#x3D;SelectObject(hdc,hBr);</p>
+<ol start="3">
+<li>删除画笔、画刷 DeleteObject(hP)； DeleteObject(hBr);</li>
+</ol>
+<p>样式</p>
+<p>说明</p>
+<p>PS_DASH</p>
+<p>虚线</p>
+<p>PS_DASHDOT</p>
+<p>点划线</p>
+<p>PS_DASHDOTDOT</p>
+<p>双点划线</p>
+<p>PS_DOT</p>
+<p>点线</p>
+<p>PS_INSIDEFRAME</p>
+<p>画笔在由封闭对象框中画图（圆等）</p>
+<p>PS_NULL</p>
+<p>画笔不能画图</p>
+<p>PS_SOLID</p>
+<p>实线</p>
+<h2 id="文本输出过程"><a href="#文本输出过程" class="headerlink" title="文本输出过程"></a>文本输出过程</h2><p>在定义了字体句柄、字体及字体颜色之后，就可以把设置的字体输出到相应的设备上。 翁嗯输出定位方式：绝对定位和相对定位。</p>
+<h3 id="绝对定位"><a href="#绝对定位" class="headerlink" title="绝对定位"></a>绝对定位</h3><p>逻辑坐标缺点：已输出文本对后续的位置有影响，这种影响无法直接从定位坐标中体现出来。而且当窗口位置或输出字体发生变化时，文本不能随着窗口的尺寸和新的字体的变化灵活调整。</p>
+<h3 id="相对定位"><a href="#相对定位" class="headerlink" title="相对定位"></a>相对定位</h3><p>根据已输出内容，通过获取字体信息，然后格式化文本，确定后续文本的输出的位置，调用函数在窗口中输出文本。</p>
+<ol>
+<li>获取字体信息 GetTextMetrics(hdc, &amp;tm)</li>
+<li>格式化文本 确定后续文本坐标，确定换行时文本坐标 Y &#x3D; y0 + tm.tmHeight + tmExternalLeading;</li>
+<li>文本输出 TextOut(hdc, x, y, “”, len);</li>
+</ol>
+<h2 id="用户区鼠标消息"><a href="#用户区鼠标消息" class="headerlink" title="用户区鼠标消息"></a>用户区鼠标消息</h2><p>消息</p>
+<p>含义</p>
+<p>WM_LBUTTONDOWN &#x2F; UP</p>
+<p>用户区单击 &#x2F; 释放鼠标左键</p>
+<p>WM_LBUTTONDBLCLK</p>
+<p>用户区双击鼠标左键</p>
+<p>WM_MBUTTONDOWN &#x2F; UP</p>
+<p>用户区单击 &#x2F; 释放鼠标中键</p>
+<p>WM_MBUTTONDBLCLK</p>
+<p>用户区双击鼠标中键</p>
+<p>WM_RBUTTONDOWN &#x2F; UP</p>
+<p>用户区单击 &#x2F; 释放鼠标右键</p>
+<p>WM_RBUTTONDBLCLK</p>
+<p>用户区双击鼠标右键</p>
+<p>WM_MOUSEMOVE</p>
+<p>鼠标在用户区内移动</p>
+<p>WM_MOUSEWHELL</p>
+<p>鼠标滚轮移动</p>
+<p>WM_MOUSEACTIVATE</p>
+<p>鼠标指针在非激活窗口的时候按下了鼠标键</p>
+<p>WM_MOUSEHOVER</p>
+<p>鼠标的光标在窗口的用户区盘旋时发出的消息</p>
+<h2 id="wParam的值"><a href="#wParam的值" class="headerlink" title="wParam的值"></a>wParam的值</h2><p>消息</p>
+<p>含义</p>
+<p>MK_CONTROL</p>
+<p>按下键盘Ctrl键</p>
+<p>MK_LBUTTON</p>
+<p>按下鼠标左键</p>
+<p>MK_MBUTTON</p>
+<p>按下鼠标中键</p>
+<p>MK_RBUTTON</p>
+<p>按下鼠标右键</p>
+<p>MK_SHIFT</p>
+<p>按下键盘Shift键</p>
+<p>MK_XBUTTON1</p>
+<p>按下Windows第一徽标键</p>
+<p>MK_XBUTTON2</p>
+<p>按下Windows第二徽标键</p>
+<h2 id="鼠标应用程序实例"><a href="#鼠标应用程序实例" class="headerlink" title="鼠标应用程序实例"></a>鼠标应用程序实例</h2><p>p &#x3D; (LOWORD(lPARAM), HIWORD(lPARAM)) 当消息是鼠标消息时，获取坐标</p>
+<h2 id="对话框"><a href="#对话框" class="headerlink" title="对话框"></a>对话框</h2><p>对话框有模式对话框和非模式对话框。 模式对话框不允许用户在关闭对话框之前切换到应用程序的其他窗口，而非模式对话框然也。</p>
+<h3 id="模式对话框的编程方法"><a href="#模式对话框的编程方法" class="headerlink" title="模式对话框的编程方法"></a>模式对话框的编程方法</h3><ol>
+<li>定义对话框资源 STYLE DS_MODALFRAMEWS_POPUP_WS_CAPTION</li>
+<li>调用函数DialogBox显示对话框 DialogBox();</li>
+<li>构造对话框消息处理函数 DlgProc();</li>
+<li>关闭对话框 EndDialog()；</li>
+</ol>
+<h3 id="非模式对话框的编程方法"><a href="#非模式对话框的编程方法" class="headerlink" title="非模式对话框的编程方法"></a>非模式对话框的编程方法</h3><p>非模式对话框与模式对话框的变成比较类似，但在对话框的定义、对话框的创建及消息处理上略有差别。</p>
+<ol>
+<li><p>定义对话框样式 STYLE WS_POPUPWS_CAPTIONWS_VISIBLE</p>
+</li>
+<li><p>创建对话框函数 CreateDialog();</p>
+</li>
+<li><p>消息循环部分的处理</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="built_in">GetMessage</span>(&amp;Msg, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>)) &#123;</span><br><span class="line"><span class="keyword">if</span>(!<span class="built_in">IsDialogMessage</span>(hdlg, &amp;Msg)) &#123;</span><br><span class="line">    <span class="built_in">TranslateMessage</span>(&amp;Msg);</span><br><span class="line">    <span class="built_in">DispatchMessage</span>(&amp;Msg);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关闭对话框的函数 DestroyWindow(HWND hdlg);</p>
+</li>
+</ol>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/25/vc/">https://blog.jujimeizuo.cn/2021/06/25/vc/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%A5%E6%9F%84%E7%B1%BB%E5%9E%8B%E5%8F%8A%E5%85%B6%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">常用句柄类型及其说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AA%97%E5%8F%A3"><span class="toc-number">2.</span> <span class="toc-text">窗口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%B8%B8%E7%94%A8%E6%B6%88%E6%81%AF"><span class="toc-number">3.</span> <span class="toc-text">Windows应用程序常用消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows%E4%B8%AD%E7%9A%84%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1"><span class="toc-number">4.</span> <span class="toc-text">Windows中的事件驱动程序设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#p44-3-3-%E8%AF%B4%E6%98%8E%E5%85%B6%E4%BC%98%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">p44 3.3 说明其优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-number">6.</span> <span class="toc-text">Windows应用程序的组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BA%90%E7%A8%8B%E5%BA%8F%E7%BB%84%E6%88%90%E7%BB%93%E6%9E%84"><span class="toc-number">7.</span> <span class="toc-text">源程序组成结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%98%BE%E7%A4%BA%E6%A0%87%E8%AF%86%E5%8F%8A%E5%85%B6%E8%AF%B4%E6%98%8E"><span class="toc-number">8.</span> <span class="toc-text">常用显示标识及其说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%BE%E5%83%8F%E5%88%B7%E6%96%B0"><span class="toc-number">9.</span> <span class="toc-text">图像刷新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B7%E6%96%B0%E8%AF%B7%E6%B1%82"><span class="toc-number">9.1.</span> <span class="toc-text">刷新请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%AF%B9%E5%88%B7%E6%96%B0%E8%AF%B7%E6%B1%82%E7%9A%84%E5%93%8D%E5%BA%94"><span class="toc-number">9.2.</span> <span class="toc-text">系统对刷新请求的响应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B7%E6%96%B0%E6%96%B9%E6%B3%95"><span class="toc-number">9.3.</span> <span class="toc-text">刷新方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BeginPaint%E4%B8%8EGetDC%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">10.</span> <span class="toc-text">BeginPaint与GetDC的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%BB%E7%AC%94%E3%80%81%E7%94%BB%E5%88%B7"><span class="toc-number">11.</span> <span class="toc-text">画笔、画刷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E8%BE%93%E5%87%BA%E8%BF%87%E7%A8%8B"><span class="toc-number">12.</span> <span class="toc-text">文本输出过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D"><span class="toc-number">12.1.</span> <span class="toc-text">绝对定位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D"><span class="toc-number">12.2.</span> <span class="toc-text">相对定位</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%8C%BA%E9%BC%A0%E6%A0%87%E6%B6%88%E6%81%AF"><span class="toc-number">13.</span> <span class="toc-text">用户区鼠标消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#wParam%E7%9A%84%E5%80%BC"><span class="toc-number">14.</span> <span class="toc-text">wParam的值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BC%A0%E6%A0%87%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%AE%9E%E4%BE%8B"><span class="toc-number">15.</span> <span class="toc-text">鼠标应用程序实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E8%AF%9D%E6%A1%86"><span class="toc-number">16.</span> <span class="toc-text">对话框</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E5%AF%B9%E8%AF%9D%E6%A1%86%E7%9A%84%E7%BC%96%E7%A8%8B%E6%96%B9%E6%B3%95"><span class="toc-number">16.1.</span> <span class="toc-text">模式对话框的编程方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E6%A8%A1%E5%BC%8F%E5%AF%B9%E8%AF%9D%E6%A1%86%E7%9A%84%E7%BC%96%E7%A8%8B%E6%96%B9%E6%B3%95"><span class="toc-number">16.2.</span> <span class="toc-text">非模式对话框的编程方法</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/25/vc/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&text=桌面应用开发期末复习——VC++"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&title=桌面应用开发期末复习——VC++"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&is_video=false&description=桌面应用开发期末复习——VC++"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=桌面应用开发期末复习——VC++&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/25/vc/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&title=桌面应用开发期末复习——VC++"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&title=桌面应用开发期末复习——VC++"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&title=桌面应用开发期末复习——VC++"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&title=桌面应用开发期末复习——VC++"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/25/vc/&name=桌面应用开发期末复习——VC++&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/25/vc/&t=桌面应用开发期末复习——VC++"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

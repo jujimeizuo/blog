@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="9.1 集合论基础9.1.1 集合的概念9.1.2 集合间的关系和运算 9.2 二值形态学的基本运算9.2.1 膨胀顾名思义，膨胀就是使图像中的目标“变粗”的操作，这种特殊方式和变粗程度由一种被称为结构元的形状来控制，A被B膨胀，表示为A⊕B，集合操作表示为： A\oplus B&#x3D;&#123;x((\hat&#123;B&#125;)_y\cap A)\neq \text&#123;\O&amp;#125">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字图像处理期末复习（九）形态学图像处理">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="9.1 集合论基础9.1.1 集合的概念9.1.2 集合间的关系和运算 9.2 二值形态学的基本运算9.2.1 膨胀顾名思义，膨胀就是使图像中的目标“变粗”的操作，这种特殊方式和变粗程度由一种被称为结构元的形状来控制，A被B膨胀，表示为A⊕B，集合操作表示为： A\oplus B&#x3D;&#123;x((\hat&#123;B&#125;)_y\cap A)\neq \text&#123;\O&amp;#125">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-71.png">
+<meta property="article:published_time" content="2021-06-20T06:53:30.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.829Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="数字图像处理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-71.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>数字图像处理期末复习（九）形态学图像处理</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/06/20/jizu6/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/06/20/shuzituxiang8/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&text=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&title=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&is_video=false&description=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数字图像处理期末复习（九）形态学图像处理&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&title=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&title=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&title=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&title=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&name=数字图像处理期末复习（九）形态学图像处理&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&t=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-1-%E9%9B%86%E5%90%88%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">9.1 集合论基础</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-1-%E9%9B%86%E5%90%88%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number"></span> <span class="toc-text">9.1.1 集合的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-2-%E9%9B%86%E5%90%88%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E8%BF%90%E7%AE%97"><span class="toc-number"></span> <span class="toc-text">9.1.2 集合间的关系和运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-2-%E4%BA%8C%E5%80%BC%E5%BD%A2%E6%80%81%E5%AD%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97"><span class="toc-number">1.</span> <span class="toc-text">9.2 二值形态学的基本运算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-1-%E8%86%A8%E8%83%80"><span class="toc-number"></span> <span class="toc-text">9.2.1 膨胀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-2-%E8%85%90%E8%9A%80"><span class="toc-number"></span> <span class="toc-text">9.2.2 腐蚀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-3-%E5%BC%80%E8%BF%90%E7%AE%97"><span class="toc-number"></span> <span class="toc-text">9.2.3 开运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-4-%E9%97%AD%E8%BF%90%E7%AE%97"><span class="toc-number"></span> <span class="toc-text">9.2.4 闭运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-3-%E4%BA%8C%E5%80%BC%E5%BD%A2%E6%80%81%E5%AD%A6%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97%E6%80%A7%E8%B4%A8"><span class="toc-number">1.</span> <span class="toc-text">9.3 二值形态学基本运算性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-3-%E7%81%B0%E5%BA%A6%E5%BD%A2%E6%80%81%E5%AD%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97"><span class="toc-number">2.</span> <span class="toc-text">9.3 灰度形态学的基本运算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-1-%E7%81%B0%E5%BA%A6%E8%85%90%E8%9A%80"><span class="toc-number"></span> <span class="toc-text">9.3.1 灰度腐蚀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-2-%E7%81%B0%E5%BA%A6%E8%86%A8%E8%83%80"><span class="toc-number"></span> <span class="toc-text">9.3.2 灰度膨胀</span></a>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        数字图像处理期末复习（九）形态学图像处理
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-06-20T06:53:30.000Z" class="dt-published" itemprop="datePublished">2021-06-20</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" rel="tag">数字图像处理</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h4 id="9-1-集合论基础"><a href="#9-1-集合论基础" class="headerlink" title="9.1 集合论基础"></a>9.1 集合论基础</h4><h3 id="9-1-1-集合的概念"><a href="#9-1-1-集合的概念" class="headerlink" title="9.1.1 集合的概念"></a>9.1.1 集合的概念</h3><h3 id="9-1-2-集合间的关系和运算"><a href="#9-1-2-集合间的关系和运算" class="headerlink" title="9.1.2 集合间的关系和运算"></a>9.1.2 集合间的关系和运算</h3><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-71.png"></p>
+<h4 id="9-2-二值形态学的基本运算"><a href="#9-2-二值形态学的基本运算" class="headerlink" title="9.2 二值形态学的基本运算"></a>9.2 二值形态学的基本运算</h4><h3 id="9-2-1-膨胀"><a href="#9-2-1-膨胀" class="headerlink" title="9.2.1 膨胀"></a>9.2.1 膨胀</h3><p>顾名思义，膨胀就是使图像中的目标“变粗”的操作，这种特殊方式和变粗程度由一种被称为结构元的形状来控制，A被B膨胀，表示为A⊕B，集合操作表示为： <code>A\oplus B=&#123;x((\hat&#123;B&#125;)_y\cap A)\neq \text&#123;\O&#125;&#125;</code> 其中，A是图像，B是结构元，结构元通常比图像小得多。膨胀满足结合律和交换律。</p>
+<h3 id="9-2-2-腐蚀"><a href="#9-2-2-腐蚀" class="headerlink" title="9.2.2 腐蚀"></a>9.2.2 腐蚀</h3><p>腐蚀是膨胀的反操作，是将图像中的目标进行“细化”的操作，收缩的方法和程度也由结构元控制。A被B腐蚀表示为AΘB，集合操作表示为： <code>A\ominus B=&#123;x(B)_y\subseteq A &#125;</code></p>
+<h3 id="9-2-3-开运算"><a href="#9-2-3-开运算" class="headerlink" title="9.2.3 开运算"></a>9.2.3 开运算</h3><p>使用同一结构元素对目标图像先进行腐蚀运算，然后再进行膨胀运算称为开运算。 <code>A\circ B=(A \ominus B)\oplus B</code></p>
+<h3 id="9-2-4-闭运算"><a href="#9-2-4-闭运算" class="headerlink" title="9.2.4 闭运算"></a>9.2.4 闭运算</h3><p>使用同一结构元素对目标图像先进行膨胀运算，然后再进行腐蚀运算称为闭运算。 <code>A\cdot B=(A \oplus B)\ominus B</code></p>
+<h4 id="9-3-二值形态学基本运算性质"><a href="#9-3-二值形态学基本运算性质" class="headerlink" title="9.3 二值形态学基本运算性质"></a>9.3 二值形态学基本运算性质</h4><ol>
+<li>单调性</li>
+<li>扩展性</li>
+<li>交换性</li>
+<li>结合性</li>
+<li>平移不变性</li>
+</ol>
+<h4 id="9-3-灰度形态学的基本运算"><a href="#9-3-灰度形态学的基本运算" class="headerlink" title="9.3 灰度形态学的基本运算"></a>9.3 灰度形态学的基本运算</h4><h3 id="9-3-1-灰度腐蚀"><a href="#9-3-1-灰度腐蚀" class="headerlink" title="9.3.1 灰度腐蚀"></a>9.3.1 灰度腐蚀</h3><p>用结构元b对灰度图像f的灰度进行腐蚀，表示为： <code>(f\ominus b)(s,t)=min&#123;f(s+x,t+y)-b(x,y)(s+x),(t+y)\in D_f;(x,y)\in D_b&#125;</code></p>
+<h3 id="9-3-2-灰度膨胀"><a href="#9-3-2-灰度膨胀" class="headerlink" title="9.3.2 灰度膨胀"></a>9.3.2 灰度膨胀</h3><p>用结构元b对灰度图像f的灰度进行膨胀，表示为： <code>(f\oplus b)(s,t)=max&#123;f(s-x,t-y)+b(x,y)(s-t),(t-y)\in D_f;(x,y)\in D_b&#125;</code></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/">https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-1-%E9%9B%86%E5%90%88%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">9.1 集合论基础</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-1-%E9%9B%86%E5%90%88%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number"></span> <span class="toc-text">9.1.1 集合的概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-2-%E9%9B%86%E5%90%88%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB%E5%92%8C%E8%BF%90%E7%AE%97"><span class="toc-number"></span> <span class="toc-text">9.1.2 集合间的关系和运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-2-%E4%BA%8C%E5%80%BC%E5%BD%A2%E6%80%81%E5%AD%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97"><span class="toc-number">1.</span> <span class="toc-text">9.2 二值形态学的基本运算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-1-%E8%86%A8%E8%83%80"><span class="toc-number"></span> <span class="toc-text">9.2.1 膨胀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-2-%E8%85%90%E8%9A%80"><span class="toc-number"></span> <span class="toc-text">9.2.2 腐蚀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-3-%E5%BC%80%E8%BF%90%E7%AE%97"><span class="toc-number"></span> <span class="toc-text">9.2.3 开运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-4-%E9%97%AD%E8%BF%90%E7%AE%97"><span class="toc-number"></span> <span class="toc-text">9.2.4 闭运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-3-%E4%BA%8C%E5%80%BC%E5%BD%A2%E6%80%81%E5%AD%A6%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97%E6%80%A7%E8%B4%A8"><span class="toc-number">1.</span> <span class="toc-text">9.3 二值形态学基本运算性质</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-3-%E7%81%B0%E5%BA%A6%E5%BD%A2%E6%80%81%E5%AD%A6%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97"><span class="toc-number">2.</span> <span class="toc-text">9.3 灰度形态学的基本运算</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-1-%E7%81%B0%E5%BA%A6%E8%85%90%E8%9A%80"><span class="toc-number"></span> <span class="toc-text">9.3.1 灰度腐蚀</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-2-%E7%81%B0%E5%BA%A6%E8%86%A8%E8%83%80"><span class="toc-number"></span> <span class="toc-text">9.3.2 灰度膨胀</span></a>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&text=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&title=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&is_video=false&description=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=数字图像处理期末复习（九）形态学图像处理&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&title=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&title=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&title=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&title=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&name=数字图像处理期末复习（九）形态学图像处理&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang9/&t=数字图像处理期末复习（九）形态学图像处理"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

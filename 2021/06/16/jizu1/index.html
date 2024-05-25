@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="1.1 基本概念 计算机系统由硬件和软件两大部分组成。 计算机的软件分为系统软件和应用软件。 翻译程序有两种，一种是编译程序，另一种是解释程序。 冯·诺依曼计算机是以运算器为中心的，现代计算机以储存器为中心的。 运算器和控制器和起来统称为中央处理器（CPU）。 现代计算机可认为由三大部件组成：CPU、I&#x2F;O设备以及主存储器。 CPU和主存储器合起来称为主机。 ALU算术逻辑单元和CU控制">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组成原理期末复习（一）概论和计算机的发展和应用">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/06/16/jizu1/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="1.1 基本概念 计算机系统由硬件和软件两大部分组成。 计算机的软件分为系统软件和应用软件。 翻译程序有两种，一种是编译程序，另一种是解释程序。 冯·诺依曼计算机是以运算器为中心的，现代计算机以储存器为中心的。 运算器和控制器和起来统称为中央处理器（CPU）。 现代计算机可认为由三大部件组成：CPU、I&#x2F;O设备以及主存储器。 CPU和主存储器合起来称为主机。 ALU算术逻辑单元和CU控制">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-24.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-25.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-26.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/B7CF3F95-3833-4D90-9F8D-75E77915E57D.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/0CDF6E09-9D50-408B-B0DC-E55C0D64BA33.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/511FC64B-7E09-4A53-99A6-5AA908D9D26E.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="article:published_time" content="2021-06-16T08:54:31.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.829Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="计算机组成原理">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-24.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>计算机组成原理期末复习（一）概论和计算机的发展和应用</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/06/16/jizu2/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/06/16/shuzituxiang3/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/16/jizu1/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&text=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&title=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&is_video=false&description=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机组成原理期末复习（一）概论和计算机的发展和应用&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/16/jizu1/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&title=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&title=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&title=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&title=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&name=计算机组成原理期末复习（一）概论和计算机的发展和应用&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&t=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">1.1 基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E5%86%AF%C2%B7%E8%AF%BA%E4%BE%9D%E6%9B%BC%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">1.2 冯·诺依曼计算机的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">1.3 计算机系统的层次结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-%E4%BE%8B%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">1.4 例题</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        计算机组成原理期末复习（一）概论和计算机的发展和应用
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-06-16T08:54:31.000Z" class="dt-published" itemprop="datePublished">2021-06-16</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" rel="tag">计算机组成原理</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h4 id="1-1-基本概念"><a href="#1-1-基本概念" class="headerlink" title="1.1 基本概念"></a>1.1 基本概念</h4><ol>
+<li>计算机系统由<strong>硬件</strong>和<strong>软件</strong>两大部分组成。</li>
+<li>计算机的软件分为<strong>系统软件</strong>和<strong>应用软件</strong>。</li>
+<li>翻译程序有两种，一种是<strong>编译程序</strong>，另一种是<strong>解释程序</strong>。</li>
+<li>冯·诺依曼计算机是以<strong>运算器</strong>为中心的，现代计算机以<strong>储存器</strong>为中心的。</li>
+<li><strong>运算器</strong>和<strong>控制器</strong>和起来统称为<strong>中央处理器（CPU）</strong>。</li>
+<li>现代计算机可认为由三大部件组成：<strong>CPU、I&#x2F;O设备</strong>以及<strong>主存储器</strong>。</li>
+<li><strong>CPU</strong>和<strong>主存储器</strong>合起来称为<strong>主机。</strong></li>
+<li><strong>ALU算术逻辑单元</strong>和<strong>CU控制单元</strong>是CPU的核心部件。</li>
+<li>机器字长是指CPU一次能处理数据的位数，通常与CPU的<strong>寄存器位数</strong>有关。</li>
+<li>存储器的容量包括<strong>主存容量</strong>和<strong>辅存容量</strong>。</li>
+<li>主存容量-存储单元个数*存储字长。</li>
+<li>现在计算机的运算速度普遍采用单位时间内执行指令的平均条数来衡量，并采用<strong>MIPS</strong>作为计量单位。CPI：执行一条指令所需的时钟周期；IPC：每个时钟周期数执行的指令数目。</li>
+</ol>
+<h4 id="1-2-冯·诺依曼计算机的特点"><a href="#1-2-冯·诺依曼计算机的特点" class="headerlink" title="1.2 冯·诺依曼计算机的特点"></a>1.2 冯·诺依曼计算机的特点</h4><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-24.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<ol>
+<li>计算机由<strong>运算器、存储器、控制器、输入设备、输出设备</strong>五大部件组成。</li>
+<li>指令和数据以<strong>同等地位</strong>存放于<strong>存储器</strong>内，并可按<strong>地址</strong>寻访。</li>
+<li>指令和数据均以<strong>二进制数</strong>表示。</li>
+<li>指令由<strong>操作码</strong>和<strong>地址码</strong>组成，操作码用来表示操作的性质，地址码用来表示操作数在存储器中的位置。</li>
+<li>指令在存储器内按<strong>顺序</strong>存放。通常，指令是顺序执行的，在特定条件下，可依据运算结果或根据设定的条件改变执行顺序。</li>
+<li>机器以<strong>运算器</strong>为中心，输入输出设备与存储器间的数据传送通过运算器完成。</li>
+</ol>
+<p>最重要的特点是<strong>存储程序</strong>，也就是说<strong>指令</strong>和<strong>数据</strong>都存储在<strong>存储器</strong>中，CPU运行程序时从存储器中读到每一条指令 然后运行它，这就是存储程序的基本原理(定义)。</p>
+<blockquote>
+<p>I&#x2F;O设备能够直接连接CPU吗？</p>
+<p>不能，因为两者速度不匹配，需要通过接口连接。</p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>用什么部件区分M中存放的是指令还是数据？</p>
+<p>控制器。</p>
+<p>控制器功能：交换、检测及提供信号</p>
+<ol>
+<li>控制机器，控制各个部件协调一致地工作。</li>
+<li>控制器具备数据交换功能，这是指实现CPU与控制器之间、控制器与设备之间的数据交换。</li>
+<li>将电话比喻成人体，那么控制器就好比是人的大脑，输出各种指令，是零件灵活运行。</li>
+<li>运算器只能完成运算，而控制器能用于控制整个CPU的工作。</li>
+<li>通过数据总线，由CPU并行地把数据写入控制器，或从控制器中并行地读出数据。</li>
+</ol>
+</blockquote>
+<h4 id="1-3-计算机系统的层次结构"><a href="#1-3-计算机系统的层次结构" class="headerlink" title="1.3 计算机系统的层次结构"></a>1.3 计算机系统的层次结构</h4><p>现代计算机系统可分为<strong>五个层次</strong>， <strong>第一级</strong>是<strong>微程序设计级</strong> <strong>第二级</strong>是<strong>一般机器级</strong> <strong>第三级</strong>是<strong>操作系统级</strong> <strong>第四级</strong>是<strong>汇编语言级</strong> <strong>第五级</strong>是<strong>高级语言级</strong></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-25.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-26.png"> <img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h4 id="1-4-例题"><a href="#1-4-例题" class="headerlink" title="1.4 例题"></a>1.4 例题</h4><blockquote>
+<p>1.1 什么是计算机系统、计算机硬件和计算机软件？硬件和软件哪个重要？</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/B7CF3F95-3833-4D90-9F8D-75E77915E57D.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>1.2 如何理解计算机系统的层次结构？</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/0CDF6E09-9D50-408B-B0DC-E55C0D64BA33.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>1.3 说明高级语言、汇编语言和机器语言的差别及其联系。 <strong>机器语言是计算机硬件能够直接识别的语言，汇编语言是机器语言的符号表示，高级语言是面向算法的语言。高级语言编写的程序（源程序）处于最高层，必须翻译成汇编语言，再由汇编程序汇编成机器语言（目标程序）之后才能被执行。</strong></p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>1.5 冯·诺依曼计算机的特点是什么？</p>
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/511FC64B-7E09-4A53-99A6-5AA908D9D26E.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/05/VC9YM177S3GJAIBM2.png"></p>
+</blockquote>
+<p> </p>
+<blockquote>
+<p>2.1 通常，计算机的更新换代以什么为依据？</p>
+<p><strong>主要以组成计算机基本电路的元器件为依据，如电子管、晶体管、集成电路等。</strong></p>
+</blockquote>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/16/jizu1/">https://blog.jujimeizuo.cn/2021/06/16/jizu1/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">1.1 基本概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-%E5%86%AF%C2%B7%E8%AF%BA%E4%BE%9D%E6%9B%BC%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">1.2 冯·诺依曼计算机的特点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">1.3 计算机系统的层次结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-%E4%BE%8B%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">1.4 例题</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/06/16/jizu1/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&text=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&title=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&is_video=false&description=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=计算机组成原理期末复习（一）概论和计算机的发展和应用&body=Check out this article: https://blog.jujimeizuo.cn/2021/06/16/jizu1/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&title=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&title=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&title=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&title=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&name=计算机组成原理期末复习（一）概论和计算机的发展和应用&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/06/16/jizu1/&t=计算机组成原理期末复习（一）概论和计算机的发展和应用"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

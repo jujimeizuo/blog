@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="问题描述有两个超过long long类型的大整数X和Y，用较低的复杂度求解X*Y。 六种方法方法一：模拟时间复杂度：$O(n^2)$ 思路模拟乘法的过程，一个数的第i位和另一个数的第j位相乘，一定会累加到结果的第i+j位，结果的数组一个数组元素存2位数，最后对结果整除得到进位，mod得到余数就是i+j位的数字，最后打印出来。 Code123456789101112131415161718std::">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大整数相乘 - 模拟&#x2F;分治&#x2F;FFT&#x2F;CRT&#x2F;网络流&#x2F;Furer">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="问题描述有两个超过long long类型的大整数X和Y，用较低的复杂度求解X*Y。 六种方法方法一：模拟时间复杂度：$O(n^2)$ 思路模拟乘法的过程，一个数的第i位和另一个数的第j位相乘，一定会累加到结果的第i+j位，结果的数组一个数组元素存2位数，最后对结果整除得到进位，mod得到余数就是i+j位的数字，最后打印出来。 Code123456789101112131415161718std::">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2022/12/20201129001414493.png">
+<meta property="article:published_time" content="2022-12-06T06:55:02.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.092Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="考研">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2022/12/20201129001414493.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2022/12/06/expression/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2022/12/03/topcoder-srm842/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&text=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&title=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&is_video=false&description=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer&body=Check out this article: https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&title=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&title=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&title=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&title=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&name=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&t=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">六种方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E6%A8%A1%E6%8B%9F"><span class="toc-number">2.0.1.</span> <span class="toc-text">方法一：模拟</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E5%88%86%E6%B2%BB"><span class="toc-number">4.0.1.</span> <span class="toc-text">方法二：分治</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-number">5.</span> <span class="toc-text">思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#X%E5%92%8CY%E7%9A%84%E4%BD%8D%E6%95%B0%E7%9B%B8%E5%90%8C"><span class="toc-number">5.1.</span> <span class="toc-text">X和Y的位数相同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#X%E5%92%8CY%E7%9A%84%E4%BD%8D%E6%95%B0%E4%B8%8D%E5%90%8C"><span class="toc-number">5.2.</span> <span class="toc-text">X和Y的位数不同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">5.3.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%9AFFT"><span class="toc-number">5.3.1.</span> <span class="toc-text">方法三：FFT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%9B%9B%EF%BC%9A%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86"><span class="toc-number">5.3.2.</span> <span class="toc-text">方法四：中国剩余定理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%94%EF%BC%9A%E7%BD%91%E7%BB%9C%E6%B5%81"><span class="toc-number">5.3.3.</span> <span class="toc-text">方法五：网络流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%85%AD-Furer%E2%80%99s-algorithm"><span class="toc-number">5.3.4.</span> <span class="toc-text">方法六: Furer’s algorithm</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-12-06T06:55:02.000Z" class="dt-published" itemprop="datePublished">2022-12-06</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E8%80%83%E7%A0%94/" rel="tag">考研</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>有两个超过long long类型的大整数X和Y，用较低的复杂度求解X*Y。</p>
+<h2 id="六种方法"><a href="#六种方法" class="headerlink" title="六种方法"></a>六种方法</h2><h4 id="方法一：模拟"><a href="#方法一：模拟" class="headerlink" title="方法一：模拟"></a>方法一：模拟</h4><p>时间复杂度：$O(n^2)$</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>模拟乘法的过程，一个数的第i位和另一个数的第j位相乘，一定会累加到结果的第i+j位，结果的数组一个数组元素存2位数，最后对结果整除得到进位，mod得到余数就是i+j位的数字，最后打印出来。</p>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">multiply</span><span class="params">(std::string s, std::string t)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n = (<span class="type">int</span>) s.<span class="built_in">size</span>(), m = (<span class="type">int</span>) t.<span class="built_in">size</span>();</span><br><span class="line">    <span class="built_in">reverse</span>(s.<span class="built_in">begin</span>(), s.<span class="built_in">end</span>());</span><br><span class="line">    <span class="built_in">reverse</span>(t.<span class="built_in">begin</span>(), t.<span class="built_in">end</span>());</span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">ans</span><span class="params">(n + m + <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> bit = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; m  bit; j++) &#123;</span><br><span class="line">            <span class="type">int</span> now = ans[i + j] + (s[i] - <span class="string">&#x27;0&#x27;</span>) * (t[i] - <span class="string">&#x27;0&#x27;</span>) + bit;</span><br><span class="line">            ans[i + j] = now % <span class="number">10</span>;</span><br><span class="line">            bit = now / <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (ans.<span class="built_in">back</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">        ans.<span class="built_in">pop_back</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法二：分治"><a href="#方法二：分治" class="headerlink" title="方法二：分治"></a>方法二：分治</h4><p>时间复杂度：$O(n^{log^3}) \approx O(n^{\frac{3}{2}}) \approx O(n^{1.59})$</p>
+<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>分治算法解题的一般步骤：</p>
+<p>分解：将要解决的问题划分为若干个规模较小的同类问题 求解：当子问题划分的足够小时，用较简单的方法解决 合并：按原问题的要求，将子问题的解逐层合并构成原问题的解</p>
+<h3 id="X和Y的位数相同"><a href="#X和Y的位数相同" class="headerlink" title="X和Y的位数相同"></a>X和Y的位数相同</h3><p><img src="https://cdn.jujimeizuo.cn/blog/2022/12/20201129001414493.png" alt="X和Y的位数相同"></p>
+<p>$$ X &#x3D; A_{10}^{\frac{n}{2}}+B \quad Y&#x3D;C_{10}^{\frac{2}{n}} + D $$</p>
+<p>$$ XY &#x3D; (A_{10}^{\frac{n}{2}}+B)_(C*10^{\frac{n}{2}}+D) $$</p>
+<p>$$ XY &#x3D; AC_{10}^n+(AD+BC)_{10}^{\frac{2}{n}}+BD $$</p>
+<p>计算成本：我们必须进行4次n&#x2F;2位整数的乘法(AC，AD，BC和BD)，以及3次不超过n位的整数加法此外还要做2次移位。所有这些加法和移位共用O（n）步运算。设T（n）是2个n位整数相乘所需的运算总数，我们有：</p>
+<p>$$ T(n) &#x3D; O(1) \quad n &#x3D; 1 $$</p>
+<p>$$ T(n)&#x3D;4T(n&#x2F;2)+O(n) \quad n &gt; 1 $$</p>
+<p>得：</p>
+<p>$$T(n) &#x3D; O(n^2)$$</p>
+<p>这种方法不见得比暴力更有效，所以需要改进一点，变换上式得：</p>
+<p>$$ XY&#x3D;AC_{10}^n + ((A-B)_(D-C) + AC+BD)*10^{\frac{2}{n}}+BD $$</p>
+<p>计算成本：3次n&#x2F;2位乘法，6次不超过n位加减法，2次移位，所有加法和移位共计O(n)次运算。我们有：</p>
+<p>$$ T(n) &#x3D; O(1) \quad n &#x3D; 1 $$</p>
+<p>$$T(n)&#x3D;3T(n&#x2F;2) + O(n) \quad n &gt; 1$$</p>
+<p>得：</p>
+<p>$$T(n) &#x3D; O(n^{log^3}) \approx O(n^{\frac{3}{2}}) \approx O(n^{1.59})$$</p>
+<h3 id="X和Y的位数不同"><a href="#X和Y的位数不同" class="headerlink" title="X和Y的位数不同"></a>X和Y的位数不同</h3><p>和位数相同同理</p>
+<p>假设 n1为B的位数，B属于低位的那一部分 n2为A的位数，A属于高位的那一部分 m1为D的位数，D属于低位的那一部分 m2为D的位数，C属于高位的那一部分</p>
+<p>$$XY&#x3D;(A_{10}^{n_2}+B)_(C*10^{m_2}+D)+BD$$</p>
+<p>$$XY&#x3D;AC_{10}^{n_2+m_2}+(AD_{10}^{n_2}+BC*10^{m_2})+BD$$</p>
+<p>上式一共需要进行2次n2的乘法（AC、AD各一次）、2次m2的乘法（AC、BC各一次）和3次加法，因而该算法的时间复杂度为</p>
+<p>$$T(m + n) &#x3D; 2T(m) + 2T(n)+O(m+n)$$</p>
+<p>跟上面一样，对AD+BC进行分解优化得：</p>
+<p>$$XY&#x3D;2_AC_{10}^{n_2+m_2}+(A_{10}^{n_2}-B)_(D-C_{10}^{m_2}) + 2_BD$$</p>
+<p>修改后的时间复杂度为：</p>
+<p>$$T(m+n) &#x3D; T(m) + T(n) + T(min(n, m)) + O(m + n)$$</p>
+<p>由于$T(min(n,m)) &lt; T(m)+T(n) $，所以修改后的算法更好，时间复杂度为</p>
+<p>$$T(n) &#x3D; O(n^{log^3}) \approx O(n^{\frac{3}{2}}) \approx O(n^{1.59})$$</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">solve</span><span class="params">(std::string X, std::string Y)</span> </span>&#123;</span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">result</span><span class="params">(<span class="number">255</span>, <span class="number">0</span>)</span></span>;</span><br><span class="line">    std::function&lt;<span class="type">void</span>(std::string, std::string, <span class="type">int</span>)&gt; multiply = [&amp;](std::string s, std::string t, <span class="type">int</span> pos) &#123;</span><br><span class="line">        <span class="type">int</span> n = (<span class="type">int</span>) s.<span class="built_in">size</span>(), m = (<span class="type">int</span>) t.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>  m == <span class="number">0</span>) &#123;                 <span class="comment">// 位数为0时</span></span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (n == <span class="number">1</span> &amp;&amp; m == <span class="number">1</span>) &#123;          <span class="comment">// 递归到当前数组s和t的位数全为1时</span></span><br><span class="line">            result[pos] += (s[<span class="number">0</span>] - <span class="string">&#x27;0&#x27;</span>) * (t[<span class="number">0</span>] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;                                <span class="comment">// 当数组s和t的位数至少有一个不为1时</span></span><br><span class="line">            <span class="type">int</span> n1 = n / <span class="number">2</span>;                     <span class="comment">// n1为B的位数，B属于低位的那一部分</span></span><br><span class="line">            <span class="type">int</span> n2 = n - n1;                    <span class="comment">// n2为A的位数，A属于高位的那一部分</span></span><br><span class="line">            <span class="type">int</span> m1 = m / <span class="number">2</span>;                     <span class="comment">// m1为D的位数，D属于低位的那一部分</span></span><br><span class="line">            <span class="type">int</span> m2 = m - m1;                    <span class="comment">// m2为D的位数，C属于高位的那一部分</span></span><br><span class="line">            std::string A = s.<span class="built_in">substr</span>(<span class="number">0</span>, n2);    <span class="comment">// 获取s的高位部分A</span></span><br><span class="line">            std::string B = s.<span class="built_in">substr</span>(n2);       <span class="comment">// 获取s的低位部分B</span></span><br><span class="line">            std::string C = t.<span class="built_in">substr</span>(<span class="number">0</span>, m2);    <span class="comment">// 获取t的高位部分C</span></span><br><span class="line">            std::string D = t.<span class="built_in">substr</span>(m2);       <span class="comment">// 获取t的低位部分D</span></span><br><span class="line">            <span class="built_in">multiply</span>(A, C, pos + n1 + m1);      <span class="comment">// AC,在result[pos+n1+m1]的位置存储AC，也是说偏移pos+n1+m1位，pos初始化为0</span></span><br><span class="line">            <span class="built_in">multiply</span>(B, C, pos + m1);           <span class="comment">// BC,偏移pos+m1位</span></span><br><span class="line">            <span class="built_in">multiply</span>(A, D, pos + n1);           <span class="comment">// AD,偏移pos+1位</span></span><br><span class="line">            <span class="built_in">multiply</span>(B, D, pos);                <span class="comment">// BD,偏移pos位</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">multiply</span>(X, Y, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> len = (<span class="type">int</span>) X.<span class="built_in">size</span>() + (<span class="type">int</span>) Y.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt;= len; i++) &#123;</span><br><span class="line">        <span class="type">int</span> now = result[i] % <span class="number">10</span>;</span><br><span class="line">        <span class="type">int</span> bit1 = result[i] / <span class="number">10</span> % <span class="number">10</span>;</span><br><span class="line">        <span class="type">int</span> bit2 = result[i] / <span class="number">100</span>;</span><br><span class="line">        result[i] = now;</span><br><span class="line">        result[i + <span class="number">1</span>] += bit1;</span><br><span class="line">        result[i + <span class="number">2</span>] += bit2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (result.<span class="built_in">back</span>() == <span class="number">0</span>) &#123;</span><br><span class="line">        result.<span class="built_in">pop_back</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方法三：FFT"><a href="#方法三：FFT" class="headerlink" title="方法三：FFT"></a>方法三：FFT</h4><p>时间复杂度：$O(nlogn)$</p>
+<p>通过分治的思想，最终演变成FFT的雏形，FFT的思想也是分治，但是它的理论要更为深奥。 为了避免精度问题，可以改用快速数论变换FNTT。 <a target="_blank" rel="noopener" href="https://blog.csdn.net/TheWayForDream/article/details/113944059">具体可以看这篇文章的推导</a></p>
+<h4 id="方法四：中国剩余定理"><a href="#方法四：中国剩余定理" class="headerlink" title="方法四：中国剩余定理"></a>方法四：中国剩余定理</h4><p>把每个数分解到一些互素的模上，然后每个同余方程对应乘起来就行。</p>
+<h4 id="方法五：网络流"><a href="#方法五：网络流" class="headerlink" title="方法五：网络流"></a>方法五：网络流</h4><p>补</p>
+<h4 id="方法六-Furer’s-algorithm"><a href="#方法六-Furer’s-algorithm" class="headerlink" title="方法六: Furer’s algorithm"></a>方法六: Furer’s algorithm</h4><p>在渐进意义上FNTT还快的算法。不过好像不太实用，本文就不作介绍了。大家可以参考<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/F%C3%BCrer%27s_algorithm">维基百科Fürer’s algorithm</a></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/">https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E7%A7%8D%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">六种方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E6%A8%A1%E6%8B%9F"><span class="toc-number">2.0.1.</span> <span class="toc-text">方法一：模拟</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-number">4.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E5%88%86%E6%B2%BB"><span class="toc-number">4.0.1.</span> <span class="toc-text">方法二：分治</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-number">5.</span> <span class="toc-text">思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#X%E5%92%8CY%E7%9A%84%E4%BD%8D%E6%95%B0%E7%9B%B8%E5%90%8C"><span class="toc-number">5.1.</span> <span class="toc-text">X和Y的位数相同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#X%E5%92%8CY%E7%9A%84%E4%BD%8D%E6%95%B0%E4%B8%8D%E5%90%8C"><span class="toc-number">5.2.</span> <span class="toc-text">X和Y的位数不同</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code-1"><span class="toc-number">5.3.</span> <span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89%EF%BC%9AFFT"><span class="toc-number">5.3.1.</span> <span class="toc-text">方法三：FFT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%9B%9B%EF%BC%9A%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86"><span class="toc-number">5.3.2.</span> <span class="toc-text">方法四：中国剩余定理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%94%EF%BC%9A%E7%BD%91%E7%BB%9C%E6%B5%81"><span class="toc-number">5.3.3.</span> <span class="toc-text">方法五：网络流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%85%AD-Furer%E2%80%99s-algorithm"><span class="toc-number">5.3.4.</span> <span class="toc-text">方法六: Furer’s algorithm</span></a></li></ol></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&text=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&title=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&is_video=false&description=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer&body=Check out this article: https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&title=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&title=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&title=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&title=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&name=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2022/12/06/bigintegermultiply/&t=大整数相乘 - 模拟/分治/FFT/CRT/网络流/Furer"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

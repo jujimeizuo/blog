@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="基于 LangChain 自定义 Embeddings 在 LangChain 中支持 OpenAI、LLAMA 等大模型 Embeddings 的调用接口，不过没有内置所有大模型，但是允许用户自定义 Embeddings 类型。 接下来以 ZhipuAI 为例，基于 LangChain 自定义 Embeddings。  设计思路 要实现自定义 Embeddings，需要定义一个自定义类继承自 L">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 LangChain 自定义 Embeddings">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="基于 LangChain 自定义 Embeddings 在 LangChain 中支持 OpenAI、LLAMA 等大模型 Embeddings 的调用接口，不过没有内置所有大模型，但是允许用户自定义 Embeddings 类型。 接下来以 ZhipuAI 为例，基于 LangChain 自定义 Embeddings。  设计思路 要实现自定义 Embeddings，需要定义一个自定义类继承自 L">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-01-29T00:39:02.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:01.830Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="LLM">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>基于 LangChain 自定义 Embeddings</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2024/04/01/Manhattan-and-Chebyshev-switch/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/01/06/acwing-5383/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&text=基于 LangChain 自定义 Embeddings"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&is_video=false&description=基于 LangChain 自定义 Embeddings"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基于 LangChain 自定义 Embeddings&body=Check out this article: https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&name=基于 LangChain 自定义 Embeddings&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&t=基于 LangChain 自定义 Embeddings"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-LangChain-%E8%87%AA%E5%AE%9A%E4%B9%89-Embeddings"><span class="toc-number">1.</span> <span class="toc-text">基于 LangChain 自定义 Embeddings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="toc-number">1.1.</span> <span class="toc-text">设计思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text">第三方库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-Embedding"><span class="toc-number">1.3.</span> <span class="toc-text">自定义 Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZhipuAIEmbeddings"><span class="toc-number">1.4.</span> <span class="toc-text">ZhipuAIEmbeddings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Override-embed"><span class="toc-number">1.5.</span> <span class="toc-text">Override _embed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Override-embed-documents"><span class="toc-number">1.6.</span> <span class="toc-text">Override embed_documents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Override-embed-query"><span class="toc-number">1.7.</span> <span class="toc-text">Override embed_query</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        基于 LangChain 自定义 Embeddings
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-01-29T00:39:02.000Z" class="dt-published" itemprop="datePublished">2024-01-29</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/LLM/" rel="tag">LLM</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="基于-LangChain-自定义-Embeddings"><a href="#基于-LangChain-自定义-Embeddings" class="headerlink" title="基于 LangChain 自定义 Embeddings"></a>基于 LangChain 自定义 Embeddings</h2><blockquote>
+<p>在 LangChain 中支持 OpenAI、LLAMA 等大模型 Embeddings 的调用接口，不过没有内置所有大模型，但是允许用户自定义 Embeddings 类型。 接下来以 ZhipuAI 为例，基于 LangChain 自定义 Embeddings。</p>
+</blockquote>
+<h3 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h3><ul>
+<li>要实现自定义 Embeddings，需要定义一个自定义类继承自 LangChain 的 Embeddings 基类，然后定义三个函数<ul>
+<li><code>_embed</code>: 接受一个字符串，并返回一个存放 Embeddings 的 List[float]，即模型的核心调用</li>
+<li><code>embed_query</code>: 用于对单个字符串 (query) 进行 embedding</li>
+<li><code>embed_documents</code>: 用于对字符串列表 (documents) 进行 embedding</li>
+</ul>
+</li>
+</ul>
+<h3 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> annotations</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">Any</span>, <span class="type">Dict</span>, <span class="type">List</span>, <span class="type">Optional</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> langchain.embeddings.base <span class="keyword">import</span> Embeddings</span><br><span class="line"><span class="keyword">from</span> langchain.pydantic_v1 <span class="keyword">import</span> BaseModel, root_validator</span><br><span class="line"><span class="keyword">from</span> langchain.utils <span class="keyword">import</span> get_from_dict_or_env</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义-Embedding"><a href="#自定义-Embedding" class="headerlink" title="自定义 Embedding"></a>自定义 Embedding</h3><h3 id="ZhipuAIEmbeddings"><a href="#ZhipuAIEmbeddings" class="headerlink" title="ZhipuAIEmbeddings"></a>ZhipuAIEmbeddings</h3><p>定义一个继承自 Embeddings 类的自定义 Embeddings 类：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ZhipuAIEmbeddings</span>(BaseModel, Embeddings):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;`Zhipuai Embeddings` embedding models.&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    zhipuai_api_key: <span class="type">Optional</span>[<span class="built_in">str</span>] = <span class="literal">None</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;Zhipuai application apikey&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>root_validator</code> 接收一个函数作为参数，该函数包含需要校验的逻辑。函数应该返回一个字典，其中包含经过校验的数据。如果校验失败，则抛出一个 <code>ValueError</code> 异常。</p>
+<p>装饰器 <code>root_validator</code> 确保导入了相关的包和并配置了相关的 API_Key 这里取巧，在确保导入 zhipuai model 后直接将 <code>zhipuai.model_api</code> 绑定到 client 上，减少和其他 Embeddings 类的差异。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@root_validator()</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">validate_environment</span>(<span class="params">cls, values: <span class="type">Dict</span></span>) -&gt; <span class="type">Dict</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    验证环境变量或配置文件中的zhipuai_api_key是否可用。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        values (Dict): 包含配置信息的字典，必须包含 zhipuai_api_key 的字段</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        values (Dict): 包含配置信息的字典。如果环境变量或配置文件中未提供 zhipuai_api_key，则将返回原始值；否则将返回包含 zhipuai_api_key 的值。</span></span><br><span class="line"><span class="string">    Raises:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        ValueError: zhipuai package not found, please install it with `pip install</span></span><br><span class="line"><span class="string">        zhipuai`</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    values[<span class="string">&quot;zhipuai_api_key&quot;</span>] = get_from_dict_or_env(</span><br><span class="line">        values,</span><br><span class="line">        <span class="string">&quot;zhipuai_api_key&quot;</span>,</span><br><span class="line">        <span class="string">&quot;ZHIPUAI_API_KEY&quot;</span>,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">import</span> zhipuai</span><br><span class="line">        zhipuai.api_key = values[<span class="string">&quot;zhipuai_api_key&quot;</span>]</span><br><span class="line">        values[<span class="string">&quot;client&quot;</span>] = zhipuai.model_api</span><br><span class="line"></span><br><span class="line">    <span class="keyword">except</span> ImportError:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(</span><br><span class="line">            <span class="string">&quot;Zhipuai package not found, please install it with &quot;</span></span><br><span class="line">            <span class="string">&quot;`pip install zhipuai`&quot;</span></span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">return</span> values</span><br></pre></td></tr></table></figure>
+
+<h3 id="Override-embed"><a href="#Override-embed" class="headerlink" title="Override _embed"></a>Override _embed</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">_embed</span>(<span class="params">self, texts: <span class="built_in">str</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">float</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    生成输入文本的 embedding。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        texts (str): 要生成 embedding 的文本。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Return:</span></span><br><span class="line"><span class="string">        embeddings (List[float]): 输入文本的 embedding，一个浮点数值列表。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        resp = self.client.invoke(</span><br><span class="line">            model=<span class="string">&quot;text_embedding&quot;</span>,</span><br><span class="line">            prompt=texts</span><br><span class="line">        )</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">f&quot;Error raised by inference endpoint: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> resp[<span class="string">&quot;code&quot;</span>] != <span class="number">200</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(</span><br><span class="line">            <span class="string">&quot;Error raised by inference API HTTP code: %s, %s&quot;</span></span><br><span class="line">            % (resp[<span class="string">&quot;code&quot;</span>], resp[<span class="string">&quot;msg&quot;</span>])</span><br><span class="line">        )</span><br><span class="line">    embeddings = resp[<span class="string">&quot;data&quot;</span>][<span class="string">&quot;embedding&quot;</span>]</span><br><span class="line">    <span class="keyword">return</span> embeddings</span><br></pre></td></tr></table></figure>
+
+<h3 id="Override-embed-documents"><a href="#Override-embed-documents" class="headerlink" title="Override embed_documents"></a>Override embed_documents</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">embed_documents</span>(<span class="params">self, texts: <span class="type">List</span>[<span class="built_in">str</span>]</span>) -&gt; <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">float</span>]]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    生成输入文本列表的 embedding。</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        texts (List[str]): 要生成 embedding 的文本列表.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        List[List[float]]: 输入列表中每个文档的 embedding 列表。每个 embedding 都表示为一个浮点值列表。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> [self._embed(text) <span class="keyword">for</span> text <span class="keyword">in</span> texts]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Override-embed-query"><a href="#Override-embed-query" class="headerlink" title="Override embed_query"></a>Override embed_query</h3><p><code>embed_query</code> 是对单个文本计算 embedding 的方法，因为我们已经定义好对文档列表计算 embedding 的方法 <code>embed_documents</code> 了，这里可以直接将单个文本组装成 list 的形式传给 <code>embed_documents</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">embed_query</span>(<span class="params">self, text: <span class="built_in">str</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">float</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    生成输入文本的 embedding。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        text (str): 要生成 embedding 的文本。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Return:</span></span><br><span class="line"><span class="string">        List [float]: 输入文本的 embedding，一个浮点数值列表。</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    resp = self.embed_documents([text])</span><br><span class="line">    <span class="keyword">return</span> resp[<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/">https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E-LangChain-%E8%87%AA%E5%AE%9A%E4%B9%89-Embeddings"><span class="toc-number">1.</span> <span class="toc-text">基于 LangChain 自定义 Embeddings</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="toc-number">1.1.</span> <span class="toc-text">设计思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93"><span class="toc-number">1.2.</span> <span class="toc-text">第三方库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-Embedding"><span class="toc-number">1.3.</span> <span class="toc-text">自定义 Embedding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ZhipuAIEmbeddings"><span class="toc-number">1.4.</span> <span class="toc-text">ZhipuAIEmbeddings</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Override-embed"><span class="toc-number">1.5.</span> <span class="toc-text">Override _embed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Override-embed-documents"><span class="toc-number">1.6.</span> <span class="toc-text">Override embed_documents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Override-embed-query"><span class="toc-number">1.7.</span> <span class="toc-text">Override embed_query</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&text=基于 LangChain 自定义 Embeddings"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&is_video=false&description=基于 LangChain 自定义 Embeddings"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=基于 LangChain 自定义 Embeddings&body=Check out this article: https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&name=基于 LangChain 自定义 Embeddings&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&t=基于 LangChain 自定义 Embeddings"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

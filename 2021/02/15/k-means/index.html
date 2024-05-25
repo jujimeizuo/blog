@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="2021年数学建模美赛用到该算法，特记此文。 K-means算法中文名为K-均值聚类算法。 聚类聚类（Clustering）：就是对大量未知标注的数据集，按数据的内在 相似性将数据集划分为多个族（Cluster），使族内的数据相似度 尽可能大而类别间的数据相似度尽可能小。 为什么要聚类：客户分割（segmentation）是一种发现用户特性的方法。 v 将一个基于数据的客户信息分组；从而给你一个客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习 K-means算法（二维）">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/02/15/k-means/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="2021年数学建模美赛用到该算法，特记此文。 K-means算法中文名为K-均值聚类算法。 聚类聚类（Clustering）：就是对大量未知标注的数据集，按数据的内在 相似性将数据集划分为多个族（Cluster），使族内的数据相似度 尽可能大而类别间的数据相似度尽可能小。 为什么要聚类：客户分割（segmentation）是一种发现用户特性的方法。 v 将一个基于数据的客户信息分组；从而给你一个客">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/20210215172244122.png">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/20210215172842839.png">
+<meta property="article:published_time" content="2021-02-15T10:04:14.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.710Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="deep-learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2021/02/20210215172244122.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>机器学习 K-means算法（二维）</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/02/16/educational-codeforces-round-104-div-2-ae/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/02/15/codeforces237-e/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/02/15/k-means/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&text=机器学习 K-means算法（二维）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&title=机器学习 K-means算法（二维）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&is_video=false&description=机器学习 K-means算法（二维）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=机器学习 K-means算法（二维）&body=Check out this article: https://blog.jujimeizuo.cn/2021/02/15/k-means/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&title=机器学习 K-means算法（二维）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&title=机器学习 K-means算法（二维）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&title=机器学习 K-means算法（二维）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&title=机器学习 K-means算法（二维）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&name=机器学习 K-means算法（二维）&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/02/15/k-means/&t=机器学习 K-means算法（二维）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%9A%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">聚类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">K-means算法概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means%E8%AF%84%E4%BB%B7%E6%A0%87%E5%87%86"><span class="toc-number">3.</span> <span class="toc-text">K-means评价标准</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">算法基本流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means%E7%AE%97%E6%B3%95%E4%B8%BB%E8%A6%81%E5%9B%A0%E7%B4%A0"><span class="toc-number">5.</span> <span class="toc-text">K-means算法主要因素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">6.</span> <span class="toc-text">K-means优缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4K-means%E7%AE%97%E6%B3%95%E5%B9%B6%E7%94%A8matplotlib%E5%AE%9E%E7%8E%B0%E7%94%BB%E5%9B%BE"><span class="toc-number">7.</span> <span class="toc-text">python实现二维K-means算法并用matplotlib实现画图</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        机器学习 K-means算法（二维）
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-02-15T10:04:14.000Z" class="dt-published" itemprop="datePublished">2021-02-15</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/deep-learning/" rel="tag">deep-learning</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>2021年数学建模美赛用到该算法，特记此文。</p>
+<p><strong>K-means算法中文名为K-均值聚类算法。</strong></p>
+<h2 id="聚类"><a href="#聚类" class="headerlink" title="聚类"></a>聚类</h2><p><strong>聚类（Clustering）</strong>：就是对大量未知标注的数据集，按数据的内在 相似性将数据集划分为多个族（Cluster），使族内的数据相似度 尽可能大而类别间的数据相似度尽可能小。</p>
+<p><strong>为什么要聚类</strong>：客户分割（segmentation）是一种发现用户特性的方法。 v 将一个基于数据的客户信息分组；从而给你一个客户信息的概况， 这可以直接转化为针对不同客户的营销策略。</p>
+<p><strong>应用领域</strong>：</p>
+<p>经济领域：</p>
+<ul>
+<li>帮助市场分析人员从客户数据库中发现不同的客户群</li>
+<li>对住宅区进行聚类，确定自动提款机ATM的安放位置</li>
+<li>股票市场板块分析，找出最具活力的板块龙头股</li>
+<li>企业信用等级分类</li>
+</ul>
+<p>生物学领域：</p>
+<ul>
+<li>推导植物和动物的分类</li>
+<li>对基因分类，获得对种群的认识</li>
+</ul>
+<p>其他：</p>
+<ul>
+<li>作为其他数学算法的预处理步骤，获得数据分布状况</li>
+</ul>
+<p><strong>原理</strong>：</p>
+<p>聚类分析中“类”的特征：</p>
+<ul>
+<li>聚类所说的类不是事先给定的，而是根据数据的相似性和距 离来划分；</li>
+<li>聚类的数目和结构都没有事先假定</li>
+</ul>
+<p>聚类方法的目的是寻找数据中：</p>
+<ul>
+<li>潜在的自然分组结构</li>
+<li>感兴趣的关系</li>
+</ul>
+<h2 id="K-means算法概述"><a href="#K-means算法概述" class="headerlink" title="K-means算法概述"></a>K-means算法概述</h2><p>K是什么？ K是聚类算法当中类的个数。</p>
+<p>means是什么？ means是均值算法。</p>
+<p>Summary：K-means是采用均值算法把数据分成K个类的硬聚类算法！</p>
+<p>对于<strong>连续型属性</strong>具有较好的聚类效果，不适合处理离散型属性。</p>
+<h2 id="K-means评价标准"><a href="#K-means评价标准" class="headerlink" title="K-means评价标准"></a>K-means评价标准</h2><p>一个好的聚类方法要能产生高质量的聚类结果—簇，这些簇要具备以 下两个特点：</p>
+<ul>
+<li>高的簇内相似性</li>
+<li>低的簇间相似性</li>
+</ul>
+<p>基本思想：属于划分方法（partitioning method），通过迭代把数据集 划分为不同的类别（或称簇），使得评价聚类性能的准则函数达到最 优，使得每个聚类类内紧凑，类间独立。</p>
+<h2 id="算法基本流程"><a href="#算法基本流程" class="headerlink" title="算法基本流程"></a>算法基本流程</h2><ol>
+<li>随机抽取k 个点作为初始聚类的中心，由各中心代表各聚类</li>
+<li>计算所有点到这k个中心的距离，并将点归到离其最近的聚类</li>
+<li>调整聚类中心，即将聚类的中心移动到聚类的几何中心（即平均值）</li>
+<li>重复第2、3步直到聚类的中心不再移动，此时算法收敛</li>
+</ol>
+<h2 id="K-means算法主要因素"><a href="#K-means算法主要因素" class="headerlink" title="K-means算法主要因素"></a>K-means算法主要因素</h2><p><img src="https://cdn.jujimeizuo.cn/blog/2021/02/20210215172244122.png"></p>
+<h2 id="K-means优缺点"><a href="#K-means优缺点" class="headerlink" title="K-means优缺点"></a>K-means优缺点</h2><p><strong>优点</strong>:</p>
+<ol>
+<li>思想简单易行</li>
+<li>时间杂度接近线性</li>
+<li>对大数据集，具有高效性和可伸缩性</li>
+</ol>
+<p><strong>缺点</strong>：</p>
+<ol>
+<li>依赖于初始均值的选择</li>
+<li>须事先给定聚类数k值</li>
+<li>对噪声和孤立数据敏感</li>
+</ol>
+<h2 id="python实现二维K-means算法并用matplotlib实现画图"><a href="#python实现二维K-means算法并用matplotlib实现画图" class="headerlink" title="python实现二维K-means算法并用matplotlib实现画图"></a>python实现二维K-means算法并用matplotlib实现画图</h2><p><strong>这里的数据是随机数据，只需要改一下输入方式即可。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">distance</span>(<span class="params">e1, e2</span>):</span><br><span class="line">    <span class="keyword">return</span> np.sqrt((e1[<span class="number">0</span>] - e2[<span class="number">0</span>]) ** <span class="number">2</span> + (e1[<span class="number">1</span>] - e2[<span class="number">1</span>]) ** <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">means</span>(<span class="params">arr</span>):</span><br><span class="line">    <span class="keyword">return</span> np.array([np.mean([e[<span class="number">0</span>] <span class="keyword">for</span> e <span class="keyword">in</span> arr]), np.mean([e[<span class="number">1</span>] <span class="keyword">for</span> e <span class="keyword">in</span> arr])])</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">farthest</span>(<span class="params">k_arr, arr</span>):</span><br><span class="line">    f = [<span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line">    max_d = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> e <span class="keyword">in</span> arr:</span><br><span class="line">        d = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(k_arr.__len__()):</span><br><span class="line">            d = d + np.sqrt(distance(k_arr[i], e))</span><br><span class="line">        <span class="keyword">if</span> d &gt; max_d:</span><br><span class="line">            max_d = d</span><br><span class="line">            f = e</span><br><span class="line">    <span class="keyword">return</span> f</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">closest</span>(<span class="params">a, arr</span>):</span><br><span class="line">    c = arr[<span class="number">1</span>]</span><br><span class="line">    min_d = distance(a, arr[<span class="number">1</span>])</span><br><span class="line">    arr = arr[<span class="number">1</span>:]</span><br><span class="line">    <span class="keyword">for</span> e <span class="keyword">in</span> arr:</span><br><span class="line">        d = distance(a, e)</span><br><span class="line">        <span class="keyword">if</span> d &lt; min_d:</span><br><span class="line">            min_d = d</span><br><span class="line">            c = e</span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line"></span><br><span class="line">    arr = np.random.randint(<span class="number">100</span>, size=(<span class="number">100</span>, <span class="number">1</span>, <span class="number">2</span>))[:, <span class="number">0</span>, :]</span><br><span class="line"></span><br><span class="line">    m = <span class="number">5</span></span><br><span class="line">    r = np.random.randint(arr.__len__() - <span class="number">1</span>)</span><br><span class="line">    k_arr = np.array([arr[r]])</span><br><span class="line">    cla_arr = [[]]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m - <span class="number">1</span>):</span><br><span class="line">        k = farthest(k_arr, arr)</span><br><span class="line">        k_arr = np.concatenate([k_arr, np.array([k])])</span><br><span class="line">        cla_arr.append([])</span><br><span class="line"></span><br><span class="line">    n = <span class="number">20</span></span><br><span class="line">    cla_temp = cla_arr</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        <span class="keyword">for</span> e <span class="keyword">in</span> arr:</span><br><span class="line">            ki = <span class="number">0</span></span><br><span class="line">            min_d = distance(e, k_arr[ki])</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, k_arr.__len__()):</span><br><span class="line">                <span class="keyword">if</span> distance(e, k_arr[j]) &lt; min_d:</span><br><span class="line">                    min_d = distance(e, k_arr[j])</span><br><span class="line">                    ki = j</span><br><span class="line">            cla_temp[ki].append(e)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(k_arr.__len__()):</span><br><span class="line">            <span class="keyword">if</span> n - <span class="number">1</span> == i:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            k_arr[k] = means(cla_temp[k])</span><br><span class="line">            cla_temp[k] = []</span><br><span class="line"></span><br><span class="line">    col = [<span class="string">&#x27;HotPink&#x27;</span>, <span class="string">&#x27;Aqua&#x27;</span>, <span class="string">&#x27;Chartreuse&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;LightSalmon&#x27;</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(m):</span><br><span class="line">        plt.scatter(k_arr[i][<span class="number">0</span>], k_arr[i][<span class="number">1</span>], linewidth=<span class="number">10</span>, color=col[i])</span><br><span class="line">        plt.scatter([e[<span class="number">0</span>] <span class="keyword">for</span> e <span class="keyword">in</span> cla_temp[i]], [e[<span class="number">1</span>] <span class="keyword">for</span> e <span class="keyword">in</span> cla_temp[i]], color=col[i])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jujimeizuo.cn/blog/2021/02/20210215172842839.png"></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/02/15/k-means/">https://blog.jujimeizuo.cn/2021/02/15/k-means/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%9A%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">聚类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means%E7%AE%97%E6%B3%95%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">K-means算法概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means%E8%AF%84%E4%BB%B7%E6%A0%87%E5%87%86"><span class="toc-number">3.</span> <span class="toc-text">K-means评价标准</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">算法基本流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means%E7%AE%97%E6%B3%95%E4%B8%BB%E8%A6%81%E5%9B%A0%E7%B4%A0"><span class="toc-number">5.</span> <span class="toc-text">K-means算法主要因素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-number">6.</span> <span class="toc-text">K-means优缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python%E5%AE%9E%E7%8E%B0%E4%BA%8C%E7%BB%B4K-means%E7%AE%97%E6%B3%95%E5%B9%B6%E7%94%A8matplotlib%E5%AE%9E%E7%8E%B0%E7%94%BB%E5%9B%BE"><span class="toc-number">7.</span> <span class="toc-text">python实现二维K-means算法并用matplotlib实现画图</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/02/15/k-means/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&text=机器学习 K-means算法（二维）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&title=机器学习 K-means算法（二维）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&is_video=false&description=机器学习 K-means算法（二维）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=机器学习 K-means算法（二维）&body=Check out this article: https://blog.jujimeizuo.cn/2021/02/15/k-means/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&title=机器学习 K-means算法（二维）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&title=机器学习 K-means算法（二维）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&title=机器学习 K-means算法（二维）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&title=机器学习 K-means算法（二维）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/02/15/k-means/&name=机器学习 K-means算法（二维）&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/02/15/k-means/&t=机器学习 K-means算法（二维）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

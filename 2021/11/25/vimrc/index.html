@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="适合ACM竞赛的vimrc涵盖了自动缩进，自动补全花括号，输入文件重定向等 .vimrc 比较短，真正需要手打的只有 8 行，一般可以在 30 秒左右敲完  F9 是运行程序（从控制台读取输入） F5 是运行程序（将同目录下 in 文件的内容作为输入，效果等于 freopen(“in”, “r”, stdin))  12345678910111213set nu sts&#x3D;4 ts&#x3D;4 sw&#x3D;4 c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="适合ACM竞赛的vimrc和 MyVimConf">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/11/25/vimrc/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="适合ACM竞赛的vimrc涵盖了自动缩进，自动补全花括号，输入文件重定向等 .vimrc 比较短，真正需要手打的只有 8 行，一般可以在 30 秒左右敲完  F9 是运行程序（从控制台读取输入） F5 是运行程序（将同目录下 in 文件的内容作为输入，效果等于 freopen(“in”, “r”, stdin))  12345678910111213set nu sts&#x3D;4 ts&#x3D;4 sw&#x3D;4 c">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-25T08:11:36.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.091Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>适合ACM竞赛的vimrc和 MyVimConf</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/11/30/acmduipai/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/09/28/rediscjh/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/11/25/vimrc/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&text=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&title=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&is_video=false&description=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=适合ACM竞赛的vimrc和 MyVimConf&body=Check out this article: https://blog.jujimeizuo.cn/2021/11/25/vimrc/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&title=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&title=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&title=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&title=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&name=适合ACM竞赛的vimrc和 MyVimConf&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&t=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E5%90%88ACM%E7%AB%9E%E8%B5%9B%E7%9A%84vimrc"><span class="toc-number">1.</span> <span class="toc-text">适合ACM竞赛的vimrc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B1%8F%E6%8A%80%E5%B7%A7"><span class="toc-number">2.</span> <span class="toc-text">分屏技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84vimrc%E9%85%8D%E7%BD%AE-MyVimConf"><span class="toc-number">3.</span> <span class="toc-text">我自己的vimrc配置 MyVimConf</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        适合ACM竞赛的vimrc和 MyVimConf
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-11-25T08:11:36.000Z" class="dt-published" itemprop="datePublished">2021-11-25</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/ACM/" rel="tag">ACM</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="适合ACM竞赛的vimrc"><a href="#适合ACM竞赛的vimrc" class="headerlink" title="适合ACM竞赛的vimrc"></a>适合ACM竞赛的vimrc</h2><p>涵盖了自动缩进，自动补全花括号，输入文件重定向等</p>
+<p>.vimrc 比较短，真正需要手打的只有 8 行，一般可以在 30 秒左右敲完</p>
+<ul>
+<li>F9 是运行程序（从控制台读取输入）</li>
+<li>F5 是运行程序（将同目录下 in 文件的内容作为输入，效果等于 freopen(“in”, “r”, stdin))</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> nu sts=4 ts=4 sw=4 cin</span><br><span class="line">map &lt;F5&gt; :call CR()&lt;CR&gt;</span><br><span class="line">func CR()</span><br><span class="line">    <span class="built_in">exec</span> <span class="string">&quot;w&quot;</span></span><br><span class="line">    <span class="built_in">exec</span> <span class="string">&quot;!clear &amp;&amp; g++ % -std=c++11 -W -o a &amp;&amp; ./a &lt; in&quot;</span></span><br><span class="line">endfunc</span><br><span class="line">map &lt;F9&gt; :call CRr()&lt;CR&gt;</span><br><span class="line">func CRr()</span><br><span class="line">    <span class="built_in">exec</span> <span class="string">&quot;w&quot;</span></span><br><span class="line">    <span class="built_in">exec</span> <span class="string">&quot;!clear &amp;&amp; g++ % -std=c++11 -W -o a &amp;&amp; ./a&quot;</span></span><br><span class="line">endfunc</span><br><span class="line">imap &#123;&lt;CR&gt; &#123;&lt;CR&gt;&#125;&lt;C-O&gt;O&lt;left&gt;&lt;right&gt;</span><br><span class="line">syn on</span><br></pre></td></tr></table></figure>
+
+<p>在 Normal 模式下，输入 :20vsp in 可以快速分屏并打开 in 文件以进行编辑</p>
+<h2 id="分屏技巧"><a href="#分屏技巧" class="headerlink" title="分屏技巧"></a>分屏技巧</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">:sp ## 上下分屏</span><br><span class="line">:res y ## 设置当前分屏高度为y</span><br><span class="line">:vsp ## 左右分屏</span><br><span class="line">:vertical res x ## 设置当前分屏宽度为x</span><br><span class="line">Ctrl + w + hjkl ## 先按Ctrl + w，然后再按hjkl在分屏之间移动</span><br><span class="line">:e ## 刷新当前文件</span><br><span class="line">:e filename ## 在当前窗口打开名字为filename的文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="我自己的vimrc配置-MyVimConf"><a href="#我自己的vimrc配置-MyVimConf" class="headerlink" title="我自己的vimrc配置 MyVimConf"></a>我自己的vimrc配置 MyVimConf</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot; Color</span></span><br><span class="line"><span class="string">set t_Co=256</span></span><br><span class="line"><span class="string">syntax on</span></span><br><span class="line"><span class="string">&quot;</span> <span class="built_in">set</span> background=dark</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Line Numbers</span></span><br><span class="line"><span class="string">&quot;</span> <span class="built_in">set</span> relativenumber</span><br><span class="line"><span class="built_in">set</span> number</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Clipboard</span></span><br><span class="line"><span class="string">set clipboard=unnamed</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Make backspace work</span><br><span class="line"><span class="built_in">set</span> backspace=2</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Maps space to colon, time saver</span></span><br><span class="line"><span class="string">nmap &lt;space&gt; :</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Indentation</span><br><span class="line"><span class="built_in">set</span> tabstop=2</span><br><span class="line"><span class="built_in">set</span> expandtab</span><br><span class="line"><span class="built_in">set</span> shiftwidth=2</span><br><span class="line"><span class="built_in">set</span> autoindent</span><br><span class="line"><span class="string">&quot; set ignorecase</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Allows <span class="keyword">for</span> mouse scrolling</span><br><span class="line"><span class="built_in">set</span> mouse=a</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Highlight Current Line</span></span><br><span class="line"><span class="string">set cursorline</span></span><br><span class="line"><span class="string">highlight NERDTreeFile ctermfg=14</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Highlight All Search Pattern</span><br><span class="line"><span class="built_in">set</span> hlsearch</span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> g:ycm_global_ycm_extra_conf=<span class="string">&#x27;~/.vim/.ycm_extra_conf.py&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">let</span> g:ycm_confirm_extra_conf = 0</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; set the runtime path to include Vundle and initialize</span></span><br><span class="line"><span class="string">call plug##begin(&#x27;~/.vim/plugged&#x27;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> YouCompleteme</span><br><span class="line">Plug <span class="string">&#x27;valloric/youcompleteme&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Color Schemes</span></span><br><span class="line"><span class="string">Plug &#x27;flazz/vim-colorschemes&#x27;</span></span><br><span class="line"><span class="string">Plug &#x27;joshdick/onedark.vim&#x27;</span></span><br><span class="line"><span class="string">&quot;</span>Use 24-bit (true-color) mode <span class="keyword">in</span> Vim/Neovim when outside tmux.</span><br><span class="line"><span class="string">&quot;If you&#x27;re using tmux version 2.2 or later, you can remove the outermost <span class="variable">$TMUX</span> check and use tmux&#x27;s 24-bit color support</span></span><br><span class="line"><span class="string">&quot;</span>(see &lt; http://sunaku.github.io/tmux-24bit-color.html<span class="comment">##usage &gt; for more information.)</span></span><br><span class="line"><span class="keyword">if</span> (empty(<span class="variable">$TMUX</span>))</span><br><span class="line">  <span class="keyword">if</span> (has(<span class="string">&quot;nvim&quot;</span>))</span><br><span class="line">    <span class="string">&quot;For Neovim 0.1.3 and 0.1.4 &lt; https://github.com/neovim/neovim/pull/2198 &gt;</span></span><br><span class="line"><span class="string">    let <span class="variable">$NVIM_TUI_ENABLE_TRUE_COLOR</span>=1</span></span><br><span class="line"><span class="string">  endif</span></span><br><span class="line"><span class="string">  &quot;</span>For Neovim &gt; 0.1.5 and Vim &gt; patch 7.4.1799 &lt; https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 &gt;</span><br><span class="line">  <span class="string">&quot;Based on Vim patch 7.4.1770 (guicolors option) &lt; https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd &gt;</span></span><br><span class="line"><span class="string">  &quot;</span> &lt; https://github.com/neovim/neovim/wiki/Following-HEAD<span class="comment">##20160511 &gt;</span></span><br><span class="line">  <span class="keyword">if</span> (has(<span class="string">&quot;termguicolors&quot;</span>))</span><br><span class="line">    <span class="built_in">set</span> termguicolors</span><br><span class="line">  endif</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; NERDTree</span></span><br><span class="line"><span class="string">Plug &#x27;scrooloose/nerdtree&#x27;</span></span><br><span class="line"><span class="string">map &lt;silent&gt; &lt;C-e&gt; :NERDTree&lt;CR&gt;</span></span><br><span class="line"><span class="string">map &lt;silent&gt; &lt;C-w&gt; :NERDTreeFind&lt;CR&gt;</span></span><br><span class="line"><span class="string">nmap &lt;leader&gt;nt :NERDTreeFind&lt;CR&gt;</span></span><br><span class="line"><span class="string">let NERDTreeShowBookmarks=1</span></span><br><span class="line"><span class="string">let NERDTreeIgnore=[&#x27;\.py[cd]$&#x27;, &#x27;\~$&#x27;, &#x27;\.swo$&#x27;, &#x27;\.swp$&#x27;, &#x27;^\.git$&#x27;, &#x27;^\.hg$&#x27;, &#x27;^\.svn$&#x27;, &#x27;\.bzr$&#x27;]</span></span><br><span class="line"><span class="string">let NERDTreeChDirMode=0</span></span><br><span class="line"><span class="string">let NERDTreeQuitOnOpen=1</span></span><br><span class="line"><span class="string">let NERDTreeMouseMode=2</span></span><br><span class="line"><span class="string">let NERDTreeShowHidden=1</span></span><br><span class="line"><span class="string">let NERDTreeKeepTreeInNewTab=1</span></span><br><span class="line"><span class="string">let g:nerdtree_tabs_open_on_gui_startup=0</span></span><br><span class="line"><span class="string">&quot;</span> NERDTrees File highlighting</span><br><span class="line"><span class="keyword">function</span>! NERDTreeHighlightFile(extension, <span class="built_in">fg</span>, <span class="built_in">bg</span>, guifg, guibg)</span><br><span class="line"><span class="built_in">exec</span> <span class="string">&#x27;autocmd FileType nerdtree highlight &#x27;</span> . a:extension .<span class="string">&#x27; ctermbg=&#x27;</span>. a:<span class="built_in">bg</span> .<span class="string">&#x27; ctermfg=&#x27;</span>. a:<span class="built_in">fg</span> .<span class="string">&#x27; guibg=&#x27;</span>. a:guibg .<span class="string">&#x27; guifg=&#x27;</span>. a:guifg</span><br><span class="line"><span class="built_in">exec</span> <span class="string">&#x27;autocmd FileType nerdtree syn match &#x27;</span> . a:extension .<span class="string">&#x27; ##^\s\+.*&#x27;</span>. a:extension .<span class="string">&#x27;$##&#x27;</span></span><br><span class="line">endfunction</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;jade&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;ini&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;md&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;##3366FF&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;yml&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;config&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;conf&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;json&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;html&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;yellow&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;styl&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;css&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;cyan&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;coffee&#x27;</span>, <span class="string">&#x27;Red&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;js&#x27;</span>, <span class="string">&#x27;Red&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;##ffa500&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;rb&#x27;</span>, <span class="string">&#x27;Red&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;##ffa500&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">au VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;php&#x27;</span>, <span class="string">&#x27;Magenta&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;##ff00ff&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">autocmd VimEnter * call NERDTreeHighlightFile(<span class="string">&#x27;jade&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;none&#x27;</span>, <span class="string">&#x27;green&#x27;</span>, <span class="string">&#x27;##151515&#x27;</span>)</span><br><span class="line">highlight! <span class="built_in">link</span> NERDTreeFlags NERDTreeDir</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Airline</span></span><br><span class="line"><span class="string">Plug &#x27;vim-airline/vim-airline&#x27;</span></span><br><span class="line"><span class="string">Plug &#x27;vim-airline/vim-airline-themes&#x27;</span></span><br><span class="line"><span class="string">set laststatus=2</span></span><br><span class="line"><span class="string">let g:airline_left_sep = &#x27;&#x27;</span></span><br><span class="line"><span class="string">let g:airline_left_alt_sep = &#x27;&#x27;</span></span><br><span class="line"><span class="string">let g:airline_right_sep = &#x27;&#x27;</span></span><br><span class="line"><span class="string">let g:airline_right_alt_sep = &#x27;&#x27;</span></span><br><span class="line"><span class="string">let g:airline_symbols = &#123;&#125;</span></span><br><span class="line"><span class="string">let g:airline_symbols.branch = &#x27;&#x27;</span></span><br><span class="line"><span class="string">let g:airline_symbols.readonly = &#x27;&#x27;</span></span><br><span class="line"><span class="string">let g:airline_symbols.linenr = &#x27;☰&#x27;</span></span><br><span class="line"><span class="string">let g:airline_symbols.maxlinenr = &#x27;&#x27;</span></span><br><span class="line"><span class="string">let g:airline_symbols.dirty=&#x27;⚡&#x27;</span></span><br><span class="line"><span class="string">let g:airline_theme = &#x27;onedark&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Code Formatter</span><br><span class="line"><span class="string">&quot; Plug &#x27;Chiel92/vim-autoformat&#x27;</span></span><br><span class="line"><span class="string">&quot;</span> nnoremap &lt;Leader&gt;&lt;Leader&gt;a :Autoformat&lt;cr&gt;</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; All of your Plugins must be added before the following line</span></span><br><span class="line"><span class="string">call plug##end()</span></span><br><span class="line"><span class="string">&quot;</span> Color</span><br><span class="line"><span class="built_in">set</span> t_Co=256</span><br><span class="line">syntax on</span><br><span class="line"><span class="string">&quot; set background=dark</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Line Numbers</span><br><span class="line"><span class="string">&quot; set relativenumber</span></span><br><span class="line"><span class="string">set number</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Clipboard</span><br><span class="line"><span class="built_in">set</span> clipboard=unnamed</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Make backspace work</span></span><br><span class="line"><span class="string">set backspace=2</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Maps space to colon, time saver</span><br><span class="line">nmap &lt;space&gt; :</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Indentation</span></span><br><span class="line"><span class="string">set tabstop=2</span></span><br><span class="line"><span class="string">set expandtab</span></span><br><span class="line"><span class="string">set shiftwidth=2</span></span><br><span class="line"><span class="string">set autoindent</span></span><br><span class="line"><span class="string">&quot;</span> <span class="built_in">set</span> ignorecase</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Allows for mouse scrolling</span></span><br><span class="line"><span class="string">set mouse=a</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Highlight Current Line</span><br><span class="line"><span class="built_in">set</span> cursorline</span><br><span class="line">highlight NERDTreeFile ctermfg=14</span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Highlight All Search Pattern</span></span><br><span class="line"><span class="string">set hlsearch</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">let g:ycm_global_ycm_extra_conf=&#x27;~/.vim/.ycm_extra_conf.py&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">let g:ycm_confirm_extra_conf = 0</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> <span class="built_in">set</span> the runtime path to include Vundle and initialize</span><br><span class="line">call plug<span class="comment">##begin(&#x27;~/.vim/plugged&#x27;)</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot; YouCompleteme</span></span><br><span class="line"><span class="string">Plug &#x27;valloric/youcompleteme&#x27;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Color Schemes</span><br><span class="line">Plug <span class="string">&#x27;flazz/vim-colorschemes&#x27;</span></span><br><span class="line">Plug <span class="string">&#x27;joshdick/onedark.vim&#x27;</span></span><br><span class="line"><span class="string">&quot;Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.</span></span><br><span class="line"><span class="string">&quot;</span>If you<span class="string">&#x27;re using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux&#x27;</span>s 24-bit color support</span><br><span class="line"><span class="string">&quot;(see &lt; http://sunaku.github.io/tmux-24bit-color.html##usage &gt; for more information.)</span></span><br><span class="line"><span class="string">if (empty(<span class="variable">$TMUX</span>))</span></span><br><span class="line"><span class="string">  if (has(&quot;</span>nvim<span class="string">&quot;))</span></span><br><span class="line"><span class="string">    &quot;</span>For Neovim 0.1.3 and 0.1.4 &lt; https://github.com/neovim/neovim/pull/2198 &gt;</span><br><span class="line">    <span class="built_in">let</span> <span class="variable">$NVIM_TUI_ENABLE_TRUE_COLOR</span>=1</span><br><span class="line">  endif</span><br><span class="line">  <span class="string">&quot;For Neovim &gt; 0.1.5 and Vim &gt; patch 7.4.1799 &lt; https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 &gt;</span></span><br><span class="line"><span class="string">  &quot;</span>Based on Vim patch 7.4.1770 (guicolors option) &lt; https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd &gt;</span><br><span class="line">  <span class="string">&quot; &lt; https://github.com/neovim/neovim/wiki/Following-HEAD##20160511 &gt;</span></span><br><span class="line"><span class="string">  if (has(&quot;</span>termguicolors<span class="string">&quot;))</span></span><br><span class="line"><span class="string">    set termguicolors</span></span><br><span class="line"><span class="string">  endif</span></span><br><span class="line"><span class="string">endif</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> NERDTree</span><br><span class="line">Plug <span class="string">&#x27;scrooloose/nerdtree&#x27;</span></span><br><span class="line">map &lt;silent&gt; &lt;C-e&gt; :NERDTree&lt;CR&gt;</span><br><span class="line">map &lt;silent&gt; &lt;C-w&gt; :NERDTreeFind&lt;CR&gt;</span><br><span class="line">nmap &lt;leader&gt;nt :NERDTreeFind&lt;CR&gt;</span><br><span class="line"><span class="built_in">let</span> NERDTreeShowBookmarks=1</span><br><span class="line"><span class="built_in">let</span> NERDTreeIgnore=[<span class="string">&#x27;\.py[cd]$&#x27;</span>, <span class="string">&#x27;\~$&#x27;</span>, <span class="string">&#x27;\.swo$&#x27;</span>, <span class="string">&#x27;\.swp$&#x27;</span>, <span class="string">&#x27;^\.git$&#x27;</span>, <span class="string">&#x27;^\.hg$&#x27;</span>, <span class="string">&#x27;^\.svn$&#x27;</span>, <span class="string">&#x27;\.bzr$&#x27;</span>]</span><br><span class="line"><span class="built_in">let</span> NERDTreeChDirMode=0</span><br><span class="line"><span class="built_in">let</span> NERDTreeQuitOnOpen=1</span><br><span class="line"><span class="built_in">let</span> NERDTreeMouseMode=2</span><br><span class="line"><span class="built_in">let</span> NERDTreeShowHidden=1</span><br><span class="line"><span class="built_in">let</span> NERDTreeKeepTreeInNewTab=1</span><br><span class="line"><span class="built_in">let</span> g:nerdtree_tabs_open_on_gui_startup=0</span><br><span class="line"><span class="string">&quot; NERDTrees File highlighting</span></span><br><span class="line"><span class="string">function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)</span></span><br><span class="line"><span class="string">exec &#x27;autocmd FileType nerdtree highlight &#x27; . a:extension .&#x27; ctermbg=&#x27;. a:bg .&#x27; ctermfg=&#x27;. a:fg .&#x27; guibg=&#x27;. a:guibg .&#x27; guifg=&#x27;. a:guifg</span></span><br><span class="line"><span class="string">exec &#x27;autocmd FileType nerdtree syn match &#x27; . a:extension .&#x27; ##^\s\+.*&#x27;. a:extension .&#x27;<span class="variable">$#</span>#&#x27;</span></span><br><span class="line"><span class="string">endfunction</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;jade&#x27;, &#x27;green&#x27;, &#x27;none&#x27;, &#x27;green&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;ini&#x27;, &#x27;yellow&#x27;, &#x27;none&#x27;, &#x27;yellow&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;md&#x27;, &#x27;blue&#x27;, &#x27;none&#x27;, &#x27;##3366FF&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;yml&#x27;, &#x27;yellow&#x27;, &#x27;none&#x27;, &#x27;yellow&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;config&#x27;, &#x27;yellow&#x27;, &#x27;none&#x27;, &#x27;yellow&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;conf&#x27;, &#x27;yellow&#x27;, &#x27;none&#x27;, &#x27;yellow&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;json&#x27;, &#x27;yellow&#x27;, &#x27;none&#x27;, &#x27;yellow&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;html&#x27;, &#x27;yellow&#x27;, &#x27;none&#x27;, &#x27;yellow&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;styl&#x27;, &#x27;cyan&#x27;, &#x27;none&#x27;, &#x27;cyan&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;css&#x27;, &#x27;cyan&#x27;, &#x27;none&#x27;, &#x27;cyan&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;coffee&#x27;, &#x27;Red&#x27;, &#x27;none&#x27;, &#x27;red&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;js&#x27;, &#x27;Red&#x27;, &#x27;none&#x27;, &#x27;##ffa500&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;rb&#x27;, &#x27;Red&#x27;, &#x27;none&#x27;, &#x27;##ffa500&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">au VimEnter * call NERDTreeHighlightFile(&#x27;php&#x27;, &#x27;Magenta&#x27;, &#x27;none&#x27;, &#x27;##ff00ff&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">autocmd VimEnter * call NERDTreeHighlightFile(&#x27;jade&#x27;, &#x27;green&#x27;, &#x27;none&#x27;, &#x27;green&#x27;, &#x27;##151515&#x27;)</span></span><br><span class="line"><span class="string">highlight! link NERDTreeFlags NERDTreeDir</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> Airline</span><br><span class="line">Plug <span class="string">&#x27;vim-airline/vim-airline&#x27;</span></span><br><span class="line">Plug <span class="string">&#x27;vim-airline/vim-airline-themes&#x27;</span></span><br><span class="line"><span class="built_in">set</span> laststatus=2</span><br><span class="line"><span class="built_in">let</span> g:airline_left_sep = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">let</span> g:airline_left_alt_sep = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">let</span> g:airline_right_sep = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">let</span> g:airline_right_alt_sep = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">let</span> g:airline_symbols = &#123;&#125;</span><br><span class="line"><span class="built_in">let</span> g:airline_symbols.branch = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">let</span> g:airline_symbols.readonly = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">let</span> g:airline_symbols.linenr = <span class="string">&#x27;☰&#x27;</span></span><br><span class="line"><span class="built_in">let</span> g:airline_symbols.maxlinenr = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">let</span> g:airline_symbols.dirty=<span class="string">&#x27;⚡&#x27;</span></span><br><span class="line"><span class="built_in">let</span> g:airline_theme = <span class="string">&#x27;onedark&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot; Code Formatter</span></span><br><span class="line"><span class="string">&quot;</span> Plug <span class="string">&#x27;Chiel92/vim-autoformat&#x27;</span></span><br><span class="line"><span class="string">&quot; nnoremap &lt;Leader&gt;&lt;Leader&gt;a :Autoformat&lt;cr&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&quot;</span> All of your Plugins must be added before the following line</span><br><span class="line">call plug<span class="comment">##end()</span></span><br></pre></td></tr></table></figure>
+
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/11/25/vimrc/">https://blog.jujimeizuo.cn/2021/11/25/vimrc/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E5%90%88ACM%E7%AB%9E%E8%B5%9B%E7%9A%84vimrc"><span class="toc-number">1.</span> <span class="toc-text">适合ACM竞赛的vimrc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E5%B1%8F%E6%8A%80%E5%B7%A7"><span class="toc-number">2.</span> <span class="toc-text">分屏技巧</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84vimrc%E9%85%8D%E7%BD%AE-MyVimConf"><span class="toc-number">3.</span> <span class="toc-text">我自己的vimrc配置 MyVimConf</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/11/25/vimrc/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&text=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&title=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&is_video=false&description=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=适合ACM竞赛的vimrc和 MyVimConf&body=Check out this article: https://blog.jujimeizuo.cn/2021/11/25/vimrc/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&title=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&title=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&title=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&title=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&name=适合ACM竞赛的vimrc和 MyVimConf&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/11/25/vimrc/&t=适合ACM竞赛的vimrc和 MyVimConf"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

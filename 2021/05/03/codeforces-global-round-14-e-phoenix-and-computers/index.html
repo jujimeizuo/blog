@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="传送门：https:&#x2F;&#x2F;codeforces.com&#x2F;contest&#x2F;1515&#x2F;problem&#x2F;E 赛中想了一个多小时，还是处理不了一些细节。 题意有n个电脑排在一排，你可以手动打开任意电脑，但是有个特点， 对于一个电脑，如果它左右都被打开了，那么它会自动打开。 最后问，有多少种全部开机方案？ 思路我们考虑两种方式，第一种全部都是手动打开，第二种带有自动打开。  全部手动打开  对于电脑1，如果要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="传送门：https:&#x2F;&#x2F;codeforces.com&#x2F;contest&#x2F;1515&#x2F;problem&#x2F;E 赛中想了一个多小时，还是处理不了一些细节。 题意有n个电脑排在一排，你可以手动打开任意电脑，但是有个特点， 对于一个电脑，如果它左右都被打开了，那么它会自动打开。 最后问，有多少种全部开机方案？ 思路我们考虑两种方式，第一种全部都是手动打开，第二种带有自动打开。  全部手动打开  对于电脑1，如果要">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-03T09:06:29.000Z">
+<meta property="article:modified_time" content="2024-04-01T11:19:02.709Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2021/05/06/nowcoder-beginner28-i/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2021/05/02/live2d/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&text=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&title=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&is_video=false&description=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合&body=Check out this article: https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&title=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&title=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&title=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&title=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&name=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&t=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-436MS"><span class="toc-number">3.</span> <span class="toc-text">Code(436MS)</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-03T09:06:29.000Z" class="dt-published" itemprop="datePublished">2021-05-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/ACM/" rel="tag">ACM</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>传送门：<a target="_blank" rel="noopener" href="https://codeforces.com/contest/1515/problem/E">https://codeforces.com/contest/1515/problem/E</a> 赛中想了一个多小时，还是处理不了一些细节。</p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有n个电脑排在一排，你可以手动打开任意电脑，但是有个特点， 对于一个电脑，如果它左右都被打开了，那么它会自动打开。</p>
+<p>最后问，有多少种全部开机方案？</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>我们考虑两种方式，第一种全部都是手动打开，第二种带有自动打开。</p>
+<ul>
+<li><strong>全部手动打开</strong></li>
+</ul>
+<p>对于电脑1，如果要全部手动开启，则需要按照1，2…n的顺序打开，$C_{n-1}^0$ 对于电脑2，如果要全部手动开启，则后面必须按照3,4..n的顺序，前面必须1，$C_{n-1}^1$ 对于电脑k，如果要全部手动开启，则后面必须要按照k+1,k+2…n的顺序，前面必须是k-1,…1的顺序，所有要在n-1中选k-1个开前面，$C_{n-1}^{k-1}$</p>
+<p>则总方案数为$C_{n-1}^0+C_{n-1}^1+…+C_{n-1}^{n-1}&#x3D;2^{n-1}$</p>
+<p>也就是说，对于x台电脑，如果全部手动开启的话，有$2^{x-1}$种方案数，下面会用到。</p>
+<ul>
+<li><strong>如果有自动打开</strong></li>
+</ul>
+<p>自动打开只会出现现在左右都打开后才会自动打开，所以假设这么一种开机方式： 设有$x_k$台电脑自动开启。 1到$x_1-1$手动打开，$x_1+1$到$x_2-1$手动打开，…$x_k+1$到n手动打开。$(x_k+1\leq N)$ 这样，$x_k$台都满足自动打开的要求。</p>
+<p>然后就是要怎么进行这个过程。</p>
+<p>设f[i][j]为前i台电脑中，有j台是手动打开，第i台也是手动打开，并且第i+1台自动开启的方案数。</p>
+<p>则我们想让第i+1台成为自动打开的电脑，则i+1后面几台电脑手动打开，设为k台。</p>
+<p>则就是f[i][j]向f[i+1+k][j+k]的转移，怎么转移呢？</p>
+<p>f[i+1+k][j+k]比f[i][j]多了k台手动开启。 这k台我们称为“新”打开的电脑，j台我们称为“旧”打开的电脑。 第i+1是自动打开的。 之前我们处理过，k台手动开启的方案数为$2^{k-1}$，然后我们要将k台和j台一起合并。 那么就是有j+k台中，有k台是“新”电脑，方案数为$C_{k+j}^k$。</p>
+<p>则转移方程为$f[i+1+k][j+k]&#x3D;f[i][j]*2^{k-1}*C_{j+k}^k。$</p>
+<p>i、j、k三层循环进行转移，$O(n^3)$是可以的。</p>
+<p>最后预处理组合数进行转移即可。</p>
+<h2 id="Code-436MS"><a href="#Code-436MS" class="headerlink" title="Code(436MS)"></a>Code(436MS)</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">&quot;bits/stdc++.h&quot;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line">ll n, mod;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">410</span>;</span><br><span class="line">ll F[N], invn[N], invF[N], bit[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    bit[<span class="number">1</span>] = F[<span class="number">0</span>] = F[<span class="number">1</span>] = invn[<span class="number">0</span>] = invn[<span class="number">1</span>] = invF[<span class="number">0</span>] = invF[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">2</span>;i &lt; N; i++)&#123;</span><br><span class="line">        F[i] = F[i - <span class="number">1</span>] * i % mod;</span><br><span class="line">        invn[i] = (mod - mod / i) * invn[mod % i] % mod;</span><br><span class="line">        invF[i] = invF[i - <span class="number">1</span>] * invn[i] % mod;</span><br><span class="line">        bit[i] = bit[i - <span class="number">1</span>] * <span class="number">2</span> % mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">C</span><span class="params">(ll m, ll n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(m &lt; <span class="number">0</span>  n &lt; <span class="number">0</span>  n &gt; m)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    ll ans = F[m];</span><br><span class="line">    ans = ans * invF[n] % mod;</span><br><span class="line">    ans = ans * invF[m - n] % mod;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; mod;</span><br><span class="line">    <span class="built_in">init</span>();</span><br><span class="line">    vector&lt;vector&lt;ll&gt;&gt; <span class="built_in">dp</span>(n + <span class="number">1</span>, <span class="built_in">vector</span>&lt;ll&gt;(n + <span class="number">1</span>, <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt;= n; i++) &#123; <span class="comment">// 前i台电脑</span></span><br><span class="line">        dp[i][i] = bit[i];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>;j &lt;= i; j++) &#123; <span class="comment">// i台中有j台是手动打开的</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> k = <span class="number">1</span>;k + i + <span class="number">1</span> &lt;= n; k++) &#123; <span class="comment">// i + 1是自动打开的，然后后面k台需要手动打开</span></span><br><span class="line">                dp[i + <span class="number">1</span> + k][j + k] = (dp[i + <span class="number">1</span> + k][j + k] + dp[i][j] * bit[k] % mod * <span class="built_in">C</span>(j + k, k) % mod) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ll ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt;= n; i++) &#123;</span><br><span class="line">        ans = (ans + dp[n][i]) % mod;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/">https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E6%84%8F"><span class="toc-number">1.</span> <span class="toc-text">题意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-436MS"><span class="toc-number">3.</span> <span class="toc-text">Code(436MS)</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&text=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&title=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&is_video=false&description=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合&body=Check out this article: https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&title=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&title=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&title=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&title=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&name=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/05/03/codeforces-global-round-14-e-phoenix-and-computers/&t=Codeforces Global Round 14 E. Phoenix and Computers dp+排列组合"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
