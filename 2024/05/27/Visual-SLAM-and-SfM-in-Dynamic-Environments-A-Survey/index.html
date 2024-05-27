@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="介绍 本文介绍 VSLAM 和 SfM 在动态环境下目前所有技术相关的综述。  回顾动态环境中的视觉定位和 3D 重建技术：  涵盖三个主要问题： 如何做好鲁棒 VSLAM 如何在 3D 中分割和跟踪动态物体 如何实现联合运动分割和重建   从两个角度来看： 作为一个鲁棒性问题：相机前的动态物体导致错误的对应关系（遮挡等），可以通过分割图像中静态和动态特征，将动态部分视为异常值来实现鲁棒性，只用静">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Visual SLAM and SfM in Dynamic Environments: A Survey">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="介绍 本文介绍 VSLAM 和 SfM 在动态环境下目前所有技术相关的综述。  回顾动态环境中的视觉定位和 3D 重建技术：  涵盖三个主要问题： 如何做好鲁棒 VSLAM 如何在 3D 中分割和跟踪动态物体 如何实现联合运动分割和重建   从两个角度来看： 作为一个鲁棒性问题：相机前的动态物体导致错误的对应关系（遮挡等），可以通过分割图像中静态和动态特征，将动态部分视为异常值来实现鲁棒性，只用静">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-1.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-2.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-3.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-4.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-5.jpg">
+<meta property="article:published_time" content="2024-05-27T01:03:02.000Z">
+<meta property="article:modified_time" content="2024-05-27T12:00:01.052Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="3dCV">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-1.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Visual SLAM and SfM in Dynamic Environments: A Survey</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/05/25/volatile/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&text=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&title=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&is_video=false&description=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Visual SLAM and SfM in Dynamic Environments: A Survey&body=Check out this article: https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&title=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&title=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&title=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&title=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&name=Visual SLAM and SfM in Dynamic Environments: A Survey&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&t=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%BC%E8%BF%B0%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">综述结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%B2%81%E6%A3%92-VSLAM"><span class="toc-number">3.</span> <span class="toc-text">鲁棒 VSLAM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E5%8A%A8%E5%88%86%E5%89%B2"><span class="toc-number">3.1.</span> <span class="toc-text">运动分割</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF-%E5%89%8D%E6%99%AF%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.1.1.</span> <span class="toc-text">背景&#x2F;前景初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%A0%E4%BD%95%E7%BA%A6%E6%9D%9F"><span class="toc-number">3.1.2.</span> <span class="toc-text">几何约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%89%E6%B5%81"><span class="toc-number">3.1.3.</span> <span class="toc-text">光流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E6%88%91%E8%BF%90%E5%8A%A8%E7%BA%A6%E6%9D%9F"><span class="toc-number">3.1.4.</span> <span class="toc-text">自我运动约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.1.5.</span> <span class="toc-text">深度学习</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D%E4%B8%8E-3D-%E9%87%8D%E5%BB%BA"><span class="toc-number">3.2.</span> <span class="toc-text">定位与 3D 重建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%89%B9%E5%BE%81"><span class="toc-number">3.2.1.</span> <span class="toc-text">基于特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E4%BA%8E%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1%E5%92%8C-3D-%E9%87%8D%E5%BB%BA%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.2.2.</span> <span class="toc-text">用于姿态估计和 3D 重建的深度学习</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%89%A9%E4%BD%93%E5%88%86%E5%89%B2%E4%B8%8E-3D-%E8%B7%9F%E8%B8%AA"><span class="toc-number">4.</span> <span class="toc-text">动态物体分割与 3D 跟踪</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="toc-number">4.0.1.</span> <span class="toc-text">统计模型选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%90%E7%A9%BA%E9%97%B4%E8%81%9A%E7%B1%BB"><span class="toc-number">4.0.2.</span> <span class="toc-text">子空间聚类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%A0%E4%BD%95"><span class="toc-number">4.0.3.</span> <span class="toc-text">几何</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-1"><span class="toc-number">4.0.4.</span> <span class="toc-text">深度学习</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%89%A9%E4%BD%93%E7%9A%84-3D-%E8%B7%9F%E8%B8%AA"><span class="toc-number">4.1.</span> <span class="toc-text">动态物体的 3D 跟踪</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%A8%E8%BF%B9%E4%B8%89%E8%A7%92%E6%B5%8B%E9%87%8F"><span class="toc-number">4.1.1.</span> <span class="toc-text">轨迹三角测量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2"><span class="toc-number">4.1.2.</span> <span class="toc-text">粒子滤波</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Visual SLAM and SfM in Dynamic Environments: A Survey
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-05-27T01:03:02.000Z" class="dt-published" itemprop="datePublished">2024-05-27</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/3dCV/" rel="tag">3dCV</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><blockquote>
+<p>本文介绍 <strong>VSLAM</strong> 和 <strong>SfM</strong> 在<strong>动态环境</strong>下目前所有技术相关的综述。</p>
+</blockquote>
+<p>回顾动态环境中的视觉定位和 3D 重建技术：</p>
+<ul>
+<li>涵盖三个主要问题：<ol>
+<li>如何做好鲁棒 VSLAM</li>
+<li>如何在 3D 中分割和跟踪动态物体</li>
+<li>如何实现联合运动分割和重建</li>
+</ol>
+</li>
+<li>从两个角度来看：<ol>
+<li>作为一个鲁棒性问题：相机前的动态物体导致错误的对应关系（遮挡等），可以通过分割图像中静态和动态特征，将动态部分视为异常值来实现鲁棒性，只用静态部分计算姿态估计。</li>
+<li>作为一个标准 VSLAM 在动态环境中的扩展：将跟踪的特征分割成不同的簇，可以重建每个物体结构（形状）并跟踪轨迹，甚至可以将动态物体插入静态地图中。</li>
+</ol>
+</li>
+<li>现有大致三种思路（分别对应三个主要问题）：<ol>
+<li>排除动态特征来构建静态地图</li>
+<li>提取动态物体而忽略静态背景</li>
+<li>试图同时处理世界中静态和动态的组成成分</li>
+</ol>
+</li>
+</ul>
+<h2 id="综述结构"><a href="#综述结构" class="headerlink" title="综述结构"></a>综述结构</h2><ul>
+<li>鲁棒 VSLAM<ol>
+<li>运动分割<ol>
+<li>背景&#x2F;前景初始化</li>
+<li>几何约束</li>
+<li>光流</li>
+<li>自我运动约束</li>
+<li>深度学习</li>
+</ol>
+</li>
+<li>定位与 3D 重建<ol>
+<li>基于特征</li>
+<li>深度学习</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>动态物体分割与 3D 跟踪<ol>
+<li>动态物体分割<ol>
+<li>统计模型选择</li>
+<li>子空间聚类</li>
+<li>几何</li>
+<li>深度学习</li>
+</ol>
+</li>
+<li>动态物体的 3D 跟踪<ol>
+<li>轨迹三角测量</li>
+<li>粒子滤波</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>联合运动分割与重建<ol>
+<li>因子分解<ol>
+<li>多体运动结构（MBSfM）</li>
+<li>非刚性运动结构（NRSfM）</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-1.jpg"></center>
+
+<h2 id="鲁棒-VSLAM"><a href="#鲁棒-VSLAM" class="headerlink" title="鲁棒 VSLAM"></a>鲁棒 VSLAM</h2><blockquote>
+<p>如果仅基于静态特征计算姿态估计，就可以在动态环境中实现 Robust VSLAM。</p>
+</blockquote>
+<center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-2.jpg"></center>
+
+<h3 id="运动分割"><a href="#运动分割" class="headerlink" title="运动分割"></a>运动分割</h3><blockquote>
+<p>将特征分为两个不同的组，即静态特征和动态特征，来检测图像中的动态部分。</p>
+</blockquote>
+<p>标准的 VSLAM 使用 <strong>计算几何模型（基础&#x2F;单应矩阵）</strong>、<strong>RANSAC</strong>、<strong>辛普森距离</strong> 等去除动态特征点。</p>
+<ul>
+<li>如果静态特征占多数，效果会很好。</li>
+<li>如果相机前的动态物体占据较大，效果不好，其他方法可以利用 <strong>IMU</strong> 估计相机的自我运动来解决。</li>
+</ul>
+<h4 id="背景-前景初始化"><a href="#背景-前景初始化" class="headerlink" title="背景&#x2F;前景初始化"></a>背景&#x2F;前景初始化</h4><p>假设系统对环境有<strong>先验知识</strong>，可以利用该信息来分割。这种先验知识可以附加到背景或前景对象上。如果信息是关于前景对象的，则系统知道在相机前移动的对象的类型或形状。</p>
+<h4 id="几何约束"><a href="#几何约束" class="headerlink" title="几何约束"></a>几何约束</h4><p>利用对极几何特性来分割静态和动态特征。动态特征违反静态场景中在多视图几何中定义的约束，可以从<strong>对极方程</strong>、<strong>三角测量</strong>、<strong>基础矩阵</strong>估计或<strong>重投影误差</strong>中推导出。</p>
+<h4 id="光流"><a href="#光流" class="headerlink" title="光流"></a>光流</h4><p>光流定义了从两个连续图像计算得出的亮度模式的表观运动，对应于图像中的运动场，利用图割算法基于该运动度量来分割动态物体。还有 <strong>3D 版本的场景流</strong>。</p>
+<h4 id="自我运动约束"><a href="#自我运动约束" class="headerlink" title="自我运动约束"></a>自我运动约束</h4><p>标准的 SfM 和 VSLAM 通过<strong>八点法</strong>或<strong>五点法</strong>来计算相机运动。另一种方法假设相机根据给定的外部信息（e.g. 车轮里程计信息）按照特定的参数化进行移动。通过这种强制自我运动约束，可以拟合与相机运动约束相匹配的特征点来对静态特征进行分类。</p>
+<h4 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h4><p>从基于特征的运动分割中，上述可以利用光流来分割动态物体。所以可以<strong>通过监督学习来估计光流</strong>。</p>
+<ol>
+<li><strong>FlowNetS</strong>：通过将两张连续图像堆叠作为 CNN 的输入</li>
+<li><strong>FlowNetC</strong>：通过引入一个相关层来比较由两个相同 CNN 流得到的两个特征图</li>
+<li><strong>FlowNet 2.0</strong>:将  <strong>FlowNetS</strong> 和 <strong>FlowNetC</strong> 堆叠成一个更深的网络，并添加一个新的并行网络来处理小位移</li>
+<li>使用立体图像进行场景流估计的扩展，这种光流可以输入到一个更深的网络中以发现运动特征</li>
+<li>在图像空间中明确分割动态物体，采用重建独立成分分析自编码器来学习时空特征。然而，由于时空特征无法学习运动的 3D 几何形状，因此仍然使用几何特征来帮助分割运动。几何和时空特征都被输入到 RNN 中，以进行最终的运动分割</li>
+<li>通过回归给定的 RGB 图像和光流的目标性的粉来分割动态物体。构建两个类似 AlexNet 的并行 CNN，处理 RGB 图像和光流，然后输入到回归网络并生成运动</li>
+<li><strong>R-FCN</strong>：从在线图像序列中分割前景运动时结合实践数据，<strong>FCN</strong> 用于学习空间特征并生成像素稠密预测，但在应用反卷积之前，使用 <strong>GRU</strong> 来建模时间特征。</li>
+</ol>
+<h3 id="定位与-3D-重建"><a href="#定位与-3D-重建" class="headerlink" title="定位与 3D 重建"></a>定位与 3D 重建</h3><blockquote>
+<p>从多张图像中估计相对相机姿态（平移和旋转）以及所观察环境的 3D 结构。</p>
+</blockquote>
+<ul>
+<li>基于特征</li>
+<li>基于深度学习</li>
+</ul>
+<h4 id="基于特征"><a href="#基于特征" class="headerlink" title="基于特征"></a>基于特征</h4><p>在基于特征的 VSLAM 中，提取显著特征来解决图像对应问题。现有的特征提取技术：</p>
+<ol>
+<li>Harris</li>
+<li>SIFT</li>
+<li>SURF</li>
+<li>FAST</li>
+</ol>
+<p>为找到对应关系，使用特征匹配。根据两个相机的光心之间的距离（基线&#x2F;视差）分开的程度来划分。</p>
+<ul>
+<li>基于短基线：可以用基于光流的技术进行匹配</li>
+<li>对于长基线：需要有高度区分度的特征描述子，例如 <strong>SIFT</strong>、<strong>SURF</strong>、<strong>BRIEF</strong>、<strong>BRISK</strong> 等，通过计算这些描述子之间的不相似性来找到对应关系，当数据包含异常值时，需要使用 <strong>RANSAC</strong>、<strong>PROSAC</strong>、<strong>MLESAC</strong> 等排除异常值。</li>
+</ul>
+<p>当图像对应关系已知，2-3 张图像之间的相对位姿可以恢复到一个比例因子。通过对极约束，</p>
+<ol>
+<li>两个视图用八点法或五点法</li>
+<li>三个视图用三角电张量</li>
+<li>如果已经重建了场景的一些 3D 点，可以用 P3P</li>
+</ol>
+<p>当相机位姿被恢复时，通过<strong>三角测量</strong>对两条投影射线进行相交，得到重建场景的 3D 点，但是由于错误的对应关系射线并不总是相交，可以用<strong>中点法</strong>或<strong>最小二乘法</strong>估计交点。为了避免漂移问题，用 <strong>BA</strong> 通过最小化重投影误差来同时相机位姿和 3D 点。另一种高斯-牛顿方法的变体 <strong>LM</strong> 优化。是联合优化场景结构和相机运动的主流方法。</p>
+<p>实际上，有人采用<strong>局部 BA</strong> 优化最后几张图像，比如 ORB-SLAM 中就用到了。</p>
+<h4 id="用于姿态估计和-3D-重建的深度学习"><a href="#用于姿态估计和-3D-重建的深度学习" class="headerlink" title="用于姿态估计和 3D 重建的深度学习"></a>用于姿态估计和 3D 重建的深度学习</h4><p>两种主流的方法：</p>
+<ol>
+<li>有监督学习</li>
+</ol>
+<p>监督学习通过最小化与真实姿态相比在预测自我运动时的误差来训练 CNN。在早期工作中，姿态估计被视为在相机平移和旋转的离散空间上的<strong>分类问题</strong>。但近期姿态估计技术都采用基于<strong>回归</strong>的 CNN。由于预测的连续性，回归比分类更准确。</p>
+<p>在回归视觉里程计问题中，目标检测和分类的预训练卷机曾不适用，后续转向基于光流的网络以在不同的环境中泛化学习到的参数。</p>
+<ul>
+<li><strong>Flowdometry</strong>：由两个连续的 CNN 组成，第一个用于预测光流，第二个估计相机运动</li>
+<li>计算两个视图之间自我运动的端到端 CNN，堆叠两个具有具有权重共享的并行 CNN，随后是一个空间金字塔池化 SPP 层，以处理任意输入图像，同时在特征图中保持空间信息。回归层由两个全连接层组成，用于预测相机平移和旋转</li>
+<li><strong>DeepVO</strong>：通过 <strong>RCNN</strong>，从图像序列中学习顺序运动动力学的端到端学习框架。在输出里程计方面效果较好。</li>
+</ul>
+<ol start="2">
+<li>无监督学习</li>
+</ol>
+<p>在无监督的情况下，CNN 没有真实数据进行训练。相反，该网络通过最小化类似于 <strong>LSD-SLAM</strong> 的光度误差来学习预测相机位姿。</p>
+<ul>
+<li>利用新颖视图合成原则（给定一个源图像合成具有不同位姿的目标图像的问题）。构建两个并行的 CNN 用于预测深度和估计相机位姿。来自源图像的预测深度用于在给定相机变换矩阵和源图像的情况下合成目标图像。通过最小化光度误差，共同训练深度和相机位姿。而不是从深度预测生成目标图像。</li>
+<li>基于深度预测、相机运动以及卷积&#x2F;反卷积网络产生的动态对象分割构建了一个 3D 场景流。场景流通过相机运动进行变换，然后反投影到当前帧以评估光度误差。</li>
+</ul>
+<h2 id="动态物体分割与-3D-跟踪"><a href="#动态物体分割与-3D-跟踪" class="headerlink" title="动态物体分割与 3D 跟踪"></a>动态物体分割与 3D 跟踪</h2><blockquote>
+<p>动态对象分割和 3D 跟踪将特征对应关系基于其运动聚类到不同组中，并在 3D 中跟踪它们的轨迹。</p>
+</blockquote>
+<center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-3.jpg"></center>
+### 动态物体分割
+
+<blockquote>
+<p>动态物体分割将所有特征对应关系聚类为 n 个不同对象运动。另一个挑战是处理<strong>退化运动</strong>（当一个物体与相机运动在同一平面上且具有相同的方向和速度时）或<strong>相关运动</strong>（两个人一起移动，关节运动）。</p>
+</blockquote>
+<h4 id="统计模型选择"><a href="#统计模型选择" class="headerlink" title="统计模型选择"></a>统计模型选择</h4><p>用 <strong>RANSAC</strong> 或<strong>蒙特卡罗采样迭代</strong>下对数据的子集进行采样，并将运动模型拟合到采样数据中。改运动模型用于构建内点集，并将剩余数据排除为该模型的异常值。然后，对剩余数据（前一个模型的异常值）在此进行采样，以找到并拟合最能描述剩余数据的另一个模型。</p>
+<center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-4.jpg"></center>
+
+<h4 id="子空间聚类"><a href="#子空间聚类" class="headerlink" title="子空间聚类"></a>子空间聚类</h4><center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-5.jpg"></center>
+
+<h4 id="几何"><a href="#几何" class="headerlink" title="几何"></a>几何</h4><h4 id="深度学习-1"><a href="#深度学习-1" class="headerlink" title="深度学习"></a>深度学习</h4><p>当前用于解决动态物体分割问题的 DNN 依赖于预定义数量的刚体运动。用于生成稠密对象掩码的网络及其相关损失函数可能源自 3D 点云数据或光流。</p>
+<ul>
+<li><strong>SE3-Net</strong>：一种能够从 3D 点云中分割出预定义的 n 个动态对象的 DNN，在 SE(3) 变换中表示。</li>
+<li><strong>SfM-Net</strong>：利用光流来分割动态对象。这是一个能够预测深度、相机运动和动态对象分割的具有几何感知能力的网络。</li>
+</ul>
+<h3 id="动态物体的-3D-跟踪"><a href="#动态物体的-3D-跟踪" class="headerlink" title="动态物体的 3D 跟踪"></a>动态物体的 3D 跟踪</h3><h4 id="轨迹三角测量"><a href="#轨迹三角测量" class="headerlink" title="轨迹三角测量"></a>轨迹三角测量</h4><h4 id="粒子滤波"><a href="#粒子滤波" class="headerlink" title="粒子滤波"></a>粒子滤波</h4><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a target="_blank" rel="noopener" href="https://www.cs.ox.ac.uk/files/9926/Visual%20Slam.pdf">cs.ox.ac.uk&#x2F;files&#x2F;9926&#x2F;Visual Slam.pdf</a></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/">https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%BC%E8%BF%B0%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">综述结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%B2%81%E6%A3%92-VSLAM"><span class="toc-number">3.</span> <span class="toc-text">鲁棒 VSLAM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E5%8A%A8%E5%88%86%E5%89%B2"><span class="toc-number">3.1.</span> <span class="toc-text">运动分割</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF-%E5%89%8D%E6%99%AF%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-number">3.1.1.</span> <span class="toc-text">背景&#x2F;前景初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%A0%E4%BD%95%E7%BA%A6%E6%9D%9F"><span class="toc-number">3.1.2.</span> <span class="toc-text">几何约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%89%E6%B5%81"><span class="toc-number">3.1.3.</span> <span class="toc-text">光流</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E6%88%91%E8%BF%90%E5%8A%A8%E7%BA%A6%E6%9D%9F"><span class="toc-number">3.1.4.</span> <span class="toc-text">自我运动约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.1.5.</span> <span class="toc-text">深度学习</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8D%E4%B8%8E-3D-%E9%87%8D%E5%BB%BA"><span class="toc-number">3.2.</span> <span class="toc-text">定位与 3D 重建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%89%B9%E5%BE%81"><span class="toc-number">3.2.1.</span> <span class="toc-text">基于特征</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E4%BA%8E%E5%A7%BF%E6%80%81%E4%BC%B0%E8%AE%A1%E5%92%8C-3D-%E9%87%8D%E5%BB%BA%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.2.2.</span> <span class="toc-text">用于姿态估计和 3D 重建的深度学习</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%89%A9%E4%BD%93%E5%88%86%E5%89%B2%E4%B8%8E-3D-%E8%B7%9F%E8%B8%AA"><span class="toc-number">4.</span> <span class="toc-text">动态物体分割与 3D 跟踪</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9"><span class="toc-number">4.0.1.</span> <span class="toc-text">统计模型选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%90%E7%A9%BA%E9%97%B4%E8%81%9A%E7%B1%BB"><span class="toc-number">4.0.2.</span> <span class="toc-text">子空间聚类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%A0%E4%BD%95"><span class="toc-number">4.0.3.</span> <span class="toc-text">几何</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-1"><span class="toc-number">4.0.4.</span> <span class="toc-text">深度学习</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E7%89%A9%E4%BD%93%E7%9A%84-3D-%E8%B7%9F%E8%B8%AA"><span class="toc-number">4.1.</span> <span class="toc-text">动态物体的 3D 跟踪</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%A8%E8%BF%B9%E4%B8%89%E8%A7%92%E6%B5%8B%E9%87%8F"><span class="toc-number">4.1.1.</span> <span class="toc-text">轨迹三角测量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B2%92%E5%AD%90%E6%BB%A4%E6%B3%A2"><span class="toc-number">4.1.2.</span> <span class="toc-text">粒子滤波</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&text=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&title=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&is_video=false&description=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Visual SLAM and SfM in Dynamic Environments: A Survey&body=Check out this article: https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&title=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&title=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&title=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&title=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&name=Visual SLAM and SfM in Dynamic Environments: A Survey&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/&t=Visual SLAM and SfM in Dynamic Environments: A Survey"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
