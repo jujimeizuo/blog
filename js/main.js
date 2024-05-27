@@ -56,7 +56,8 @@ $(document).ready(function() {
      */
     if (menu.length) {
       $(window).on("scroll", function() {
-        var topDistance = menu.offset().top;
+        var topDistance = document.documentElement.scrollTop;
+        // var topDistance = menu.offset().top;
 
         // hide only the navigation links on desktop
         if (!nav.is(":visible") && topDistance < 50) {

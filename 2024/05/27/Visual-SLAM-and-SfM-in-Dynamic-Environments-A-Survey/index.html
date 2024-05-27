@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-4.jpg">
 <meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-5.jpg">
 <meta property="article:published_time" content="2024-05-27T01:03:02.000Z">
-<meta property="article:modified_time" content="2024-05-27T12:00:01.052Z">
+<meta property="article:modified_time" content="2024-05-27T12:50:58.126Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="3dCV">
 <meta name="twitter:card" content="summary">
@@ -340,7 +340,11 @@
 
 <h4 id="子空间聚类"><a href="#子空间聚类" class="headerlink" title="子空间聚类"></a>子空间聚类</h4><center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-5.jpg"></center>
 
-<h4 id="几何"><a href="#几何" class="headerlink" title="几何"></a>几何</h4><h4 id="深度学习-1"><a href="#深度学习-1" class="headerlink" title="深度学习"></a>深度学习</h4><p>当前用于解决动态物体分割问题的 DNN 依赖于预定义数量的刚体运动。用于生成稠密对象掩码的网络及其相关损失函数可能源自 3D 点云数据或光流。</p>
+<h4 id="几何"><a href="#几何" class="headerlink" title="几何"></a>几何</h4><p>几何方法将多视图几何的标准公式从静态场景扩展到包含独立运动物体的动态场景。虽然有一个基本矩阵描述相机相对于静态场景的一般运动，但在动态环境中，将会有 n 个基本矩阵来描述 n 个物体的运动，其中包括一个用于静态特征。</p>
+<ul>
+<li>通过引入多体三线性约束和多体三焦点张量，将多体运动恢复从两个视图扩展到三个视图。将静态场景中的三线性约束和三焦点张量推广到包含多个物体的动态场景。</li>
+</ul>
+<h4 id="深度学习-1"><a href="#深度学习-1" class="headerlink" title="深度学习"></a>深度学习</h4><p>当前用于解决动态物体分割问题的 DNN 依赖于预定义数量的刚体运动。用于生成稠密对象掩码的网络及其相关损失函数可能源自 3D 点云数据或光流。</p>
 <ul>
 <li><strong>SE3-Net</strong>：一种能够从 3D 点云中分割出预定义的 n 个动态对象的 DNN，在 SE(3) 变换中表示。</li>
 <li><strong>SfM-Net</strong>：利用光流来分割动态对象。这是一个能够预测深度、相机运动和动态对象分割的具有几何感知能力的网络。</li>
