@@ -196,7 +196,7 @@
 
 <p>redefine_file_macro(test), 为我们的输出目标添加FILE宏重定义功能 当我们冲定义了FILE宏，编译器会告警 “:0:0: warning: “FILE” redefined [-Wbuiltin-macro-redefined]”, 为了解决这个警告，我们需要在CMakeLists.txt里面加上add_definitions(-Wno-builtin-macro-redefined)</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总结 cmake编译的FILE虽然是绝对路径，我们可以通过冲定义FILE的方式来解决。cmake支持自定义函数，自定义宏的方式，我们利用自定义函数，将我们经常使用的特性封装到函数里面，写到一个单独的cmake文件里面，当我们需要使用的时候，只需要include xxx.cmake文件就可以了。</p>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2023/02/27/cmake-file/">https://blog.jujimeizuo.cn/2023/02/27/cmake-file/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2023/02/27/cmake-file/">https://blog.jujimeizuo.cn/2023/02/27/cmake-file/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
 
   </div>
 </article>

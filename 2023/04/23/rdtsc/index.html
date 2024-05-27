@@ -199,7 +199,7 @@
 
 <h2 id="获取时钟周期"><a href="#获取时钟周期" class="headerlink" title="获取时钟周期"></a>获取时钟周期</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span> <span class="title">rdtsc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">int</span> lo, hi;</span><br><span class="line">    __asm__ __volatile__ (<span class="string">&quot;rdtsc&quot;</span> : <span class="string">&quot;=a&quot;</span> (lo), <span class="string">&quot;=d&quot;</span> (hi));</span><br><span class="line">    <span class="keyword">return</span> ((<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>)hi &lt;&lt; <span class="number">32</span>)  lo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2023/04/23/rdtsc/">https://blog.jujimeizuo.cn/2023/04/23/rdtsc/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0协议 。转载请注明出处！</b></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2023/04/23/rdtsc/">https://blog.jujimeizuo.cn/2023/04/23/rdtsc/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
 
   </div>
 </article>
