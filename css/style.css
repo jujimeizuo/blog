@@ -319,7 +319,7 @@
 body h1,
 body .h1 {
   display: block;
-  margin-top: 3rem;
+  margin-top: 1.5rem;
   margin-bottom: 1rem;
   color: #2bbc8a;
   letter-spacing: 0.01em;
@@ -850,6 +850,9 @@ body {
   color: #666;
   font-size: 0.9rem;
 }
+#header-post #toc .toc-level-3:before {
+  content: "##";
+}
 #header-post #toc .toc-level-4 {
   color: #525252;
   font-size: 0.8rem;
@@ -1061,7 +1064,7 @@ body {
   margin-right: 16px;
   min-width: 100px;
   color: #666;
-  font-size: 14px;
+  font-size: 17px;
 }
 @media (min-width: 480px) {
   .post-list .post-item {
