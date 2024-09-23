@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="使用 Arc 已经快 1 年，最近才发现有 Arc Sync 有在 MacOS、PC、IOS 上的同步问题（目前仅同步 SideBar，遥看未来）。有什么好处？如果你在 work 的时候，突然要离开工位，如果想要在 iPhone 上继续查看电脑上的网页，那么一般情况下你会重新搜索 URL，但是 Arc Sync，可以将电脑上打开的网页直接同步到 iPhone 上，快捷方便！  MacOS 下载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arc Sync">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="使用 Arc 已经快 1 年，最近才发现有 Arc Sync 有在 MacOS、PC、IOS 上的同步问题（目前仅同步 SideBar，遥看未来）。有什么好处？如果你在 work 的时候，突然要离开工位，如果想要在 iPhone 上继续查看电脑上的网页，那么一般情况下你会重新搜索 URL，但是 Arc Sync，可以将电脑上打开的网页直接同步到 iPhone 上，快捷方便！  MacOS 下载">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/09/arc-sync-mac-clashpro.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/09/arc-sync-mac.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/09/arc-sync-mac-sidebar.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/09/arc-sync-windows.jpg">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/09/arc-sync-ios.png">
+<meta property="article:published_time" content="2024-09-23T11:59:56.000Z">
+<meta property="article:modified_time" content="2024-09-23T12:33:37.317Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="utils">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2024/09/arc-sync-mac-clashpro.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Arc Sync</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/09/15/LeetCode-BitWeek-139/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&text=Arc Sync"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&title=Arc Sync"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&is_video=false&description=Arc Sync"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Arc Sync&body=Check out this article: https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&title=Arc Sync"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&title=Arc Sync"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&title=Arc Sync"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&title=Arc Sync"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&name=Arc Sync&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&t=Arc Sync"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MacOS"><span class="toc-number">1.</span> <span class="toc-text">MacOS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PC"><span class="toc-number">2.</span> <span class="toc-text">PC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IOS"><span class="toc-number">3.</span> <span class="toc-text">IOS</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Arc Sync
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-09-23T11:59:56.000Z" class="dt-published" itemprop="datePublished">2024-09-23</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/utils/" rel="tag">utils</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <blockquote>
+<p>使用 Arc 已经快 1 年，最近才发现有 Arc Sync 有在 MacOS、PC、IOS 上的同步问题（目前仅同步 SideBar，遥看未来）。<br>有什么好处？如果你在 work 的时候，突然要离开工位，如果想要在 iPhone 上继续查看电脑上的网页，那么一般情况下你会重新搜索 URL，但是 Arc Sync，可以将电脑上打开的网页直接同步到 iPhone 上，快捷方便！</p>
+</blockquote>
+<h2 id="MacOS"><a href="#MacOS" class="headerlink" title="MacOS"></a>MacOS</h2><ol>
+<li>下载 Arc Desktop (MacOS)、ClashX Pro</li>
+<li>Clash pro 中开启<strong>增强模式 TUN Mode</strong>，ClashX 里没有增强模式</li>
+</ol>
+<center><img src="https://cdn.jujimeizuo.cn/blog/2024/09/arc-sync-mac-clashpro.jpg" width="20%"></center>
+
+<ol start="3">
+<li>在 Arc Desktop 中登录账号，<code>Preferences</code> -&gt; <code>Sync SideBar</code></li>
+</ol>
+<center>
+<table><tr>
+<td><img src="https://cdn.jujimeizuo.cn/blog/2024/09/arc-sync-mac.jpg"></td>
+<td><img src="https://cdn.jujimeizuo.cn/blog/2024/09/arc-sync-mac-sidebar.jpg" width="70%"></td>
+</tr></table>
+</center>
+
+<h2 id="PC"><a href="#PC" class="headerlink" title="PC"></a>PC</h2><ol>
+<li>下载 Arc Desktop (Windows)、Clash for Windows</li>
+<li>Clash for Windows 中开启<strong>增强模式 TUN Mode</strong><ol>
+<li>Windows 无法顺利登陆，进行以下操作</li>
+<li>旁边有一个叹号❗️，提示安装 service mode，<code>service mode</code> -&gt; <code>Manage</code> -&gt; <code>Install</code></li>
+<li>点击 TUN Node 右边的齿轮 ⚙️，点击 DNS IPv6，Save</li>
+<li>重启 Arc</li>
+</ol>
+</li>
+<li>在 Arc Desktop 中登录账号，<code>Settings</code> -&gt; <code>SideBar Sync</code></li>
+</ol>
+<center><img src="https://cdn.jujimeizuo.cn/blog/2024/09/arc-sync-windows.jpg" width="70%"></center>
+
+<h2 id="IOS"><a href="#IOS" class="headerlink" title="IOS"></a>IOS</h2><ol>
+<li>从 App Store 下载 Arc Search</li>
+<li>点击右下角 Settings，选择 <code>Sync with Arc Desktop</code>，输入账号密码即可</li>
+<li>点击左下角即可看到同步的 SideBar，包括同时打开的标签页</li>
+<li>记得开魔法</li>
+</ol>
+<center><img src="https://cdn.jujimeizuo.cn/blog/2024/09/arc-sync-ios.png" width="20%"></center>
+
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/">https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MacOS"><span class="toc-number">1.</span> <span class="toc-text">MacOS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PC"><span class="toc-number">2.</span> <span class="toc-text">PC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IOS"><span class="toc-number">3.</span> <span class="toc-text">IOS</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&text=Arc Sync"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&title=Arc Sync"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&is_video=false&description=Arc Sync"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Arc Sync&body=Check out this article: https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&title=Arc Sync"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&title=Arc Sync"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&title=Arc Sync"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&title=Arc Sync"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&name=Arc Sync&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/09/23/Arc-Sync/&t=Arc Sync"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
