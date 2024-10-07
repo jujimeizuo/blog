@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="当我在 docker 容器内 apt install 时，提示根分区即将爆满，所以查询相关内容解决问题。 以下都是在 ubuntu20.04 下实验。   查找原因关于 linux 的磁盘命令，都会使用 dh 或 df 命令，如果要找导致磁盘空间满的目录或文件，使用以下命令： 1du -sh &#x2F;path&#x2F;to&#x2F;* 2&gt;&#x2F;dev&#x2F;null | sort -hr | head -10   发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Root-Partition Filled">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="当我在 docker 容器内 apt install 时，提示根分区即将爆满，所以查询相关内容解决问题。 以下都是在 ubuntu20.04 下实验。   查找原因关于 linux 的磁盘命令，都会使用 dh 或 df 命令，如果要找导致磁盘空间满的目录或文件，使用以下命令： 1du -sh &#x2F;path&#x2F;to&#x2F;* 2&gt;&#x2F;dev&#x2F;null | sort -hr | head -10   发">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-10-07T13:30:46.000Z">
+<meta property="article:modified_time" content="2024-10-07T13:35:17.017Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Root-Partition Filled</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2024/09/23/Arc-Sync/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&text=Root-Partition Filled"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&title=Root-Partition Filled"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&is_video=false&description=Root-Partition Filled"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Root-Partition Filled&body=Check out this article: https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&title=Root-Partition Filled"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&title=Root-Partition Filled"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&title=Root-Partition Filled"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&title=Root-Partition Filled"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&name=Root-Partition Filled&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&t=Root-Partition Filled"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">查找原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-Docker-%E9%95%9C%E5%83%8F%E9%BB%98%E8%AE%A4%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">修改 Docker 镜像默认存储位置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%BD%AF%E9%93%BE%E6%8E%A5"><span class="toc-number">2.1.</span> <span class="toc-text">使用软链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">指定容器启动参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Root-Partition Filled
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-10-07T13:30:46.000Z" class="dt-published" itemprop="datePublished">2024-10-07</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/linux/" rel="tag">linux</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <blockquote>
+<ul>
+<li>当我在 docker 容器内 apt install 时，提示根分区即将爆满，所以查询相关内容解决问题。</li>
+<li>以下都是在 ubuntu20.04 下实验。</li>
+</ul>
+</blockquote>
+<h2 id="查找原因"><a href="#查找原因" class="headerlink" title="查找原因"></a>查找原因</h2><p>关于 linux 的磁盘命令，都会使用 <code>dh</code> 或 <code>df</code> 命令，如果要找导致磁盘空间满的目录或文件，使用以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /path/to/* 2&gt;/dev/null | <span class="built_in">sort</span> -hr | <span class="built_in">head</span> -10</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>发现 <code>/var</code> 的占空间太大，查询 <code>/var</code> 后，发现它是<strong>动态数据保存位置。主要保存缓存、日志以及软件运行所产生的文件</strong>，再次使用命令，查询 <code>var</code> 目录下的较大目录或文件</li>
+<li>发现有几个目录占比非常大，<code>lib</code>, <code>cache</code>, <code>log</code>, <code>tmp</code> 等等，<code>cache</code> 可以直接删除，<code>log</code> 可以使用命令 <code>journalctl --vacuum - time=7d</code>，删除超过 7 天的旧日志，现在具体来看 <code>/var/lib</code> 目录</li>
+<li>发现 <code>/var/lib/docker</code> 占 40 多个 G，原来镜像的位置保存在这个目录，当然很大，具体查看 <code>overlay2</code> 的性质。现在针对这个目录做一些操作。一般 <code>/home</code> 目录非常大，所以如果把 docker 里的镜像位置都放在 <code>/home</code> 目录，那么会大大减少根分区的磁盘空间，那么开始操作！</li>
+</ol>
+<h2 id="修改-Docker-镜像默认存储位置"><a href="#修改-Docker-镜像默认存储位置" class="headerlink" title="修改 Docker 镜像默认存储位置"></a>修改 Docker 镜像默认存储位置</h2><blockquote>
+<p>由于系统初始分区的原因，导致操作系统中对应根分区不会太大，通过 &#x2F;var 目录不会单独分区。而 docker 镜像默认存储位置是在 <code>/var/lib/docker</code> 下，是使根分区爆炸。<br>查看 docker 容器存放位置：<code>sudo docker info | grep &quot;Docker Root Dir&quot;</code></p>
+</blockquote>
+<h3 id="使用软链接"><a href="#使用软链接" class="headerlink" title="使用软链接"></a>使用软链接</h3><p>解决默认存储容量不足的情况，最直接且最有效的方法就是挂载新的分区到该目录。但是在原有系统空间不变的情况下，所以采用软链接的方式，修改镜像和容器的存放路径达到同样的目的。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> /var/lib/docker /path/to/docker</span><br><span class="line"><span class="built_in">ln</span> -sf /path/to/docker /var/lib/docker</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="指定容器启动参数"><a href="#指定容器启动参数" class="headerlink" title="指定容器启动参数"></a>指定容器启动参数</h3><p>在配置文件中指定容器启动的参数 –graph&#x3D;&#x2F;var&#x2F;lib&#x2F;docker 来指定镜像和容器存放路径。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1835999">https://cloud.tencent.com/developer/article/1835999</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/BigData_Mining/article/details/104921479">https://blog.csdn.net/BigData_Mining/article/details/104921479</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wjciayf/article/details/50717773">https://blog.csdn.net/wjciayf/article/details/50717773</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.51cto.com/article/707120.html">https://www.51cto.com/article/707120.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1870764">https://cloud.tencent.com/developer/article/1870764</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/loveer/p/11615627.html">https://www.cnblogs.com/loveer/p/11615627.html</a></li>
+</ul>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/">https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">查找原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-Docker-%E9%95%9C%E5%83%8F%E9%BB%98%E8%AE%A4%E5%AD%98%E5%82%A8%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">修改 Docker 镜像默认存储位置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%BD%AF%E9%93%BE%E6%8E%A5"><span class="toc-number">2.1.</span> <span class="toc-text">使用软链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E5%AE%9A%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">指定容器启动参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&text=Root-Partition Filled"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&title=Root-Partition Filled"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&is_video=false&description=Root-Partition Filled"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Root-Partition Filled&body=Check out this article: https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&title=Root-Partition Filled"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&title=Root-Partition Filled"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&title=Root-Partition Filled"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&title=Root-Partition Filled"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&name=Root-Partition Filled&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/&t=Root-Partition Filled"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2024
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
