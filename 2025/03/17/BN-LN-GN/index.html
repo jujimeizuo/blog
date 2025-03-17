@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Batch Normalization 在图像预处理过程中通常会对图像进行标准化处理，这样能加速网络的收敛。  $$\text{image} \overset{\text{preprocess}}{\rightarrow} \text{Conv1} -&gt; \text{feature map} -&gt; \text{Conv2}$$  上述过程中，对于 Conv1 的输入就是满足某一分布的特">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Batch vs. Layer vs. Group Normalization">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="Batch Normalization 在图像预处理过程中通常会对图像进行标准化处理，这样能加速网络的收敛。  $$\text{image} \overset{\text{preprocess}}{\rightarrow} \text{Conv1} -&gt; \text{feature map} -&gt; \text{Conv2}$$  上述过程中，对于 Conv1 的输入就是满足某一分布的特">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-03-17T02:27:41.000Z">
+<meta property="article:modified_time" content="2025-03-17T06:21:18.039Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="Deep Learning">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Batch vs. Layer vs. Group Normalization</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/01/06/Astra-S-%E6%B7%B1%E5%BA%A6%E7%9B%B8%E6%9C%BA%E5%88%9D%E4%BD%BF%E7%94%A8/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&text=Batch vs. Layer vs. Group Normalization"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&title=Batch vs. Layer vs. Group Normalization"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&is_video=false&description=Batch vs. Layer vs. Group Normalization"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Batch vs. Layer vs. Group Normalization&body=Check out this article: https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&title=Batch vs. Layer vs. Group Normalization"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&title=Batch vs. Layer vs. Group Normalization"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&title=Batch vs. Layer vs. Group Normalization"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&title=Batch vs. Layer vs. Group Normalization"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&name=Batch vs. Layer vs. Group Normalization&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&t=Batch vs. Layer vs. Group Normalization"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Batch-Normalization"><span class="toc-number">1.</span> <span class="toc-text">Batch Normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Layer-Normalization"><span class="toc-number">2.</span> <span class="toc-text">Layer Normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Group-Normalization"><span class="toc-number">3.</span> <span class="toc-text">Group Normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Batch vs. Layer vs. Group Normalization
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-03-17T02:27:41.000Z" class="dt-published" itemprop="datePublished">2025-03-17</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Deep-Learning/" rel="tag">Deep Learning</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h2><ul>
+<li>在图像预处理过程中通常会对图像进行标准化处理，这样能加速网络的收敛。</li>
+</ul>
+<p>$$<br>\text{image} \overset{\text{preprocess}}{\rightarrow} \text{Conv1} -&gt; \text{feature map} -&gt; \text{Conv2}<br>$$</p>
+<ul>
+<li>上述过程中，对于 Conv1 的输入就是满足某一分布的特征矩阵，但对于 Conv2 而言输入的 feature map 就不一定满足某一分布规律了（<strong>注意这里所说满足某一分布规律并不是指某一个 feature map 的数据要满足分布规律，理论上是指整个训练样本集所对应 feature map 的数据要满足分布规律</strong>）。</li>
+</ul>
+<blockquote>
+<ul>
+<li>Batch Normalization 的目的就是使 feature map 满足均值为 0，方差为 1 的分布规律。</li>
+<li>让 feature map 满足某一分布规律，理论上是指整个训练样本集所对应 feature map 的数据要满足分布规律，即计算整个训练集的 feature map 然后再进行标准化处理，对于大型数据集显然不可能，所以需要使用 Batch Normalization，计算一个 Batch 数据的 feature map 然后再标准化（batch 越大越接近整个数据集的分布）。</li>
+</ul>
+</blockquote>
+<ol>
+<li>训练时要将 traning 参数设置为 True，在验证时将 trainning 参数设置为 False。在pytorch中可通过创建模型的 model.train() 和 model.eval() 方法控制。</li>
+<li>batch size 尽可能设置大点，设置小后表现可能很糟糕，设置的越大求的均值和方差越接近整个训练集的均值和方差。</li>
+<li>建议将 bn 层放在卷积层（Conv）和激活层（例如Relu）之间，且卷积层不要使用偏置 bias，即使使用了偏置 bias 求出的结果也是一样。</li>
+</ol>
+<figure class="highlight python"><figcaption><span>Batch Normalization</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bn_process</span>(<span class="params">feature, mean, var</span>):</span><br><span class="line">    feature_shape = feature.shape</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(feature_shape[<span class="number">1</span>]):</span><br><span class="line">        <span class="comment"># [batch, channel, height, width]</span></span><br><span class="line">        feature_t = feature[:, i, :, :]</span><br><span class="line">        mean_t = feature_t.mean()</span><br><span class="line">        <span class="comment"># 总体标准差</span></span><br><span class="line">        std_t1 = feature_t.std()</span><br><span class="line">        <span class="comment"># 样本标准差</span></span><br><span class="line">        std_t2 = feature_t.std(ddof=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># bn process</span></span><br><span class="line">        <span class="comment"># 这里记得加上eps和pytorch保持一致</span></span><br><span class="line">        feature[:, i, :, :] = (feature[:, i, :, :] - mean_t) / np.sqrt(std_t1 ** <span class="number">2</span> + <span class="number">1e-5</span>)</span><br><span class="line">        <span class="comment"># update calculating mean and var</span></span><br><span class="line">        mean[i] = mean[i] * <span class="number">0.9</span> + mean_t * <span class="number">0.1</span></span><br><span class="line">        var[i] = var[i] * <span class="number">0.9</span> + (std_t2 ** <span class="number">2</span>) * <span class="number">0.1</span></span><br><span class="line">    <span class="built_in">print</span>(feature)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机生成一个batch为2，channel为4，height=width=2的特征向量</span></span><br><span class="line"><span class="comment"># [batch, channel, height, width]</span></span><br><span class="line">feature1 = torch.randn(<span class="number">2</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line"><span class="comment"># 初始化统计均值和方差</span></span><br><span class="line">calculate_mean = [<span class="number">0.0</span>, <span class="number">0.0</span>]</span><br><span class="line">calculate_var = [<span class="number">1.0</span>, <span class="number">1.0</span>]</span><br><span class="line"><span class="comment"># print(feature1.numpy())</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意要使用copy()深拷贝</span></span><br><span class="line">bn_process(feature1.numpy().copy(), calculate_mean, calculate_var)</span><br><span class="line"></span><br><span class="line">bn = nn.BatchNorm2d(<span class="number">2</span>, eps=<span class="number">1e-5</span>)</span><br><span class="line">output = bn(feature1)</span><br><span class="line"><span class="built_in">print</span>(output)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Layer-Normalization"><a href="#Layer-Normalization" class="headerlink" title="Layer Normalization"></a>Layer Normalization</h2><ul>
+<li>Layer Normalization 针对 NLP，例如 RNN，不使用 Batch Normalization 的原因是：在 RNN 这类时序网络中，时序的长度不是一个定值，比如每句话的长短不同，很难使用 BN，所以需要使用 LN。（但 ViT 还是会涉及到 LN）</li>
+<li>Layer Normalization 与 Batch Normalization 的区别在于：<strong>BN 是对于一个 batch 数据的每个 channel 进行 Norm，但 LN 是对单个数据的指定维度进行 Norm 处理，与 batch 无关</strong>。</li>
+<li>LN 指定要 Norm 的维度必须从最后一维开始。</li>
+</ul>
+<figure class="highlight python"><figcaption><span>Layer Normalization</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">layer_norm_process</span>(<span class="params">feature: torch.Tensor, beta=<span class="number">0.</span>, gamma=<span class="number">1.</span>, eps=<span class="number">1e-5</span></span>):</span><br><span class="line">    var_mean = torch.var_mean(feature, dim=[<span class="number">1</span>, <span class="number">2</span>], unbiased=<span class="literal">False</span>)</span><br><span class="line">    <span class="comment"># 均值</span></span><br><span class="line">    mean = var_mean[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 方差</span></span><br><span class="line">    var = var_mean[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># layer norm process</span></span><br><span class="line">    feature = (feature - mean[..., <span class="literal">None</span>]) / torch.sqrt(var[..., <span class="literal">None</span>] + eps)</span><br><span class="line">    feature = feature * gamma + beta</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> feature</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    t = torch.rand(<span class="number">4</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">    <span class="built_in">print</span>(t)</span><br><span class="line">    <span class="comment"># 仅在最后一个维度上做norm处理</span></span><br><span class="line">    norm = nn.LayerNorm(normalized_shape=t.shape[-<span class="number">1</span>], eps=<span class="number">1e-5</span>)</span><br><span class="line">    <span class="comment"># 官方layer norm处理</span></span><br><span class="line">    t1 = norm(t)</span><br><span class="line">    <span class="comment"># 自己实现的layer norm处理</span></span><br><span class="line">    t2 = layer_norm_process(t, eps=<span class="number">1e-5</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;t1:\n&quot;</span>, t1)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;t2:\n&quot;</span>, t2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<h2 id="Group-Normalization"><a href="#Group-Normalization" class="headerlink" title="Group Normalization"></a>Group Normalization</h2><ul>
+<li>最常用的 BN 有一个缺点，Batch Size 通常较大，当 batch size 小于 16 后 error 明显升高，对于大型网络或 GPU 显存不够的情况下，可以使用 Group Normalization。</li>
+<li>batch size 的大小对 GN 并没有影响，当 batch size 设置较小时，可以采用 GN。</li>
+<li><strong>对于 GN，假设 num_groups &#x3D; 2（原论文默认为 32），假设某层的输出得到 x，根据 num_groups 沿 channel 方向均分成 num_groups 份，然后对每一份求均值和方差</strong>。</li>
+</ul>
+<figure class="highlight python"><figcaption><span>Group Normalization</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">group_norm</span>(<span class="params">x: torch.Tensor,</span></span><br><span class="line"><span class="params">               num_groups: <span class="built_in">int</span>,</span></span><br><span class="line"><span class="params">               num_channels: <span class="built_in">int</span>,</span></span><br><span class="line"><span class="params">               eps: <span class="built_in">float</span> = <span class="number">1e-5</span>,</span></span><br><span class="line"><span class="params">               gamma: <span class="built_in">float</span> = <span class="number">1.0</span>,</span></span><br><span class="line"><span class="params">               beta: <span class="built_in">float</span> = <span class="number">0.</span></span>):</span><br><span class="line">    <span class="keyword">assert</span> <span class="built_in">divmod</span>(num_channels, num_groups)[<span class="number">1</span>] == <span class="number">0</span></span><br><span class="line">    channels_per_group = num_channels // num_groups</span><br><span class="line"></span><br><span class="line">    new_tensor = []</span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> x.split(channels_per_group, dim=<span class="number">1</span>):</span><br><span class="line">        var_mean = torch.var_mean(t, dim=[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], unbiased=<span class="literal">False</span>)</span><br><span class="line">        var = var_mean[<span class="number">0</span>]</span><br><span class="line">        mean = var_mean[<span class="number">1</span>]</span><br><span class="line">        t = (t - mean[:, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>]) / torch.sqrt(var[:, <span class="literal">None</span>, <span class="literal">None</span>, <span class="literal">None</span>] + eps)</span><br><span class="line">        t = t * gamma + beta</span><br><span class="line">        new_tensor.append(t)</span><br><span class="line"></span><br><span class="line">    new_tensor = torch.cat(new_tensor, dim=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> new_tensor</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    num_groups = <span class="number">2</span></span><br><span class="line">    num_channels = <span class="number">4</span></span><br><span class="line">    eps = <span class="number">1e-5</span></span><br><span class="line"></span><br><span class="line">    img = torch.rand(<span class="number">2</span>, num_channels, <span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line">    <span class="built_in">print</span>(img)</span><br><span class="line"></span><br><span class="line">    gn = nn.GroupNorm(num_groups=num_groups, num_channels=num_channels, eps=eps)</span><br><span class="line">    r1 = gn(img)</span><br><span class="line">    <span class="built_in">print</span>(r1)</span><br><span class="line"></span><br><span class="line">    r2 = group_norm(img, num_groups, num_channels, eps)</span><br><span class="line">    <span class="built_in">print</span>(r2)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_47233366/article/details/126005692">Batch_Normalization 、Layer_Normalization 、Group_Normalization你分的清楚吗</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37541097/article/details/104434557?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165880395216781683913421%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=165880395216781683913421&biz_id=0">Batch Normalization详解</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37541097/article/details/117653177?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165880395216781683913421%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=165880395216781683913421&biz_id=0">Layer Normalization解析</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37541097/article/details/118016048?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165880395216781683913421%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=165880395216781683913421&biz_id=0">Group Normalization详解</a></li>
+</ul>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/">https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Batch-Normalization"><span class="toc-number">1.</span> <span class="toc-text">Batch Normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Layer-Normalization"><span class="toc-number">2.</span> <span class="toc-text">Layer Normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Group-Normalization"><span class="toc-number">3.</span> <span class="toc-text">Group Normalization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-number">4.</span> <span class="toc-text">References</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&text=Batch vs. Layer vs. Group Normalization"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&title=Batch vs. Layer vs. Group Normalization"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&is_video=false&description=Batch vs. Layer vs. Group Normalization"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Batch vs. Layer vs. Group Normalization&body=Check out this article: https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&title=Batch vs. Layer vs. Group Normalization"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&title=Batch vs. Layer vs. Group Normalization"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&title=Batch vs. Layer vs. Group Normalization"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&title=Batch vs. Layer vs. Group Normalization"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&name=Batch vs. Layer vs. Group Normalization&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/03/17/BN-LN-GN/&t=Batch vs. Layer vs. Group Normalization"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2025
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
