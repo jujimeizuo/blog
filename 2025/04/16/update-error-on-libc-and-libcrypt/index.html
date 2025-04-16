@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="因为最近有需求需要更新 libc 到 2.35，但是我的 Ubuntu 系统是 20.04，最高版本是 2.31（当时我以为是 22.04，所以可以升级到 2.35），然后就从源码中更新 libc，编译、安装，make install 之后，不仅发生错误，而且系统直接崩溃，命令都无法使用！！！ 当我修复好系统之后，又手贱更新了 libc-bin，导致 libcrypt 出错，再次崩溃！！！ 系">
+<meta property="og:type" content="article">
+<meta property="og:title" content="update-error-on-libc-and-libcrypt">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="因为最近有需求需要更新 libc 到 2.35，但是我的 Ubuntu 系统是 20.04，最高版本是 2.31（当时我以为是 22.04，所以可以升级到 2.35），然后就从源码中更新 libc，编译、安装，make install 之后，不仅发生错误，而且系统直接崩溃，命令都无法使用！！！ 当我修复好系统之后，又手贱更新了 libc-bin，导致 libcrypt 出错，再次崩溃！！！ 系">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2025/04/rufus.png">
+<meta property="article:published_time" content="2025-04-16T10:58:23.000Z">
+<meta property="article:modified_time" content="2025-04-16T12:41:55.608Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2025/04/rufus.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>update-error-on-libc-and-libcrypt</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a href="/todo/">Todo</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/03/17/BN-LN-GN/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&text=update-error-on-libc-and-libcrypt"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&is_video=false&description=update-error-on-libc-and-libcrypt"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=update-error-on-libc-and-libcrypt&body=Check out this article: https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&name=update-error-on-libc-and-libcrypt&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&t=update-error-on-libc-and-libcrypt"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%B3%BB%E7%BB%9F%E5%B4%A9%E6%BA%83%E6%97%B6%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">1. 系统崩溃时如何操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%95%91%E6%8F%B4%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 救援模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-Ubuntu"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1.1 Ubuntu</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-2-Advanced-options-for-Ubuntu"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.1.2 Advanced options for Ubuntu</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-USB-%E5%90%AF%E5%8A%A8%E7%9B%98"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 USB 启动盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%8C%82%E8%BD%BD%E5%B4%A9%E6%BA%83%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 挂载崩溃系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-libc-%E5%BC%95%E8%B5%B7%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%B4%A9%E6%BA%83"><span class="toc-number">2.</span> <span class="toc-text">2. libc 引起的系统崩溃</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 方法二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-libcrypt-%E5%BC%95%E8%B5%B7%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%B4%A9%E6%BA%83"><span class="toc-number">3.</span> <span class="toc-text">3. libcrypt 引起的系统崩溃</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E4%B8%8B%E8%BD%BD%E5%85%BC%E5%AE%B9%E7%9A%84-libcrypt1"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 下载兼容的 libcrypt1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%88%9B%E5%BB%BA%E8%BD%AF%E8%BF%9E%E6%8E%A5"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 创建软连接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">4. 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        update-error-on-libc-and-libcrypt
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-16T10:58:23.000Z" class="dt-published" itemprop="datePublished">2025-04-16</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Linux/" rel="tag">Linux</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <blockquote>
+<ol>
+<li>因为最近有需求需要更新 libc 到 2.35，但是我的 Ubuntu 系统是 20.04，最高版本是 2.31（当时我以为是 22.04，所以可以升级到 2.35），然后就从源码中更新 libc，编译、安装，<code>make install</code> 之后，不仅发生错误，而且系统直接崩溃，命令都无法使用！！！</li>
+<li>当我修复好系统之后，又手贱更新了 <code>libc-bin</code>，导致 libcrypt 出错，再次崩溃！！！</li>
+<li>系统：Ubuntu 20.04，系统架构： x86_64</li>
+</ol>
+</blockquote>
+<h2 id="1-系统崩溃时如何操作"><a href="#1-系统崩溃时如何操作" class="headerlink" title="1. 系统崩溃时如何操作"></a>1. 系统崩溃时如何操作</h2><p>当系统故障时，输入所有命令都无效，系统无法正常启动，此时有以下两种方法：</p>
+<h3 id="1-1-救援模式"><a href="#1-1-救援模式" class="headerlink" title="1.1 救援模式"></a>1.1 救援模式</h3><p>开机时，按下 <code>SHIFT + ESC</code> 进入 GRUB 引导加载器页面</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-----------------------------</span><br><span class="line">|*Ubuntu                    |</span><br><span class="line">|Advanced options for Ubuntu|</span><br><span class="line">-----------------------------</span><br></pre></td></tr></table></figure>
+
+<p>下面有两种方式进入救援模式：</p>
+<h4 id="1-1-1-Ubuntu"><a href="#1-1-1-Ubuntu" class="headerlink" title="1.1.1 Ubuntu"></a>1.1.1 Ubuntu</h4><ul>
+<li>选择第一个选项并按 e 键进入编辑模式</li>
+<li>在以 linux 开头的一行末尾，删除字符串 <code>$vt_handoff</code> 并添加字符串 <code>systemd.unit=rescue.target</code></li>
+<li>修改完之后，按 <code>Ctrl + x</code> 或 <code>F10</code> 进入救援模式</li>
+</ul>
+<h4 id="1-1-2-Advanced-options-for-Ubuntu"><a href="#1-1-2-Advanced-options-for-Ubuntu" class="headerlink" title="1.1.2 Advanced options for Ubuntu"></a>1.1.2 Advanced options for Ubuntu</h4><p>选择第二个选项后继续选择内核的 <code>recover mode</code>，并选择 root 进入救援模式</p>
+<h3 id="1-2-USB-启动盘"><a href="#1-2-USB-启动盘" class="headerlink" title="1.2 USB 启动盘"></a>1.2 USB 启动盘</h3><p>当救援模式也无法进入系统，可以使用 USB 启动盘来修复系统，制作方法如下：</p>
+<ol>
+<li>准备一个 U 盘，建议 8G 以上，U 盘中的文件会被格式化，确保 U 盘中的文件已备份。</li>
+<li>下载 <a target="_blank" rel="noopener" href="http://mirrors.163.com/ubuntu-releases/20.04/">Ubuntu 20.04</a> 系统镜像文件</li>
+<li>使用 <a target="_blank" rel="noopener" href="https://rufus.akeo.ie/">Rufus</a> 工具制作启动盘</li>
+</ol>
+<center><img src="https://cdn.jujimeizuo.cn/blog/2025/04/rufus.png" width="20%"></center>
+
+<ol start="4">
+<li>选择 Ubuntu 的 iso 文件。</li>
+<li>然后点击开始，等待完成即可。</li>
+<li>开机时，一直按 F2 进入 BIOS 界面，找到 USB 启动盘启动选项， 调整优先级后保存并启动。</li>
+<li>进入 Ubuntu 系统后，选择 Try Ubuntu 进入系统。</li>
+</ol>
+<h3 id="1-3-挂载崩溃系统"><a href="#1-3-挂载崩溃系统" class="headerlink" title="1.3 挂载崩溃系统"></a>1.3 挂载崩溃系统</h3><p>此时通过前两种方法可以使用命令行或者图形界面进入系统，此时需要先挂载崩溃系统，然后再修复系统。</p>
+<ol>
+<li><p>查看崩溃系统的分区</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk -l</span><br></pre></td></tr></table></figure>
+
+<p> 根据自己之前分区的情况，找到崩溃系统的分区，例如我的崩溃系统是 <code>/dev/nveme0n1p7</code></p>
+</li>
+<li><p>挂载崩溃系统</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount /dev/nveme0n1p7 /mnt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修复系统 ……</p>
+</li>
+<li><p>查看是否修复成功</p>
+<p> 通过更换到崩溃系统的分区，如果没有<strong>核心已转储</strong>，能够正常进入，即修复成功。</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chroot</span> /mnt</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="2-libc-引起的系统崩溃"><a href="#2-libc-引起的系统崩溃" class="headerlink" title="2. libc 引起的系统崩溃"></a>2. libc 引起的系统崩溃</h2><ul>
+<li><p>当我弄一些东西的时，从源码更新 libc 到 2.35，编译、安装，<code>make install</code> 之后，系统直接崩溃，命令都无法使用！！！</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">make[2]: *** [Makefile:84: da.mo] Segmentation fault (core dumped)</span><br><span class="line">make[2]: Leaving directory &#x27;/root/glibc-2.35/po&#x27;</span><br><span class="line">make[1]: *** [Makefile:215: po/subdir_install] Error 2</span><br><span class="line">make[1]: Leaving directory &#x27;/root/glibc-2.35&#x27;</span><br><span class="line">make: *** [Makefile:12: install] Error 2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>崩溃原因：</p>
+<ul>
+<li>libc.so.6 是 C 运行时库 glibc 的软链接，程序启动和运行时，是根据 libc.so.6 软链接找到glibc库</li>
+<li>lib64&#x2F;libc.so.6 是一个软链接，指向 &#x2F;lib64&#x2F;libc.so-2.1x，2.1x 表示其对应版本，去兼容相应 Ubuntu 版本</li>
+<li>很多基本命命令依赖 glibc，libc.so.6 链接对应版本不一致将导致系统的几乎所有程序不能工作</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-方法一"><a href="#2-1-方法一" class="headerlink" title="2.1 方法一"></a>2.1 方法一</h3><ul>
+<li><p>此时不要重启服务器，不要关闭当前终端，还有救！！！（仅限于系统中存在版本正确的 libc.so.6，不然就直接跳转到下面，）</p>
+</li>
+<li><p>如果系统中还有 glibc-2.31.so（<strong>此时备份的重要性</strong>），则创建软连接即可</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /usr/lib64/libc-2.31.so /lib64/libc.so.6</span><br><span class="line"><span class="built_in">ln</span> -s /usr/lib64/ld-2.31.so /lib64/ld-linux-x86-64.so.2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>并且删除 2.35 相关文件</p>
+</li>
+</ul>
+<h3 id="2-2-方法二"><a href="#2-2-方法二" class="headerlink" title="2.2 方法二"></a>2.2 方法二</h3><ol>
+<li><p>进入救援模式，挂载崩溃系统</p>
+</li>
+<li><p>查看系统适配的 glibc 版本</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldd --version</span><br></pre></td></tr></table></figure>
+
+<p> 输出结果如下：</p>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ldd (Ubuntu EGLIBC 2.31-0ubuntu6.6) 2.31</span><br><span class="line">Copyright (C) 2020 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br><span class="line">Written by Roland McGrath and Ulrich Drepper.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看 libc 中 GLIBC 的版本</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings /lib64/libc.so.6 | grep -E <span class="string">&quot;^GLIBC&quot;</span> | <span class="built_in">sort</span> -V -r | <span class="built_in">uniq</span></span><br></pre></td></tr></table></figure>
+
+<p> 输出结果如下：</p>
+ <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GLIBC_2.35</span><br><span class="line">GLIBC_2.34</span><br><span class="line">GLIBC_2.33</span><br><span class="line">GLIBC_2.32</span><br><span class="line">GLIBC_2.31</span><br><span class="line">GLIBC_2.30</span><br><span class="line">GLIBC_2.29</span><br><span class="line">GLIBC_2.28</span><br><span class="line">GLIBC_2.27</span><br><span class="line">GLIBC_2.26</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>发现 glibc 还是 2.35 版本，需要降级到 2.31 版本，此时崩溃系统中没有 libc-2.31.so 文件，我发现 USB 启动盘中有这个文件（所以制作启动盘时最好和崩溃系统的版本相同），此时需要将其复制到崩溃系统中</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /usr/lib/x86_64-linux-gnu/libc-2.31.so /mnt/lib64/</span><br><span class="line"><span class="built_in">cp</span> /usr/lib/x86_64-linux-gnu/ld-2.31.so /mnt/lib64/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后创建软链接</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /lib64/libc-2.31.so /mnt/lib64/libc.so.6</span><br><span class="line"><span class="built_in">ln</span> -s /lib64/ld-2.31.so /mnt/lib64/ld-linux-x86-64.so.2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>chroot /mnt</code> 查看是否能正常进入，到此修复成功！！！</p>
+</li>
+</ol>
+<h2 id="3-libcrypt-引起的系统崩溃"><a href="#3-libcrypt-引起的系统崩溃" class="headerlink" title="3. libcrypt 引起的系统崩溃"></a>3. libcrypt 引起的系统崩溃</h2><ul>
+<li><p>当我修复好系统之后，又手贱更新了 <code>libc-bin</code>，导致 libcrypt 出错，再次崩溃！！！</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sbin/init: /lib/libcrypt.so.1: version `XCRYPT_2.0` not found (required by lib/systemd/lib/systemd-shared-245.so)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>崩溃原因：</p>
+<ul>
+<li>程序运行需要 libcrypt.so.1 库中的 XCRYPT_2.0 版本，但系统当前的 libcrypt.so.1 版本不支持 XCRYPT_2.0，由于库版本不兼容导致</li>
+</ul>
+</li>
+<li><p>进入救援模式，挂载崩溃系统</p>
+</li>
+<li><p>查看 libsystemd-shared-245.so 依赖的 libcrypt.so.1 版本</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldd /lib/systemd/libsystemd-shared-245.so | grep libcrypt.so.1</span><br></pre></td></tr></table></figure>
+
+<p>  输出结果如下：</p>
+  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/lib/systemd/libsystemd-shared-245.so:/lib64/libcrypt.so.1:version ‘XCRYPT_2.0’ not found(required by /lib/systemd/libsystemd-shared-245.so)</span><br><span class="line">libcrypt.so.1 =&gt; /lib/libcrypt.so.1 (0x00007f2636167000)</span><br></pre></td></tr></table></figure>
+
+<p>  表示依赖的 libcrypt.so.1 链接于 &#x2F;lib&#x2F;libcrypt.so.1</p>
+</li>
+<li><p>查看 libcrypt.so.1 版本</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings /lib/libcrypt.so.1 | grep <span class="string">&quot;XCRYPT_2.0&quot;</span></span><br></pre></td></tr></table></figure>
+<p>  没有输出，说明 &#x2F;liblibcrypt.so.1 中没有 XCRYPT_2.0 版本</p>
+</li>
+<li><p>发现 &#x2F;liblibcrypt.so.1 中确实没有 XCRYPT_2.0 版本，此时需要一个正确的 libcrypt.so.1 文件。</p>
+</li>
+</ul>
+<h3 id="3-1-下载兼容的-libcrypt1"><a href="#3-1-下载兼容的-libcrypt1" class="headerlink" title="3.1 下载兼容的 libcrypt1"></a>3.1 下载兼容的 libcrypt1</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># apt 可用</span></span><br><span class="line">apt download libcrypt1</span><br><span class="line"></span><br><span class="line"><span class="comment"># apt 不可用</span></span><br><span class="line">wget http://deb.debian.org/debian/pool/main/libx/libxcrypt/libcrypt1_4.4.33-2_amd64.deb</span><br><span class="line"></span><br><span class="line">sudo dpkg -i libcrypt1_4.4.33-2_amd64.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修复依赖关系</span></span><br><span class="line">apt install -f</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-创建软连接"><a href="#3-2-创建软连接" class="headerlink" title="3.2 创建软连接"></a>3.2 创建软连接</h3><p>若系统存在包含 XCRYPT_2.0 版本的 libcrypt.so.1 文件（用 strings 查看），则创建软连接即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /usr/lib/x86_64-linux-gnu/libcrypt.so.1 /lib/libcrypt.so.1</span><br></pre></td></tr></table></figure>
+
+<p>此时使用 perl 命令查看是否修复（崩溃时 perl 也错误），即可大功告成！</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><ul>
+<li>对于系统的库文件，一定不要轻易去修改，特别是在 root 权限下！！！<ol>
+<li>内核级 <code>/lib64</code></li>
+<li>系统级 <code>/usr/lib64</code></li>
+<li>root 用户级 <code>/usr/local/lib64</code></li>
+</ol>
+</li>
+<li>任何重要或不确定的文件改动不要轻易执行删除，一定要先<strong>备份</strong>，以备出现故障后能尽快恢复。</li>
+<li>可以使用救援模式或 USB 启动盘来启动第二个系统作为备份和修复已崩溃系统的平台。</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.zzstudio.net/uncategory/article_1514.html">centos7 升级 glibc2.25 踩坑记录</a></li>
+<li><a target="_blank" rel="noopener" href="https://yellowko.com/about-libc-so-6.html">关于libc.so.6</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/benjamin77/p/8961037.html">安装glibc错误链接导致系统崩溃，u盘启动紧急救援模式下修复系统。</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/heqiang1995/article/details/133643785">升级glibc导致系统开不了机 系统文件损坏挂载u盘拷入文件 进入救援模式</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.antute.com.cn/index.php?id=192">【案例分享】误删lib库导致系统崩溃的恢复</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1277450">覆盖libc.so.6的惨痛教训</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/apanly/p/15395786.html">&#x2F;lib64&#x2F;libc.so.6 错误导致的系统崩溃</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013553529/article/details/78307520">【笔记】在 Windows 中制作 Ubuntu 系统的USB启动盘</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/533121821">如何启动 Ubuntu 22.04 进入救援&#x2F;紧急模式 | Linux 中国</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43252751/article/details/130305175">ubuntu系统崩溃，甚至Recovery模式和tty都无法进入，这个方法可以救援！</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/eggxo/article/details/136465370?depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-136465370-blog-103188777.235%5Ev43%5Econtrol">强行升级glibc导致Centos8崩溃6小时惊险修复</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sharksmell/article/details/103188777">Ubuntu 手动更新glibc导致内核崩溃（无法正常关机&#x2F;开机启动失败）</a></li>
+<li><a target="_blank" rel="noopener" href="https://weiyan.cc/yuque/%E5%BC%80%E5%8F%91%E8%BF%90%E7%BB%B4/%E9%9B%86%E7%BE%A4/2019-07-13-hpc-experience-glibc/#21-rescue-%E6%A8%A1%E5%BC%8F%E6%AD%A5%E9%AA%A4">一次误删 GLIBC 后的系统恢复经历</a></li>
+<li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/ask/sof/116454423">从19.10升级到20.04失败</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xibeichengf/article/details/48290297">Ubuntu下查看glibc版本</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/Raspberry-Pi-OS-64bit/issues/123">version <code>XCRYPT_2.0&#39; not found after Update Debian 10 to Debian 12](https://unix.stackexchange.com/questions/779871/version-xcrypt-2-0-not-found-after-update-debian-10-to-debian-12) [libcrypt.so.1: version </code>XCRYPT_2.0’ not found#123</a></li>
+</ul>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/">https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a href="/todo/">Todo</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%B3%BB%E7%BB%9F%E5%B4%A9%E6%BA%83%E6%97%B6%E5%A6%82%E4%BD%95%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">1. 系统崩溃时如何操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%95%91%E6%8F%B4%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 救援模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-1-Ubuntu"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1.1 Ubuntu</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-2-Advanced-options-for-Ubuntu"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.1.2 Advanced options for Ubuntu</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-USB-%E5%90%AF%E5%8A%A8%E7%9B%98"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 USB 启动盘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%8C%82%E8%BD%BD%E5%B4%A9%E6%BA%83%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 挂载崩溃系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-libc-%E5%BC%95%E8%B5%B7%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%B4%A9%E6%BA%83"><span class="toc-number">2.</span> <span class="toc-text">2. libc 引起的系统崩溃</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 方法二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-libcrypt-%E5%BC%95%E8%B5%B7%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%B4%A9%E6%BA%83"><span class="toc-number">3.</span> <span class="toc-text">3. libcrypt 引起的系统崩溃</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E4%B8%8B%E8%BD%BD%E5%85%BC%E5%AE%B9%E7%9A%84-libcrypt1"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 下载兼容的 libcrypt1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%88%9B%E5%BB%BA%E8%BD%AF%E8%BF%9E%E6%8E%A5"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 创建软连接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">4. 总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&text=update-error-on-libc-and-libcrypt"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&is_video=false&description=update-error-on-libc-and-libcrypt"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=update-error-on-libc-and-libcrypt&body=Check out this article: https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&name=update-error-on-libc-and-libcrypt&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&t=update-error-on-libc-and-libcrypt"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2025
+    jujimeizuo
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a href="/todo/">Todo</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
