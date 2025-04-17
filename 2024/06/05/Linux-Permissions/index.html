@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="Introduction Linux 系统上对文件的权限有着严格的控制，如果想对某个文件执行某种操作，必须具有对应的权限方可执行成功。 Linux 下文件的权限类型一般包括读，写，执行。对应字母为 r、w、x。 Linux 下权限的粒度有拥有者、群组、其它组三种。每个文件都可以针对三个粒度，设置不同的 rwx (读写执行)权限。通常情况下，一个文件只能归属于一个用户和组，如果其它的用户想有这个文件">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux 权限问题">
-<meta property="og:url" content="https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="Linux Permissions">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="Introduction Linux 系统上对文件的权限有着严格的控制，如果想对某个文件执行某种操作，必须具有对应的权限方可执行成功。 Linux 下文件的权限类型一般包括读，写，执行。对应字母为 r、w、x。 Linux 下权限的粒度有拥有者、群组、其它组三种。每个文件都可以针对三个粒度，设置不同的 rwx (读写执行)权限。通常情况下，一个文件只能归属于一个用户和组，如果其它的用户想有这个文件">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-06-05T07:02:08.000Z">
-<meta property="article:modified_time" content="2024-06-05T07:15:34.465Z">
+<meta property="article:modified_time" content="2025-04-17T01:07:06.440Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
       
     
     <!-- title -->
-    <title>Linux 权限问题</title>
+    <title>Linux Permissions</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -121,17 +121,17 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&text=Linux 权限问题"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&title=Linux 权限问题"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&is_video=false&description=Linux 权限问题"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Linux 权限问题&body=Check out this article: https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&title=Linux 权限问题"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&title=Linux 权限问题"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&title=Linux 权限问题"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&title=Linux 权限问题"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&name=Linux 权限问题&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&t=Linux 权限问题"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&text=Linux Permissions"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&title=Linux Permissions"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&is_video=false&description=Linux Permissions"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux Permissions&body=Check out this article: https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&title=Linux Permissions"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&title=Linux Permissions"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&title=Linux Permissions"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&title=Linux Permissions"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&name=Linux Permissions&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&t=Linux Permissions"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -151,7 +151,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        Linux 权限问题
+        Linux Permissions
     </h1>
 
 
@@ -212,7 +212,7 @@
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/guojiaxue/p/13084253.html">去除Ubuntu文件夹有锁标志的方法（包含目录下所有文件解锁）</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44260459/article/details/122713532">Ubuntu系统下文件带小锁如何解决</a></li>
 </ul>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/">https://blog.jujimeizuo.cn/2024/06/05/Linux-权限问题/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/">https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
 
   </div>
 </article>
@@ -266,17 +266,17 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&text=Linux 权限问题"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&title=Linux 权限问题"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&is_video=false&description=Linux 权限问题"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Linux 权限问题&body=Check out this article: https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&title=Linux 权限问题"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&title=Linux 权限问题"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&title=Linux 权限问题"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&title=Linux 权限问题"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&name=Linux 权限问题&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/06/05/Linux-%E6%9D%83%E9%99%90%E9%97%AE%E9%A2%98/&t=Linux 权限问题"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&text=Linux Permissions"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&title=Linux Permissions"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&is_video=false&description=Linux Permissions"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux Permissions&body=Check out this article: https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&title=Linux Permissions"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&title=Linux Permissions"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&title=Linux Permissions"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&title=Linux Permissions"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&name=Linux Permissions&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/&t=Linux Permissions"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

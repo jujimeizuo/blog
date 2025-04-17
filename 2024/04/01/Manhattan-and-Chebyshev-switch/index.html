@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="曼哈顿距离定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的曼哈顿距离为： $$d(A, B) &#x3D; |x_1 - x_2| + |y_1 - y_2|$$  性质  对称性：$d(A,B)&#x3D;d(B,A)$ 三角不等式：$d(A,C) \le d(A,B)+d(B,C)$   距离原点的曼哈顿距离为 1 组成的点：   切比雪夫距离定义两个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="曼哈顿距离与切比雪夫距离">
+<meta property="og:title" content="Manhattan and Chebyshev">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="曼哈顿距离定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的曼哈顿距离为： $$d(A, B) &#x3D; |x_1 - x_2| + |y_1 - y_2|$$  性质  对称性：$d(A,B)&#x3D;d(B,A)$ 三角不等式：$d(A,C) \le d(A,B)+d(B,C)$   距离原点的曼哈顿距离为 1 组成的点：   切比雪夫距离定义两个">
@@ -16,7 +16,7 @@
 <meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/04/manhattan.png">
 <meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/04/chebyshev.png">
 <meta property="article:published_time" content="2024-04-01T13:33:31.000Z">
-<meta property="article:modified_time" content="2024-04-02T00:41:14.236Z">
+<meta property="article:modified_time" content="2025-04-17T01:11:03.840Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
@@ -40,7 +40,7 @@
       
     
     <!-- title -->
-    <title>曼哈顿距离与切比雪夫距离</title>
+    <title>Manhattan and Chebyshev</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -125,16 +125,16 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&text=曼哈顿距离与切比雪夫距离"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&is_video=false&description=曼哈顿距离与切比雪夫距离"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=曼哈顿距离与切比雪夫距离&body=Check out this article: https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&name=曼哈顿距离与切比雪夫距离&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&t=曼哈顿距离与切比雪夫距离"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&text=Manhattan and Chebyshev"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=Manhattan and Chebyshev"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&is_video=false&description=Manhattan and Chebyshev"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Manhattan and Chebyshev&body=Check out this article: https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=Manhattan and Chebyshev"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=Manhattan and Chebyshev"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=Manhattan and Chebyshev"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=Manhattan and Chebyshev"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&name=Manhattan and Chebyshev&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&t=Manhattan and Chebyshev"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -154,7 +154,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        曼哈顿距离与切比雪夫距离
+        Manhattan and Chebyshev
     </h1>
 
 
@@ -269,16 +269,16 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&text=曼哈顿距离与切比雪夫距离"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&is_video=false&description=曼哈顿距离与切比雪夫距离"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=曼哈顿距离与切比雪夫距离&body=Check out this article: https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=曼哈顿距离与切比雪夫距离"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&name=曼哈顿距离与切比雪夫距离&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&t=曼哈顿距离与切比雪夫距离"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&text=Manhattan and Chebyshev"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=Manhattan and Chebyshev"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&is_video=false&description=Manhattan and Chebyshev"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Manhattan and Chebyshev&body=Check out this article: https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=Manhattan and Chebyshev"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=Manhattan and Chebyshev"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=Manhattan and Chebyshev"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&title=Manhattan and Chebyshev"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&name=Manhattan and Chebyshev&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/&t=Manhattan and Chebyshev"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

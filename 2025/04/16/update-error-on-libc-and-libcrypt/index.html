@@ -8,14 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="因为最近有需求需要更新 libc 到 2.35，但是我的 Ubuntu 系统是 20.04，最高版本是 2.31（当时我以为是 22.04，所以可以升级到 2.35），然后就从源码中更新 libc，编译、安装，make install 之后，不仅发生错误，而且系统直接崩溃，命令都无法使用！！！ 当我修复好系统之后，又手贱更新了 libc-bin，导致 libcrypt 出错，再次崩溃！！！ 系">
 <meta property="og:type" content="article">
-<meta property="og:title" content="update-error-on-libc-and-libcrypt">
+<meta property="og:title" content="Update Error on libc and libcrypt">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="因为最近有需求需要更新 libc 到 2.35，但是我的 Ubuntu 系统是 20.04，最高版本是 2.31（当时我以为是 22.04，所以可以升级到 2.35），然后就从源码中更新 libc，编译、安装，make install 之后，不仅发生错误，而且系统直接崩溃，命令都无法使用！！！ 当我修复好系统之后，又手贱更新了 libc-bin，导致 libcrypt 出错，再次崩溃！！！ 系">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2025/04/rufus.png">
 <meta property="article:published_time" content="2025-04-16T10:58:23.000Z">
-<meta property="article:modified_time" content="2025-04-16T12:46:06.984Z">
+<meta property="article:modified_time" content="2025-04-17T01:06:11.493Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -39,7 +39,7 @@
       
     
     <!-- title -->
-    <title>update-error-on-libc-and-libcrypt</title>
+    <title>Update Error on libc and libcrypt</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -122,16 +122,16 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&text=update-error-on-libc-and-libcrypt"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&is_video=false&description=update-error-on-libc-and-libcrypt"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=update-error-on-libc-and-libcrypt&body=Check out this article: https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&name=update-error-on-libc-and-libcrypt&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&t=update-error-on-libc-and-libcrypt"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&text=Update Error on libc and libcrypt"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=Update Error on libc and libcrypt"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&is_video=false&description=Update Error on libc and libcrypt"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Update Error on libc and libcrypt&body=Check out this article: https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=Update Error on libc and libcrypt"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=Update Error on libc and libcrypt"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=Update Error on libc and libcrypt"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=Update Error on libc and libcrypt"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&name=Update Error on libc and libcrypt&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&t=Update Error on libc and libcrypt"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -151,7 +151,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        update-error-on-libc-and-libcrypt
+        Update Error on libc and libcrypt
     </h1>
 
 
@@ -392,16 +392,16 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&text=update-error-on-libc-and-libcrypt"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&is_video=false&description=update-error-on-libc-and-libcrypt"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=update-error-on-libc-and-libcrypt&body=Check out this article: https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=update-error-on-libc-and-libcrypt"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&name=update-error-on-libc-and-libcrypt&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&t=update-error-on-libc-and-libcrypt"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&text=Update Error on libc and libcrypt"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=Update Error on libc and libcrypt"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&is_video=false&description=Update Error on libc and libcrypt"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Update Error on libc and libcrypt&body=Check out this article: https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=Update Error on libc and libcrypt"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=Update Error on libc and libcrypt"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=Update Error on libc and libcrypt"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&title=Update Error on libc and libcrypt"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&name=Update Error on libc and libcrypt&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/&t=Update Error on libc and libcrypt"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

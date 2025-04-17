@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="基于 LangChain 自定义 Embeddings 在 LangChain 中支持 OpenAI、LLAMA 等大模型 Embeddings 的调用接口，不过没有内置所有大模型，但是允许用户自定义 Embeddings 类型。 接下来以 ZhipuAI 为例，基于 LangChain 自定义 Embeddings。  设计思路 要实现自定义 Embeddings，需要定义一个自定义类继承自 L">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于 LangChain 自定义 Embeddings">
+<meta property="og:title" content="Custom Embeddings based on LangChain">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="基于 LangChain 自定义 Embeddings 在 LangChain 中支持 OpenAI、LLAMA 等大模型 Embeddings 的调用接口，不过没有内置所有大模型，但是允许用户自定义 Embeddings 类型。 接下来以 ZhipuAI 为例，基于 LangChain 自定义 Embeddings。  设计思路 要实现自定义 Embeddings，需要定义一个自定义类继承自 L">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-29T00:39:02.000Z">
-<meta property="article:modified_time" content="2024-04-01T11:19:01.830Z">
+<meta property="article:modified_time" content="2025-04-17T01:11:37.292Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
       
     
     <!-- title -->
-    <title>基于 LangChain 自定义 Embeddings</title>
+    <title>Custom Embeddings based on LangChain</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -122,16 +122,16 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&text=基于 LangChain 自定义 Embeddings"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&is_video=false&description=基于 LangChain 自定义 Embeddings"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=基于 LangChain 自定义 Embeddings&body=Check out this article: https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&name=基于 LangChain 自定义 Embeddings&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&t=基于 LangChain 自定义 Embeddings"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&text=Custom Embeddings based on LangChain"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=Custom Embeddings based on LangChain"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&is_video=false&description=Custom Embeddings based on LangChain"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Custom Embeddings based on LangChain&body=Check out this article: https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=Custom Embeddings based on LangChain"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=Custom Embeddings based on LangChain"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=Custom Embeddings based on LangChain"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=Custom Embeddings based on LangChain"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&name=Custom Embeddings based on LangChain&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&t=Custom Embeddings based on LangChain"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -151,7 +151,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        基于 LangChain 自定义 Embeddings
+        Custom Embeddings based on LangChain
     </h1>
 
 
@@ -265,16 +265,16 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&text=基于 LangChain 自定义 Embeddings"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&is_video=false&description=基于 LangChain 自定义 Embeddings"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=基于 LangChain 自定义 Embeddings&body=Check out this article: https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=基于 LangChain 自定义 Embeddings"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&name=基于 LangChain 自定义 Embeddings&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&t=基于 LangChain 自定义 Embeddings"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&text=Custom Embeddings based on LangChain"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=Custom Embeddings based on LangChain"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&is_video=false&description=Custom Embeddings based on LangChain"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Custom Embeddings based on LangChain&body=Check out this article: https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=Custom Embeddings based on LangChain"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=Custom Embeddings based on LangChain"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=Custom Embeddings based on LangChain"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&title=Custom Embeddings based on LangChain"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&name=Custom Embeddings based on LangChain&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2024/01/29/custom-embeddings-based-on-langchain/&t=Custom Embeddings based on LangChain"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
