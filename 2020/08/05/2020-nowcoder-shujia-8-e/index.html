@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="题目链接：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;5673&#x2F;E 题意 数$n$的拆分，要求最大值与最小值相差为2，且相邻两个数之间相差小于1，$f[i]$表示拆分的个数。 有T组测试，每组给出l和r，求出$\sum_{i&#x3D;l}^rf[i]$。 思路首先知道$n$是由三个连续自然数之和相加组成的，当然，这三个自然数的个数是不知道的，那么就是求$$f[i]&amp;#">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/08/20200805140715720.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/08/20200805142832935.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/08/20200805140715720.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/08/20200805142832935.png">
 <meta property="article:published_time" content="2020-08-05T06:44:56.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:08:03.118Z">
+<meta property="article:modified_time" content="2025-05-09T07:12:20.928Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2020/08/20200805140715720.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/08/20200805140715720.png">
     
     
       
@@ -187,13 +187,13 @@
 
   <div class="content e-content" itemprop="articleBody">
     <p>题目链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/5673/E">https://ac.nowcoder.com/acm/contest/5673/E</a></p>
-<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p><img src="/images/2020/08/20200805140715720.png"></p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/08/20200805140715720.png"></p>
 <p>数$n$的拆分，要求最大值与最小值相差为2，且相邻两个数之间相差小于1，$f[i]$表示拆分的个数。 有T组测试，每组给出l和r，求出$\sum_{i&#x3D;l}^rf[i]$。</p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>首先知道$n$是由三个连续自然数之和相加组成的，当然，这三个自然数的个数是不知道的，那么就是求$$f[i]&#x3D;a*l+b*(l+1)+c*(l+2)（a，b，c\ge q1）$$</p>
 <h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>根据标程给的题解，它是枚举$l$，所以这三个数为$l,l+1,l+2$，表示为$l,mid,r$，我们知道两个$mid$可以拆成$l和r$，所以当有$m$个$mid$的时候，就有$(m-1)&#x2F;2$中拆法，例如：（下面三个数字分别为$l，mid和r的个数$） $m&#x3D;5：有2种拆法$ $1，2，1$ $2，0，2$ $m&#x3D;8：有3种拆法$ $1，5，1$ $2，3，2$ $3，1，3$</p>
 <p>为什么$mid$可以等于0，因为之前$m-1$,这个1就是$mid$。 为什么$l和r$不可以等于0，这样的话就不保证$a,c\ge q1$。</p>
 <p>这样枚举$l$的过程中，再分别枚举$m$的个数，再枚举往左加$l$的个数和往右加$r$的个数，最后再做个前缀和答案就出来了，不过问题就是$l\leq100$，标程说枚举会比较慢（是非常慢），所以要用dp优化，不过我也不会就咕咕咕了，然后就有了第二种方法。</p>
-<p><img src="/images/2020/08/20200805142832935.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/08/20200805142832935.png"></p>
 <p>! #### 方法二 应该也算枚举，不过是很巧妙的枚举。我也是看别人的博客才稍微懂一点点点点的。 这里应用了差分的思想。 最后是一阶差分+隔项差分。 参考大佬的博客： [大佬1](<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangchizc/article/details/107784622?utm%5C_medium=distribute.pc%5C_relevant.none-task-blog-baidulandingword-2&spm=1001.2101.3001.4242">https://blog.csdn.net/zhangchizc/article/details/107784622?utm\_medium=distribute.pc\_relevant.none-task-blog-baidulandingword-2&amp;spm=1001.2101.3001.4242</a>) [大佬2](<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangchizc/article/details/107784622?utm%5C_medium=distribute.pc%5C_relevant.none-task-blog-baidulandingword-2&spm=1001.2101.3001.4242">https://blog.csdn.net/zhangchizc/article/details/107784622?utm\_medium=distribute.pc\_relevant.none-task-blog-baidulandingword-2&amp;spm=1001.2101.3001.4242</a> “大佬2”) [大佬3](<a target="_blank" rel="noopener" href="https://www.cnblogs.com/rair/p/13430729.html">https://www.cnblogs.com/rair/p/13430729.html</a>) 关于差分，可以参考：[<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq/_44786250/article/details/100056975/](https://blog.csdn.net/qq/_44786250/article/details/100056975)">https://blog.csdn.net/qq\_44786250/article/details/100056975\](https://blog.csdn.net/qq\_44786250/article/details/100056975)</a> 一阶差分就是后一项减去前一项$d[i] &#x3D; a[i]-a[i-1]$。 隔项差分就是后一项的后一项减去前一项$d[i] &#x3D;a[i]-a[i-2]$。 然后回到本题。 我们先把式子改变一下。 $m&#x3D;b1+b2+b3$ $n&#x3D;a*b1+(a+1)*b2+(a+2)*b3&#x3D;a*(b1+b2+b3)+b2+2b3&#x3D;am+b2+2b3$ 具体细节请看上面三个大佬的博客。 最后我们得出来： $f[am+3]++，f[(a+1)m+1]–，f[(a+1)m+2]–，f[(a+2)m]++$ 这里一定要看图解，不然真的很昏。 只要我们枚举$a和m$之后，然后对上述位置进行加减操作，最后在隔项差分、一阶差分求出原数组，最后在前缀和得出答案。 ## Code ```c++ ##include &lt;bits&#x2F;stdc++.h&gt; using namespace std; typedef long long ll; typedef long double ld; typedef pair&lt;int, int&gt; pdd; ##define INF 0x7f7f7f ##define mem(a, b) memset(a , b , sizeof(a)) ##define FOR(i, x, n) for(int i &#x3D; x;i &lt;&#x3D; n; i++) &#x2F;&#x2F; const ll mod &#x3D; 1e9 + 7; &#x2F;&#x2F; const int maxn &#x3D; 1e5 + 10; &#x2F;&#x2F; const double eps &#x3D; 1e-6; const int N &#x3D; 1e5 + 10; ll f[N * 2]; ll F[N * 2]; void Init() { for(int m &#x3D; 3;m &lt; N; m++) { for(int a &#x3D; 1;a * m &lt; N; a++) { f[a * m + 3]++; f[(a + 1) * m + 1]–; f[(a + 1) * m + 2]–; f[(a + 2) * m]++; } } for(int i &#x3D; 3;i &lt; N; i++) f[i] +&#x3D; f[i - 2]; for(int i &#x3D; 2;i &lt; N; i++) f[i] +&#x3D; f[i - 1]; for(int i &#x3D; 1;i &lt; N; i++) F[i] &#x3D; F[i - 1] + f[i]; } void solve() { Init(); int Case &#x3D; 1; int T; cin &gt;&gt; T; while(T–) { int l, r; cin &gt;&gt; l &gt;&gt; r; cout &lt;&lt; “Case ##” &lt;&lt; Case++ &lt;&lt; “: “ &lt;&lt; F[r] - F[l - 1] &lt;&lt; endl; } } signed main() { ios_base::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr); ##ifdef ACM_LOCAL freopen(“in.txt”, “r”, stdin); freopen(“out.txt”, “w”, stdout); solve(); ##else solve(); ##endif return 0; } ``` ## 反思 **比赛再也不在一题上花5个小时了，呜呜呜~~~**</p>
 <p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2020/08/05/2020-nowcoder-shujia-8-e/">https://blog.jujimeizuo.cn/2020/08/05/2020-nowcoder-shujia-8-e/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
 

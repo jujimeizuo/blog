@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="曼哈顿距离定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的曼哈顿距离为： $$d(A, B) &#x3D; |x_1 - x_2| + |y_1 - y_2|$$  性质  对称性：$d(A,B)&#x3D;d(B,A)$ 三角不等式：$d(A,C) \le d(A,B)+d(B,C)$   距离原点的曼哈顿距离为 1 组成的点：   切比雪夫距离定义两个">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/04/manhattan.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/04/chebyshev.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2024/04/manhattan.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2024/04/chebyshev.png">
 <meta property="article:published_time" content="2024-04-01T13:33:31.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:08:02.959Z">
+<meta property="article:modified_time" content="2025-05-09T07:12:20.840Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2024/04/manhattan.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2024/04/manhattan.png">
     
     
       
@@ -196,12 +196,12 @@
 </ol>
 </blockquote>
 <p><strong>距离原点的曼哈顿距离为 1 组成的点：</strong></p>
-<center><img src="/images/2024/04/manhattan.png" alt="曼哈顿"></center>
+<center><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2024/04/manhattan.png" alt="曼哈顿"></center>
 
 <h2 id="切比雪夫距离"><a href="#切比雪夫距离" class="headerlink" title="切比雪夫距离"></a>切比雪夫距离</h2><p>定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的切比雪夫距离为：</p>
 <p>$$<br>d(A, B) &#x3D; \max ( |x_1 - x_2|, |y_1 - y_2| )<br>$$</p>
 <p><strong>距离原点的切比雪夫距离为 1 组成的点：</strong></p>
-<center><img src="/images/2024/04/chebyshev.png" alt="切比雪夫"></center>
+<center><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2024/04/chebyshev.png" alt="切比雪夫"></center>
 
 <h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><h3 id="曼哈顿转切比雪夫"><a href="#曼哈顿转切比雪夫" class="headerlink" title="曼哈顿转切比雪夫"></a>曼哈顿转切比雪夫</h3><p>将代表曼哈顿距离的正方形绕原点逆时针旋转 $\frac{\pi}{4}$，发现两个正方形是相似的，只需要把代表曼哈顿距离的正方形扩大 $\sqrt{2}$ 倍。</p>
 <p>发现原来在代表曼哈顿距离的正方形的四条边上的点 $A(x,y)$ 的坐标由旋转之后变为了<br>$$(x * \cos{\frac{\pi}{4}}-y * \sin{\frac{\pi}{4}}, y * \cos{\frac{\pi}{4}} + x * \sin{\frac{\pi}{4}})$$<br>然后扩大后变为<br>$$A^\prime(\sqrt{2}(x * \cos{\frac{\pi}{4}}-y * \sin{\frac{\pi}{4}}), \sqrt{2}(y * \cos{\frac{\pi}{4}} + x * \sin{\frac{\pi}{4}})) \to A^\prime (x-y, x+y)$$<br>这里的旋转事实上可以理解为坐标轴的旋转。</p>

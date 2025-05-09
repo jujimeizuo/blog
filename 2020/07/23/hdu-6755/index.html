@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="传送门：http:&#x2F;&#x2F;acm.hdu.edu.cn&#x2F;showproblem.php?pid&#x3D;6755 前置技能二项式定理、二次剩余、等比数列、欧拉降幂、阶乘逆元 参考：牌王无敌 题意计算一个式子   思路由斐波那契通项公式得 $$F_n&#x3D;\frac{1}{\sqrt 5}((\frac{1+ \sqrt 5}{2})^n-(\frac{1-\sqrt5}{2})^n)$$ 可以通过二次剩">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/07/20200723205327414.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/07/20200723205336799.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/07/20200723205327414.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/07/20200723205336799.png">
 <meta property="article:published_time" content="2020-07-23T13:45:36.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:08:03.111Z">
+<meta property="article:modified_time" content="2025-05-09T07:12:20.928Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2020/07/20200723205327414.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/07/20200723205327414.png">
     
     
       
@@ -190,8 +190,8 @@
 <h2 id="前置技能"><a href="#前置技能" class="headerlink" title="前置技能"></a>前置技能</h2><p><strong>二项式定理、二次剩余、等比数列、欧拉降幂、阶乘逆元</strong></p>
 <p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/oampamp1/article/details/107508328">牌王无敌</a></p>
 <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>计算一个式子</p>
-<p><img src="/images/2020/07/20200723205327414.png"></p>
-<p><img src="/images/2020/07/20200723205336799.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/07/20200723205327414.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/07/20200723205336799.png"></p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>由斐波那契通项公式得 $$F_n&#x3D;\frac{1}{\sqrt 5}((\frac{1+ \sqrt 5}{2})^n-(\frac{1-\sqrt5}{2})^n)$$ 可以通过二次剩余的方法求出$\sqrt5&#x3D;383008016或者616991993$，因为二次剩余的解有两个。下面顺便在给出二次剩余的板子，我也是花了一天的时间才弄懂计算过程。 我们让$A&#x3D;\frac{1+ \sqrt 5}{2}、B&#x3D;\frac{1- \sqrt 5}{2}、D&#x3D;\frac{1}{\sqrt5}$ 进而利用逆元计算出 $A&#x3D;691504013$ $B&#x3D;308495997$ $D&#x3D;276601605$</p>
 <p>所以式子就变成了： $$F_n&#x3D;D(A^n-B^n)(mod 1e9 + 9)$$ 如果这样暴力算的话一定会T，因为N和C都达到了1e18。 我们先尝试列出前几项： $当n&#x3D;1时，F_c^k&#x3D;D^k(A^c-B^c)^k$ 用二项式定理展开后变为 $$F_c^k&#x3D;D^k\sum_{i&#x3D;0}^{k}(-1)^iC_k^i(A^c)^{k-i}(B^c)^{i}$$</p>
 <p>$当n&#x3D;2时F_{2c}^k&#x3D;D^k(A^{2c}-B^{2c})^k$ 用二项式定理展开后变为 $$F_{2c}^k&#x3D;D^k\sum_{i&#x3D;0}^{k}(-1)^iC_k^i(A^{2c})^{k-i}(B^{2c})^{i}$$ $$F_{2c}^k&#x3D;D^k\sum_{i&#x3D;0}^{k}(-1)^iC_k^i(A^{c})^{k-i}(B^{c})^{i}C_k^i(A^{c})^{k-i}(B^{c})^{i}$$ 所以当i相同时，这就是一个等比数列求和。</p>

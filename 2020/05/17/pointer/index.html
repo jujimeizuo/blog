@@ -13,13 +13,13 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="应学院要求，写了一篇指针的学习心得,顺便也写成博客发了吧… 以下内容可能比较水，如果有错误，请与我联系，并对此修改。 什么是指针&#x3D;&#x3D;先来说说我的理解，我把整个程序想象成一个豪宅，每个变量是这座豪宅的每个房间，而指针就是这么多房间中其中一个房间的门牌号。接下来是官方的定义&#x3D;&#x3D;。 C语言里，变量存放在内存中，而内存其实就是一组有序字节组成的数组，每个字节有唯一的内存地址。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/05/20200517133054938.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/20200517133054938.png">
 <meta property="article:published_time" content="2020-05-17T14:54:18.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:08:03.111Z">
+<meta property="article:modified_time" content="2025-05-09T07:12:20.927Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2020/05/20200517133054938.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/20200517133054938.png">
     
     
       
@@ -187,7 +187,7 @@
   <div class="content e-content" itemprop="articleBody">
     <p>应学院要求，写了一篇指针的学习心得,顺便也写成博客发了吧… 以下内容可能比较水，如果有错误，请与我联系，并对此修改。</p>
 <h2 id="什么是指针"><a href="#什么是指针" class="headerlink" title="什么是指针"></a>什么是指针</h2><p>=&#x3D;先来说说我的理解，我把整个程序想象成一个豪宅，每个变量是这座豪宅的每个房间，而指针就是这么多房间中其中一个房间的门牌号。接下来是官方的定义&#x3D;&#x3D;。 C语言里，变量存放在内存中，而内存其实就是一组有序字节组成的数组，每个字节有唯一的内存地址。CPU 通过内存寻址对存储在内存中的某个指定数据对象的地址进行定位。这里，数据对象是指存储在内存中的一个指定数据类型的数值或字符串，它们都有一个自己的地址，而指针便是保存这个地址的变量。也就是说：指针是一种保存变量地址的变量。如下图所示：</p>
-<p><img src="/images/2020/05/20200517133054938.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/20200517133054938.png"></p>
 <p>左侧连续的十六进制编号就是内存地址，每个内存地址对应一个字节的内存空间。而指针变量保存的就是这个编号，也即内存地址。</p>
 <h2 id="为什么要学习指针"><a href="#为什么要学习指针" class="headerlink" title="为什么要学习指针"></a>为什么要学习指针</h2><p>在C语言中，指针的使用非常广泛，因为使用指针往往可以生成更高效、更紧凑的代码。总的来说，使用指针有如下好处： 1）指针的使用使得不同区域的代码可以轻易的共享内存数据，这样可以使程序更为快速高效； 2）C语言中一些复杂的数据结构往往需要使用指针来构建，如链表、二叉树等； 3）C语言是传值调用，而有些操作传值调用是无法完成的，如通过被调函数修改调用函数的对象，但是这种操作可以由指针来完成，而且并不违背传值调用。</p>
 <h2 id="如何声明一个指针"><a href="#如何声明一个指针" class="headerlink" title="如何声明一个指针"></a>如何声明一个指针</h2><p>指针的声明比普通变量的声明多了一个一元运算符“*”，而“*”是间接寻址或者间接引用运算符。如下图，p是一个指针，保存着一个地址，该地址指向内存中的一个变量，*p则会访问这个地址所指向的变量。</p>

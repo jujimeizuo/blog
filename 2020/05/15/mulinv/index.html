@@ -13,17 +13,17 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="以下内容均为牌王(可点开链接哦)所教，此人无敌！！！感谢牌王的细心教导，嘿嘿嘿 逆元的定义逆元可以说是倒数概念的推广，对于正整数a,p，若有ax≡1（mod p），则称x是a关于模p的逆元。例如：  那么为什么要有逆元呢？逆元有什么作用？ 加减乘与模运算的顺序交换不会影响结果，即可用分配律，但是除法呢？答案是不行的，那么有什么办法可以完成除法与模运算之间的运算呢，这时候就是主角逆元登场了。 例如求">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/05/2020051521045445.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/05/20200515210155713.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/05/20200515210313703.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/05/2020051521071465.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/2020051521045445.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/20200515210155713.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/20200515210313703.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/2020051521071465.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200515212401342.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Z6dHNpbGx5,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-05-15T13:39:23.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:08:03.118Z">
+<meta property="article:modified_time" content="2025-05-09T07:12:20.924Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2020/05/2020051521045445.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/2020051521045445.png">
     
     
       
@@ -189,15 +189,15 @@
   <div class="content e-content" itemprop="articleBody">
     <p>以下内容均为<a target="_blank" rel="noopener" href="https://blog.csdn.net/oampamp1">牌王</a>(可点开链接哦)所教，此人无敌！！！感谢牌王的细心教导，嘿嘿嘿</p>
 <h2 id="逆元的定义"><a href="#逆元的定义" class="headerlink" title="逆元的定义"></a>逆元的定义</h2><p>逆元可以说是倒数概念的推广，对于正整数a,p，若有ax≡1（mod p），则称x是a关于模p的逆元。例如：</p>
-<p><img src="/images/2020/05/2020051521045445.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/2020051521045445.png"></p>
 <p>那么为什么要有逆元呢？逆元有什么作用？ 加减乘与模运算的顺序交换不会影响结果，即可用分配律，但是除法呢？答案是不行的，那么有什么办法可以完成除法与模运算之间的运算呢，这时候就是主角逆元登场了。 例如求解$(a &#x2F; b) mod p$ 先求出b关于p的逆元x，即$b*x≡1 \; (mod\; p)$，将其带入上式得 $(\frac{a}{b} * b * x)≡ 1 (mod p) -&gt; (a * x)≡1(mod\; p)$ 即可将除法转化成乘法，是不是很有趣？ 逆元存在的条件：<strong>a与p互质，即gcd(a,p)&#x3D;1</strong>。</p>
 <h2 id="求解逆元的三种方法"><a href="#求解逆元的三种方法" class="headerlink" title="求解逆元的三种方法"></a>求解逆元的三种方法</h2><ol>
 <li><p>=&#x3D;费马小定理&#x3D;&#x3D; 当p为素数时，则有</p>
-<p><img src="/images/2020/05/20200515210155713.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/20200515210155713.png"></p>
 </li>
 </ol>
 <p>将其变形为</p>
-<p><img src="/images/2020/05/20200515210313703.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/20200515210313703.png"></p>
 <p>由逆元定义可知，$a^{p-2}$就是逆元</p>
 <p>代码如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">FPM</span><span class="params">(ll x,ll power,ll mod)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ll ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(power)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(power &amp; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ans = (ans * x) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">        x = (x * x) % mod;</span><br><span class="line">        power &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans % mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -206,7 +206,7 @@
 <li>=&#x3D;扩展欧几里得算法&#x3D;&#x3D;</li>
 </ol>
 <p>ax≡1(mod p)-&gt;ax &#x3D; pk + 1 当a，p互质时，gcd(a,b)&#x3D;1，即将上式转化为</p>
-<p><img src="/images/2020/05/2020051521071465.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/2020051521071465.png"></p>
 <p>当求解gcd(a,b)时，递归结束的条件为b&#x3D;0，得出a&#x3D;gcd(a,b)，进一步得出x&#x3D;1,所以对上式使用递归时，结束条件为b &#x3D; 0，并使x&#x3D;1，y&#x3D;0。 即</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!b)</span><br><span class="line">&#123;</span><br><span class="line">    x = <span class="number">1</span>;</span><br><span class="line">    y = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 

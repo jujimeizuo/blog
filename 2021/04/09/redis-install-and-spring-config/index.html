@@ -13,18 +13,18 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="Window安装github下载：https:&#x2F;&#x2F;github.com&#x2F;tporadowski&#x2F;redis&#x2F;releases 下载之后解压到位置，假如是C盘。 打开cmd窗口，cd到redis的目录下，输入 1redis-server.exe redis.windows.conf   这表示我们已经开启了Redis服务端，请不要关闭它，另外开一个cmd窗口并cd到Redis目录下，输入 1redi">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/04/20210409105859526.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/04/20210409110023750.jpg">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/04/20210409110145570.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/04/20210409110243120.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/04/20210409110311634.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/04/20210409105859526.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/04/20210409110023750.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/04/20210409110145570.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/04/20210409110243120.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/04/20210409110311634.png">
 <meta property="article:published_time" content="2021-04-09T03:05:47.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:08:03.039Z">
+<meta property="article:modified_time" content="2025-05-09T07:12:20.924Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="Springboot">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2021/04/20210409105859526.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/04/20210409105859526.png">
     
     
       
@@ -195,24 +195,24 @@
 <p>打开cmd窗口，cd到redis的目录下，输入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server.exe redis.windows.conf</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/2021/04/20210409105859526.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/04/20210409105859526.png"></p>
 <p>这表示我们已经开启了Redis服务端，请不要关闭它，另外开一个cmd窗口并cd到Redis目录下，输入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli.exe -h 127.0.0.1 -p 6379</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/2021/04/20210409110023750.jpg"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/04/20210409110023750.jpg"></p>
 <p>恭喜你，已经安装成功，可以ping一下看看是否正确。</p>
 <h4 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h4><p>redis密码设置有两种方式，一种需要重启redis服务，一种不需要重启redis服务。</p>
 <p>首先，介绍一下需要重启redis服务的设置方式 即找到redis的配置文件—redis.conf文件，然后修改里面的requirepass，这个本来是注释起来了的，将注释去掉，并将后面对应的字段设置成自己想要的密码，保存退出。重启redis服务，即可。</p>
-<p><img src="/images/2021/04/20210409110145570.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/04/20210409110145570.png"></p>
 <p>我这里是设置密码成了123 然后是不需要重启redis服务的密码设置方式 这种相对简单，连接redis之后，通过命令设置，如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config <span class="built_in">set</span> requirepass 123456</span><br></pre></td></tr></table></figure>
 
 <p>如此，便将密码设置成了123456 设置之后，可通过以下指令查看密码</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config get requirepass</span><br></pre></td></tr></table></figure>
 
-<p><img src="/images/2021/04/20210409110243120.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/04/20210409110243120.png"></p>
 <p>密码设置之后，当你退出再次连上redis的时候，就需要输入密码了，不然是无法操作的。这里有两种方式输入密码，一是连接的时候直接输入密码，而是连接上之后再输入密码，分别如下所示：</p>
-<p><img src="/images/2021/04/20210409110311634.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/04/20210409110311634.png"></p>
 <p>检查服务是否运行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; AUTH <span class="string">&quot;password&quot;</span></span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; PING</span><br><span class="line">PONG</span><br></pre></td></tr></table></figure>
 

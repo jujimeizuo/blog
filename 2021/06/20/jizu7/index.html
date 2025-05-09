@@ -13,41 +13,41 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="7.1 CPU的结构7.1.1 CPU的功能（1）取指令 控制器必须具备能自动地从存储器中取出指令的功能 （2）分析指令 分析指令包括两部分内容：其一，分析此指令要完成什么操作，即控制器需发出什么操作命令；其二，分析参与这次操作的操作数地址，即操作数的有效地址。 （3）执行指令 执行指令就是根据分析指令产生的“操作命令”和“操作数地址”的要求，形成操作控制信号序列，通过对运算器、存储器以及I&amp;#x">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-79.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/1.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/FD0F9CD4-2619-4F9F-95BE-3BF546880A2A.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/F1DD9958-7255-4ED5-9195-4FFC8E1FACE2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/FA7FC9E8-6EDC-4E83-9CE3-5E295976F5C8.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/722BDA51-2D08-4733-BA7B-DDC1E2BC17F8.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/lALPD0sXSsEKvqfNAg7NBWE_1377_526.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/A43F0FDD-6DC3-4920-BB5B-1F5F6CBCD373.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/708FAC65-A3D6-4AC1-9F1E-77E702420951.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/455157F9-80F5-4DD7-9C48-297E3A7FBAF8.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/CD48DB4FF87D2E795DEA787F7168187D.jpg">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/F6F2BF88-5357-4DB2-823D-35F47D87F907.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-80.png">
-<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-79.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/1.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/FD0F9CD4-2619-4F9F-95BE-3BF546880A2A.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/F1DD9958-7255-4ED5-9195-4FFC8E1FACE2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/FA7FC9E8-6EDC-4E83-9CE3-5E295976F5C8.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/722BDA51-2D08-4733-BA7B-DDC1E2BC17F8.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/lALPD0sXSsEKvqfNAg7NBWE_1377_526.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/A43F0FDD-6DC3-4920-BB5B-1F5F6CBCD373.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/708FAC65-A3D6-4AC1-9F1E-77E702420951.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/455157F9-80F5-4DD7-9C48-297E3A7FBAF8.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/CD48DB4FF87D2E795DEA787F7168187D.jpg">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/F6F2BF88-5357-4DB2-823D-35F47D87F907.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-80.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
 <meta property="article:published_time" content="2021-06-20T11:10:36.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:08:03.118Z">
+<meta property="article:modified_time" content="2025-05-09T07:12:20.928Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="计算机组成原理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-79.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-79.png">
     
     
       
@@ -217,7 +217,7 @@
 <p>（2）分析指令 分析指令包括两部分内容：其一，分析此指令要完成什么操作，即控制器需发出什么操作命令；其二，分析参与这次操作的操作数地址，即操作数的有效地址。</p>
 <p>（3）执行指令 执行指令就是根据分析指令产生的“操作命令”和“操作数地址”的要求，形成操作控制信号序列，通过对运算器、存储器以及I&#x2F;O设备的操作，执行每条指令。</p>
 <p>CPU必须具有控制程序的顺序执行（称指令控制）、产生完成每条指令的控制命令（称操作控制）、对各种操作加以时间上的控制（称时间控制）、对数据进行算术运算和逻辑运算（称数据加工）、处理中断等功能。</p>
-<h3 id="7-1-2-CPU结构框图"><a href="#7-1-2-CPU结构框图" class="headerlink" title="7.1.2 CPU结构框图"></a>7.1.2 CPU结构框图</h3><p><img src="/images/2021/06/image-79.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h3 id="7-1-2-CPU结构框图"><a href="#7-1-2-CPU结构框图" class="headerlink" title="7.1.2 CPU结构框图"></a>7.1.2 CPU结构框图</h3><p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-79.png"> <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <h3 id="7-1-3-CPU的寄存器"><a href="#7-1-3-CPU的寄存器" class="headerlink" title="7.1.3 CPU的寄存器"></a>7.1.3 CPU的寄存器</h3><p>CPU中的寄存器大致可分为两类：一类属于<strong>用户可见寄存器</strong>，用户可对这类寄存器编程，以及通过优化使CPU因使用这类寄存器而减少对主存的访问次数；另一类属于<strong>控制和状态寄存器</strong>，用户不可对这类寄存器编程，它们被控制部件使用，以控制CPU的操作，也可被带有特权的操作系统程序使用，从而控制程序的执行。</p>
 <h4 id="用户可见寄存器"><a href="#用户可见寄存器" class="headerlink" title="用户可见寄存器"></a>用户可见寄存器</h4><p>（1）通用寄存器 通用寄存器可由程序设计者指定许多功能，可用于存放操作数，也可作为满足某种寻址方式所需的寄存器。寄存器间接寻址时还可用通用寄存器存放有效地址的地址。</p>
 <p>（2）数据寄存器 数据寄存器用于存放操作数，其位数应满足多数数据类型的数值范围。</p>
@@ -261,13 +261,13 @@
 </li>
 </ol>
 <h4 id="7-6-例题"><a href="#7-6-例题" class="headerlink" title="7.6 例题"></a>7.6 例题</h4><blockquote>
-<p><img src="/images/2021/06/1.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
-<p><img src="/images/2021/06/FD0F9CD4-2619-4F9F-95BE-3BF546880A2A.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/1.png"><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/FD0F9CD4-2619-4F9F-95BE-3BF546880A2A.png"> <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 </blockquote>
 <p> </p>
 <blockquote>
-<p><img src="/images/2021/06/2.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
-<p><img src="/images/2021/06/F1DD9958-7255-4ED5-9195-4FFC8E1FACE2.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/2.png"><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/F1DD9958-7255-4ED5-9195-4FFC8E1FACE2.png"> <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 </blockquote>
 <p> </p>
 <blockquote>
@@ -298,13 +298,13 @@
 </blockquote>
 <p> </p>
 <blockquote>
-<p><img src="/images/2021/06/FA7FC9E8-6EDC-4E83-9CE3-5E295976F5C8.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
-<p><img src="/images/2021/06/722BDA51-2D08-4733-BA7B-DDC1E2BC17F8.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/FA7FC9E8-6EDC-4E83-9CE3-5E295976F5C8.png"><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/722BDA51-2D08-4733-BA7B-DDC1E2BC17F8.png"><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 </blockquote>
-<p><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <blockquote>
-<p><img src="/images/2021/06/lALPD0sXSsEKvqfNAg7NBWE_1377_526.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
-<p><img src="/images/2021/06/A43F0FDD-6DC3-4920-BB5B-1F5F6CBCD373.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/lALPD0sXSsEKvqfNAg7NBWE_1377_526.png"><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/A43F0FDD-6DC3-4920-BB5B-1F5F6CBCD373.png"><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 </blockquote>
 <p> </p>
 <blockquote>
@@ -318,17 +318,17 @@
 <p>C</p>
 <p>011</p>
 <p> </p>
-<p><img src="/images/2021/06/708FAC65-A3D6-4AC1-9F1E-77E702420951.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/708FAC65-A3D6-4AC1-9F1E-77E702420951.png"><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 </blockquote>
 <p> </p>
 <blockquote>
-<p><img src="/images/2021/06/455157F9-80F5-4DD7-9C48-297E3A7FBAF8.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
-<p><img src="/images/2021/06/CD48DB4FF87D2E795DEA787F7168187D.jpg"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/455157F9-80F5-4DD7-9C48-297E3A7FBAF8.png"><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/CD48DB4FF87D2E795DEA787F7168187D.jpg"> <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 </blockquote>
 <p> </p>
 <blockquote>
-<p><img src="/images/2021/06/F6F2BF88-5357-4DB2-823D-35F47D87F907.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
-<p><img src="/images/2021/06/image-80.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/F6F2BF88-5357-4DB2-823D-35F47D87F907.png"> <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-80.png"><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 </blockquote>
 <p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/20/jizu7/">https://blog.jujimeizuo.cn/2021/06/20/jizu7/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
 
