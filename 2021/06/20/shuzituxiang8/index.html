@@ -13,18 +13,18 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="8.1 图像纹理的主要特征及描述与提取方法8.1.1 图像纹理的主要特征 粗糙度 方向性 规则性  8.1.2 图像纹理特征及描述与提取方法 统计分析法 结构分析法 模型分析法 频谱分析法  8.2 基于灰度共生矩阵的纹理特征提取方法8.2.1 概念及定义灰度共生矩阵定义为像素对的联合概率分布，是一个对称矩阵，它不仅反映图像灰度在相邻的方向、相邻间隔、变化幅度的综合信息，但也反映了相同的灰度级像素">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-65.png">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-66.png">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-67.png">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-68.png">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-69.png">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-70.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-65.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-66.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-67.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-68.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-69.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-70.png">
 <meta property="article:published_time" content="2021-06-20T06:19:29.000Z">
-<meta property="article:modified_time" content="2024-04-01T11:19:01.825Z">
+<meta property="article:modified_time" content="2025-05-09T07:08:02.959Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="数字图像处理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2021/06/image-65.png">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-65.png">
     
     
       
@@ -204,8 +204,8 @@
 <h4 id="8-2-基于灰度共生矩阵的纹理特征提取方法"><a href="#8-2-基于灰度共生矩阵的纹理特征提取方法" class="headerlink" title="8.2 基于灰度共生矩阵的纹理特征提取方法"></a>8.2 基于灰度共生矩阵的纹理特征提取方法</h4><h3 id="8-2-1-概念及定义"><a href="#8-2-1-概念及定义" class="headerlink" title="8.2.1 概念及定义"></a>8.2.1 概念及定义</h3><p>灰度共生矩阵定义为像素对的联合概率分布，是一个对称矩阵，它不仅反映图像灰度在相邻的方向、相邻间隔、变化幅度的综合信息，但也反映了相同的灰度级像素之间的位置分布特征，是计算纹理特征的基础。</p>
 <p>在图像中任意取一点(x,y)及偏离它的一点(x+a,y+b)(其中，a、b为整数，人为定义)构成点对。设该点对的灰度值为(f1,f2)，再令点(x,y)在整幅图像上移动，则会得到不同的(f1,f2)值。</p>
 <p>设图像的最大灰度级为L，则f2与f2的组合共有L*L种。对于整幅图像，统计出每一种(f1,f2)值出现的次数，然后排列成一个方阵，再用(f1,f2)出现的总次数将他们归一化为出现的概率P(f1,f2)，由此产生的矩阵为灰度共生矩阵。θ方向上的间隔为d的灰度共生矩阵实际上是θ方向间隔为d的灰度变化量的联合概率分布。</p>
-<h3 id="8-2-2-共生矩阵的计算"><a href="#8-2-2-共生矩阵的计算" class="headerlink" title="8.2.2 共生矩阵的计算"></a>8.2.2 共生矩阵的计算</h3><p><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-65.png"> 公式(1)中d表示像素间隔，(k,l), (m,n)分别为原像素和偏移后的像素坐标，其中k,m为纵坐标，D为图像范围。 举例说明，假设原图像如图1.a所示 <img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-66.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-67.png"><img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-68.png"> 对1.b中蓝色字表示原像素灰度值，红字为偏移后像素灰度值。则对矩阵元素P0°,1 (0,0)表示1.a中在0°方向上（包括正和负方向）相距为1的(0,0)点对有两对，考虑正负方向的加倍效果，P0°,1 (0,0)&#x3D;4。同样由于公式(1)对距离d定义的双向性，使得灰度共生矩阵为对称矩阵。</p>
-<p>为了减小计算量，可将d定义为沿θ正方向。则(1)式变为 <img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-69.png"> 由1.a得到的新的灰度共生矩阵为 <img src="https://cdn.jujimeizuo.cn/blog/2021/06/image-70.png"></p>
+<h3 id="8-2-2-共生矩阵的计算"><a href="#8-2-2-共生矩阵的计算" class="headerlink" title="8.2.2 共生矩阵的计算"></a>8.2.2 共生矩阵的计算</h3><p><img src="/images/2021/06/image-65.png"> 公式(1)中d表示像素间隔，(k,l), (m,n)分别为原像素和偏移后的像素坐标，其中k,m为纵坐标，D为图像范围。 举例说明，假设原图像如图1.a所示 <img src="/images/2021/06/image-66.png"><img src="/images/2021/06/image-67.png"><img src="/images/2021/06/image-68.png"> 对1.b中蓝色字表示原像素灰度值，红字为偏移后像素灰度值。则对矩阵元素P0°,1 (0,0)表示1.a中在0°方向上（包括正和负方向）相距为1的(0,0)点对有两对，考虑正负方向的加倍效果，P0°,1 (0,0)&#x3D;4。同样由于公式(1)对距离d定义的双向性，使得灰度共生矩阵为对称矩阵。</p>
+<p>为了减小计算量，可将d定义为沿θ正方向。则(1)式变为 <img src="/images/2021/06/image-69.png"> 由1.a得到的新的灰度共生矩阵为 <img src="/images/2021/06/image-70.png"></p>
 <p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang8/">https://blog.jujimeizuo.cn/2021/06/20/shuzituxiang8/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
 
   </div>

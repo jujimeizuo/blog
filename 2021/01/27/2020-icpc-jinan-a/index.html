@@ -13,13 +13,13 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="传送门：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;10662&#x2F;A 题意设$A×C&#x3D;B⋅C，$求C的个数。 思路比赛的时候猜答案是2的幂次，确实没错，然后想解法是先求A的逆，最后答案为$C&#x3D;A^{-1}×B⋅C$，那么就意味着，$A^{-1}×B$这个结果，如果为0，那么可以去0或1，如果是1，那么只能取1，所以答案为$2^{0的个数}$,可是，A可">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2021/01/fangchengzu.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/01/fangchengzu.jpg">
 <meta property="article:published_time" content="2021-01-27T07:46:58.000Z">
-<meta property="article:modified_time" content="2024-05-27T12:47:07.687Z">
+<meta property="article:modified_time" content="2025-05-09T07:08:02.961Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2021/01/fangchengzu.jpg">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2021/01/fangchengzu.jpg">
     
     
       
@@ -189,7 +189,7 @@
 <h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>设$A×C&#x3D;B⋅C，$求C的个数。</p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>比赛的时候猜答案是2的幂次，确实没错，然后想解法是先求A的逆，最后答案为$C&#x3D;A^{-1}×B⋅C$，那么就意味着，$A^{-1}×B$这个结果，如果为0，那么可以去0或1，如果是1，那么只能取1，所以答案为$2^{0的个数}$,可是，A可能没有逆，所以这个方法是行不通的。</p>
 <p>先来观察式子：</p>
-<p><img src="https://cdn.jujimeizuo.cn/blog/2021/01/fangchengzu.jpg"></p>
+<p><img src="/images/2021/01/fangchengzu.jpg"></p>
 <p>所以每列都是相互独立的，所以我们求每列的种数，最后全部乘起来就好。</p>
 <p>由于这个矩阵乘法有一个要求，最后求得的要相加并\%2，这是什么？这不就是异或吗？</p>
 <p>那么答案是多少？每一列的种数是多少？答案就是上面每一个异或方程组的自由元的个数n-r，r为方程组的秩。每个值都可以取0或1，即答案为$2^{n-r}$。最后将所有列的种数相乘即可。</p>

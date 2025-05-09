@@ -13,14 +13,14 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="传送门：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;9925&#x2F;I 参考：https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_43750980&#x2F;article&#x2F;details&#x2F;111297783 题意有n个同心圆，圆心都为（0，0），半径依次递增1,2…n 有m条直线将这n个圆等分成2*m份，直线和圆会有交点。 一个交点走向另一个交点只能走有线">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2020/12/20201217202523462.png">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2020/12/.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/12/20201217202523462.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/12/.png">
 <meta property="article:published_time" content="2020-12-17T02:39:52.000Z">
-<meta property="article:modified_time" content="2024-04-01T11:19:02.709Z">
+<meta property="article:modified_time" content="2025-05-09T07:08:03.118Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2020/12/20201217202523462.png">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2020/12/20201217202523462.png">
     
     
       
@@ -193,10 +193,10 @@
 <h2 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h2><p>这题关键是一个点怎么走向另一个点，这很重要！ 首先猜测两个结论：</p>
 <ul>
 <li><p><strong>结论一：在同一圆上的两点，最短距离为min(两点最短弧长，圆的直径)。</strong></p>
-<p><img src="https://cdn.jujimeizuo.cn/blog/2020/12/20201217202523462.png"></p>
+<p><img src="/images/2020/12/20201217202523462.png"></p>
 </li>
 <li><p><strong>结论二：不同圆上的两点，外圆需要沿直径走向内圆的大一圈的外圆，再按照结论一走。</strong></p>
-<p><img src="https://cdn.jujimeizuo.cn/blog/2020/12/.png"></p>
+<p><img src="/images/2020/12/.png"></p>
 </li>
 </ul>
 <p>所以我们可以从小圆推到大圆，接下来就开始操作。</p>

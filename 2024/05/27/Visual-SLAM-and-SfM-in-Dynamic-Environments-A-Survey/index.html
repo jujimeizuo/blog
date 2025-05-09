@@ -13,19 +13,19 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="介绍 本文介绍 VSLAM 和 SfM 在动态环境下目前所有技术相关的综述。  回顾动态环境中的视觉定位和 3D 重建技术：  涵盖三个主要问题： 如何做好鲁棒 VSLAM 如何在 3D 中分割和跟踪动态物体 如何实现联合运动分割和重建   从两个角度来看： 作为一个鲁棒性问题：相机前的动态物体导致错误的对应关系（遮挡等），可以通过分割图像中静态和动态特征，将动态部分视为异常值来实现鲁棒性，只用静">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-1.jpg">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-2.jpg">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-3.jpg">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-4.jpg">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-5.jpg">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-6.jpg">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-7.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/05/VSLAM-SfM-Dynamic-1.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/05/VSLAM-SfM-Dynamic-2.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/05/VSLAM-SfM-Dynamic-3.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/05/VSLAM-SfM-Dynamic-4.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/05/VSLAM-SfM-Dynamic-5.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/05/VSLAM-SfM-Dynamic-6.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/05/VSLAM-SfM-Dynamic-7.jpg">
 <meta property="article:published_time" content="2024-05-27T01:03:02.000Z">
-<meta property="article:modified_time" content="2024-05-30T00:23:27.510Z">
+<meta property="article:modified_time" content="2025-05-09T07:08:03.075Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="3dCV">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-1.jpg">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2024/05/VSLAM-SfM-Dynamic-1.jpg">
     
     
       
@@ -255,12 +255,12 @@
 </ol>
 </li>
 </ul>
-<center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-1.jpg"></center>
+<center><img src="/images/2024/05/VSLAM-SfM-Dynamic-1.jpg"></center>
 
 <h2 id="鲁棒-VSLAM"><a href="#鲁棒-VSLAM" class="headerlink" title="鲁棒 VSLAM"></a>鲁棒 VSLAM</h2><blockquote>
 <p>如果仅基于静态特征计算姿态估计，就可以在动态环境中实现 Robust VSLAM。</p>
 </blockquote>
-<center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-2.jpg"></center>
+<center><img src="/images/2024/05/VSLAM-SfM-Dynamic-2.jpg"></center>
 
 <h3 id="运动分割"><a href="#运动分割" class="headerlink" title="运动分割"></a>运动分割</h3><blockquote>
 <p>将特征分为两个不同的组，即静态特征和动态特征，来检测图像中的动态部分。</p>
@@ -333,16 +333,16 @@
 <h2 id="动态物体分割与-3D-跟踪"><a href="#动态物体分割与-3D-跟踪" class="headerlink" title="动态物体分割与 3D 跟踪"></a>动态物体分割与 3D 跟踪</h2><blockquote>
 <p>动态对象分割和 3D 跟踪将特征对应关系基于其运动聚类到不同组中，并在 3D 中跟踪它们的轨迹。</p>
 </blockquote>
-<center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-3.jpg"></center>
+<center><img src="/images/2024/05/VSLAM-SfM-Dynamic-3.jpg"></center>
 
 <h3 id="动态物体分割"><a href="#动态物体分割" class="headerlink" title="动态物体分割"></a>动态物体分割</h3><blockquote>
 <p>动态物体分割将所有特征对应关系聚类为 n 个不同对象运动。另一个挑战是处理<strong>退化运动</strong>（当一个物体与相机运动在同一平面上且具有相同的方向和速度时）或<strong>相关运动</strong>（两个人一起移动，关节运动）。</p>
 </blockquote>
 <h4 id="统计模型选择"><a href="#统计模型选择" class="headerlink" title="统计模型选择"></a>统计模型选择</h4><p>用 <strong>RANSAC</strong> 或<strong>蒙特卡罗采样迭代</strong>下对数据的子集进行采样，并将运动模型拟合到采样数据中。改运动模型用于构建内点集，并将剩余数据排除为该模型的异常值。然后，对剩余数据（前一个模型的异常值）在此进行采样，以找到并拟合最能描述剩余数据的另一个模型。</p>
-<center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-4.jpg"></center>
+<center><img src="/images/2024/05/VSLAM-SfM-Dynamic-4.jpg"></center>
 
 <h4 id="子空间聚类"><a href="#子空间聚类" class="headerlink" title="子空间聚类"></a>子空间聚类</h4><p>许多高维数据可以用低维子空间的并集来表示。数据点的一个子空间可以由基向量和低维数据来表示。在子空间聚类框架下的 3D 运动分割问题基本上是找到与每个刚体运动相关联的每个单独子空间，并将数据拟合到这些子空间中。</p>
-<center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-5.jpg"></center>
+<center><img src="/images/2024/05/VSLAM-SfM-Dynamic-5.jpg"></center>
 
 <h4 id="几何"><a href="#几何" class="headerlink" title="几何"></a>几何</h4><p>几何方法将多视图几何的标准公式从静态场景扩展到包含独立运动物体的动态场景。虽然有一个基本矩阵描述相机相对于静态场景的一般运动，但在动态环境中，将会有 n 个基本矩阵来描述 n 个物体的运动，其中包括一个用于静态特征。</p>
 <ul>
@@ -361,13 +361,13 @@
 <li>假设三维点沿着一条未知的三维直线移动。然后重建问题就会变成寻找一条与来自 t 个视图的投影光线相交的三维直线的问题。t 至少是 5。因为来自三个视图的相交直线集会形成一个二次曲面，使得来自第四个视图的光线在两个点相交，此时第五个视图会得出唯一解。</li>
 <li>假设物体不是沿一条直线运动，而是在一个圆锥曲面上运动，则需要 9 个视图得到唯一解。如果圆锥类型已知，则只需要 7 个视图。</li>
 </ul>
-<center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-6.jpg"></center>
+<center><img src="/images/2024/05/VSLAM-SfM-Dynamic-6.jpg"></center>
 
 <h4 id="粒子滤波"><a href="#粒子滤波" class="headerlink" title="粒子滤波"></a>粒子滤波</h4><p>由于可观测性问题（观测者与目标之间的距离无法被观测到），使用单目相机在三维中跟踪运动物体的问题可以被视为仅方位跟踪（BOT）问题。单目相机可以被视为一个仅方位跟踪传感器，因为它只能提供关于运动物体上被跟踪特征点的方位信息（例如，前一帧和当前帧中观测到的特征相对于相机中心的角度）。对于仅方位跟踪问题，基于滤波器的方法是更可取的，因为它可以对观测者和目标的位置和速度的不确定性进行建模，并且作为目标运动分析问题。</p>
 <h2 id="联合运动分割与重建"><a href="#联合运动分割与重建" class="headerlink" title="联合运动分割与重建"></a>联合运动分割与重建</h2><blockquote>
 <p>不是将多刚体运动分割和动态物体的三维结构重建作为单独且顺序的任务来执行，因式分解可以同时完成。给定特征对应关系，动态物体分割和重建会产生分割特征的运动以及它们的三维结构。</p>
 </blockquote>
-<center><img src="https://cdn.jujimeizuo.cn/blog/2024/05/VSLAM-SfM-Dynamic-7.jpg"></center>
+<center><img src="/images/2024/05/VSLAM-SfM-Dynamic-7.jpg"></center>
 
 <h3 id="因式分解"><a href="#因式分解" class="headerlink" title="因式分解"></a>因式分解</h3><blockquote>
 <p>因式分解是 SfM 最突出的技术之一，可以同时解决分割和重建问题。定理：<strong>在静态场景的短序列中，一个测量矩阵，即包含所有通过所有帧跟踪的特征点的矩阵，最多为四阶（如果在欧式空间使用正交投影模型则为三阶）。</strong></p>

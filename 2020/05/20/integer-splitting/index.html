@@ -13,13 +13,13 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="首先来了解整数拆分的创始人——拉马努金。 这位是我数学上最佩服的几个大神之一，当然最佩服的还是欧拉，欧了～ 如果提前了解了离散数学里的集合划分知识，那下面内容会更加易懂。 问题描述： 有一个正整数n，可以拆分成最大数为m的的拆分方案，要求所有的方案都不重复。 例如n &#x3D; 4， m &#x3D; 4，拆分方案如下： 4 &#x3D; 4； 4 &#x3D; 1 + 3； 4 &#x3D;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jujimeizuo.cn/blog/2020/05/20200521150046435.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/05/20200521150046435.jpg">
 <meta property="article:published_time" content="2020-05-20T06:59:12.000Z">
-<meta property="article:modified_time" content="2024-04-01T11:19:01.715Z">
+<meta property="article:modified_time" content="2025-05-09T07:08:02.961Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jujimeizuo.cn/blog/2020/05/20200521150046435.jpg">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2020/05/20200521150046435.jpg">
     
     
       
@@ -198,7 +198,7 @@
 <li>n &gt; m； (1)n的划分包含m时，则f(n,m) &#x3D; f(n - m, m), 即{m, n1, n2,….}，其中n1 + n2 + …. &#x3D; n - m，其中可能还会出现m； (2)n的划分不包含m时，则f(n, m) &#x3D; f(n, m - 1); 即n &gt; m时，f(n, m) &#x3D; f(n, m - 1) + f(n - m, m)；</li>
 </ol>
 <p>流程图为：</p>
-<p><img src="https://cdn.jujimeizuo.cn/blog/2020/05/20200521150046435.jpg"></p>
+<p><img src="/images/2020/05/20200521150046435.jpg"></p>
 <h2 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">PartitionCount</span><span class="params">(ll n, ll m)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="number">1</span>  m == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(n &lt; m)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">PartitionCount</span>(n , n);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(n == m)</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">PartitionCount</span>(n , n - <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">PartitionCount</span>(n - m , m) + <span class="built_in">PartitionCount</span>(n , m - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>由于递归法可能会重复计算，耗时方面会巨大，所以就有下面的动态规划。</p>
