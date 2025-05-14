@@ -482,7 +482,7 @@ body {
   color: #383838;
   font-weight: 500;
   font-size: 17px;
-  font-family: 'Maple Mono NF', "LXGW Wenkai Screen", monospace;
+  font-family: 'Maple Mono NF CN', "LXGW Wenkai";
   line-height: 1.725;
   text-rendering: geometricPrecision;
   -moz-osx-font-smoothing: grayscale;
@@ -1413,7 +1413,7 @@ article .content .caption {
   font-display: swap;
   font-weight: 400;
   font-size: 13.600000000000001px;
-  font-family: 'Maple Mono NF', "LXGW Wenkai Screen", monospace;
+  font-family: 'Maple Mono NF CN', "LXGW Wenkai";
   line-height: 1.725;
   text-rendering: geometricPrecision;
   text-align: center;
@@ -1579,7 +1579,7 @@ pre {
   border: 1px dotted #666;
   border-radius: 4px;
   font-size: 13px;
-  font-family: 'Maple Mono NF', "LXGW Wenkai Screen", monospace;
+  font-family: 'Maple Mono NF CN', "LXGW Wenkai";
   line-height: 22px;
   -webkit-border-radius: 4px;
 }
@@ -1600,7 +1600,7 @@ code {
   padding: 10px 15px;
   border-radius: 4px;
   background: #fafafa;
-  font-family: 'Maple Mono NF', "LXGW Wenkai Screen", monospace;
+  font-family: 'Maple Mono NF CN', "LXGW Wenkai";
   -webkit-border-radius: 4px;
 }
 .highlight figcaption {
