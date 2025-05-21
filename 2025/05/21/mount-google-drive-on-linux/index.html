@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="想要让 Google Drive 在 Linux 上自动挂载，而 Google Drive 的官方客户端不支持 Linux 系统，这里使用第三方工具 google-drive-ocamlfuse。  google-drive-ocamlfuse123sudo add-apt-repository ppa:alessandro-strada&#x2F;ppasudo apt-get updatesudo a">
+    <meta name="description" content="想要让 Google Drive 在 Linux 上自动挂载，而 Google Drive 的官方客户端不支持 Linux 系统，这里使用第三方工具 rclone 和 google-drive-ocamlfuse。  Google API &amp; OAuth2 Check Reference for more details. Create Google API project Create">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mount-google-drive-on-linux">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
-<meta property="og:description" content="想要让 Google Drive 在 Linux 上自动挂载，而 Google Drive 的官方客户端不支持 Linux 系统，这里使用第三方工具 google-drive-ocamlfuse。  google-drive-ocamlfuse123sudo add-apt-repository ppa:alessandro-strada&#x2F;ppasudo apt-get updatesudo a">
+<meta property="og:description" content="想要让 Google Drive 在 Linux 上自动挂载，而 Google Drive 的官方客户端不支持 Linux 系统，这里使用第三方工具 rclone 和 google-drive-ocamlfuse。  Google API &amp; OAuth2 Check Reference for more details. Create Google API project Create">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-05-21T12:09:52.000Z">
-<meta property="article:modified_time" content="2025-05-21T12:37:40.987Z">
+<meta property="article:modified_time" content="2025-05-21T13:24:17.228Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -136,7 +136,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#google-drive-ocamlfuse"><span class="toc-number">1.</span> <span class="toc-text">google-drive-ocamlfuse</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Google-API-OAuth2"><span class="toc-number">2.</span> <span class="toc-text">Google API &amp; OAuth2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount"><span class="toc-number">3.</span> <span class="toc-text">mount</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FAQ"><span class="toc-number">4.</span> <span class="toc-text">FAQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Google-API-OAuth2"><span class="toc-number">1.</span> <span class="toc-text">Google API &amp; OAuth2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rclone"><span class="toc-number">2.</span> <span class="toc-text">rclone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#install"><span class="toc-number">2.1.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exec"><span class="toc-number">2.2.</span> <span class="toc-text">exec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FAQ"><span class="toc-number">2.3.</span> <span class="toc-text">FAQ</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#google-drive-ocamlfuse"><span class="toc-number">3.</span> <span class="toc-text">google-drive-ocamlfuse</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#install-1"><span class="toc-number">3.1.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mount"><span class="toc-number">3.2.</span> <span class="toc-text">mount</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FAQ-1"><span class="toc-number">3.3.</span> <span class="toc-text">FAQ</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
       </div>
     
   </span>
@@ -182,10 +182,8 @@
 
   <div class="content e-content" itemprop="articleBody">
     <blockquote>
-<p>想要让 Google Drive 在 Linux 上自动挂载，而 Google Drive 的官方客户端不支持 Linux 系统，这里使用第三方工具 <code>google-drive-ocamlfuse</code>。</p>
+<p>想要让 Google Drive 在 Linux 上自动挂载，而 Google Drive 的官方客户端不支持 Linux 系统，这里使用第三方工具 <code>rclone</code> 和 <code>google-drive-ocamlfuse</code>。</p>
 </blockquote>
-<h2 id="google-drive-ocamlfuse"><a href="#google-drive-ocamlfuse" class="headerlink" title="google-drive-ocamlfuse"></a>google-drive-ocamlfuse</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:alessandro-strada/ppa</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install google-drive-ocamlfuse</span><br></pre></td></tr></table></figure>
-
 <h2 id="Google-API-OAuth2"><a href="#Google-API-OAuth2" class="headerlink" title="Google API &amp; OAuth2"></a>Google API &amp; OAuth2</h2><ol start="0">
 <li>Check <strong>Reference</strong> for more details.</li>
 <li>Create Google API project</li>
@@ -196,14 +194,23 @@
 </li>
 <li>Add users in OAuth Users in Test (7 days) or <strong>Publish App</strong></li>
 </ol>
-<h2 id="mount"><a href="#mount" class="headerlink" title="mount"></a>mount</h2><ul>
+<h2 id="rclone"><a href="#rclone" class="headerlink" title="rclone"></a>rclone</h2><h3 id="install"><a href="#install" class="headerlink" title="install"></a>install</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip</span><br><span class="line">unzip rclone-current-linux-amd64.zip</span><br><span class="line"><span class="built_in">cd</span> rclone-*-linux-amd64</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">cp</span> rclone /usr/bin/</span><br><span class="line">sudo <span class="built_in">chown</span> root:root /usr/bin/rclone</span><br><span class="line">sudo <span class="built_in">chmod</span> 755 /usr/bin/rclone</span><br><span class="line"></span><br><span class="line">sudo <span class="built_in">mkdir</span> -p /usr/local/share/man/man1</span><br><span class="line">sudo <span class="built_in">cp</span> rclone.1 /usr/local/share/man/man1/</span><br><span class="line">sudo mandb</span><br></pre></td></tr></table></figure>
+
+<h3 id="exec"><a href="#exec" class="headerlink" title="exec"></a>exec</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rclone config</span><br></pre></td></tr></table></figure>
+
+<h3 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h3><ul>
+<li>fusermount: option allow_other only allowed if ‘user_allow_other’ is set in&#x2F;etc&#x2F;fuse.conf  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/fuse.conf <span class="comment"># add `user_allow_other`</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="google-drive-ocamlfuse"><a href="#google-drive-ocamlfuse" class="headerlink" title="google-drive-ocamlfuse"></a>google-drive-ocamlfuse</h2><h3 id="install-1"><a href="#install-1" class="headerlink" title="install"></a>install</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:alessandro-strada/ppa</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install google-drive-ocamlfuse</span><br></pre></td></tr></table></figure>
+
+<h3 id="mount"><a href="#mount" class="headerlink" title="mount"></a>mount</h3><ul>
 <li>exec below command to get <code>verification_code</code>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">google-drive-ocamlfuse -debug -headless -<span class="built_in">id</span> `client_id` -secret `client_secret`</span><br></pre></td></tr></table></figure></li>
 <li>write <code>verification_code</code> in <code>~/.gdfuse/default/config</code></li>
 <li>create mountpoint: <code>mkdir ~/GoogleDrive</code></li>
 <li>mount: <code>google-drive-ocamlfuse ~/GoogleDrive</code></li>
 <li>check via <code>df -h</code></li>
 </ul>
-<h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ul>
+<h3 id="FAQ-1"><a href="#FAQ-1" class="headerlink" title="FAQ"></a>FAQ</h3><ul>
 <li>ls: cannot access ‘GoogleDrive’: Input&#x2F;output error  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fusermount -u ~/GoogleDrive</span><br></pre></td></tr></table></figure></li>
 <li>ls: cannot access ‘GoogleDrive’: Transport endpoint is not connected  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fusermount -u ~/GoogleDrive</span><br></pre></td></tr></table></figure></li>
 <li>SOCKS5 Connect Timeout  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> https_proxy=http://127.0.0.1:7890</span><br><span class="line"><span class="built_in">export</span> http_proxy=http://127.0.0.1:7890</span><br></pre></td></tr></table></figure></li>
@@ -217,6 +224,10 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/astrada/google-drive-ocamlfuse/issues/624">Request timeout #624</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/aliyun/ossfs/issues/40">运行一段时间后ls挂载目录出现Transport endpoint is not connected错误 #40</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/astrada/google-drive-ocamlfuse/issues/474">CURLE_OPERATION_TIMEOUTED, ErrorBuffer: Resolving timed out after 5514 milliseconds during initial setup #474</a></li>
+<li><a target="_blank" rel="noopener" href="https://rclone.org/install/">rclone install</a></li>
+<li><a target="_blank" rel="noopener" href="https://worktile.com/kb/ask/1051836.html">服务器如何挂载googledrive</a></li>
+<li>[<a target="_blank" rel="noopener" href="https://github.com/rclone/rclone/issues/6844]">https://github.com/rclone/rclone/issues/6844]</a>(VolumeDriver.Mount: failed to mount FUSE fs: fusermount: exec: “fusermount3”: executable file not found in $PATH #6844)</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/one312/article/details/104588607">fusermount: option allow_other only allowed if ‘user_allow_other’ is set in&#x2F;etc&#x2F;fuse.conf</a></li>
 </ul>
 <p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/">https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
 
@@ -266,7 +277,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#google-drive-ocamlfuse"><span class="toc-number">1.</span> <span class="toc-text">google-drive-ocamlfuse</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Google-API-OAuth2"><span class="toc-number">2.</span> <span class="toc-text">Google API &amp; OAuth2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mount"><span class="toc-number">3.</span> <span class="toc-text">mount</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FAQ"><span class="toc-number">4.</span> <span class="toc-text">FAQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">5.</span> <span class="toc-text">Reference</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Google-API-OAuth2"><span class="toc-number">1.</span> <span class="toc-text">Google API &amp; OAuth2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rclone"><span class="toc-number">2.</span> <span class="toc-text">rclone</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#install"><span class="toc-number">2.1.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exec"><span class="toc-number">2.2.</span> <span class="toc-text">exec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FAQ"><span class="toc-number">2.3.</span> <span class="toc-text">FAQ</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#google-drive-ocamlfuse"><span class="toc-number">3.</span> <span class="toc-text">google-drive-ocamlfuse</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#install-1"><span class="toc-number">3.1.</span> <span class="toc-text">install</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mount"><span class="toc-number">3.2.</span> <span class="toc-text">mount</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FAQ-1"><span class="toc-number">3.3.</span> <span class="toc-text">FAQ</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">4.</span> <span class="toc-text">Reference</span></a></li></ol>
       </div>
     
 
