@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="想要让 Google Drive 在 Linux 上自动挂载，而 Google Drive 的官方客户端不支持 Linux 系统，这里使用第三方工具 rclone 和 google-drive-ocamlfuse。  Google API &amp; OAuth2 Check Reference for more details. Create Google API project Create">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mount-google-drive-on-linux">
+<meta property="og:title" content="Mount Google Drive on Linux">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="想要让 Google Drive 在 Linux 上自动挂载，而 Google Drive 的官方客户端不支持 Linux 系统，这里使用第三方工具 rclone 和 google-drive-ocamlfuse。  Google API &amp; OAuth2 Check Reference for more details. Create Google API project Create">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-05-21T12:09:52.000Z">
-<meta property="article:modified_time" content="2025-05-21T13:24:17.228Z">
+<meta property="article:modified_time" content="2025-05-26T08:48:35.025Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
       
     
     <!-- title -->
-    <title>mount-google-drive-on-linux</title>
+    <title>Mount Google Drive on Linux</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -120,16 +120,16 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&text=mount-google-drive-on-linux"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=mount-google-drive-on-linux"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&is_video=false&description=mount-google-drive-on-linux"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=mount-google-drive-on-linux&body=Check out this article: https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=mount-google-drive-on-linux"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=mount-google-drive-on-linux"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=mount-google-drive-on-linux"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=mount-google-drive-on-linux"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&name=mount-google-drive-on-linux&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&t=mount-google-drive-on-linux"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&text=Mount Google Drive on Linux"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=Mount Google Drive on Linux"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&is_video=false&description=Mount Google Drive on Linux"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Mount Google Drive on Linux&body=Check out this article: https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=Mount Google Drive on Linux"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=Mount Google Drive on Linux"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=Mount Google Drive on Linux"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=Mount Google Drive on Linux"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&name=Mount Google Drive on Linux&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&t=Mount Google Drive on Linux"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -149,7 +149,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        mount-google-drive-on-linux
+        Mount Google Drive on Linux
     </h1>
 
 
@@ -226,7 +226,7 @@
 <li><a target="_blank" rel="noopener" href="https://github.com/astrada/google-drive-ocamlfuse/issues/474">CURLE_OPERATION_TIMEOUTED, ErrorBuffer: Resolving timed out after 5514 milliseconds during initial setup #474</a></li>
 <li><a target="_blank" rel="noopener" href="https://rclone.org/install/">rclone install</a></li>
 <li><a target="_blank" rel="noopener" href="https://worktile.com/kb/ask/1051836.html">服务器如何挂载googledrive</a></li>
-<li>[<a target="_blank" rel="noopener" href="https://github.com/rclone/rclone/issues/6844]">https://github.com/rclone/rclone/issues/6844]</a>(VolumeDriver.Mount: failed to mount FUSE fs: fusermount: exec: “fusermount3”: executable file not found in $PATH #6844)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/rclone/rclone/issues/6844">VolumeDriver.Mount: failed to mount FUSE fs: fusermount: exec: “fusermount3”: executable file not found in $PATH #6844</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/one312/article/details/104588607">fusermount: option allow_other only allowed if ‘user_allow_other’ is set in&#x2F;etc&#x2F;fuse.conf</a></li>
 </ul>
 <p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/">https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
@@ -284,16 +284,16 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&text=mount-google-drive-on-linux"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=mount-google-drive-on-linux"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&is_video=false&description=mount-google-drive-on-linux"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=mount-google-drive-on-linux&body=Check out this article: https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=mount-google-drive-on-linux"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=mount-google-drive-on-linux"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=mount-google-drive-on-linux"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=mount-google-drive-on-linux"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&name=mount-google-drive-on-linux&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&t=mount-google-drive-on-linux"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&text=Mount Google Drive on Linux"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=Mount Google Drive on Linux"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&is_video=false&description=Mount Google Drive on Linux"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Mount Google Drive on Linux&body=Check out this article: https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=Mount Google Drive on Linux"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=Mount Google Drive on Linux"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=Mount Google Drive on Linux"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&title=Mount Google Drive on Linux"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&name=Mount Google Drive on Linux&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/05/21/mount-google-drive-on-linux/&t=Mount Google Drive on Linux"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="传送门：https:&#x2F;&#x2F;codeforces.ml&#x2F;contest&#x2F;1263&#x2F;problem&#x2F;F 题意给两棵树，一颗在上面，另一颗在下面，两棵树的叶子节点都连接着一台机器。 问，最多删掉多少条边，每个机器都至少存在一条路径到达两个根节点1中的一个。 思路考虑dp，设dp[i]表示前i个机器通电的最大删除边数。 设val[0&#x2F;1][L][R]表示上&#x2F;下树中区间[L,R]最大删除边">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Codeforces Round">
+<meta property="og:title" content="Codeforces Round 603 Div2 F">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="传送门：https:&#x2F;&#x2F;codeforces.ml&#x2F;contest&#x2F;1263&#x2F;problem&#x2F;F 题意给两棵树，一颗在上面，另一颗在下面，两棵树的叶子节点都连接着一台机器。 问，最多删掉多少条边，每个机器都至少存在一条路径到达两个根节点1中的一个。 思路考虑dp，设dp[i]表示前i个机器通电的最大删除边数。 设val[0&#x2F;1][L][R]表示上&#x2F;下树中区间[L,R]最大删除边">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-12T05:57:52.000Z">
-<meta property="article:modified_time" content="2024-04-01T11:19:02.709Z">
+<meta property="article:modified_time" content="2025-05-26T08:32:11.143Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
       
     
     <!-- title -->
-    <title>Codeforces Round</title>
+    <title>Codeforces Round 603 Div2 F</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -122,16 +122,16 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&text=Codeforces Round"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&is_video=false&description=Codeforces Round"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Codeforces Round&body=Check out this article: https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&name=Codeforces Round&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&t=Codeforces Round"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&text=Codeforces Round 603 Div2 F"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round 603 Div2 F"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&is_video=false&description=Codeforces Round 603 Div2 F"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Codeforces Round 603 Div2 F&body=Check out this article: https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round 603 Div2 F"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round 603 Div2 F"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round 603 Div2 F"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round 603 Div2 F"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&name=Codeforces Round 603 Div2 F&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&t=Codeforces Round 603 Div2 F"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -151,7 +151,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        Codeforces Round
+        Codeforces Round 603 Div2 F
     </h1>
 
 
@@ -248,16 +248,16 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&text=Codeforces Round"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&is_video=false&description=Codeforces Round"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Codeforces Round&body=Check out this article: https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&name=Codeforces Round&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&t=Codeforces Round"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&text=Codeforces Round 603 Div2 F"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round 603 Div2 F"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&is_video=false&description=Codeforces Round 603 Div2 F"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Codeforces Round 603 Div2 F&body=Check out this article: https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round 603 Div2 F"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round 603 Div2 F"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round 603 Div2 F"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&title=Codeforces Round 603 Div2 F"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&name=Codeforces Round 603 Div2 F&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2021/03/12/codeforces-round-603-div-2-f/&t=Codeforces Round 603 Div2 F"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
