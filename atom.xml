@@ -6,7 +6,7 @@
   <link href="https://blog.jujimeizuo.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.jujimeizuo.cn/"/>
-  <updated>2025-05-26T08:48:35.025Z</updated>
+  <updated>2025-07-24T05:40:35.527Z</updated>
   <id>https://blog.jujimeizuo.cn/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MDPI @ Submit and Review</title>
+    <link href="https://blog.jujimeizuo.cn/2025/07/23/mdpi-at-submit-and-review/"/>
+    <id>https://blog.jujimeizuo.cn/2025/07/23/mdpi-at-submit-and-review/</id>
+    <published>2025-07-23T05:37:04.000Z</published>
+    <updated>2025-07-24T05:40:35.527Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>导师突然让我审稿，我还从未有过了解，故此熟悉一遍流程（包括投稿和审稿），记录在此。</p></blockquote><h2 id="Submit"><a href="#Submit" class="headerlink" title="Submit"></a>Submit</h2><h3 id="Submitted-Pending-Review"><a href="#Submitted-Pending-Review" class="headerlink" title="Submitted &amp; Pending Review"></a>Submitted &amp; Pending Review</h3><p>提交初稿，可以用 Word 或 Latex 格式，并附上 Cover Letter，按照标准的格式书写（第一段礼貌说明来意及标题作者，第二段简要介绍内容，第三段为书信结尾，下方写明联系方式，并且可以附上自己推荐的审稿人）。提交后稿件便会转入 Pengding Review 状态，此时稿件会进入内审阶段，内审合格后才会发外审。</p><h3 id="Under-Review"><a href="#Under-Review" class="headerlink" title="Under Review"></a>Under Review</h3><p>内审通过后，会收到分配 Assistant Editor 的邮件，稿件状态变为 Under Review，文章会被发给 2-4 个审稿人进行外审。有任何疑问都可以给 Assistant Editor 发邮件询问。</p><h3 id="Pending-Major-Revision"><a href="#Pending-Major-Revision" class="headerlink" title="Pending Major Revision"></a>Pending Major Revision</h3><p>审稿人会给出大修、小修或直接拒稿的意见。大修和小修的稿件会被退回给作者，作者需要按照审稿人的意见进行修改，并在规定时间内重新提交。</p><ul><li>大修：10 天内返回修订的版本，再次发送给审稿人。</li><li>小修：5 天内返回修订的版本，直接由 Academic Editor 决定是否录用。</li><li>时间不够可以申请延期。</li></ul><h3 id="Resubmitted-Revised-Version-Review"><a href="#Resubmitted-Revised-Version-Review" class="headerlink" title="Resubmitted &amp; Revised Version Review"></a>Resubmitted &amp; Revised Version Review</h3><p>针对审稿人意见进行修订。</p><h3 id="Pending-Editor-Decision"><a href="#Pending-Editor-Decision" class="headerlink" title="Pending Editor Decision"></a>Pending Editor Decision</h3><p>收到 “I accept in current form”，文章状态变成 Pending Editor Decision，等待 Academic Editor 决定是否接受发表。</p><h3 id="Paper-Accepted-APC-Confirm"><a href="#Paper-Accepted-APC-Confirm" class="headerlink" title="Paper Accepted &amp; APC Confirm"></a>Paper Accepted &amp; APC Confirm</h3><p>文章接收，会给一个 PDF 奖状，然后生成一个 invoice 进行付费。</p><h3 id="Pending-English"><a href="#Pending-English" class="headerlink" title="Pending English"></a>Pending English</h3><p>接收当天会发完英文修正，由 English Editor 进行润色。</p><h3 id="English-Correction-Done"><a href="#English-Correction-Done" class="headerlink" title="English Correction Done"></a>English Correction Done</h3><p>英文修正完成后，稿件返回 Production Editor 进行检查。</p><h3 id="Author-Profreading"><a href="#Author-Profreading" class="headerlink" title="Author Profreading"></a>Author Profreading</h3><p>Profreading 的邮件由 Production Editor 发出，要求 24 小时内返回稿件。会提出一些图片排版、格式的问题，还有一些可能涉及争议的内容需要确认。开启审阅模式，在Word的批注中逐一对编辑的批注进行回复或修订即可。此时可以向其中添加致谢、支持基金等内容。在这一步也要细致检查文章中是否存在书写错误的地方，这是最后一次较为简单的修改机会了。</p><h3 id="Author-Profreading-Resubmitted"><a href="#Author-Profreading-Resubmitted" class="headerlink" title="Author Profreading Resubmitted"></a>Author Profreading Resubmitted</h3><p>准备好文档、图片压缩包以及附件，此处不需要Cover Letter，直接提交即可。</p><h3 id="xml2pdf-Done"><a href="#xml2pdf-Done" class="headerlink" title="xml2pdf Done"></a>xml2pdf Done</h3><p>XML转换为PDF完成，进入待发表状态。</p><h3 id="Web-Online"><a href="#Web-Online" class="headerlink" title="Web Online"></a>Web Online</h3><p>正式发表，此时便会分配doi号，但需要大约5天时间才会注册成功并生效。</p><h2 id="Review"><a href="#Review" class="headerlink" title="Review"></a>Review</h2><ul><li>当收到审稿邀请时，通常会收到一封邮件，内容包括期刊名称、文章标题、审稿截止日期等信息。你需要在邮件中点击链接确认是否接受审稿邀请。</li></ul><center><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2025/07/mdpi-at-submit-and-review-1.png"></center><ul><li>如果接受审稿，那么接下来会给你完整的文章PDF和一些相关信息。</li><li>看完文章之后，需要给出审稿报告和稿件评分，如何撰写优秀的同行评审报告。</li></ul><h3 id="Review-Reports"><a href="#Review-Reports" class="headerlink" title="Review Reports"></a>Review Reports</h3><ul><li>阅读整篇文章以及任何补充材料（如果有的话），密切关注图表、表格、数据和方法。</li><li>你的报告应从整体上对文章进行批判性分析，同时也要对文章中的特定章节和关键概念进行分析。</li><li>请确保您的评论详细具体，以便作者能够正确理解并回应您提出的要点。</li><li>审稿人在并非明显需要提高所审稿件质量的情况下，不得推荐引用自己、关系密切的同事、其他作者或该期刊的作品。</li><li>审稿人不得建议过度引用其本人的作品（自引）、其他作者的作品（荣誉性引用）或投稿期刊的文章，以此增加审稿人&#x2F;作者&#x2F;期刊的引用量。你可按需提供参考文献，但这些文献必须切实提高所审稿件的质量。</li><li>请保持中立的语气，专注于提供建设性的批评意见，以帮助作者改进他们的作品。贬损性的评论将不被容忍。</li><li>审稿人在撰写评审报告时不应使用生成式人工智能工具和其他大语言模型（LLMs）。审稿人对其报告内容负全部责任，使用这些工具可能会侵犯保密权、所有权和数据隐私权。为提高同行评审报告的书面质量而进行的有限使用，例如纠正语法、结构、拼写、标点和格式，可能是可以接受的，但应在提交同行评审报告时予以披露。在任何情况下，审稿人都不应将稿件（全部或部分）、图片、图表、表格或与未发表稿件相关的任何通信上传到任何生成式人工智能工具，因为这样做违反了MDPI与同行评审相关的保密政策。如果确定在撰写评审报告时不当使用了人工智能工具，该报告将被废弃。</li><li>评审报告应包含以下内容：<ul><li><strong>A brief summary</strong> <strong>简要概述</strong>（一小段），概述论文的目的、主要贡献和优势。</li><li><strong>General concept comments</strong><ul><li><strong>Article 文章</strong>：突出薄弱环节、假设的可测试性、方法上的不准确之处、缺少控制变量等。</li><li><strong>Review 评审</strong>：对所涵盖评审主题的完整性、评审主题的相关性、已确定的知识差距、参考文献的恰当性等进行评论。</li><li><strong>Specific comments 具体评论</strong>：需提及行号、表格或图表，指出文本中不准确之处或表意不明的句子。这些评论也应聚焦于科学内容，而非拼写、格式或英语语言问题，因为这些问题后期可由我们内部人员处理。</li></ul></li></ul></li></ul><h3 id="Rating-the-Manuscript"><a href="#Rating-the-Manuscript" class="headerlink" title="Rating the Manuscript"></a>Rating the Manuscript</h3><ul><li>新颖性： 该问题是否具有原创性且定义明确？研究结果是否推动了现有知识的进步？</li><li>范围：该研究是否符合期刊范围*？</li><li>重要性： 结果的解读是否恰当？结果是否具有显著性？所有结论是否合理且有结果支撑？假设是否被谨慎识别？</li><li>质量：文章的撰写方式是否恰当？所呈现的数据和分析是否恰当？是否采用了展示结果的最高标准？</li><li>科学可靠性： 研究设计是否正确且技术上可靠？分析是否采用了最高技术标准？数据是否足够可靠以得出结论？方法、工具、软件和试剂的描述是否足够详细，以便其他研究人员重现结果？原始数据是否可用且正确（如适用）？</li><li>对读者的吸引力： 研究结论是否能引起本刊读者的兴趣？该论文会吸引广泛的读者，还是仅对少数人有吸引力？（请参阅本刊的宗旨和范围。）</li><li>总体价值： 发表这项工作是否有整体益处？该工作是否推动了当前知识的发展？作者是否通过巧妙的实验解决了一个重要的长期存在的问题？作者是否展示了一个有效科学假设的负面结果？</li><li>英语水平： 英语表述是否恰当且易于理解？</li></ul><h3 id="Overall-Recommendation"><a href="#Overall-Recommendation" class="headerlink" title="Overall Recommendation"></a>Overall Recommendation</h3><ul><li>Accept after Minor Revisions（以当前形式录用）：该论文无需任何进一步修改即可录用。</li><li>Reconsider after Major Revisions（小修后接受）：根据审稿人的意见，论文原则上修改后可以接受。作者有五天时间进行小修。</li><li>Reconsider after Major Revisions（大修后重新考虑）：稿件是否被接受将取决于修改情况。作者需逐点回复，如果无法修改审稿人的某些意见，则需提供反驳理由。通常每篇稿件最多可进行两轮大修。作者将被要求在十天内重新提交修改后的论文，修改版本将返回给审稿人以获取进一步意见。</li><li>Reject（拒稿）：文章存在严重缺陷，无原创性贡献，论文可能会被拒稿，且不允许重新投稿至本刊。</li></ul><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="https://www.mdpi.com/reviewers">MDPI审稿人指南</a></li><li><a href="https://luotianyi.vc/7398.html">【MDPI】Applied Sciences期刊投稿小记</a></li><li><a href="https://www.zhihu.com/question/384813035">请评价一下MDPI旗下的期刊质量如何?</a></li><li><a href="https://news.sciencenet.cn/htmlpaper/2022/1/202212120454847169567.shtm">25年同行评审经验告诉我们：审稿报告这样写 | MDPI 干货分享</a></li><li><a href="https://zhuanlan.zhihu.com/p/606868469">新手入门？请查收这些同行评审注意事项 | MDPI 干货分享</a></li></ul><p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2025/07/23/mdpi-at-submit-and-review/">https://blog.jujimeizuo.cn/2025/07/23/mdpi-at-submit-and-review/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;导师突然让我审稿，我还从未有过了解，故此熟悉一遍流程（包括投稿和审稿），记录在此。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;Submit&quot;&gt;&lt;a href=&quot;#Submit&quot; class=&quot;headerlink&quot; title=&quot;Subm</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Mount Google Drive on Linux</title>
@@ -464,29 +487,6 @@
     
     
     <category term="linux" scheme="https://blog.jujimeizuo.cn/tags/linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>利用 iOS 的快捷指令配合 GitHub Actions 实现自动化</title>
-    <link href="https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/"/>
-    <id>https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/</id>
-    <published>2023-10-06T15:25:27.000Z</published>
-    <updated>2025-05-09T07:12:20.804Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="为什么需要通过快捷指令实现自动化"><a href="#为什么需要通过快捷指令实现自动化" class="headerlink" title="为什么需要通过快捷指令实现自动化"></a>为什么需要通过快捷指令实现自动化</h2><ul><li>最初的 Github Actions 需要 crontab 来定时进行自动化，这样做不仅消耗过多资源，而且在完成某个任务时不会立即获取新生成的数据。</li><li>如果我可以完成某个特定动作，例如关闭闹钟、充电、关闭 APP 时自动进行 Actions时，这样做非常高效，方法是可以利用快捷指令触发 Actions 同步数据</li><li>下面拿跑步举例，一般会用 app（我用的是 keep）来记录跑步数据，实现的操作是当关闭 keep 时会自动进行 Actions，更新数据</li></ul><h2 id="如何触发-Actions"><a href="#如何触发-Actions" class="headerlink" title="如何触发 Actions"></a>如何触发 Actions</h2><ul><li><p>首先在 yml 文件中增加 <code>workflow_dispatch</code>: 可以手动触发</p><p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/10/workflow_dispatch.jpg" alt="srcworkflow_dispatch"></p></li><li><p>先拿到这个项目的 actions id (需要自行申请 token)</p><ul><li><p>在个人的 settings 中申请 项目的token，然后在项目里的 Secrets and variables 里的 Actions 设置密钥，内容为刚刚申请的 token</p></li><li><p>执行下面代码获取 actionid</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://api.github.com/repos/jujimeizuo/running_page/actions/workflows -H &quot;Authorization: token d8xxxxxxxxxx&quot; ## change to your config</span><br></pre></td></tr></table></figure></li></ul><p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/10/get-action-id.jpg" alt="get-action-id"></p></li><li><p>拿到 action id 就可以利用 api post 触发 action 啦</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Content-Type:application/json&quot; -X POST -d &#x27;&#123;&quot;inputs&quot;: &#123;&#125;, &quot;ref&quot;:&quot;master&quot;&#125;&#x27; https://api.github.com/repos/jujimeizu/running_page/actions/workflows/: $&#123;actionid&#125;/dispatches -H &quot;Authorization: token d8e03d6xxxxxxxxxxxx&quot;  ## change to your config</span><br></pre></td></tr></table></figure></li></ul><h2 id="结合快捷指令"><a href="#结合快捷指令" class="headerlink" title="结合快捷指令"></a>结合快捷指令</h2><h3 id="快捷指令"><a href="#快捷指令" class="headerlink" title="快捷指令"></a>快捷指令</h3><ul><li>通过 icloud 获取 <a href="https://www.icloud.com/shortcuts/4a5807a98b9a4e359815ff179c62bacb">running-page-template</a></li><li>修改下面图片中字典的值即可</li></ul><p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/10/running-page-template.jpg" alt="running-page-template"></p><h3 id="自动化"><a href="#自动化" class="headerlink" title="自动化"></a>自动化</h3><p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/10/new-automation.png" alt="new-automation"> <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/10/select-close.png" alt="select-close"></p><p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/10/select-shortcut.png" alt="select-shortcut"> <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/10/finish-automation.png" alt="finish-automation"></p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul><li>可以通过关闭闹钟来同步自己的起床记录——这也是 yihong 大神写的</li><li>可以利用一个 action 触发另一个项目的 action，实现另一个 repo 的更新</li><li>…</li></ul><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="https://github.com/yihong0618/gitblog/issues/198">yihong0618 大神</a></li></ul><p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/">https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;为什么需要通过快捷指令实现自动化&quot;&gt;&lt;a href=&quot;#为什么需要通过快捷指令实现自动化&quot; class=&quot;headerlink&quot; title=&quot;为什么需要通过快捷指令实现自动化&quot;&gt;&lt;/a&gt;为什么需要通过快捷指令实现自动化&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;最初的 Gith</summary>
-      
-    
-    
-    
-    
-    <category term="utils" scheme="https://blog.jujimeizuo.cn/tags/utils/"/>
     
   </entry>
   
