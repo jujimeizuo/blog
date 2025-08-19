@@ -6,7 +6,7 @@
   <link href="https://blog.jujimeizuo.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.jujimeizuo.cn/"/>
-  <updated>2025-07-24T05:40:35.527Z</updated>
+  <updated>2025-08-19T08:17:08.071Z</updated>
   <id>https://blog.jujimeizuo.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SE(3)-Sim(3)-SL(4)-Projective Ambiguity</title>
+    <link href="https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/"/>
+    <id>https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/</id>
+    <published>2025-08-19T07:53:06.000Z</published>
+    <updated>2025-08-19T08:17:08.071Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="SE-3-Sim-3-SL-4"><a href="#SE-3-Sim-3-SL-4" class="headerlink" title="SE(3)-Sim(3)-SL(4)"></a>SE(3)-Sim(3)-SL(4)</h2><table><thead><tr><th align="center">特性</th><th align="center">SE(3)</th><th align="center">Sim(3)</th><th align="center">SL(4)</th></tr></thead><tbody><tr><td align="center">变换类型</td><td align="center">刚体变换 (旋转+平移)</td><td align="center">相似变换 (旋转+平移+均匀缩放)</td><td align="center">射影变换 (非线性，行列式为1)</td></tr><tr><td align="center">距离</td><td align="center">保持</td><td align="center">不保持 (按比例改变)</td><td align="center">不保持</td></tr><tr><td align="center">角度</td><td align="center">保持</td><td align="center">保持</td><td align="center">不保持</td></tr><tr><td align="center">形状</td><td align="center">保持</td><td align="center">保持</td><td align="center">不保持 (可能扭曲)</td></tr><tr><td align="center">行列式</td><td align="center">1</td><td align="center">$\lambda^3$, 其中 $\lambda$ 为缩放因子</td><td align="center">1</td></tr></tbody></table><h2 id="Projective-Ambiguity"><a href="#Projective-Ambiguity" class="headerlink" title="Projective Ambiguity"></a>Projective Ambiguity</h2><p>VGGT-SLAM 中指出，投影模糊会导致 Sim(3) 不足以对齐子地图，因为当使用未标定相机时，VGGT 的前馈特性会引入投影歧义——这种歧义除了包含Sim(3)的自由度外，还涉及剪切、拉伸和透视自由度，尤其在帧间视差较小时更为明显。仅靠相似变换无法完全消除这种歧义。</p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="https://www.cnblogs.com/code-fun/p/16839467.html">Sim3和Se3</a></li><li><a href="https://immortalqx.github.io/2025/05/29/paper-reading-vggt-slam/">VGGT-SLAM: Dense RGB SLAM Optimized on the SL(4) Manifold</a></li></ul><p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/">https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;SE-3-Sim-3-SL-4&quot;&gt;&lt;a href=&quot;#SE-3-Sim-3-SL-4&quot; class=&quot;headerlink&quot; title=&quot;SE(3)-Sim(3)-SL(4)&quot;&gt;&lt;/a&gt;SE(3)-Sim(3)-SL(4)&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>MDPI @ Submit and Review</title>
@@ -463,30 +484,6 @@
     
     
     <category term="ACM" scheme="https://blog.jujimeizuo.cn/tags/ACM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>clash for linux</title>
-    <link href="https://blog.jujimeizuo.cn/2023/11/24/clash-for-linux/"/>
-    <id>https://blog.jujimeizuo.cn/2023/11/24/clash-for-linux/</id>
-    <published>2023-11-24T01:36:57.000Z</published>
-    <updated>2024-04-01T11:44:47.273Z</updated>
-    
-    <content type="html"><![CDATA[<p>由于作者已经跑路，所以使用下面的备份仓库：</p><center><div class="github-card" data-github="Elegybackup/clash-for-linux-backup" data-width="400" data-height="" data-theme="default"></div><script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script></center><h2 id="使用须知"><a href="#使用须知" class="headerlink" title="使用须知"></a>使用须知</h2><ul><li>运行本项目建议使用root用户，或者使用 sudo 提权。</li><li>使用过程中如遇到问题，请优先查已有的 <a href="https://github.com/Elegybackup/clash-for-linux-backup/issues">issues</a>。</li><li>在进行issues提交前，请替换提交内容中是敏感信息（例如：订阅地址）。</li><li>本项目是基于 <a href="https://github.com/Dreamacro/clash">clash（已跑路）</a> 、<a href="https://github.com/haishanh/yacd">yacd</a> 进行的配置整合，关于clash、yacd的详细配置请去原项目查看。</li><li>此项目不提供任何订阅信息，请自行准备Clash订阅地址。</li><li>运行前请手动更改<code>.env</code>文件中的<code>CLASH_URL</code>变量值，否则无法正常运行。</li><li>当前在RHEL系列和Debian,Kali Linux,ubuntu以及Linux系统中测试过，其他系列可能需要适当修改脚本。</li><li>支持 x86_64&#x2F;aarch64 平台</li><li>【注意：kali Linux需要在浏览器设置代理！否则有可能无法使用！】</li></ul><blockquote><p><strong>注意</strong>：当你在使用此项目时，遇到任何无法独自解决的问题请优先前往 <a href="https://github.com/wanhebin/clash-for-linux/issues">Issues</a> 寻找解决方法。由于空闲时间有限，后续将不再对Issues中 “已经解答”、“已有解决方案” 的问题进行重复性的回答。</p></blockquote><br><h2 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h2><h3 id="下载项目"><a href="#下载项目" class="headerlink" title="下载项目"></a>下载项目</h3><p>下载项目</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/Elegybackup/clash-for-linux-backup.git</span><br></pre></td></tr></table></figure><p>进入到项目目录，编辑<code>.env</code>文件，修改变量<code>CLASH_URL</code>的值。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> clash-for-linux</span><br><span class="line">$ vim .<span class="built_in">env</span></span><br></pre></td></tr></table></figure><blockquote><p><strong>注意：</strong> <code>.env</code> 文件中的变量 <code>CLASH_SECRET</code> 为自定义 Clash Secret，值为空时，脚本将自动生成随机字符串。</p></blockquote><br><h3 id="启动程序"><a href="#启动程序" class="headerlink" title="启动程序"></a>启动程序</h3><p>直接运行脚本文件<code>start.sh</code></p><ul><li>进入项目目录</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> clash-for-linux</span><br></pre></td></tr></table></figure><ul><li>运行启动脚本</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ sudo bash start.sh</span><br><span class="line"></span><br><span class="line">正在检测订阅地址...</span><br><span class="line">Clash订阅地址可访问！                                      [  OK  ]</span><br><span class="line"></span><br><span class="line">正在下载Clash配置文件...</span><br><span class="line">配置文件config.yaml下载成功！                              [  OK  ]</span><br><span class="line"></span><br><span class="line">正在启动Clash服务...</span><br><span class="line">服务启动成功！                                             [  OK  ]</span><br><span class="line"></span><br><span class="line">Clash Dashboard 访问地址：http://&lt;ip&gt;:9090/ui</span><br><span class="line">Secret：xxxxxxxxxxxxx</span><br><span class="line"></span><br><span class="line">请执行以下命令加载环境变量: <span class="built_in">source</span> /etc/profile.d/clash.sh</span><br><span class="line"></span><br><span class="line">请执行以下命令开启系统代理: proxy_on</span><br><span class="line"></span><br><span class="line">若要临时关闭系统代理，请执行: proxy_off</span><br><span class="line"></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> /etc/profile.d/clash.sh</span><br><span class="line">$ proxy_on</span><br></pre></td></tr></table></figure><ul><li>检查服务端口</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -tln | grep -E <span class="string">&#x27;9090|789.&#x27;</span></span><br><span class="line">tcp        0      0 127.0.0.1:9090          0.0.0.0:*               LISTEN     </span><br><span class="line">tcp6       0      0 :::7890                 :::*                    LISTEN     </span><br><span class="line">tcp6       0      0 :::7891                 :::*                    LISTEN     </span><br><span class="line">tcp6       0      0 :::7892                 :::*                    LISTEN</span><br></pre></td></tr></table></figure><ul><li>检查环境变量</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">env</span> | grep -E <span class="string">&#x27;http_proxy|https_proxy&#x27;</span></span><br><span class="line">http_proxy=http://127.0.0.1:7890</span><br><span class="line">https_proxy=http://127.0.0.1:7890</span><br></pre></td></tr></table></figure><p>以上步鄹如果正常，说明服务clash程序启动成功，现在就可以体验高速下载github资源了。</p><br><h2 id="重启程序"><a href="#重启程序" class="headerlink" title="重启程序"></a>重启程序</h2><p>如果需要对Clash配置进行修改，请修改 <code>conf/config.yaml</code> 文件。然后运行 <code>restart.sh</code> 脚本进行重启。</p><blockquote><p><strong>注意：</strong><br>重启脚本 <code>restart.sh</code> 不会更新订阅信息。</p></blockquote><br><h3 id="停止程序"><a href="#停止程序" class="headerlink" title="停止程序"></a>停止程序</h3><ul><li>进入项目目录</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> clash-for-linux</span><br></pre></td></tr></table></figure><ul><li>关闭服务</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo bash shutdown.sh</span><br><span class="line"></span><br><span class="line">服务关闭成功，请执行以下命令关闭系统代理：proxy_off</span><br><span class="line"></span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ proxy_off</span><br></pre></td></tr></table></figure><p>然后检查程序端口、进程以及环境变量<code>http_proxy|https_proxy</code>，若都没则说明服务正常关闭。</p><br><h3 id="Clash-Dashboard"><a href="#Clash-Dashboard" class="headerlink" title="Clash Dashboard"></a>Clash Dashboard</h3><ul><li>访问 Clash Dashboard</li></ul><p>通过浏览器访问 <code>start.sh</code> 执行成功后输出的地址，例如：<a href="http://192.168.0.1:9090/ui">http://192.168.0.1:9090/ui</a></p><ul><li>登录管理界面</li></ul><p>在<code>API Base URL</code>一栏中输入：http:&#x2F;&#x2F;&lt;ip&gt;:9090 ，在<code>Secret(optional)</code>一栏中输入启动成功后输出的Secret。</p><p>点击Add并选择刚刚输入的管理界面地址，之后便可在浏览器上进行一些配置。</p><ul><li>更多教程</li></ul><p>此 Clash Dashboard 使用的是<a href="https://github.com/haishanh/yacd">yacd</a>项目，详细使用方法请移步到yacd上查询。</p><br><h3 id="终端界面选择代理节点"><a href="#终端界面选择代理节点" class="headerlink" title="终端界面选择代理节点"></a>终端界面选择代理节点</h3><p>部分用户无法通过浏览器使用 Clash Dashboard 进行节点选择、代理模式修改等操作，为了方便用户可以在Linux终端进行操作，下面提供了一个功能简单的脚本以便用户可以临时通过终端界面进行配置。</p><p>脚本存放位置：<code>scripts/clash_proxy-selector.sh</code></p><blockquote><p><strong>注意：</strong></p><p>使用脚本前，需要修改脚本中的 <strong>Secret</strong> 变量值为上述启动脚本输出的值，或者与 <code>.env</code> 文件中定义的 <strong>CLASH_SECRET</strong> 变量值保持一致。</p></blockquote><br><p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2023/11/24/clash-for-linux/">https://blog.jujimeizuo.cn/2023/11/24/clash-for-linux/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;由于作者已经跑路，所以使用下面的备份仓库：&lt;/p&gt;
-&lt;center&gt;
-&lt;div class=&quot;github-card&quot; data-github=&quot;Elegybackup/clash-for-linux-backup&quot; data-width=&quot;400&quot; data-height</summary>
-      
-    
-    
-    
-    
-    <category term="linux" scheme="https://blog.jujimeizuo.cn/tags/linux/"/>
     
   </entry>
   

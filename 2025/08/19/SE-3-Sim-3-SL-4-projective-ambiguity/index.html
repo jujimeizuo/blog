@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="SE(3)-Sim(3)-SL(4)   特性 SE(3) Sim(3) SL(4)    变换类型 刚体变换 (旋转+平移) 相似变换 (旋转+平移+均匀缩放) 射影变换 (非线性，行列式为1)   距离 保持 不保持 (按比例改变) 不保持   角度 保持 保持 不保持   形状 保持 保持 不保持 (可能扭曲)   行列式 1 $\lambda^3$, 其中 $\lambda$ 为缩放因子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SE(3)-Sim(3)-SL(4)-Projective Ambiguity">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="SE(3)-Sim(3)-SL(4)   特性 SE(3) Sim(3) SL(4)    变换类型 刚体变换 (旋转+平移) 相似变换 (旋转+平移+均匀缩放) 射影变换 (非线性，行列式为1)   距离 保持 不保持 (按比例改变) 不保持   角度 保持 保持 不保持   形状 保持 保持 不保持 (可能扭曲)   行列式 1 $\lambda^3$, 其中 $\lambda$ 为缩放因子">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-08-19T07:53:06.000Z">
+<meta property="article:modified_time" content="2025-08-19T08:17:08.071Z">
+<meta property="article:author" content="jujimeizuo">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>SE(3)-Sim(3)-SL(4)-Projective Ambiguity</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://note.jujimeizuo.cn/">Note</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2025/07/23/mdpi-at-submit-and-review/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&text=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&title=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&is_video=false&description=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SE(3)-Sim(3)-SL(4)-Projective Ambiguity&body=Check out this article: https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&title=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&title=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&title=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&title=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&name=SE(3)-Sim(3)-SL(4)-Projective Ambiguity&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&t=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SE-3-Sim-3-SL-4"><span class="toc-number">1.</span> <span class="toc-text">SE(3)-Sim(3)-SL(4)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Projective-Ambiguity"><span class="toc-number">2.</span> <span class="toc-text">Projective Ambiguity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        SE(3)-Sim(3)-SL(4)-Projective Ambiguity
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-08-19T07:53:06.000Z" class="dt-published" itemprop="datePublished">2025-08-19</time>
+        
+      
+    </div>
+
+
+      
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="SE-3-Sim-3-SL-4"><a href="#SE-3-Sim-3-SL-4" class="headerlink" title="SE(3)-Sim(3)-SL(4)"></a>SE(3)-Sim(3)-SL(4)</h2><table>
+<thead>
+<tr>
+<th align="center">特性</th>
+<th align="center">SE(3)</th>
+<th align="center">Sim(3)</th>
+<th align="center">SL(4)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">变换类型</td>
+<td align="center">刚体变换 (旋转+平移)</td>
+<td align="center">相似变换 (旋转+平移+均匀缩放)</td>
+<td align="center">射影变换 (非线性，行列式为1)</td>
+</tr>
+<tr>
+<td align="center">距离</td>
+<td align="center">保持</td>
+<td align="center">不保持 (按比例改变)</td>
+<td align="center">不保持</td>
+</tr>
+<tr>
+<td align="center">角度</td>
+<td align="center">保持</td>
+<td align="center">保持</td>
+<td align="center">不保持</td>
+</tr>
+<tr>
+<td align="center">形状</td>
+<td align="center">保持</td>
+<td align="center">保持</td>
+<td align="center">不保持 (可能扭曲)</td>
+</tr>
+<tr>
+<td align="center">行列式</td>
+<td align="center">1</td>
+<td align="center">$\lambda^3$, 其中 $\lambda$ 为缩放因子</td>
+<td align="center">1</td>
+</tr>
+</tbody></table>
+<h2 id="Projective-Ambiguity"><a href="#Projective-Ambiguity" class="headerlink" title="Projective Ambiguity"></a>Projective Ambiguity</h2><p>VGGT-SLAM 中指出，投影模糊会导致 Sim(3) 不足以对齐子地图，因为当使用未标定相机时，VGGT 的前馈特性会引入投影歧义——这种歧义除了包含Sim(3)的自由度外，还涉及剪切、拉伸和透视自由度，尤其在帧间视差较小时更为明显。仅靠相似变换无法完全消除这种歧义。</p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/code-fun/p/16839467.html">Sim3和Se3</a></li>
+<li><a target="_blank" rel="noopener" href="https://immortalqx.github.io/2025/05/29/paper-reading-vggt-slam/">VGGT-SLAM: Dense RGB SLAM Optimized on the SL(4) Manifold</a></li>
+</ul>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/">https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://note.jujimeizuo.cn/">Note</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SE-3-Sim-3-SL-4"><span class="toc-number">1.</span> <span class="toc-text">SE(3)-Sim(3)-SL(4)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Projective-Ambiguity"><span class="toc-number">2.</span> <span class="toc-text">Projective Ambiguity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">3.</span> <span class="toc-text">Reference</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&text=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&title=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&is_video=false&description=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=SE(3)-Sim(3)-SL(4)-Projective Ambiguity&body=Check out this article: https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&title=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&title=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&title=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&title=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&name=SE(3)-Sim(3)-SL(4)-Projective Ambiguity&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/&t=SE(3)-Sim(3)-SL(4)-Projective Ambiguity"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2025
+    jujimeizuo
+    <br>
+    <a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/">浙&thinsp;ICP&thinsp;备&thinsp;2021035172&thinsp;号-1</a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://note.jujimeizuo.cn/">Note</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
