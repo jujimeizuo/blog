@@ -460,18 +460,6 @@ body td {
 }
 @font-face {
   font-style: normal;
-  font-weight: 600;
-  font-family: "Maple Mono NF CN";
-  src: local("Maple Mono NF CN"), url("../lib/Maple Mono NF CN/MapleMono-NF-CN-SemiBold.ttf") format("truetype");
-}
-@font-face {
-  font-style: italic;
-  font-weight: 600;
-  font-family: "Maple Mono NF CN";
-  src: local("Maple Mono NF CN"), url("../lib/Maple Mono NF CN/MapleMono-NF-CN-SemiBoldItalic.ttf") format("truetype");
-}
-@font-face {
-  font-style: normal;
   font-weight: 700;
   font-family: "Maple Mono NF CN";
   src: local("Maple Mono NF CN"), url("../lib/Maple Mono NF CN/MapleMono-NF-CN-Bold.ttf") format("truetype");
