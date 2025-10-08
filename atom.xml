@@ -6,7 +6,7 @@
   <link href="https://blog.jujimeizuo.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.jujimeizuo.cn/"/>
-  <updated>2025-08-19T08:17:08.071Z</updated>
+  <updated>2025-10-08T08:06:18.262Z</updated>
   <id>https://blog.jujimeizuo.cn/</id>
   
   <author>
@@ -17,11 +17,36 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>submit on T-RO</title>
+    <link href="https://blog.jujimeizuo.cn/2025/10/08/submit-on-T-RO/"/>
+    <id>https://blog.jujimeizuo.cn/2025/10/08/submit-on-T-RO/</id>
+    <published>2025-10-08T06:44:39.000Z</published>
+    <updated>2025-10-08T08:06:18.262Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>从 24 年 11 月写完初稿，经过 11 个月的 24 稿的修订，最终在国庆期间完成 T-RO 投稿。<br>人生第一次写稿、投稿，很多地方不熟悉，遂记录流程。</p></blockquote><h2 id="1-Finish-Manuscript"><a href="#1-Finish-Manuscript" class="headerlink" title="1. Finish Manuscript"></a>1. Finish Manuscript</h2><h3 id="1-1-Download-Template"><a href="#1-1-Download-Template" class="headerlink" title="1.1 Download Template"></a>1.1 Download Template</h3><ul><li>download url: <a href="https://template-selector.ieee.org/secure/templateSelector/publicationType%EF%BC%9B">https://template-selector.ieee.org/secure/templateSelector/publicationType；</a></li><li>选择 Trans 下载 Word or Latex，建议用 Latex；</li><li>中文转英文填写即可，根据 Latex Template 填写对应内容；</li><li>用 VSCode 来编译，查看；</li></ul><img src="https://cdn.jujimeizuo.cn/blog/2025/10/ieee-trans-template.jpg"><!-- <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/ieee-trans-template.jpg"> --><img src="https://cdn.jujimeizuo.cn/blog/2025/10/ieee-trans-latex-template.jpg"><!-- <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/ieee-trans-latex-template.jpg"> --><h3 id="1-2-Notices-for-Latex"><a href="#1-2-Notices-for-Latex" class="headerlink" title="1.2 Notices for Latex"></a>1.2 Notices for Latex</h3><ol><li>Regular Paper 建议6-12页（双栏），含图表和参考文献；</li><li>摘要最多 200 字；</li><li>基金和作者信息放在首页左下角；</li><li>参考文献格式：按文中出现顺序编号，文中以方括号引用（如 [1]），具体查看 <a href="https://zhuanlan.zhihu.com/p/632868108">this</a>；<ul><li>期刊名称和会议要用斜体；</li><li>期刊名称前不用 in，会议前用 in；</li><li>参考文献中作者人数少于等于六个需要给出全部作者姓名，多于七个要 et al；</li><li>引号改成“新罗马体Times New Roman”下的引号格式，如<code>“”</code>，而不是<code>&quot;&quot;</code>，tex 为 <code>``&#39;&#39;</code>；</li><li>期刊有 vol. no. pp.，会议有 pp.；</li></ul></li></ol><h2 id="2-Submission-Procedures"><a href="#2-Submission-Procedures" class="headerlink" title="2. Submission Procedures"></a>2. Submission Procedures</h2><p>完整的提交流程查看 <a href="https://www.ieee-ras.org/publications/t-ro/submission-procedures">T-RO PaperCept Submission Procedures</a>。</p><h3 id="2-1-log-in"><a href="#2-1-log-in" class="headerlink" title="2.1 log in"></a>2.1 log in</h3><img src="https://cdn.jujimeizuo.cn/blog/2025/10/ieee-trans-template.jpg"><!-- <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/ieee-trans-template.jpg"> --><ul><li><code>PIN</code>：所有的 co-authors 都需要注册一个 <code>PIN</code>；</li><li>完善个人信息；</li><li><code>ORCID</code>：<strong>第一作者</strong>和<strong>通讯作者</strong>需要将 <code>PIN</code> 与 <code>ORCID</code> 进行绑定，在后续会用到；</li></ul><h3 id="2-2-submit-a-new-paper"><a href="#2-2-submit-a-new-paper" class="headerlink" title="2.2 submit a new paper"></a>2.2 submit a new paper</h3><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/submit-new-paper.jpg"><h3 id="2-3-Select-the-Type-of-Submission"><a href="#2-3-Select-the-Type-of-Submission" class="headerlink" title="2.3 Select the Type of Submission"></a>2.3 Select the Type of Submission</h3><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/select-type.jpg"><h3 id="2-4-Choose-to-Whom-to-Submit"><a href="#2-4-Choose-to-Whom-to-Submit" class="headerlink" title="2.4 Choose to Whom to Submit"></a>2.4 Choose to Whom to Submit</h3><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/choose-ed.jpg"><h3 id="2-5-Authors"><a href="#2-5-Authors" class="headerlink" title="2.5 Authors"></a>2.5 Authors</h3><ul><li>查找所有作者的 <code>PIN</code>，只能通过<strong>姓</strong>查找，比如我姓冯，就搜索 Feng，然后找到对应的 <code>PIN</code>；</li><li>如果没有，注册即可；</li><li>设置通讯作者，该通讯作者的 <code>PIN</code> 必须和 <code>ORCID</code>，不然无法下一步；</li></ul><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/tro-authors.jpg"><h3 id="2-6-Title-and-Abstract"><a href="#2-6-Title-and-Abstract" class="headerlink" title="2.6 Title and Abstract"></a>2.6 Title and Abstract</h3><ul><li>系统里的摘要，<strong>不能超过 1200 字符</strong>！！！</li></ul><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/title-and-abstract.jpg"><h3 id="2-7-Keywords"><a href="#2-7-Keywords" class="headerlink" title="2.7 Keywords"></a>2.7 Keywords</h3><ul><li>三个必须是和 RAS Subject Area 关联的，比如 <code>SLAM</code>，<code>Dynamics</code>，剩下一个可以自己填；</li></ul><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/tro-keywords.jpg"><h3 id="2-8-Notices"><a href="#2-8-Notices" class="headerlink" title="2.8 Notices"></a>2.8 Notices</h3><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/tro-notices.jpg"><h3 id="2-9-Cover-note"><a href="#2-9-Cover-note" class="headerlink" title="2.9 Cover note"></a>2.9 Cover note</h3><ul><li>填写 cover note，对主编说的话，指出创新点，模板可以从 Reference 中查看；</li></ul><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/tro-cover-note.jpg"><h3 id="2-10-Overview"><a href="#2-10-Overview" class="headerlink" title="2.10 Overview"></a>2.10 Overview</h3><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/tro-overview.jpg"><h3 id="2-11-File-Upload"><a href="#2-11-File-Upload" class="headerlink" title="2.11 File Upload"></a>2.11 File Upload</h3><ul><li>上传 Manuscript PDF；</li><li>Finish!</li></ul><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/2025/10/tro-file-upload.jpg"><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="https://ras.papercept.net/journals/tro/scripts/login.pl">Log In IEEE T-RO</a></li><li><a href="https://www.ieee-ras.org/publications/t-ro">IEEE Transactions on Robotics (T-RO)</a></li><li><a href="https://www.ieee-ras.org/publications/t-ro/submission-procedures">T-RO PaperCept Submission Procedures</a></li><li><a href="https://template-selector.ieee.org/secure/templateSelector/publicationType">IEEE-Template Selector</a></li><li><a href="https://www.aje.cn/arc/ieee-transactions-on-robotics">IEEE Transactions on Robotics期刊介绍及投稿模板</a></li><li><a href="https://zhuanlan.zhihu.com/p/614196902">IEEE Transactions on Robotics，投稿过程交流</a></li><li><a href="https://docs.google.com/document/d/1OalFYqVfxKKMelF79U3B93SjmIEiTnJC12wPJrKeSDM/edit?tab=t.0">IEEE EDITORIAL STYLE MANUAL FOR AUTHORS</a></li><li><a href="https://2048ai.net/681d7431a5baf817cf49bf2f.html?depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-17-110293088-blog-121700538.235%5Ev43%5Epc_blog_bottom_relevance_base6">使用Latex排版一篇IEEE Robotics and Automation Letters期刊文章</a></li><li><a href="https://www.cnblogs.com/max1z/p/16493154.html">IEEE Transaction期刊模板使用注意事项</a></li><li><a href="https://zhuanlan.zhihu.com/p/632868108">关于IEEE Transactions论文的参考文献格式</a></li><li><a href="https://blog.csdn.net/fangfang12138/article/details/125950806">IEEE RAL投初稿</a></li><li><a href="https://www.jianshu.com/p/47d2549fee5e">论文投稿之投稿信（Cover Letter）写法–附真实案例</a></li></ul><p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2025/10/08/submit-on-T-RO/">https://blog.jujimeizuo.cn/2025/10/08/submit-on-T-RO/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;从 24 年 11 月写完初稿，经过 11 个月的 24 稿的修订，最终在国庆期间完成 T-RO 投稿。&lt;br&gt;人生第一次写稿、投稿，很多地方不熟悉，遂记录流程。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&quot;1-Finish-Manuscr</summary>
+      
+    
+    
+    
+    
+    <category term="paper" scheme="https://blog.jujimeizuo.cn/tags/paper/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SE(3)-Sim(3)-SL(4)-Projective Ambiguity</title>
     <link href="https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/"/>
     <id>https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/</id>
     <published>2025-08-19T07:53:06.000Z</published>
-    <updated>2025-08-19T08:17:08.071Z</updated>
+    <updated>2025-10-08T06:45:58.583Z</updated>
     
     <content type="html"><![CDATA[<h2 id="SE-3-Sim-3-SL-4"><a href="#SE-3-Sim-3-SL-4" class="headerlink" title="SE(3)-Sim(3)-SL(4)"></a>SE(3)-Sim(3)-SL(4)</h2><table><thead><tr><th align="center">特性</th><th align="center">SE(3)</th><th align="center">Sim(3)</th><th align="center">SL(4)</th></tr></thead><tbody><tr><td align="center">变换类型</td><td align="center">刚体变换 (旋转+平移)</td><td align="center">相似变换 (旋转+平移+均匀缩放)</td><td align="center">射影变换 (非线性，行列式为1)</td></tr><tr><td align="center">距离</td><td align="center">保持</td><td align="center">不保持 (按比例改变)</td><td align="center">不保持</td></tr><tr><td align="center">角度</td><td align="center">保持</td><td align="center">保持</td><td align="center">不保持</td></tr><tr><td align="center">形状</td><td align="center">保持</td><td align="center">保持</td><td align="center">不保持 (可能扭曲)</td></tr><tr><td align="center">行列式</td><td align="center">1</td><td align="center">$\lambda^3$, 其中 $\lambda$ 为缩放因子</td><td align="center">1</td></tr></tbody></table><h2 id="Projective-Ambiguity"><a href="#Projective-Ambiguity" class="headerlink" title="Projective Ambiguity"></a>Projective Ambiguity</h2><p>VGGT-SLAM 中指出，投影模糊会导致 Sim(3) 不足以对齐子地图，因为当使用未标定相机时，VGGT 的前馈特性会引入投影歧义——这种歧义除了包含Sim(3)的自由度外，还涉及剪切、拉伸和透视自由度，尤其在帧间视差较小时更为明显。仅靠相似变换无法完全消除这种歧义。</p><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="https://www.cnblogs.com/code-fun/p/16839467.html">Sim3和Se3</a></li><li><a href="https://immortalqx.github.io/2025/05/29/paper-reading-vggt-slam/">VGGT-SLAM: Dense RGB SLAM Optimized on the SL(4) Manifold</a></li></ul><p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/">https://blog.jujimeizuo.cn/2025/08/19/SE-3-Sim-3-SL-4-projective-ambiguity/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>]]></content>
     
@@ -34,6 +59,10 @@
     
     
     
+    
+    <category term="cv" scheme="https://blog.jujimeizuo.cn/tags/cv/"/>
+    
+    <category term="slam" scheme="https://blog.jujimeizuo.cn/tags/slam/"/>
     
   </entry>
   
@@ -456,28 +485,6 @@
       
     <summary type="html">&lt;p&gt;传送门：&lt;a href=&quot;https://www.acwing.com/problem/content/5386/&quot;&gt;5383. 收集饰品&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&quot;思路&quot;&gt;&lt;a href=&quot;#思路&quot; class=&quot;headerlink&quot; title=&quot;思路&quot;&gt;&lt;/a</summary>
-      
-    
-    
-    
-    
-    <category term="ACM" scheme="https://blog.jujimeizuo.cn/tags/ACM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gosper&#39;s Hack Optimization</title>
-    <link href="https://blog.jujimeizuo.cn/2024/01/04/gospers-hack/"/>
-    <id>https://blog.jujimeizuo.cn/2024/01/04/gospers-hack/</id>
-    <published>2024-01-04T03:22:47.000Z</published>
-    <updated>2025-05-12T07:02:38.410Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>当我们在n个数中选择m个数字，通常的做法是回溯法、状态压缩（二进制枚举）等等。这样的复杂度是 $O(2^n)$，而 Gosper’s Hack 可以在O(1)的时间内找到下一个枚举状态。</p><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><ol><li>从后往前找到第一个降序（即”01”），然后将其变为”10”，</li><li>最后将该”10”后面的序列逆转即可。</li></ol><p>假设当前状态 cur 为 0110(01)1000，那么下一个状态为 0110(10)0001</p><ol><li>cur + lowbit &#x3D; r, 前半部分，0110(10)xxxx</li><li>r ^ cur，记录变化的位数（例如一位就是0001，两位就是0011），移除”01”变为”10”的2次。”10”后面就是变化次数-2。xxxxxx(10)0001</li></ol><h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">GospersHack</span><span class="params">(<span class="type">int</span> m, <span class="type">int</span> n)</span> </span>&#123;</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">    <span class="type">int</span> set = (<span class="number">1</span> &lt;&lt; m) - <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> limit = (<span class="number">1</span> &lt;&lt; n);</span><br><span class="line">    <span class="keyword">while</span> (set &lt; limit) &#123;</span><br><span class="line">        ans.<span class="built_in">push_back</span>(<span class="built_in">next_status</span>(set));</span><br><span class="line">        <span class="type">int</span> lowbit = set &amp; -set;</span><br><span class="line">        <span class="type">int</span> r = set + lowbit;</span><br><span class="line">        set = (((r ^ set) &gt;&gt; <span class="number">2</span>) / lowbit) | r;</span><br><span class="line">        <span class="comment">// set = next_status(set);</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">next_status</span><span class="params">(<span class="type">int</span> cur)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> lowbit = cur &amp; -cur;</span><br><span class="line">    <span class="type">int</span> r = cur + lowbit;</span><br><span class="line">    <span class="keyword">return</span> (((r ^ cur) &gt;&gt; <span class="number">2</span>) / lowbit) | r;</span><br><span class="line">    <span class="comment">// return ((r ^ cur) &gt;&gt; __builtin_ctz(lowbit) + 2) | r;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">next_status</span>(<span class="params">cur: <span class="built_in">int</span></span>):</span><br><span class="line">    lowbit = cur &amp; -cur</span><br><span class="line">    r = cur + lowbit</span><br><span class="line">    <span class="keyword">return</span> (((r ^ cur) &gt;&gt; <span class="number">2</span>) // lowbit) | r</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    def count_trailing_zeros(x):</span></span><br><span class="line"><span class="string">        return (x &amp; -x).bit_length() - 1</span></span><br><span class="line"><span class="string">    return ((r ^ cur) &gt;&gt; count_trailing_zeros(lowbit) + 2) | r</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul><li><a href="https://programmingforinsomniacs.blogspot.com/2018/03/gospers-hack-explained.html">ProgrammingForInsomniacs</a></li><li><a href="https://leetcode.cn/problems/maximum-rows-covered-by-columns/description/?envType=daily-question&envId=2024-01-04">2397. 被列覆盖的最多行数</a></li><li><a href="https://leetcode.cn/problems/next-permutation/description/">31. 下一个排列</a></li></ul><p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/01/04/gospers-hack/">https://blog.jujimeizuo.cn/2024/01/04/gospers-hack/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h2&gt;&lt;p&gt;当我们在n个数中选择m个数字，通常的做法是回溯法、状态压缩（二进制枚举）等等。这样的复杂度是 $O(2^n)$，而 Gosper’s Hac</summary>
       
     
     
