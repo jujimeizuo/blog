@@ -400,7 +400,7 @@ body abbr {
 body ul,
 body ol,
 body dl {
-  line-height: 1.725;
+  line-height: 1.5;
 }
 body ul ul,
 body ol ul,
@@ -419,7 +419,7 @@ body table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 15px;
+  font-size: 17px;
   overflow: auto;
   display: block;
 }
@@ -428,7 +428,7 @@ body th {
   border-bottom: 1px dashed #666;
   color: #383838;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
 }
 body td {
   padding: 0 8px;
@@ -437,38 +437,38 @@ body td {
 @font-face {
   font-style: normal;
   font-weight: 400;
-  font-family: "Maple Mono NF CN";
-  src: local("Maple Mono NF CN"), url("../lib/Maple Mono NF CN/MapleMono-NF-CN-Regular.ttf") format("truetype");
+  font-family: "Maple Mono NF";
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-Regular.ttf") format("truetype");
 }
 @font-face {
   font-style: italic;
   font-weight: 400;
-  font-family: "Maple Mono NF CN";
-  src: local("Maple Mono NF CN"), url("../lib/Maple Mono NF CN/MapleMono-NF-CN-Italic.ttf") format("truetype");
+  font-family: "Maple Mono NF";
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-Italic.ttf") format("truetype");
 }
 @font-face {
   font-style: normal;
   font-weight: 500;
-  font-family: "Maple Mono NF CN";
-  src: local("Maple Mono NF CN"), url("../lib/Maple Mono NF CN/MapleMono-NF-CN-Medium.ttf") format("truetype");
+  font-family: "Maple Mono NF";
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-Medium.ttf") format("truetype");
 }
 @font-face {
   font-style: italic;
   font-weight: 500;
-  font-family: "Maple Mono NF CN";
-  src: local("Maple Mono NF CN"), url("../lib/Maple Mono NF CN/MapleMono-NF-CN-MediumItalic.ttf") format("truetype");
+  font-family: "Maple Mono NF";
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-MediumItalic.ttf") format("truetype");
 }
 @font-face {
   font-style: normal;
   font-weight: 700;
-  font-family: "Maple Mono NF CN";
-  src: local("Maple Mono NF CN"), url("../lib/Maple Mono NF CN/MapleMono-NF-CN-Bold.ttf") format("truetype");
+  font-family: "Maple Mono NF";
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-Bold.ttf") format("truetype");
 }
 @font-face {
   font-style: italic;
   font-weight: 700;
-  font-family: "Maple Mono NF CN";
-  src: local("Maple Mono NF CN"), url("../lib/Maple Mono NF CN/MapleMono-NF-CN-BoldItalic.ttf") format("truetype");
+  font-family: "Maple Mono NF";
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-BoldItalic.ttf") format("truetype");
 }
 @font-face {
   font-style: normal;
@@ -517,9 +517,9 @@ body {
   background-color: #fff;
   color: #383838;
   font-weight: 500;
-  font-size: 17px;
-  font-family: 'Maple Mono NF CN', "LXGW Wenkai";
-  line-height: 1.725;
+  font-size: 19px;
+  font-family: "Maple Mono NF", "LXGW Wenkai";
+  line-height: 1.5;
   text-rendering: geometricPrecision;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -963,7 +963,7 @@ body {
   transition: opacity 0.2s;
   font-weight: 500;
   font-style: normal;
-  font-family: 'Maple Mono NF CN', "LXGW Wenkai";
+  font-family: "Maple Mono NF", "LXGW Wenkai";
   line-height: 1.5;
   font-size: 12px;
 }
@@ -1323,7 +1323,7 @@ article .content .caption {
   font-size: 12px;
   font-weight: 500;
   font-style: normal;
-  font-family: 'Maple Mono NF CN', "LXGW Wenkai";
+  font-family: "Maple Mono NF", "LXGW Wenkai";
   line-height: 1.5;
 }
 #footer ul {
@@ -1473,9 +1473,9 @@ article .content .caption {
   color: #fff;
   font-display: swap;
   font-weight: 400;
-  font-size: 13.600000000000001px;
-  font-family: 'Maple Mono NF CN', "LXGW Wenkai";
-  line-height: 1.725;
+  font-size: 15.200000000000001px;
+  font-family: "Maple Mono NF", "LXGW Wenkai";
+  line-height: 1.5;
   text-rendering: geometricPrecision;
   text-align: center;
   word-wrap: break-word;
@@ -1640,7 +1640,7 @@ pre {
   border: 1px dotted #666;
   border-radius: 4px;
   font-size: 13px;
-  font-family: 'Maple Mono NF CN', "LXGW Wenkai";
+  font-family: "Maple Mono NF", "LXGW Wenkai";
   line-height: 22px;
   -webkit-border-radius: 4px;
 }
@@ -1661,7 +1661,7 @@ code {
   padding: 10px 15px;
   border-radius: 4px;
   background: #fafafa;
-  font-family: 'Maple Mono NF CN', "LXGW Wenkai";
+  font-family: "Maple Mono NF", "LXGW Wenkai";
   -webkit-border-radius: 4px;
 }
 .highlight figcaption {
