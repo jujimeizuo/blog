@@ -13,29 +13,29 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="传送门：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;8409&#x2F;I 题意$$求解\int_{0}^{+\infty }\frac{1}{\prod_{i&#x3D;1}^n(a_i^2+x^2)}dx$$ 思路想要用分部积分求该定积分是非常非常困难的，而题目给出了$\int_{0}^{+\infty}\frac{1}{1+x^2}dx&#x3D;\frac{\pi}{2}">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/10/matrix1.jpg">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/10/matrix2.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/10/matrix1.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/10/matrix2.jpg">
 <meta property="article:published_time" content="2020-10-24T07:20:54.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:12:20.839Z">
+<meta property="article:modified_time" content="2025-12-19T13:50:29.059Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/10/matrix1.jpg">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2020/10/matrix1.jpg">
     
     
       
         
-          <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         
       
     
@@ -194,12 +194,12 @@
 <p>当n&#x3D;2时：</p>
 <p>只看让式子分解的部分：</p>
 <p>$$\frac{1}{a^2+x^2}\frac{1}{b^2+x^2}&#x3D;\frac{\alpha}{a^2+x^2}+\frac{\beta }{b^2+x^2}&#x3D;\frac{\alpha b^2+\beta a^2 + x^2(\alpha + \beta)}{(a^2+x^2)(b^2+x^2)}$$</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/10/matrix1.jpg"></p>
+<p><img src="/images/2020/10/matrix1.jpg"></p>
 <p>转化为：</p>
 <p>$$\int_{0}^{+\infty }(\frac{1}{b^2-a^2})(\frac{1}{a^2+x^2})+(\frac{1}{a^2-b^2})(\frac{1}{b^2+x^2})dx&#x3D;\frac{1}{b^2-a^2}*\frac{1}{2a}+\frac{1}{a^2-b^2}*\frac{1}{2b}$$</p>
 <p>当n&#x3D;3时：</p>
 <p>$$\frac{1}{a^2+x^2}\frac{1}{b^2+x^2}\frac{1}{c^2+x^2}&#x3D;\frac{\alpha}{a^2+x^2}+\frac{\beta}{b^2+x^2}+\frac{\gamma}{c^2+x^2}$$ $$&#x3D;\frac{\alpha b^2c^2+\beta a^2c^2+\gamma a^2b^2+x^2(\alpha (b^2+c^2)+\beta (a^2+c^2)+\gamma (a^2+b^2))+x^4(\alpha+\beta+\gamma)}{(a^2+x^2)(b^2+x^2)(c^2+x^2)}$$</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/10/matrix2.jpg"></p>
+<p><img src="/images/2020/10/matrix2.jpg"></p>
 <p>$$\int_{0}^{+\infty }\frac{1}{(a^2+x^2)(b^2+x^2)(c^2+x^2)}dx$$ $$&#x3D;\frac{1}{(b^2-a^2)(c^2-a^2)} \frac{1}{2a}+\frac{1}{(a^2-b^2)(c^2-b^2)}\frac{1}{2b}+ \frac{1}{(a^2-c^2)(b^2-c^2)}\frac{1}{2c}$$</p>
 <p>根据上面的列举，大大推断出该式子的规律，即对于</p>
 <p>$$\int_{0}^{+\infty }\frac{1}{\prod_{i&#x3D;1}^n(a_i^2+x^2)}dx$$</p>

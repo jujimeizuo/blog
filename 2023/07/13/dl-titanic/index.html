@@ -13,29 +13,29 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="学习自@双木的木。 问题描述在kaggle官网上有Titanic有关的数据集，有以下features，现要求对Suvrived特征进行预测。  数据集分析数据集被划分为训练集和测试集：  training set (train.csv) test set (test.csv)  训练集应该被用来建立你的深度学习模型。对于训练集，我们为每个乘客提供结果(也称为“ground truth”)。你的模型">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/07/image-1689229188640.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/07/image-1689229530750.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2023/07/image-1689229188640.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2023/07/image-1689229530750.png">
 <meta property="article:published_time" content="2023-07-13T09:38:34.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:12:20.804Z">
+<meta property="article:modified_time" content="2025-12-19T13:47:38.816Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="deep-learning">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/07/image-1689229188640.png">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2023/07/image-1689229188640.png">
     
     
       
         
-          <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         
       
     
@@ -188,7 +188,7 @@
   <div class="content e-content" itemprop="articleBody">
     <p>学习自@<a target="_blank" rel="noopener" href="https://blog.csdn.net/csdn_xmj/article/details/122172552">双木的木</a>。</p>
 <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在kaggle官网上有<a target="_blank" rel="noopener" href="https://www.kaggle.com/c/titanic/data">Titanic</a>有关的数据集，有以下features，现要求对Suvrived特征进行预测。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/07/image-1689229188640.png" alt="file"></p>
+<p><img src="/images/2023/07/image-1689229188640.png" alt="file"></p>
 <h2 id="数据集分析"><a href="#数据集分析" class="headerlink" title="数据集分析"></a>数据集分析</h2><p>数据集被划分为训练集和测试集：</p>
 <ul>
 <li>training set (train.csv)</li>
@@ -197,7 +197,7 @@
 <p>训练集应该被用来建立你的深度学习模型。对于训练集，我们为每个乘客提供结果(也称为“ground truth”)。你的模型将基于乘客的性别和阶级等“特征”。您还可以使用特征工程来创建新的特征。</p>
 <p>测试集应该用来查看您的模型在不可见数据上的性能。对于测试集，我们不为每个乘客提供基本真相。你的工作就是预测这些结果。对于测试中的每一位乘客，使用你训练的模型来预测他们是否在泰坦尼克号沉没时幸存下来。</p>
 <p>还包括gender_submit .csv，这是一组假设所有且只有女性乘客能够存活的预测，作为提交文件的示例。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/07/image-1689229530750.png" alt="file"></p>
+<p><img src="/images/2023/07/image-1689229530750.png" alt="file"></p>
 <p>选取[“Pclass”, “Sex”, “SibSp”, “Parch”, “Fare”]五个特征进行训练。</p>
 <h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><h3 id="加载数据集"><a href="#加载数据集" class="headerlink" title="加载数据集"></a>加载数据集</h3><h4 id="TitanicDataset"><a href="#TitanicDataset" class="headerlink" title="TitanicDataset"></a>TitanicDataset</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TitanicDataset</span>(<span class="title class_ inherited__">Dataset</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, filepath</span>):</span><br><span class="line">        features = [<span class="string">&quot;Pclass&quot;</span>, <span class="string">&quot;Sex&quot;</span>, <span class="string">&quot;SibSp&quot;</span>, <span class="string">&quot;Parch&quot;</span>, <span class="string">&quot;Fare&quot;</span>]</span><br><span class="line">        xy = pd.read_csv(filepath)</span><br><span class="line">        self.<span class="built_in">len</span> = xy.shape[<span class="number">0</span>] <span class="comment">## [0]代表行数，[1]代表列数</span></span><br><span class="line">        <span class="comment">## dummies相当于one-hot编码</span></span><br><span class="line">        self.x_data = torch.from_numpy(np.array(pd.get_dummies(xy[features], dtype=np.float32))).<span class="built_in">float</span>()</span><br><span class="line">        <span class="comment">## np.array(data[&#x27;survived&#x27;])是对data[&#x27;survived&#x27;]创建一个矩阵</span></span><br><span class="line">        <span class="comment">## torch.from_numpy()是将括号内的矩阵形式转换为张量形式，方便torch处理</span></span><br><span class="line">        self.y_data = torch.from_numpy(np.array(xy[<span class="string">&#x27;Survived&#x27;</span>], dtype=np.float32)).<span class="built_in">float</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__getitem__</span>(<span class="params">self, index</span>):</span><br><span class="line">        <span class="keyword">return</span> self.x_data[index], self.y_data[index]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="keyword">return</span> self.<span class="built_in">len</span></span><br><span class="line"></span><br><span class="line">titanic_train = TitanicDataset(<span class="string">r&#x27;./titanic/train.csv&#x27;</span>)</span><br><span class="line">train_loader = DataLoader(dataset=titanic_train, batch_size=<span class="number">16</span>, shuffle=<span class="literal">True</span>, num_workers=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 

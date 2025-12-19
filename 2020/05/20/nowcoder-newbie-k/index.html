@@ -13,28 +13,28 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="传送门：https:&#x2F;&#x2F;ac.nowcoder.com&#x2F;acm&#x2F;contest&#x2F;5600&#x2F;B 题意 思路不要看它是以字符串的形式呈现，其实本质上是组合数学（自己细品），这就是我为什么不喜欢字符串的原因了，太能花哨了… 思路：因为连续段是和k有关的，所以k是要分&#x3D;&#x3D;奇偶&#x3D;&#x3D;的。首先先把最少的a和b根据k个排列好，在把剩下的a和b塞进去，可用高中知识的隔板法，可">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/20200520125015523.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/05/20200520125015523.png">
 <meta property="article:published_time" content="2020-05-20T07:02:45.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:12:20.927Z">
+<meta property="article:modified_time" content="2025-12-19T13:50:29.069Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/20200520125015523.png">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2020/05/20200520125015523.png">
     
     
       
         
-          <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         
       
     
@@ -186,7 +186,7 @@
 
   <div class="content e-content" itemprop="articleBody">
     <p>传送门：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/5600/B">https://ac.nowcoder.com/acm/contest/5600/B</a></p>
-<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/05/20200520125015523.png"></p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p><img src="/images/2020/05/20200520125015523.png"></p>
 <h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>不要看它是以字符串的形式呈现，其实本质上是组合数学（自己细品），这就是我为什么不喜欢字符串的原因了，太能花哨了…</p>
 <p>思路：因为连续段是和k有关的，所以k是要分&#x3D;&#x3D;奇偶&#x3D;&#x3D;的。首先先把最少的a和b根据k个排列好，在把剩下的a和b塞进去，可用高中知识的隔板法，可用大神拉马努金的整数拆分（这可是个神人啊！），关于整数拆分，可以看我上篇博客，这次就用排列组合就好了。</p>
 <p>=&#x3D;k为偶&#x3D;&#x3D;：那么最基本的形式就是<strong>abab…ab和baba….ba</strong>，这里用了k&#x2F;2个的a和b，所以之前要判断一下，如果n-k&#x2F;2或者m-k&#x2F;2中有一个小于0，那答案不就是0了吗？好，如果都大于等于0的话，继续往下操作，a剩下n-k&#x2F;2个，b剩下m-k&#x2F;2个，这里就用简单的思路：</p>

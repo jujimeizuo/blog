@@ -13,35 +13,35 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="7.1 图像分割概述7.1.1 定义将数字图像划分成互不相交，有意义的，具有相同性质的区域的过程。 图像的分割一种是基于灰度的不连续变来分割（图像边缘）； 一种是基于实现制定的准则将图像分割为相似的区域。 数学定义：    表明分割区域要覆盖整个图像且各区域互不重叠； 表明每一个区域都具有相同的性质； 表明两个区域性质相异不能合并为一个区域。  7.1.2 准则准则：每个区域内部的特征或属性是相同">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-58.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-57.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-59.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-60.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-58.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-57.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-59.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-60.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
 <meta property="article:published_time" content="2021-06-18T13:06:07.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:12:20.839Z">
+<meta property="article:modified_time" content="2025-12-19T13:50:29.068Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="数字图像处理">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-58.png">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-58.png">
     
     
       
         
-          <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         
       
     
@@ -196,7 +196,7 @@
 <p>图像的分割一种是基于灰度的不连续变来分割（图像边缘）；</p>
 <p>一种是基于实现制定的准则将图像分割为相似的区域。</p>
 <p>数学定义：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-58.png"> <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="/images/2021/06/image-58.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <ol>
 <li>表明分割区域要覆盖整个图像且各区域互不重叠；</li>
 <li>表明每一个区域都具有相同的性质；</li>
@@ -206,14 +206,14 @@
 <p>特征可以是：像素灰度值、边缘轮廓曲线、纹理特征、形状和颜色…</p>
 <h3 id="7-1-3-意义"><a href="#7-1-3-意义" class="headerlink" title="7.1.3 意义"></a>7.1.3 意义</h3><p>图像分割是图像处理与理解、模式识别和人工智能等多个领域中一个十分重要且又十分困难的问题，是计算机视觉技术中关键步骤，如下图所示。图像分割应用在许多方面。</p>
 <p><strong>应用</strong>：汽车车型自动识别系统、检查癌细胞、精密零件表面缺陷检测，处理卫星拍摄的地形地貌照片等。在所有这些应用领域中，最终结果很大程度上依赖于图像分割的结果。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-57.png"> <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="/images/2021/06/image-57.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <h4 id="7-2-基于边缘检测的图像分割"><a href="#7-2-基于边缘检测的图像分割" class="headerlink" title="7.2 基于边缘检测的图像分割"></a>7.2 基于边缘检测的图像分割</h4><p>先提取区域边界，再确定边界限定的区域；涉及到边缘检测核边缘连接两个部分。</p>
 <p><strong>基本思想</strong>：先检测图像中的边缘点再按一定策略链接成轮廓，从而构成分割区域。</p>
 <h3 id="7-2-1-边缘检测"><a href="#7-2-1-边缘检测" class="headerlink" title="7.2.1 边缘检测"></a>7.2.1 边缘检测</h3><h4 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h4><p>边界存在于目标与背景、目标与目标、区域与区域之间，是图像最基本的特征，包含了在实际应用中用于分割的基本信息。人物体时，首先感觉到的便是边缘。</p>
 <h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>检测灰度级或者结构具有突变的地方，这种灰度或者结构不连续性称为边缘。</p>
 <h4 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h4><p>图像中相邻的不同区域间总存在边缘，边缘处像素的灰度值不连续，这种不连续性可通过求导数来检测到，因此常用灰度的一阶或二阶微分算子进行边缘检测。直观理解如下图所示，一阶导数的峰值，二阶导数的零点值。</p>
 <h3 id="7-2-2-Hough变换"><a href="#7-2-2-Hough变换" class="headerlink" title="7.2.2 Hough变换"></a>7.2.2 Hough变换</h3><p>原理：把直线上的点的坐标变换到过点的直线的系数域，通过利用共线和直线相交的关系，使直线的提取问题转化为计数问题</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-59.png"> <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="/images/2021/06/image-59.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <h4 id="7-3-基于阈值的图像分割"><a href="#7-3-基于阈值的图像分割" class="headerlink" title="7.3 基于阈值的图像分割"></a>7.3 基于阈值的图像分割</h4><p>确定每个像素的归属区域，从而完成分割；阈值分割法（本文介绍）、区域生长法和分裂合并法等。</p>
 <h3 id="7-3-1-阈值分割法"><a href="#7-3-1-阈值分割法" class="headerlink" title="7.3.1 阈值分割法"></a>7.3.1 <strong>阈值分割法</strong></h3><p>基本原理：通过设定不同的特征阈值，把图像像素点分为若干类</p>
 <ul>
@@ -225,7 +225,7 @@
 <p><strong>关键：</strong>如何找到合适的阈值。</p>
 <p><strong>简单直方图分割法：</strong>60年代中期，Prewitt提出了直方图双峰法，即如果灰度级直方图呈明显的双峰状，则选取两峰之间的谷底所对应的灰度级作为阈值。</p>
 <p>直方图阈值分割法可用数学表达式来描述。设图像f(i, j)，其灰度级范围为[z1, z2]，设T为阈值，是z1和z2内任一值，可得一幅二值图像，其数学表达式为:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/06/image-60.png"> <img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<p><img src="/images/2021/06/image-60.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <p>全局阈值的选择方法有：<strong>人工选择法，直方图技术选择法，迭代式阈值选择法，最大类间方差法</strong>。</p>
 <h4 id="7-4-基于跟踪的图像分割"><a href="#7-4-基于跟踪的图像分割" class="headerlink" title="7.4 基于跟踪的图像分割"></a>7.4 基于跟踪的图像分割</h4><h3 id="7-4-1-轮廓跟踪法"><a href="#7-4-1-轮廓跟踪法" class="headerlink" title="7.4.1 轮廓跟踪法"></a>7.4.1 轮廓跟踪法</h3><h3 id="7-4-2-光栅跟踪法"><a href="#7-4-2-光栅跟踪法" class="headerlink" title="7.4.2 光栅跟踪法"></a>7.4.2 光栅跟踪法</h3><h4 id="7-5-基于区域的图像分割"><a href="#7-5-基于区域的图像分割" class="headerlink" title="7.5 基于区域的图像分割"></a>7.5 基于区域的图像分割</h4><h3 id="7-5-1-区域生长法"><a href="#7-5-1-区域生长法" class="headerlink" title="7.5.1 区域生长法"></a>7.5.1 区域生长法</h3><h3 id="7-5-2-分裂合并法"><a href="#7-5-2-分裂合并法" class="headerlink" title="7.5.2 分裂合并法"></a>7.5.2 分裂合并法</h3><p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/18/shuzituxiang7/">https://blog.jujimeizuo.cn/2021/06/18/shuzituxiang7/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
 

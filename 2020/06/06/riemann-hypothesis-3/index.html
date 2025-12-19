@@ -13,29 +13,29 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="黎曼函数的由来到了这里，我们可以看出了$\varepsilon(s)$和素数存在了千丝万缕的关系，于是人们认为$\varepsilon(s)$可能是破解素数规律的至强法宝，在了解黎曼函数与素数的关系之前，我们先来看看素数的分布规律。 素数定理了解素数定理之前，先了解素数的分布规律，统计一下一段里素数的个数。如下图所示： $$ \left[ \begin{array}{ccc} 1-10&amp;&amp;">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/06/20200603173716335.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/06/20200605165107475.jpg">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/06/20200603173716335.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/06/20200605165107475.jpg">
 <meta property="article:published_time" content="2020-06-06T03:14:33.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:12:20.840Z">
+<meta property="article:modified_time" content="2025-12-19T13:50:29.068Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="interesting">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/06/20200603173716335.png">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2020/06/20200603173716335.png">
     
     
       
         
-          <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         
       
     
@@ -195,7 +195,7 @@
 <p>但是人们一听说高斯早就发现了这个公式，那这个功劳就揣在高斯的口袋里了，哈哈哈。</p>
 <p>素数定理： 设x≥1，以π(x)表示不超过x的素数的个数，当x→∞时，$\pi(x)$～$Li(x)$（对数积分函数）或$\pi(x)$～$\frac{x}{ln(x)}$（素数计数函数）。</p>
 <p>即： $$\pi(x) ～ \frac{x}{\ln{x}} 或 Li(x) &#x3D; \int_{2} ^{x}{\frac{dt}{\ln{t}}}$$ <strong>x越大，误差越小，但还是存在误差项</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/06/20200603173716335.png"></p>
+<p><img src="/images/2020/06/20200603173716335.png"></p>
 <p>中间是最准确的素数计数函数，但是看起来$Li(x)$比$\pi(x)$更准确一点，但两个函数都不能准确地描述素数分布的规律，这时，高斯的学生黎曼出现了！！！</p>
 <p>黎曼在欧拉的基础上把$\varepsilon$函数进行了解析延拓就称为黎曼$\zeta$函数，之前提到过s是必须要大于1的，才是收敛，才是有意义的，s小于1是发散的，是无意义的。 那黎曼就想，能不能通过办法，让s在所有的复数域都具有意义，这个方法就是解析延拓。最后黎曼得出来，在所有的复平面内，只有1一个奇点没有意义，其他点都具有意义，也就是都是收敛的。所以这个拓展了定义域之后，这个函数就叫黎曼$\zeta$函数。并且黎曼通过这个函数提出了著名的黎曼猜想。 （关于解析延拓可看上篇博客）</p>
 <p>最终，在黎曼当上了柏林的科学院通讯院士，为了回应这个荣誉，黎曼发表了一篇8页的论文《论小于某给定数值的素数个数》。从此黎曼函数横空出世。</p>
@@ -210,7 +210,7 @@
 <p>然后我们让上面式子强行等于0，就是求$\zeta(s)$除了平凡零点外的非平凡零点，那么黎曼猜想就来了。</p>
 <p>黎曼猜测，所有的非平凡零点的实部都在$x &#x3D; 0$和$x &#x3D; 1$这两条临界线之内，这一块区域叫做临界区域或者关键区域。有可能零点的实部都在$x &#x3D; \frac{1}{2}$这条临界线上。但是黎曼无法证明。</p>
 <p>具体图像如下所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2020/06/20200605165107475.jpg"></p>
+<p><img src="/images/2020/06/20200605165107475.jpg"></p>
 <p>而黎曼$\zeta$函数的零点又与素数的分布情况紧密相连，所以，如果有人能证实黎曼猜想，这将是轰动全球的大事件。</p>
 <h4 id="黎曼猜想的后继故事"><a href="#黎曼猜想的后继故事" class="headerlink" title="黎曼猜想的后继故事"></a>黎曼猜想的后继故事</h4><p>在1900年国际数学大会上，希尔伯特在演讲中提出了23个数学问题，其中第八个就是黎曼猜想，与他并列第八的就是哥德巴赫猜想。</p>
 <p>在2000年的千禧年，美国的克雷数学研究所提出了7个 千禧难题，全是数学猜想，其中黎曼猜想就在其中，只要能证明其中一个就能拿到100万美元，其中的庞加莱猜想已经被证明了。这个人会是你吗？</p>

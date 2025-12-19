@@ -13,30 +13,30 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="1 软硬件设置 Macbook M1 pro docker - ubuntu18.04  2 配置远程服务器（ubuntu18.04）2.1 安装工具包123456docker exec -it 容器名称 &#x2F;bin&#x2F;shapt updateapt install openssh-serverapt install x11-appsapt install vimpasswd   # 给root账号赋">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/07/image-1690552905696.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2023/07/image-1690552905696.png">
 <meta property="article:published_time" content="2023-07-28T14:06:08.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:12:20.924Z">
+<meta property="article:modified_time" content="2025-12-19T13:47:39.012Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="ros">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/07/image-1690552905696.png">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2023/07/image-1690552905696.png">
     
     
       
         
-          <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         
       
     
@@ -203,7 +203,7 @@
 <h3 id="3-2-Xquartz设置"><a href="#3-2-Xquartz设置" class="headerlink" title="3.2 Xquartz设置"></a>3.2 Xquartz设置</h3><ol>
 <li>XQuartz -&gt; 偏好设置 -&gt; 安全性 -&gt; 勾选“允许从网络客户端连接” -&gt; 退出程序；</li>
 <li>终端键入 xhost + ip（注意两者之间的空格）重新启动 XQuartz；为远程主机添加权限 或者xhost +为所有IP添加权限</li>
-<li>ssh -XY <a href="mailto:&#114;&#x6f;&#x6f;&#116;&#64;&#x30;&#x2e;&#x30;&#x2e;&#x30;&#46;&#x30;">&#114;&#x6f;&#x6f;&#116;&#64;&#x30;&#x2e;&#x30;&#x2e;&#x30;&#46;&#x30;</a> -p 6100</li>
+<li>ssh -XY <a href="mailto:&#x72;&#111;&#x6f;&#116;&#64;&#48;&#x2e;&#x30;&#46;&#48;&#x2e;&#x30;">&#x72;&#111;&#x6f;&#116;&#64;&#48;&#x2e;&#x30;&#46;&#48;&#x2e;&#x30;</a> -p 6100</li>
 <li>netstat -an grep -F 6100 查看</li>
 </ol>
 <p>xquartz操作后需要重启。</p>
@@ -213,7 +213,7 @@
 
 <h3 id="3-4-测试ros小乌龟"><a href="#3-4-测试ros小乌龟" class="headerlink" title="3.4 测试ros小乌龟"></a>3.4 测试ros小乌龟</h3><p>tmux设置三个终端</p>
 <p>如下图所示：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2023/07/image-1690552905696.png" alt="file"></p>
+<p><img src="/images/2023/07/image-1690552905696.png" alt="file"></p>
 <p>也可以在docker内部执行，设置环境变量指定显示端口：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> DISPLAY=host.docker.internal:0  </span><br></pre></td></tr></table></figure>
 

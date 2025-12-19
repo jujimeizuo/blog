@@ -13,29 +13,29 @@
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="邮件发送创建一个springboot项目用IDEA创建springboot项目。  之后可以一直next，依赖之后说。 添加依赖打开pom.xml，添加如下依赖： 1234&lt;dependency&gt;    &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;    &lt;artifactId&gt;spring-boot-sta">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/02/20210217205938118.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/02/20210217210531708.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/02/20210217205938118.png">
+<meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/02/20210217210531708.png">
 <meta property="article:published_time" content="2021-02-17T13:54:56.000Z">
-<meta property="article:modified_time" content="2025-05-09T07:12:20.804Z">
+<meta property="article:modified_time" content="2025-12-19T13:50:29.049Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="Springboot">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/02/20210217205938118.png">
+<meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2021/02/20210217205938118.png">
     
     
       
         
-          <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon.ico">
+          <link rel="shortcut icon" href="/images/favicon.ico">
         
       
       
         
-          <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/favicon-192x192.png" sizes="192x192">
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
         
       
       
         
-          <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/apple-touch-icon.png">
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
         
       
     
@@ -187,7 +187,7 @@
 
   <div class="content e-content" itemprop="articleBody">
     <h2 id="邮件发送"><a href="#邮件发送" class="headerlink" title="邮件发送"></a>邮件发送</h2><h4 id="创建一个springboot项目"><a href="#创建一个springboot项目" class="headerlink" title="创建一个springboot项目"></a>创建一个springboot项目</h4><p>用IDEA创建springboot项目。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/02/20210217205938118.png"></p>
+<p><img src="/images/2021/02/20210217205938118.png"></p>
 <p>之后可以一直next，依赖之后说。</p>
 <h4 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h4><p>打开pom.xml，添加如下依赖：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-mail&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
@@ -196,7 +196,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 网易邮箱测试</span></span><br><span class="line">spring.mail.username=xxxxxx@<span class="number">163.</span>com</span><br><span class="line">spring.mail.password=网易账号授权码</span><br><span class="line">spring.mail.host=smtp<span class="number">.163</span>.com</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果是QQ邮箱，则需要加一行，网易邮箱不用</span></span><br><span class="line">##spring.mail.properties.mail.smtp.ssl.enable=<span class="literal">true</span> <span class="comment">// 开启加密验证</span></span><br></pre></td></tr></table></figure>
 
 <p>关于授权码，注意不是你的邮箱密码，位置如下所示。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/jujimeizuo/blog/images/2021/02/20210217210531708.png"></p>
+<p><img src="/images/2021/02/20210217210531708.png"></p>
 <p>只要选择开启之后发个短信即可获取。</p>
 <h4 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h4><p>首先在测试类要注入<strong>JavaMailSenderImpl</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> JavaMailSenderImpl mailSender;</span><br></pre></td></tr></table></figure>
