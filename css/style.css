@@ -438,42 +438,42 @@ body td {
   font-style: normal;
   font-weight: 400;
   font-family: "Maple Mono NF";
-  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-Regular.ttf") format("truetype");
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-Regular.ttf") format("truetype");
 }
 @font-face {
   font-style: italic;
   font-weight: 400;
   font-family: "Maple Mono NF";
-  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-Italic.ttf") format("truetype");
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-Italic.ttf") format("truetype");
 }
 @font-face {
   font-style: normal;
   font-weight: 500;
   font-family: "Maple Mono NF";
-  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-Medium.ttf") format("truetype");
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-Medium.ttf") format("truetype");
 }
 @font-face {
   font-style: italic;
   font-weight: 500;
   font-family: "Maple Mono NF";
-  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-MediumItalic.ttf") format("truetype");
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-MediumItalic.ttf") format("truetype");
 }
 @font-face {
   font-style: normal;
   font-weight: 700;
   font-family: "Maple Mono NF";
-  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-Bold.ttf") format("truetype");
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-Bold.ttf") format("truetype");
 }
 @font-face {
   font-style: italic;
   font-weight: 700;
   font-family: "Maple Mono NF";
-  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-CN-BoldItalic.ttf") format("truetype");
+  src: local("Maple Mono NF"), url("../lib/Maple Mono NF/MapleMono-NF-BoldItalic.ttf") format("truetype");
 }
 @font-face {
   font-style: normal;
   font-family: "LXGW Wenkai";
-  src: local("LXGW Wenkai"), url("../lib/LXGW Wenkai/Lxgw Zhen Kai GB.ttf") format("truetype");
+  src: local("LXGW Wenkai"), url("../lib/LXGW Wenkai/Lxgw-Zhen-Kai-GB.ttf") format("truetype");
 }
 *,
 *:before,
