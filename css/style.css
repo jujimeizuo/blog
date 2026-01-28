@@ -438,42 +438,49 @@ body td {
   font-style: normal;
   font-weight: 400;
   font-family: "Maple-Mono-NF";
-  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-Regular.ttf") format("truetype");
+  font-display: swap;
+  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-Regular.woff2") format("woff2");
 }
 @font-face {
   font-style: italic;
   font-weight: 400;
   font-family: "Maple-Mono-NF";
-  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-Italic.ttf") format("truetype");
+  font-display: swap;
+  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-Italic.woff2") format("woff2");
 }
 @font-face {
   font-style: normal;
   font-weight: 500;
   font-family: "Maple-Mono-NF";
-  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-Medium.ttf") format("truetype");
+  font-display: swap;
+  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-Medium.woff2") format("woff2");
 }
 @font-face {
   font-style: italic;
   font-weight: 500;
   font-family: "Maple-Mono-NF";
-  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-MediumItalic.ttf") format("truetype");
+  font-display: swap;
+  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-MediumItalic.woff2") format("woff2");
 }
 @font-face {
   font-style: normal;
   font-weight: 700;
   font-family: "Maple-Mono-NF";
-  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-Bold.ttf") format("truetype");
+  font-display: swap;
+  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-Bold.woff2") format("woff2");
 }
 @font-face {
   font-style: italic;
   font-weight: 700;
   font-family: "Maple-Mono-NF";
-  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-BoldItalic.ttf") format("truetype");
+  font-display: swap;
+  src: local("Maple-Mono-NF"), url("../lib/Maple-Mono-NF/MapleMono-NF-BoldItalic.woff2") format("woff2");
 }
 @font-face {
   font-style: normal;
   font-family: "LXGW-Wenkai";
-  src: local("LXGW-Wenkai"), url("../lib/LXGW-Wenkai/Lxgw-Zhen-Kai-GB.ttf") format("truetype");
+  font-display: swap;
+  src: local("LXGW-Wenkai"), url("../lib/LXGW-Wenkai/Lxgw-Zhen-Kai-GB.woff2") format("woff2");
 }
 *,
 *:before,
