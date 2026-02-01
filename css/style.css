@@ -480,7 +480,7 @@ body td {
   font-style: normal;
   font-family: "LXGW-Wenkai";
   font-display: swap;
-  src: local("LXGW-Wenkai"), url("https://cdn.jujimeizuo.cn/lxgw/files/LXGW-Wenkai/Lxgw-Zhen-Kai-GB.woff2") format("woff2");
+  src: local("LXGW-Wenkai"), url("https://cdn.jujimeizuo.cn/lxgw/files/Lxgw-Zhen-Kai-GB.woff2") format("woff2");
 }
 *,
 *:before,
