@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Linux 内核把内部状态以“文件、目录或日志”的形式开放给用户空间。多数文件并不存储在磁盘上，而是访问时由内核动态生成。    接口 主要用途 常见示例    &#x2F;proc 查看进程信息和系统运行状态，也包含部分内核参数 &#x2F;proc&#x2F;1234&#x2F;status、&#x2F;proc&#x2F;meminfo、&#x2F;proc&#x2F;cpuinfo   &#x2F;sys 展示和控制设备、驱动及内核对象 &#x2F;sys&#x2F;class&#x2F;net&#x2F;eth0&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux-Kernel-Info">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="Linux 内核把内部状态以“文件、目录或日志”的形式开放给用户空间。多数文件并不存储在磁盘上，而是访问时由内核动态生成。    接口 主要用途 常见示例    &#x2F;proc 查看进程信息和系统运行状态，也包含部分内核参数 &#x2F;proc&#x2F;1234&#x2F;status、&#x2F;proc&#x2F;meminfo、&#x2F;proc&#x2F;cpuinfo   &#x2F;sys 展示和控制设备、驱动及内核对象 &#x2F;sys&#x2F;class&#x2F;net&#x2F;eth0&#x2F;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-09-21T03:04:42.000Z">
+<meta property="article:modified_time" content="2026-09-21T03:07:07.437Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="Storage">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Linux-Kernel-Info</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://note.jujimeizuo.cn/">Note</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2026/09/18/Interacting-with-Linux-Kernel-Through-System-Calls/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&text=Linux-Kernel-Info"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&title=Linux-Kernel-Info"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&is_video=false&description=Linux-Kernel-Info"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux-Kernel-Info&body=Check out this article: https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&title=Linux-Kernel-Info"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&title=Linux-Kernel-Info"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&title=Linux-Kernel-Info"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&title=Linux-Kernel-Info"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&name=Linux-Kernel-Info&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&t=Linux-Kernel-Info"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#proc%EF%BC%9A%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81%E5%92%8C%E8%BF%9B%E7%A8%8B%E8%A7%86%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">&#x2F;proc：运行状态和进程视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sys%EF%BC%9A%E5%86%85%E6%A0%B8%E5%AF%B9%E8%B1%A1%E5%92%8C%E8%AE%BE%E5%A4%87%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">&#x2F;sys：内核对象和设备模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#debugfs%EF%BC%9A%E7%81%B5%E6%B4%BB%E4%BD%86%E4%B8%8D%E7%A8%B3%E5%AE%9A%E7%9A%84%E8%B0%83%E8%AF%95%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.</span> <span class="toc-text">debugfs：灵活但不稳定的调试接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tracefs%EF%BC%9A%E4%B8%93%E9%97%A8%E7%94%A8%E4%BA%8E%E5%86%85%E6%A0%B8%E8%B7%9F%E8%B8%AA"><span class="toc-number">4.</span> <span class="toc-text">tracefs：专门用于内核跟踪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dmesg%EF%BC%9A%E8%AF%BB%E5%8F%96%E5%86%85%E6%A0%B8%E6%97%A5%E5%BF%97"><span class="toc-number">5.</span> <span class="toc-text">dmesg：读取内核日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">6.</span> <span class="toc-text">它们之间的关系</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Linux-Kernel-Info
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-09-21T03:04:42.000Z" class="dt-published" itemprop="datePublished">2026-09-21</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Storage/" rel="tag">Storage</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>Linux 内核把内部状态以“文件、目录或日志”的形式开放给用户空间。多数文件并不存储在磁盘上，而是访问时由内核动态生成。</p>
+<table>
+<thead>
+<tr>
+<th>接口</th>
+<th>主要用途</th>
+<th>常见示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>/proc</code></td>
+<td>查看进程信息和系统运行状态，也包含部分内核参数</td>
+<td><code>/proc/1234/status</code>、<code>/proc/meminfo</code>、<code>/proc/cpuinfo</code></td>
+</tr>
+<tr>
+<td><code>/sys</code></td>
+<td>展示和控制设备、驱动及内核对象</td>
+<td><code>/sys/class/net/eth0/</code>、<code>/sys/block/sda/</code></td>
+</tr>
+<tr>
+<td><code>debugfs</code></td>
+<td>面向内核开发者的调试入口，接口通常不保证稳定</td>
+<td><code>/sys/kernel/debug/</code></td>
+</tr>
+<tr>
+<td><code>tracefs</code></td>
+<td>收集内核事件、函数调用和性能跟踪数据</td>
+<td><code>/sys/kernel/tracing/</code></td>
+</tr>
+<tr>
+<td><code>dmesg</code></td>
+<td>读取内核环形日志缓冲区，并非文件系统</td>
+<td>启动日志、驱动报错、硬件异常</td>
+</tr>
+</tbody></table>
+<h2 id="proc：运行状态和进程视图"><a href="#proc：运行状态和进程视图" class="headerlink" title="/proc：运行状态和进程视图"></a><code>/proc</code>：运行状态和进程视图</h2><p><code>/proc</code> 是 <code>procfs</code> 虚拟文件系统。它最初主要用于暴露进程信息，后来也加入了大量系统级信息。</p>
+<p>每个进程通常对应一个数字目录：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/proc/1234/</span><br><span class="line">├── cmdline    # 启动命令</span><br><span class="line">├── cwd        # 当前工作目录</span><br><span class="line">├── fd/        # 已打开的文件描述符</span><br><span class="line">├── maps       # 虚拟内存映射</span><br><span class="line">├── status     # 进程状态</span><br><span class="line">└── task/      # 线程</span><br></pre></td></tr></table></figure>
+
+<p>系统级文件包括：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/meminfo</span><br><span class="line"><span class="built_in">cat</span> /proc/loadavg</span><br><span class="line"><span class="built_in">cat</span> /proc/interrupts</span><br><span class="line"><span class="built_in">cat</span> /proc/mounts</span><br></pre></td></tr></table></figure>
+
+<p><code>/proc/sys/</code> 比较特殊，它允许查看或修改部分内核参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/sys/net/ipv4/ip_forward</span><br><span class="line">sudo sysctl -w net.ipv4.ip_forward=1</span><br></pre></td></tr></table></figure>
+
+<p>通常应优先使用 <code>sysctl</code>，而不是直接写 <code>/proc/sys</code>。</p>
+<h2 id="sys：内核对象和设备模型"><a href="#sys：内核对象和设备模型" class="headerlink" title="/sys：内核对象和设备模型"></a><code>/sys</code>：内核对象和设备模型</h2><p><code>/sys</code> 挂载的是 <code>sysfs</code>，它把内核中的设备、驱动、总线、模块等对象组织成层次结构。</p>
+<p>例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/sys/</span><br><span class="line">├── block/       # 块设备</span><br><span class="line">├── bus/         # PCI、USB 等总线</span><br><span class="line">├── class/       # 网络、输入、电源等设备类别</span><br><span class="line">├── devices/     # 实际设备拓扑</span><br><span class="line">├── firmware/    # 固件相关信息</span><br><span class="line">├── fs/          # 文件系统相关对象</span><br><span class="line">├── kernel/      # 内核功能</span><br><span class="line">└── module/      # 已加载模块</span><br></pre></td></tr></table></figure>
+
+<p>一些文件不仅能读取，还能控制设备：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /sys/class/net/eth0/operstate</span><br><span class="line"><span class="built_in">cat</span> /sys/class/power_supply/BAT0/capacity</span><br><span class="line"><span class="built_in">echo</span> 0 | sudo <span class="built_in">tee</span> /sys/class/leds/example/brightness</span><br></pre></td></tr></table></figure>
+
+<p>粗略来说，<code>/proc</code> 偏向“系统现在运行得怎样”，<code>/sys</code> 偏向“系统里有哪些内核对象，它们如何组织”。</p>
+<h2 id="debugfs：灵活但不稳定的调试接口"><a href="#debugfs：灵活但不稳定的调试接口" class="headerlink" title="debugfs：灵活但不稳定的调试接口"></a><code>debugfs</code>：灵活但不稳定的调试接口</h2><p><code>debugfs</code> 专门供内核和驱动开发者暴露调试信息，常见挂载位置是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sys/kernel/debug</span><br></pre></td></tr></table></figure>
+
+<p>检查和挂载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mount | grep debugfs</span><br><span class="line">sudo mount -t debugfs none /sys/kernel/debug</span><br></pre></td></tr></table></figure>
+
+<p>驱动可以在这里提供内部寄存器、统计计数器、状态快照或测试控制项。</p>
+<p>需要注意：</p>
+<ul>
+<li>不属于稳定的用户空间 ABI；</li>
+<li>文件名、格式和行为可能随内核版本改变；</li>
+<li>部分节点读取也可能产生副作用；</li>
+<li>通常只允许 <code>root</code> 或具备相应权限的进程访问。</li>
+</ul>
+<p>因此，生产程序不应长期依赖未经稳定性承诺的 <code>debugfs</code> 接口。</p>
+<h2 id="tracefs：专门用于内核跟踪"><a href="#tracefs：专门用于内核跟踪" class="headerlink" title="tracefs：专门用于内核跟踪"></a><code>tracefs</code>：专门用于内核跟踪</h2><p><code>tracefs</code> 是从 <code>debugfs</code> 中拆分出来的跟踪文件系统，主要承载 ftrace、tracepoints 和部分 eBPF 跟踪基础设施。</p>
+<p>现代系统通常挂载在：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sys/kernel/tracing</span><br></pre></td></tr></table></figure>
+
+<p>某些旧系统或兼容布局中也可能出现在：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sys/kernel/debug/tracing</span><br></pre></td></tr></table></figure>
+
+<p>关键文件包括：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">available_tracers       # 可用跟踪器</span><br><span class="line">available_events        # 可跟踪事件</span><br><span class="line">current_tracer          # 当前跟踪器</span><br><span class="line">events/                 # 事件分类</span><br><span class="line">set_ftrace_filter       # 函数过滤器</span><br><span class="line">trace                   # 当前跟踪结果</span><br><span class="line">trace_pipe              # 实时消费跟踪结果</span><br><span class="line">tracing_on              # 跟踪开关</span><br></pre></td></tr></table></figure>
+
+<p>例如跟踪进程执行事件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /sys/kernel/tracing</span><br><span class="line"><span class="built_in">echo</span> 1 | sudo <span class="built_in">tee</span> events/sched/sched_process_exec/enable</span><br><span class="line">sudo <span class="built_in">cat</span> trace_pipe</span><br></pre></td></tr></table></figure>
+
+<p><code>trace</code> 更像当前缓冲区的快照；<code>trace_pipe</code> 会持续输出并消费数据，更适合实时跟踪。</p>
+<h2 id="dmesg：读取内核日志"><a href="#dmesg：读取内核日志" class="headerlink" title="dmesg：读取内核日志"></a><code>dmesg</code>：读取内核日志</h2><p><code>dmesg</code> 不是一种文件系统，而是读取内核日志环形缓冲区的命令。内核和驱动通过 <code>printk()</code> 等机制向这个缓冲区写日志。</p>
+<p>常见用法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dmesg</span><br><span class="line">dmesg --human</span><br><span class="line">dmesg --level=err,warn</span><br><span class="line">dmesg --follow</span><br><span class="line">dmesg | grep -i usb</span><br></pre></td></tr></table></figure>
+
+<p>它常用于排查：</p>
+<ul>
+<li>驱动加载失败；</li>
+<li>磁盘 I&#x2F;O 错误；</li>
+<li>OOM Killer；</li>
+<li>USB 或 PCI 设备识别问题；</li>
+<li>文件系统损坏；</li>
+<li>内核崩溃和硬件异常。</li>
+</ul>
+<p>在使用 systemd 的系统上，也可以通过日志系统查看内核消息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">journalctl -k</span><br><span class="line">journalctl -k -b       <span class="comment"># 当前启动</span></span><br><span class="line">journalctl -k -b -1    <span class="comment"># 上一次启动</span></span><br></pre></td></tr></table></figure>
+
+<p>因为环形缓冲区容量有限，旧消息会被新消息覆盖；<code>journalctl</code> 如果启用了持久化日志，则可能保留更长时间。</p>
+<h2 id="它们之间的关系"><a href="#它们之间的关系" class="headerlink" title="它们之间的关系"></a>它们之间的关系</h2><p>可以用一句话概括：</p>
+<ul>
+<li><code>/proc</code>：进程与系统运行视图；</li>
+<li><code>/sys</code>：设备和内核对象模型；</li>
+<li><code>debugfs</code>：自由形式的开发调试入口；</li>
+<li><code>tracefs</code>：结构化、实时的内核跟踪入口；</li>
+<li><code>dmesg</code>：内核主动输出的日志记录。</li>
+</ul>
+<p>读取普通节点通常安全，但写入 <code>/proc/sys</code>、<code>/sys</code>、<code>debugfs</code> 或 <code>tracefs</code> 可能立即改变内核及硬件行为，需要确认节点语义并使用适当权限。</p>
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/">https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://note.jujimeizuo.cn/">Note</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#proc%EF%BC%9A%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81%E5%92%8C%E8%BF%9B%E7%A8%8B%E8%A7%86%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">&#x2F;proc：运行状态和进程视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sys%EF%BC%9A%E5%86%85%E6%A0%B8%E5%AF%B9%E8%B1%A1%E5%92%8C%E8%AE%BE%E5%A4%87%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">&#x2F;sys：内核对象和设备模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#debugfs%EF%BC%9A%E7%81%B5%E6%B4%BB%E4%BD%86%E4%B8%8D%E7%A8%B3%E5%AE%9A%E7%9A%84%E8%B0%83%E8%AF%95%E6%8E%A5%E5%8F%A3"><span class="toc-number">3.</span> <span class="toc-text">debugfs：灵活但不稳定的调试接口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tracefs%EF%BC%9A%E4%B8%93%E9%97%A8%E7%94%A8%E4%BA%8E%E5%86%85%E6%A0%B8%E8%B7%9F%E8%B8%AA"><span class="toc-number">4.</span> <span class="toc-text">tracefs：专门用于内核跟踪</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dmesg%EF%BC%9A%E8%AF%BB%E5%8F%96%E5%86%85%E6%A0%B8%E6%97%A5%E5%BF%97"><span class="toc-number">5.</span> <span class="toc-text">dmesg：读取内核日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">6.</span> <span class="toc-text">它们之间的关系</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&text=Linux-Kernel-Info"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&title=Linux-Kernel-Info"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&is_video=false&description=Linux-Kernel-Info"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Linux-Kernel-Info&body=Check out this article: https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&title=Linux-Kernel-Info"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&title=Linux-Kernel-Info"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&title=Linux-Kernel-Info"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&title=Linux-Kernel-Info"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&name=Linux-Kernel-Info&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/&t=Linux-Kernel-Info"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2026
+    jujimeizuo
+    <br>
+    <a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/">浙&thinsp;ICP&thinsp;备&thinsp;2021035172&thinsp;号-1</a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://note.jujimeizuo.cn/">Note</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
