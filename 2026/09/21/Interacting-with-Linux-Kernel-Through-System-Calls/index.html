@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="什么是 Linux 内核？Linux 内核可以理解为：运行在硬件和应用程序之间的“资源管理与安全控制层”。应用程序不能直接操作磁盘、网卡或内存，而是通过系统调用请求内核完成： 12345应用程序   ↓ 系统调用Linux 内核   ↓ 驱动程序硬件  内核主要负责：  进程调度：决定哪个程序使用 CPU 内存管理：虚拟内存、页表、缓存、回收 文件系统：目录、文件、权限、挂载 设备管理：磁盘、网卡">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Interacting-with-Linux-Kernel-Through-System-Calls">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/index.html">
+<meta property="og:site_name" content="jujimeizuo · Blog">
+<meta property="og:description" content="什么是 Linux 内核？Linux 内核可以理解为：运行在硬件和应用程序之间的“资源管理与安全控制层”。应用程序不能直接操作磁盘、网卡或内存，而是通过系统调用请求内核完成： 12345应用程序   ↓ 系统调用Linux 内核   ↓ 驱动程序硬件  内核主要负责：  进程调度：决定哪个程序使用 CPU 内存管理：虚拟内存、页表、缓存、回收 文件系统：目录、文件、权限、挂载 设备管理：磁盘、网卡">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-09-21T02:56:22.000Z">
+<meta property="article:modified_time" content="2026-09-21T03:00:45.539Z">
+<meta property="article:author" content="jujimeizuo">
+<meta property="article:tag" content="Storage">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Interacting-with-Linux-Kernel-Through-System-Calls</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+  </script>
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	
+<meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://note.jujimeizuo.cn/">Note</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2026/09/21/NVMe-NVMe-oF/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&text=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&title=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&is_video=false&description=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Interacting-with-Linux-Kernel-Through-System-Calls&body=Check out this article: https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&title=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&title=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&title=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&title=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&name=Interacting-with-Linux-Kernel-Through-System-Calls&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&t=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Linux-%E5%86%85%E6%A0%B8%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">什么是 Linux 内核？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E8%AF%B7%E6%B1%82%E5%A6%82%E4%BD%95%E7%BB%8F%E8%BF%87-Linux-%E5%86%85%E6%A0%B8%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">存储请求如何经过 Linux 内核？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%80%81%E5%A6%82%E4%BD%95%E8%BF%9B%E5%85%A5%E5%86%85%E6%A0%B8%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">用户态如何进入内核？</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        Interacting-with-Linux-Kernel-Through-System-Calls
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">jujimeizuo</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2026-09-21T02:56:22.000Z" class="dt-published" itemprop="datePublished">2026-09-21</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/Storage/" rel="tag">Storage</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h2 id="什么是-Linux-内核？"><a href="#什么是-Linux-内核？" class="headerlink" title="什么是 Linux 内核？"></a>什么是 Linux 内核？</h2><p>Linux 内核可以理解为：运行在硬件和应用程序之间的“资源管理与安全控制层”。<br>应用程序不能直接操作磁盘、网卡或内存，而是通过系统调用请求内核完成：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">应用程序</span><br><span class="line">   ↓ 系统调用</span><br><span class="line">Linux 内核</span><br><span class="line">   ↓ 驱动程序</span><br><span class="line">硬件</span><br></pre></td></tr></table></figure>
+
+<p>内核主要负责：</p>
+<ul>
+<li>进程调度：决定哪个程序使用 CPU</li>
+<li>内存管理：虚拟内存、页表、缓存、回收</li>
+<li>文件系统：目录、文件、权限、挂载</li>
+<li>设备管理：磁盘、网卡、USB、GPU 等驱动</li>
+<li>网络协议栈</li>
+<li>安全隔离和权限控制</li>
+<li>多核并发、中断、锁和同步</li>
+</ul>
+<h2 id="存储请求如何经过-Linux-内核？"><a href="#存储请求如何经过-Linux-内核？" class="headerlink" title="存储请求如何经过 Linux 内核？"></a>存储请求如何经过 Linux 内核？</h2><p>以应用执行 write(fd, buf, 4096) 为例，大致路径是：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">应用程序</span><br><span class="line">  ↓ write 系统调用</span><br><span class="line">系统调用层</span><br><span class="line">  ↓</span><br><span class="line">VFS</span><br><span class="line">  ↓</span><br><span class="line">具体文件系统：ext4 / XFS</span><br><span class="line">  ↓</span><br><span class="line">页缓存、写回机制</span><br><span class="line">  ↓</span><br><span class="line">块层：bio / request</span><br><span class="line">  ↓</span><br><span class="line">设备映射：LVM / dm-crypt / RAID</span><br><span class="line">  ↓</span><br><span class="line">磁盘驱动：NVMe / SCSI / SATA</span><br><span class="line">  ↓</span><br><span class="line">硬件设备</span><br></pre></td></tr></table></figure>
+
+<h2 id="用户态如何进入内核？"><a href="#用户态如何进入内核？" class="headerlink" title="用户态如何进入内核？"></a>用户态如何进入内核？</h2><p>用户态进入内核可以通过以下系统调用：</p>
+<ul>
+<li><code>open()</code></li>
+<li><code>read()</code></li>
+<li><code>write()</code></li>
+<li><code>fsync()</code></li>
+<li><code>ioctl()</code></li>
+<li><code>mmap()</code></li>
+<li><code>stat()</code></li>
+</ul>
+<p>常用工具：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">strace -e trace=file,<span class="built_in">read</span>,write <span class="built_in">cat</span> file.txt</span><br><span class="line">lsof /data/file.txt</span><br><span class="line"><span class="built_in">stat</span> file.txt</span><br><span class="line"><span class="built_in">sync</span></span><br></pre></td></tr></table></figure>
+
+<p>Example：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">strace -T -e openat,<span class="built_in">read</span>,write,fsync \</span><br><span class="line">    <span class="built_in">dd</span> <span class="keyword">if</span>=/bin/bash of=/dev/null bs=1M count=10</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/home/fengzetao/data<span class="comment"># strace -T -e openat,read,write,fsync   dd if=/bin/bash of=/dev/null bs=1M count=10</span></span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/etc/ld.so.cache&quot;</span>, O_RDONLY|O_CLOEXEC) = 3 &lt;0.000006&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/lib/aarch64-linux-gnu/libc.so.6&quot;</span>, O_RDONLY|O_CLOEXEC) = 3 &lt;0.000004&gt;</span><br><span class="line"><span class="built_in">read</span>(3, <span class="string">&quot;\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\360u\2\0\0\0\0\0&quot;</span>..., 832) = 832 &lt;0.000004&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/lib/locale/locale-archive&quot;</span>, O_RDONLY|O_CLOEXEC) = 3 &lt;0.000008&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/bin/bash&quot;</span>, O_RDONLY) = 3 &lt;0.000206&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/dev/null&quot;</span>, O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3 &lt;0.000090&gt;</span><br><span class="line"><span class="built_in">read</span>(0, <span class="string">&quot;\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0E\3\0\0\0\0\0&quot;</span>..., 1048576) = 1048576 &lt;0.001258&gt;</span><br><span class="line">write(1, <span class="string">&quot;\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0\267\0\1\0\0\0\0E\3\0\0\0\0\0&quot;</span>..., 1048576) = 1048576 &lt;0.000005&gt;</span><br><span class="line"><span class="built_in">read</span>(0, <span class="string">&quot;\26\0\200\322@\2\0004\23\0\200\322\364\0\0004\240zs\370s\6\0\221@\0\0\264\345\310\374\227&quot;</span>..., 1048576) = 350840 &lt;0.000088&gt;</span><br><span class="line">write(1, <span class="string">&quot;\26\0\200\322@\2\0004\23\0\200\322\364\0\0004\240zs\370s\6\0\221@\0\0\264\345\310\374\227&quot;</span>..., 350840) = 350840 &lt;0.000007&gt;</span><br><span class="line"><span class="built_in">read</span>(0, <span class="string">&quot;&quot;</span>, 1048576)                    = 0 &lt;0.000003&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale/locale.alias&quot;</span>, O_RDONLY|O_CLOEXEC) = 0 &lt;0.000263&gt;</span><br><span class="line"><span class="built_in">read</span>(0, <span class="string">&quot;# Locale name alias data base.\n#&quot;</span>..., 4096) = 2996 &lt;0.000037&gt;</span><br><span class="line"><span class="built_in">read</span>(0, <span class="string">&quot;&quot;</span>, 4096)                       = 0 &lt;0.000007&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale/en_US.UTF-8/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = -1 ENOENT (No such file or directory) &lt;0.000031&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale/en_US.utf8/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = -1 ENOENT (No such file or directory) &lt;0.000005&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale/en_US/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = -1 ENOENT (No such file or directory) &lt;0.000004&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale/en.UTF-8/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = -1 ENOENT (No such file or directory) &lt;0.000003&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale/en.utf8/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = -1 ENOENT (No such file or directory) &lt;0.000041&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale/en/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = -1 ENOENT (No such file or directory) &lt;0.000022&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale-langpack/en_US.UTF-8/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = -1 ENOENT (No such file or directory) &lt;0.000003&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale-langpack/en_US.utf8/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = -1 ENOENT (No such file or directory) &lt;0.000005&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale-langpack/en_US/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = -1 ENOENT (No such file or directory) &lt;0.000008&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale-langpack/en.UTF-8/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = -1 ENOENT (No such file or directory) &lt;0.000003&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale-langpack/en.utf8/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = -1 ENOENT (No such file or directory) &lt;0.000002&gt;</span><br><span class="line">openat(AT_FDCWD, <span class="string">&quot;/usr/share/locale-langpack/en/LC_MESSAGES/coreutils.mo&quot;</span>, O_RDONLY) = 0 &lt;0.000022&gt;</span><br><span class="line">write(2, <span class="string">&quot;1+1 records in\n1+1 records out\n&quot;</span>, 311+1 records <span class="keyword">in</span></span><br><span class="line">1+1 records out</span><br><span class="line">) = 31 &lt;0.000003&gt;</span><br><span class="line">write(2, <span class="string">&quot;1399416 bytes (1.4 MB, 1.3 MiB) &quot;</span>..., 621399416 bytes (1.4 MB, 1.3 MiB) copied, 0.00287576 s, 487 MB/s) = 62 &lt;0.000003&gt;</span><br><span class="line">write(2, <span class="string">&quot;\n&quot;</span>, 1</span><br><span class="line">)                       = 1 &lt;0.000002&gt;</span><br><span class="line">+++ exited with 0 +++</span><br></pre></td></tr></table></figure>
+
+<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/">https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
+
+  </div>
+</article>
+
+
+
+<script src="https://giscus.app/client.js"
+        data-repo="jujimeizuo/Blog"
+        data-repo-id="R_kgDOLoFA2Q"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOLoFA2c4CeXmK"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://note.jujimeizuo.cn/">Note</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Linux-%E5%86%85%E6%A0%B8%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">什么是 Linux 内核？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E8%AF%B7%E6%B1%82%E5%A6%82%E4%BD%95%E7%BB%8F%E8%BF%87-Linux-%E5%86%85%E6%A0%B8%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">存储请求如何经过 Linux 内核？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%80%81%E5%A6%82%E4%BD%95%E8%BF%9B%E5%85%A5%E5%86%85%E6%A0%B8%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">用户态如何进入内核？</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&text=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&title=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&is_video=false&description=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Interacting-with-Linux-Kernel-Through-System-Calls&body=Check out this article: https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&title=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&title=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&title=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&title=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&name=Interacting-with-Linux-Kernel-Through-System-Calls&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2026/09/21/Interacting-with-Linux-Kernel-Through-System-Calls/&t=Interacting-with-Linux-Kernel-Through-System-Calls"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2026
+    jujimeizuo
+    <br>
+    <a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/">浙&thinsp;ICP&thinsp;备&thinsp;2021035172&thinsp;号-1</a>
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+      --><li><a href="/">Home</a></li><!--
+    --><!--
+      --><li><a href="/about/">About</a></li><!--
+    --><!--
+      --><li><a href="/archives/">Writing</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/">Projects</a></li><!--
+    --><!--
+      --><li><a target="_blank" rel="noopener" href="https://note.jujimeizuo.cn/">Note</a></li><!--
+    --><!--
+      --><li><a href="/search/">Search</a></li><!--
+    -->
+      </ul>
+      <ul>
+        
+          <!-- 不蒜子统计 -->
+          <span id="busuanzi_container_site_pv">
+              本站总访问量<span id="busuanzi_value_site_pv"></span>次
+          </span>
+          <span class="post-meta-divider">|</span>
+          <span id="busuanzi_container_site_uv" style='display:none'>
+                  本站访客数<span id="busuanzi_value_site_uv"></span>人
+          </span>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+      </ul>
+    </nav>
+  </div>
+  
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+  <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+        </script>
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
