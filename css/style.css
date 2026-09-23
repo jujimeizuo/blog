@@ -1288,6 +1288,181 @@ article .content .caption {
     content: "|";
   }
 }
+article .content .hexo-callout,
+article .content details.hexo-callout {
+  --callout-bg: #f5f7f8;
+  --callout-accent: #2bbc8a;
+  --callout-text: #383838;
+  --callout-icon-size: 1.1em;
+  --callout-radius: 6px;
+  position: relative;
+  margin: 1.25rem 0;
+  padding: 0.9rem 1.1rem 1rem 1.15rem;
+  overflow: hidden;
+  color: var(--callout-text);
+  font-size: 16px;
+  line-height: 1.5;
+  border: none;
+  border-left: 4px solid var(--callout-accent);
+  border-radius: 0 var(--callout-radius) var(--callout-radius) 0;
+  background: var(--callout-bg);
+  box-shadow: none;
+}
+article .content .hexo-callout::before,
+article .content details.hexo-callout::before,
+article .content .hexo-callout::after,
+article .content details.hexo-callout::after {
+  content: none;
+  display: none;
+  mix-blend-mode: normal;
+  background: none;
+}
+article .content .hexo-callout a,
+article .content details.hexo-callout a {
+  color: #383838;
+}
+article .content .hexo-callout p,
+article .content details.hexo-callout p {
+  margin: 0.4rem 0;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: inherit;
+}
+article .content .hexo-callout code,
+article .content details.hexo-callout code {
+  color: #383838;
+  background: #fafafa;
+}
+article .content .hexo-callout__header,
+article .content details.hexo-callout > .hexo-callout__summary {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+  margin: 0;
+  color: var(--callout-accent);
+  font-weight: 700;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: 0.01em;
+}
+article .content .hexo-callout__summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0;
+}
+article .content .hexo-callout__summary::-webkit-details-marker {
+  display: none;
+}
+article .content .hexo-callout__icon {
+  width: var(--callout-icon-size);
+  height: var(--callout-icon-size);
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  color: var(--callout-accent);
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+article .content .hexo-callout__icon::after {
+  content: none;
+  display: none;
+}
+article .content .hexo-callout__icon svg {
+  width: 1em;
+  height: 1em;
+}
+article .content .hexo-callout__title {
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+article .content .hexo-callout__chevron {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border-radius: 0;
+}
+article .content .hexo-callout__chevron::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border: 2px solid currentColor;
+  border-top: 0;
+  border-left: 0;
+  transform: rotate(45deg);
+}
+article .content details.hexo-callout[open] > .hexo-callout__summary .hexo-callout__chevron {
+  transform: rotate(225deg);
+}
+article .content .hexo-callout__content {
+  margin-top: 0.55rem;
+  margin-left: 0;
+  display: flow-root;
+  font-size: inherit;
+  line-height: inherit;
+}
+article .content .hexo-callout__content > :first-child {
+  margin-top: 0;
+}
+article .content .hexo-callout__content ul,
+article .content .hexo-callout__content ol {
+  margin: 0.35rem 0;
+  padding-inline-start: 1.2rem;
+}
+article .content .hexo-callout__content li {
+  margin: 0.15rem 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+article .content .hexo-callout__content blockquote {
+  margin: 0.5rem 0;
+  padding: 0 0 0 0.75rem;
+  color: #666;
+  font-weight: 500;
+  border-inline-start: 3px solid var(--callout-accent);
+  background: transparent;
+}
+article .content .hexo-callout__content blockquote::before {
+  content: none;
+}
+article .content .hexo-callout[data-callout="note"],
+article .content .hexo-callout[data-callout="info"],
+article .content .hexo-callout[data-callout="todo"],
+article .content .hexo-callout[data-callout="example"] {
+  --callout-bg: #f3f8ff;
+  --callout-accent: #3b82c4;
+}
+article .content .hexo-callout[data-callout="abstract"],
+article .content .hexo-callout[data-callout="tip"],
+article .content .hexo-callout[data-callout="success"] {
+  --callout-bg: #eefaf5;
+  --callout-accent: #2bbc8a;
+}
+article .content .hexo-callout[data-callout="question"] {
+  --callout-bg: #f8f4ec;
+  --callout-accent: #c9892d;
+}
+article .content .hexo-callout[data-callout="warning"] {
+  --callout-bg: #fff7ea;
+  --callout-accent: #d08a1f;
+}
+article .content .hexo-callout[data-callout="failure"],
+article .content .hexo-callout[data-callout="danger"],
+article .content .hexo-callout[data-callout="bug"] {
+  --callout-bg: #fdf2f2;
+  --callout-accent: #c45c66;
+}
+article .content .hexo-callout[data-callout="quote"] {
+  --callout-bg: #f6f6f6;
+  --callout-accent: #666;
+}
 #archive .post-year {
   list-style-type: none;
 }
@@ -1646,9 +1821,9 @@ pre {
   padding-bottom: 0;
   border: 1px dotted #666;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 16px;
   font-family: "Maple-Mono-NF", "LXGW-Wenkai", -apple-system, BlinkMacSystemFont;
-  line-height: 22px;
+  line-height: 24px;
   -webkit-border-radius: 4px;
 }
 pre code {

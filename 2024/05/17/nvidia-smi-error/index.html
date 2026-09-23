@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="以下方法，不需要重装驱动，简单快捷。适用于Ubuntu系统下，之前已经安装过驱动，但驱动失效的问题。 否则需要重新安装驱动，参考Ubuntu下安装nvidia显卡驱动。   问题描述当使用 nvidia-smi 命令时，出现以下错误： 12NVIDIA-SMI has failed because it couldn&#x27;t communicate with the NVIDIA dri">
+    <meta name="description" content="以下方法，不需要重装驱动，简单快捷。适用于Ubuntu系统下，之前已经安装过驱动，但驱动失效的问题。 否则需要重新安装驱动，参考Ubuntu下安装nvidia显卡驱动。   问题描述当使用 nvidia-smi 命令时，出现以下错误： 12NVIDIA-SMI has failed because it couldn&#39;t communicate with the NVIDIA driver.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nvidia-smi unable to load driver">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2024/05/17/nvidia-smi-error/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
-<meta property="og:description" content="以下方法，不需要重装驱动，简单快捷。适用于Ubuntu系统下，之前已经安装过驱动，但驱动失效的问题。 否则需要重新安装驱动，参考Ubuntu下安装nvidia显卡驱动。   问题描述当使用 nvidia-smi 命令时，出现以下错误： 12NVIDIA-SMI has failed because it couldn&#x27;t communicate with the NVIDIA dri">
+<meta property="og:description" content="以下方法，不需要重装驱动，简单快捷。适用于Ubuntu系统下，之前已经安装过驱动，但驱动失效的问题。 否则需要重新安装驱动，参考Ubuntu下安装nvidia显卡驱动。   问题描述当使用 nvidia-smi 命令时，出现以下错误： 12NVIDIA-SMI has failed because it couldn&#39;t communicate with the NVIDIA driver.">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/05/ns-1.jpg">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/05/ns-2.jpg">
@@ -197,7 +197,7 @@
 </ul>
 </blockquote>
 <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>当使用 <code>nvidia-smi</code> 命令时，出现以下错误：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NVIDIA-SMI has failed because it couldn&#x27;t communicate with the NVIDIA driver. </span><br><span class="line">Make sure that the latest NVIDIA driver is installed and running.</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. </span><br><span class="line">Make sure that the latest NVIDIA driver is installed and running.</span><br></pre></td></tr></tbody></table></figure>
 
 <p>估计问题出现原因是 ubuntu 系统更新了，但是 nvidia 驱动无法连接。</p>
 <h2 id="检查驱动是否存在"><a href="#检查驱动是否存在" class="headerlink" title="检查驱动是否存在"></a>检查驱动是否存在</h2><ul>
@@ -206,7 +206,7 @@
 <center><img src="/images/2024/05/ns-1.jpg" width="50%"></center>
 
 <p>发现驱动是存在的。</p>
-<h2 id="查看已安装驱动的版本信息"><a href="#查看已安装驱动的版本信息" class="headerlink" title="查看已安装驱动的版本信息"></a>查看已安装驱动的版本信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /usr/src | grep nvidia</span><br></pre></td></tr></table></figure>
+<h2 id="查看已安装驱动的版本信息"><a href="#查看已安装驱动的版本信息" class="headerlink" title="查看已安装驱动的版本信息"></a>查看已安装驱动的版本信息</h2><figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /usr/src | grep nvidia</span><br></pre></td></tr></tbody></table></figure>
 
 <center><img src="/images/2024/05/ns-2.jpg" width="50%"></center>
 
@@ -226,8 +226,8 @@
 <h2 id="重新-dkms"><a href="#重新-dkms" class="headerlink" title="重新 dkms"></a>重新 dkms</h2><center><img src="/images/2024/05/ns-5.jpg" width="50%"></center>
 
 <p>到这里为止，再次输入 <code>nvidia-smi</code> 就可以查看 GPU 使用状态。</p>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/05/17/nvidia-smi-error/">https://blog.jujimeizuo.cn/2024/05/17/nvidia-smi-error/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2024/05/17/nvidia-smi-error/">https://blog.jujimeizuo.cn/2024/05/17/nvidia-smi-error/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

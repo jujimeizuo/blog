@@ -194,7 +194,7 @@
 </blockquote>
 <h2 id="1-系统崩溃时如何操作"><a href="#1-系统崩溃时如何操作" class="headerlink" title="1. 系统崩溃时如何操作"></a>1. 系统崩溃时如何操作</h2><p>当系统故障时，输入所有命令都无效，系统无法正常启动，此时有以下两种方法：</p>
 <h3 id="1-1-救援模式"><a href="#1-1-救援模式" class="headerlink" title="1.1 救援模式"></a>1.1 救援模式</h3><p>开机时，按下 <code>SHIFT + ESC</code> 进入 GRUB 引导加载器页面</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-----------------------------</span><br><span class="line">|*Ubuntu                    |</span><br><span class="line">|Advanced options for Ubuntu|</span><br><span class="line">-----------------------------</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-----------------------------</span><br><span class="line">|*Ubuntu                    |</span><br><span class="line">|Advanced options for Ubuntu|</span><br><span class="line">-----------------------------</span><br></pre></td></tr></tbody></table></figure>
 
 <p>下面有两种方式进入救援模式：</p>
 <h4 id="1-1-1-Ubuntu"><a href="#1-1-1-Ubuntu" class="headerlink" title="1.1.1 Ubuntu"></a>1.1.1 Ubuntu</h4><ul>
@@ -220,27 +220,27 @@
 <h3 id="1-3-挂载崩溃系统"><a href="#1-3-挂载崩溃系统" class="headerlink" title="1.3 挂载崩溃系统"></a>1.3 挂载崩溃系统</h3><p>此时通过前两种方法可以使用命令行或者图形界面进入系统，此时需要先挂载崩溃系统，然后再修复系统。</p>
 <ol>
 <li><p>查看崩溃系统的分区</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk -l</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo fdisk -l</span><br></pre></td></tr></tbody></table></figure>
 
 <p> 根据自己之前分区的情况，找到崩溃系统的分区，例如我的崩溃系统是 <code>/dev/nveme0n1p7</code></p>
 </li>
 <li><p>挂载崩溃系统</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount /dev/nveme0n1p7 /mnt</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount /dev/nveme0n1p7 /mnt</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>修复系统 ……</p>
 </li>
 <li><p>查看是否修复成功</p>
 <p> 通过更换到崩溃系统的分区，如果没有<strong>核心已转储</strong>，能够正常进入，即修复成功。</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chroot</span> /mnt</span><br></pre></td></tr></table></figure></li>
+ <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">chroot</span> /mnt</span><br></pre></td></tr></tbody></table></figure></li>
 </ol>
 <h2 id="2-libc-引起的系统崩溃"><a href="#2-libc-引起的系统崩溃" class="headerlink" title="2. libc 引起的系统崩溃"></a>2. libc 引起的系统崩溃</h2><ul>
 <li><p>当我弄一些东西的时，从源码更新 libc 到 2.35，编译、安装，<code>make install</code> 之后，系统直接崩溃，命令都无法使用！！！</p>
-  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">make[2]: *** [Makefile:84: da.mo] Segmentation fault (core dumped)</span><br><span class="line">make[2]: Leaving directory &#x27;/root/glibc-2.35/po&#x27;</span><br><span class="line">make[1]: *** [Makefile:215: po/subdir_install] Error 2</span><br><span class="line">make[1]: Leaving directory &#x27;/root/glibc-2.35&#x27;</span><br><span class="line">make: *** [Makefile:12: install] Error 2</span><br></pre></td></tr></table></figure>
+  <figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">make[2]: *** [Makefile:84: da.mo] Segmentation fault (core dumped)</span><br><span class="line">make[2]: Leaving directory '/root/glibc-2.35/po'</span><br><span class="line">make[1]: *** [Makefile:215: po/subdir_install] Error 2</span><br><span class="line">make[1]: Leaving directory '/root/glibc-2.35'</span><br><span class="line">make: *** [Makefile:12: install] Error 2</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>崩溃原因：</p>
 <ul>
 <li>libc.so.6 是 C 运行时库 glibc 的软链接，程序启动和运行时，是根据 libc.so.6 软链接找到glibc库</li>
-<li>lib64&#x2F;libc.so.6 是一个软链接，指向 &#x2F;lib64&#x2F;libc.so-2.1x，2.1x 表示其对应版本，去兼容相应 Ubuntu 版本</li>
+<li>lib64/libc.so.6 是一个软链接，指向 /lib64/libc.so-2.1x，2.1x 表示其对应版本，去兼容相应 Ubuntu 版本</li>
 <li>很多基本命命令依赖 glibc，libc.so.6 链接对应版本不一致将导致系统的几乎所有程序不能工作</li>
 </ul>
 </li>
@@ -249,7 +249,7 @@
 <li><p>此时不要重启服务器，不要关闭当前终端，还有救！！！（仅限于系统中存在版本正确的 libc.so.6，不然就直接跳转到下面，）</p>
 </li>
 <li><p>如果系统中还有 glibc-2.31.so（<strong>此时备份的重要性</strong>），则创建软连接即可</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /usr/lib64/libc-2.31.so /lib64/libc.so.6</span><br><span class="line"><span class="built_in">ln</span> -s /usr/lib64/ld-2.31.so /lib64/ld-linux-x86-64.so.2</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /usr/lib64/libc-2.31.so /lib64/libc.so.6</span><br><span class="line"><span class="built_in">ln</span> -s /usr/lib64/ld-2.31.so /lib64/ld-linux-x86-64.so.2</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>并且删除 2.35 相关文件</p>
 </li>
@@ -258,29 +258,29 @@
 <li><p>进入救援模式，挂载崩溃系统</p>
 </li>
 <li><p>查看系统适配的 glibc 版本</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldd --version</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldd --version</span><br></pre></td></tr></tbody></table></figure>
 
 <p> 输出结果如下：</p>
- <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ldd (Ubuntu EGLIBC 2.31-0ubuntu6.6) 2.31</span><br><span class="line">Copyright (C) 2020 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br><span class="line">Written by Roland McGrath and Ulrich Drepper.</span><br></pre></td></tr></table></figure>
+ <figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ldd (Ubuntu EGLIBC 2.31-0ubuntu6.6) 2.31</span><br><span class="line">Copyright (C) 2020 Free Software Foundation, Inc.</span><br><span class="line">This is free software; see the source for copying conditions.  There is NO</span><br><span class="line">warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</span><br><span class="line">Written by Roland McGrath and Ulrich Drepper.</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>查看 libc 中 GLIBC 的版本</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings /lib64/libc.so.6 | grep -E <span class="string">&quot;^GLIBC&quot;</span> | <span class="built_in">sort</span> -V -r | <span class="built_in">uniq</span></span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings /lib64/libc.so.6 | grep -E <span class="string">"^GLIBC"</span> | <span class="built_in">sort</span> -V -r | <span class="built_in">uniq</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p> 输出结果如下：</p>
- <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GLIBC_2.35</span><br><span class="line">GLIBC_2.34</span><br><span class="line">GLIBC_2.33</span><br><span class="line">GLIBC_2.32</span><br><span class="line">GLIBC_2.31</span><br><span class="line">GLIBC_2.30</span><br><span class="line">GLIBC_2.29</span><br><span class="line">GLIBC_2.28</span><br><span class="line">GLIBC_2.27</span><br><span class="line">GLIBC_2.26</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+ <figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GLIBC_2.35</span><br><span class="line">GLIBC_2.34</span><br><span class="line">GLIBC_2.33</span><br><span class="line">GLIBC_2.32</span><br><span class="line">GLIBC_2.31</span><br><span class="line">GLIBC_2.30</span><br><span class="line">GLIBC_2.29</span><br><span class="line">GLIBC_2.28</span><br><span class="line">GLIBC_2.27</span><br><span class="line">GLIBC_2.26</span><br><span class="line">...</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>发现 glibc 还是 2.35 版本，需要降级到 2.31 版本，此时崩溃系统中没有 libc-2.31.so 文件，我发现 USB 启动盘中有这个文件（所以制作启动盘时最好和崩溃系统的版本相同），此时需要将其复制到崩溃系统中</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /usr/lib/x86_64-linux-gnu/libc-2.31.so /mnt/lib64/</span><br><span class="line"><span class="built_in">cp</span> /usr/lib/x86_64-linux-gnu/ld-2.31.so /mnt/lib64/</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> /usr/lib/x86_64-linux-gnu/libc-2.31.so /mnt/lib64/</span><br><span class="line"><span class="built_in">cp</span> /usr/lib/x86_64-linux-gnu/ld-2.31.so /mnt/lib64/</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>然后创建软链接</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /lib64/libc-2.31.so /mnt/lib64/libc.so.6</span><br><span class="line"><span class="built_in">ln</span> -s /lib64/ld-2.31.so /mnt/lib64/ld-linux-x86-64.so.2</span><br></pre></td></tr></table></figure>
+ <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /lib64/libc-2.31.so /mnt/lib64/libc.so.6</span><br><span class="line"><span class="built_in">ln</span> -s /lib64/ld-2.31.so /mnt/lib64/ld-linux-x86-64.so.2</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p><code>chroot /mnt</code> 查看是否能正常进入，到此修复成功！！！</p>
 </li>
 </ol>
 <h2 id="3-libcrypt-引起的系统崩溃"><a href="#3-libcrypt-引起的系统崩溃" class="headerlink" title="3. libcrypt 引起的系统崩溃"></a>3. libcrypt 引起的系统崩溃</h2><ul>
 <li><p>当我修复好系统之后，又手贱更新了 <code>libc-bin</code>，导致 libcrypt 出错，再次崩溃！！！</p>
-  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sbin/init: /lib/libcrypt.so.1: version `XCRYPT_2.0` not found (required by lib/systemd/lib/systemd-shared-245.so)</span><br></pre></td></tr></table></figure>
+  <figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sbin/init: /lib/libcrypt.so.1: version `XCRYPT_2.0` not found (required by lib/systemd/lib/systemd-shared-245.so)</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>崩溃原因：</p>
 <ul>
@@ -290,24 +290,24 @@
 <li><p>进入救援模式，挂载崩溃系统</p>
 </li>
 <li><p>查看 libsystemd-shared-245.so 依赖的 libcrypt.so.1 版本</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldd /lib/systemd/libsystemd-shared-245.so | grep libcrypt.so.1</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldd /lib/systemd/libsystemd-shared-245.so | grep libcrypt.so.1</span><br></pre></td></tr></tbody></table></figure>
 
 <p>  输出结果如下：</p>
-  <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/lib/systemd/libsystemd-shared-245.so:/lib64/libcrypt.so.1:version ‘XCRYPT_2.0’ not found(required by /lib/systemd/libsystemd-shared-245.so)</span><br><span class="line">libcrypt.so.1 =&gt; /lib/libcrypt.so.1 (0x00007f2636167000)</span><br></pre></td></tr></table></figure>
+  <figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/lib/systemd/libsystemd-shared-245.so:/lib64/libcrypt.so.1:version ‘XCRYPT_2.0’ not found(required by /lib/systemd/libsystemd-shared-245.so)</span><br><span class="line">libcrypt.so.1 =&gt; /lib/libcrypt.so.1 (0x00007f2636167000)</span><br></pre></td></tr></tbody></table></figure>
 
-<p>  表示依赖的 libcrypt.so.1 链接于 &#x2F;lib&#x2F;libcrypt.so.1</p>
+<p>  表示依赖的 libcrypt.so.1 链接于 /lib/libcrypt.so.1</p>
 </li>
 <li><p>查看 libcrypt.so.1 版本</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings /lib/libcrypt.so.1 | grep <span class="string">&quot;XCRYPT_2.0&quot;</span></span><br></pre></td></tr></table></figure>
-<p>  没有输出，说明 &#x2F;liblibcrypt.so.1 中没有 XCRYPT_2.0 版本</p>
+  <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings /lib/libcrypt.so.1 | grep <span class="string">"XCRYPT_2.0"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>  没有输出，说明 /liblibcrypt.so.1 中没有 XCRYPT_2.0 版本</p>
 </li>
-<li><p>发现 &#x2F;liblibcrypt.so.1 中确实没有 XCRYPT_2.0 版本，此时需要一个正确的 libcrypt.so.1 文件。</p>
+<li><p>发现 /liblibcrypt.so.1 中确实没有 XCRYPT_2.0 版本，此时需要一个正确的 libcrypt.so.1 文件。</p>
 </li>
 </ul>
-<h3 id="3-1-下载兼容的-libcrypt1"><a href="#3-1-下载兼容的-libcrypt1" class="headerlink" title="3.1 下载兼容的 libcrypt1"></a>3.1 下载兼容的 libcrypt1</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># apt 可用</span></span><br><span class="line">apt download libcrypt1</span><br><span class="line"></span><br><span class="line"><span class="comment"># apt 不可用</span></span><br><span class="line">wget http://deb.debian.org/debian/pool/main/libx/libxcrypt/libcrypt1_4.4.33-2_amd64.deb</span><br><span class="line"></span><br><span class="line">sudo dpkg -i libcrypt1_4.4.33-2_amd64.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修复依赖关系</span></span><br><span class="line">apt install -f</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-下载兼容的-libcrypt1"><a href="#3-1-下载兼容的-libcrypt1" class="headerlink" title="3.1 下载兼容的 libcrypt1"></a>3.1 下载兼容的 libcrypt1</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># apt 可用</span></span><br><span class="line">apt download libcrypt1</span><br><span class="line"></span><br><span class="line"><span class="comment"># apt 不可用</span></span><br><span class="line">wget http://deb.debian.org/debian/pool/main/libx/libxcrypt/libcrypt1_4.4.33-2_amd64.deb</span><br><span class="line"></span><br><span class="line">sudo dpkg -i libcrypt1_4.4.33-2_amd64.deb</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修复依赖关系</span></span><br><span class="line">apt install -f</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="3-2-创建软连接"><a href="#3-2-创建软连接" class="headerlink" title="3.2 创建软连接"></a>3.2 创建软连接</h3><p>若系统存在包含 XCRYPT_2.0 版本的 libcrypt.so.1 文件（用 strings 查看），则创建软连接即可</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /usr/lib/x86_64-linux-gnu/libcrypt.so.1 /lib/libcrypt.so.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /usr/lib/x86_64-linux-gnu/libcrypt.so.1 /lib/libcrypt.so.1</span><br></pre></td></tr></tbody></table></figure>
 
 <p>此时使用 perl 命令查看是否修复（崩溃时 perl 也错误），即可大功告成！</p>
 <h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><ul>
@@ -327,20 +327,20 @@
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/heqiang1995/article/details/133643785">升级glibc导致系统开不了机 系统文件损坏挂载u盘拷入文件 进入救援模式</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.antute.com.cn/index.php?id=192">【案例分享】误删lib库导致系统崩溃的恢复</a></li>
 <li><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1277450">覆盖libc.so.6的惨痛教训</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/apanly/p/15395786.html">&#x2F;lib64&#x2F;libc.so.6 错误导致的系统崩溃</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/apanly/p/15395786.html">/lib64/libc.so.6 错误导致的系统崩溃</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013553529/article/details/78307520">【笔记】在 Windows 中制作 Ubuntu 系统的USB启动盘</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/533121821">如何启动 Ubuntu 22.04 进入救援&#x2F;紧急模式 | Linux 中国</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/533121821">如何启动 Ubuntu 22.04 进入救援/紧急模式 | Linux 中国</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43252751/article/details/130305175">ubuntu系统崩溃，甚至Recovery模式和tty都无法进入，这个方法可以救援！</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/eggxo/article/details/136465370?depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1-136465370-blog-103188777.235%5Ev43%5Econtrol">强行升级glibc导致Centos8崩溃6小时惊险修复</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sharksmell/article/details/103188777">Ubuntu 手动更新glibc导致内核崩溃（无法正常关机&#x2F;开机启动失败）</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/sharksmell/article/details/103188777">Ubuntu 手动更新glibc导致内核崩溃（无法正常关机/开机启动失败）</a></li>
 <li><a target="_blank" rel="noopener" href="https://weiyan.cc/yuque/%E5%BC%80%E5%8F%91%E8%BF%90%E7%BB%B4/%E9%9B%86%E7%BE%A4/2019-07-13-hpc-experience-glibc/#21-rescue-%E6%A8%A1%E5%BC%8F%E6%AD%A5%E9%AA%A4">一次误删 GLIBC 后的系统恢复经历</a></li>
 <li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/ask/sof/116454423">从19.10升级到20.04失败</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/xibeichengf/article/details/48290297">Ubuntu下查看glibc版本</a></li>
 <li><a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/779871/version-xcrypt-2-0-not-found-after-update-debian-10-to-debian-12">version XCRYPT_2.0 not found after Update Debian 10 to Debian 12</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/raspberrypi/Raspberry-Pi-OS-64bit/issues/123">libcrypt.so.1: version XCRYPT_2.0 not found#123</a></li>
 </ul>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/">https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/">https://blog.jujimeizuo.cn/2025/04/16/update-error-on-libc-and-libcrypt/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

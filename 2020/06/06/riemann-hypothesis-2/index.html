@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="全体自然数之和等于$-\frac{1}{12}$有人一定听说过全体自然数之和等于$-\frac{1}{12}$，那我们这期就来聊聊这究竟是为什么呢？这个结果又和什么有关系呢？ 之前我们说过这样的一个式子： $$\varepsilon (s) &#x3D; 1 + \frac{1}{2^{s}} + \frac{1}{3^{s}} + \frac{1}{4^{s}} +\frac{1}{5^{s}}">
+    <meta name="description" content="全体自然数之和等于$-\frac{1}{12}$有人一定听说过全体自然数之和等于$-\frac{1}{12}$，那我们这期就来聊聊这究竟是为什么呢？这个结果又和什么有关系呢？ 之前我们说过这样的一个式子： $$\varepsilon (s) &#x3D; 1 + \frac{1}{2^{s}} + \frac{1}{3^{s}} + \frac{1}{4^{s}} +\frac{1}{5^{s}} + \f">
 <meta property="og:type" content="article">
 <meta property="og:title" content="黎曼猜想（二）全体自然数之和等于-1&#x2F;12和解析延拓">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
-<meta property="og:description" content="全体自然数之和等于$-\frac{1}{12}$有人一定听说过全体自然数之和等于$-\frac{1}{12}$，那我们这期就来聊聊这究竟是为什么呢？这个结果又和什么有关系呢？ 之前我们说过这样的一个式子： $$\varepsilon (s) &#x3D; 1 + \frac{1}{2^{s}} + \frac{1}{3^{s}} + \frac{1}{4^{s}} +\frac{1}{5^{s}}">
+<meta property="og:description" content="全体自然数之和等于$-\frac{1}{12}$有人一定听说过全体自然数之和等于$-\frac{1}{12}$，那我们这期就来聊聊这究竟是为什么呢？这个结果又和什么有关系呢？ 之前我们说过这样的一个式子： $$\varepsilon (s) &#x3D; 1 + \frac{1}{2^{s}} + \frac{1}{3^{s}} + \frac{1}{4^{s}} +\frac{1}{5^{s}} + \f">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/06/20200604170224297.png">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/06/20200604170503197.png">
@@ -187,37 +187,37 @@
 
   <div class="content e-content" itemprop="articleBody">
     <h2 id="全体自然数之和等于-frac-1-12"><a href="#全体自然数之和等于-frac-1-12" class="headerlink" title="全体自然数之和等于$-\frac{1}{12}$"></a>全体自然数之和等于$-\frac{1}{12}$</h2><p>有人一定听说过全体自然数之和等于$-\frac{1}{12}$，那我们这期就来聊聊这究竟是为什么呢？这个结果又和什么有关系呢？</p>
-<p>之前我们说过这样的一个式子： $$\varepsilon (s) &#x3D; 1 + \frac{1}{2^{s}} + \frac{1}{3^{s}} + \frac{1}{4^{s}} +\frac{1}{5^{s}} + \frac{1}{6^{s}}+… $$</p>
-<p>当s &#x3D; 1时； $$\varepsilon (1) &#x3D; 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} +\frac{1}{5} + \frac{1}{6}+… $$</p>
+<p>之前我们说过这样的一个式子： $$\varepsilon (s) = 1 + \frac{1}{2^{s}} + \frac{1}{3^{s}} + \frac{1}{4^{s}} +\frac{1}{5^{s}} + \frac{1}{6^{s}}+… $$</p>
+<p>当s = 1时； $$\varepsilon (1) = 1 + \frac{1}{2} + \frac{1}{3} + \frac{1}{4} +\frac{1}{5} + \frac{1}{6}+… $$</p>
 <p>这是调和级数，是发散的。</p>
-<p>当s &#x3D; 2时； $$\varepsilon (2) &#x3D; 1 + \frac{1}{2^{2}} + \frac{1}{3^{2}} + \frac{1}{4^{2}} +\frac{1}{5^{2}} + \frac{1}{6^{2}}+… $$</p>
+<p>当s = 2时； $$\varepsilon (2) = 1 + \frac{1}{2^{2}} + \frac{1}{3^{2}} + \frac{1}{4^{2}} +\frac{1}{5^{2}} + \frac{1}{6^{2}}+… $$</p>
 <p>这就是巴塞尔问题，答案是$\frac{\pi^{2}}{6}$。</p>
 <p>但是当s &lt; 1时，答案又是什么呢？</p>
 <p>欧拉给出了这么几个答案：</p>
-<p>$$\varepsilon (-1) &#x3D; 1 + 2 + 3 + 4 + 5… &#x3D; -\frac{1}{12} \ \varepsilon (-2) &#x3D; 0 \ \varepsilon (-3) &#x3D; -\frac{1}{120}$$</p>
+<p>$$\varepsilon (-1) = 1 + 2 + 3 + 4 + 5… = -\frac{1}{12} \ \varepsilon (-2) = 0 \ \varepsilon (-3) = -\frac{1}{120}$$</p>
 <p>是不是很神奇，那让我们看一下欧拉的证明方法。</p>
-<p>欧拉把这个函数$\frac{x}{(1-x)^{2}}$幂级数展开得： $$\frac{x}{(1-x)^{2}} &#x3D; x + 2x^{2} + 3x^{3} + 4x^{4} + ….$$</p>
-<p>令x &#x3D; -1得： $$-\frac{1}{4} &#x3D; -1 + 2 - 3 + 4 - …..$$ $$ -\frac{1}{4}&#x3D; -(1 + 3 + 5 + …) + (2 + 4 + 6 + …)$$ $$-\frac{1}{4} &#x3D; -(1 + 2 + 3 + 4 + ..) + (2 *2 +4*2 + 6*2+…)$$ $$-\frac{1}{4}&#x3D;3 * (1 + 2 + 3 + 4 + ….)$$ $$1 + 2 + 3 + 4 + … &#x3D; -\frac{1}{12}$$</p>
+<p>欧拉把这个函数$\frac{x}{(1-x)^{2}}$幂级数展开得： $$\frac{x}{(1-x)^{2}} = x + 2x^{2} + 3x^{3} + 4x^{4} + ….$$</p>
+<p>令x = -1得： $$-\frac{1}{4} = -1 + 2 - 3 + 4 - …..$$ $$ -\frac{1}{4}= -(1 + 3 + 5 + …) + (2 + 4 + 6 + …)$$ $$-\frac{1}{4} = -(1 + 2 + 3 + 4 + ..) + (2 *2 +4*2 + 6*2+…)$$ $$-\frac{1}{4}=3 * (1 + 2 + 3 + 4 + ….)$$ $$1 + 2 + 3 + 4 + … = -\frac{1}{12}$$</p>
 <p>这只是欧拉的证明方法，还有很多其他版本的证明方法后续再补充。</p>
 <p>（全体自然数之和在数学家的眼里是错误的，但是在物理学家的眼里那就不一定错误了。）</p>
-<p>到了这里，为什么全体自然数之和等于$-\frac{1}{12}$，在上一期说过，s在这个欧拉级数里必须是大于1才有意义，当s &#x3D; -1的时候是无意义的，那么怎么会出现这个这个结果，答案就是解析延拓。</p>
+<p>到了这里，为什么全体自然数之和等于$-\frac{1}{12}$，在上一期说过，s在这个欧拉级数里必须是大于1才有意义，当s = -1的时候是无意义的，那么怎么会出现这个这个结果，答案就是解析延拓。</p>
 <h2 id="解析延拓"><a href="#解析延拓" class="headerlink" title="解析延拓"></a>解析延拓</h2><h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>解析：如果一个函数$f(x)$在某一点a处可导，并且在a的领域也处处可导，即这个函数$f(x)$在a点是解析的，如果$f(x)$在区域D内的任意一点都是解析的，那么$f(x)$在区域D内是解析的。</p>
 <p>通俗的来说，解析延拓就是将一个函数$f(x)$的定义域“扩大”，但这个“扩大”不是随意扩大，解析延拓是唯一的，条件就是$f(x)$是在一个区域内是处处可导的，那么就可以将这个区域扩大到全局，也就是局部函数-&gt;全局函数，而且也是处处可导的。处处可导是什么意思呢？就是处处是光滑。</p>
 <p>那我们来举个栗子。</p>
 <h4 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h4><p>我们一定看过这样的一个数列： $$1 + x + x^{2} + x^{3} + ….$$</p>
 <p>用等比数列求和可得(-1 &lt; x &lt; 1)：</p>
-<p>$$1 + x + x^{2} + x^{3} + …. &#x3D; \frac{1}{1 - x}$$</p>
+<p>$$1 + x + x^{2} + x^{3} + …. = \frac{1}{1 - x}$$</p>
 <p>那我们先把这个函数用图像画出来，当-1 &lt; x &lt; 1时，左边是严格等于右边的，所以图像是：</p>
 <p><img src="/images/2020/06/20200604170224297.png"></p>
 <p>左边的数列只有在-1&lt;x&lt;1时才会是上图所呈现的，但是对于右边，貌似我们还可以画出x的定义域内的图像，图像如下：</p>
 <p><img src="/images/2020/06/20200604170503197.png"></p>
-<p>这样我们就把左边的数列进行了解析延拓，扩大了定义域，但是上图除了-1&lt;x&lt;1，之外的范围都不存在，让我们来带几个值进去。 当$x &#x3D; \frac{1}{2}$时： $$1 + \frac{1}{2} + (\frac{1}{2})^{2} + (\frac{1}{2})^{3} + …. &#x3D; 2$$ 这是完全正确的。 当$x &#x3D; -1$时： $$1 + -1 + 1 - 1 + …. &#x3D; \frac{1}{2}$$</p>
-<p>这个式子对不对自己细品。。。 对于左边x &#x3D; -1是没有意义的，但是对于解析延拓出来的右边函数是具有意义的。</p>
+<p>这样我们就把左边的数列进行了解析延拓，扩大了定义域，但是上图除了-1&lt;x&lt;1，之外的范围都不存在，让我们来带几个值进去。 当$x = \frac{1}{2}$时： $$1 + \frac{1}{2} + (\frac{1}{2})^{2} + (\frac{1}{2})^{3} + …. = 2$$ 这是完全正确的。 当$x = -1$时： $$1 + -1 + 1 - 1 + …. = \frac{1}{2}$$</p>
+<p>这个式子对不对自己细品。。。 对于左边x = -1是没有意义的，但是对于解析延拓出来的右边函数是具有意义的。</p>
 <p>所以说，全体自然数之和等于$-\frac{1}{12}$是解析延拓出来的结果，是错误的。</p>
 <p>那么欧拉级数解析延拓出来的函数是什么样子呢？让我们下期再来讲讲黎曼函数。</p>
-<p>参考： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MW411S7Tg">https://www.bilibili.com/video/BV1MW411S7Tg</a> <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oW411U7Bk">https://www.bilibili.com/video/BV1oW411U7Bk</a> <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40155097/article/details/86670230">https://blog.csdn.net/qq_40155097&#x2F;article&#x2F;details&#x2F;86670230</a></p>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/">https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p>参考： <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1MW411S7Tg">https://www.bilibili.com/video/BV1MW411S7Tg</a> <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1oW411U7Bk">https://www.bilibili.com/video/BV1oW411U7Bk</a> <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40155097/article/details/86670230">https://blog.csdn.net/qq_40155097/article/details/86670230</a></p>
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/">https://blog.jujimeizuo.cn/2020/06/06/riemann-hypothesis-2/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

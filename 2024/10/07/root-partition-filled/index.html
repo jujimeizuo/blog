@@ -190,7 +190,7 @@
 </ul>
 </blockquote>
 <h2 id="查找原因"><a href="#查找原因" class="headerlink" title="查找原因"></a>查找原因</h2><p>关于 linux 的磁盘命令，都会使用 <code>dh</code> 或 <code>df</code> 命令，如果要找导致磁盘空间满的目录或文件，使用以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /path/to/* 2&gt;/dev/null | <span class="built_in">sort</span> -hr | <span class="built_in">head</span> -10</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /path/to/* 2&gt;/dev/null | <span class="built_in">sort</span> -hr | <span class="built_in">head</span> -10</span><br></pre></td></tr></tbody></table></figure>
 
 <ol>
 <li>发现 <code>/var</code> 的占空间太大，查询 <code>/var</code> 后，发现它是<strong>动态数据保存位置。主要保存缓存、日志以及软件运行所产生的文件</strong>，再次使用命令，查询 <code>var</code> 目录下的较大目录或文件</li>
@@ -198,12 +198,12 @@
 <li>发现 <code>/var/lib/docker</code> 占 40 多个 G，原来镜像的位置保存在这个目录，当然很大，具体查看 <code>overlay2</code> 的性质。现在针对这个目录做一些操作。一般 <code>/home</code> 目录非常大，所以如果把 docker 里的镜像位置都放在 <code>/home</code> 目录，那么会大大减少根分区的磁盘空间，那么开始操作！</li>
 </ol>
 <h2 id="修改-Docker-镜像默认存储位置"><a href="#修改-Docker-镜像默认存储位置" class="headerlink" title="修改 Docker 镜像默认存储位置"></a>修改 Docker 镜像默认存储位置</h2><blockquote>
-<p>由于系统初始分区的原因，导致操作系统中对应根分区不会太大，通过 &#x2F;var 目录不会单独分区。而 docker 镜像默认存储位置是在 <code>/var/lib/docker</code> 下，是使根分区爆炸。<br>查看 docker 容器存放位置：<code>sudo docker info | grep &quot;Docker Root Dir&quot;</code></p>
+<p>由于系统初始分区的原因，导致操作系统中对应根分区不会太大，通过 /var 目录不会单独分区。而 docker 镜像默认存储位置是在 <code>/var/lib/docker</code> 下，是使根分区爆炸。<br>查看 docker 容器存放位置：<code>sudo docker info | grep "Docker Root Dir"</code></p>
 </blockquote>
 <h3 id="使用软链接"><a href="#使用软链接" class="headerlink" title="使用软链接"></a>使用软链接</h3><p>解决默认存储容量不足的情况，最直接且最有效的方法就是挂载新的分区到该目录。但是在原有系统空间不变的情况下，所以采用软链接的方式，修改镜像和容器的存放路径达到同样的目的。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> /var/lib/docker /path/to/docker</span><br><span class="line"><span class="built_in">ln</span> -sf /path/to/docker /var/lib/docker</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> /var/lib/docker /path/to/docker</span><br><span class="line"><span class="built_in">ln</span> -sf /path/to/docker /var/lib/docker</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="指定容器启动参数"><a href="#指定容器启动参数" class="headerlink" title="指定容器启动参数"></a>指定容器启动参数</h3><p>在配置文件中指定容器启动的参数 –graph&#x3D;&#x2F;var&#x2F;lib&#x2F;docker 来指定镜像和容器存放路径。</p>
+<h3 id="指定容器启动参数"><a href="#指定容器启动参数" class="headerlink" title="指定容器启动参数"></a>指定容器启动参数</h3><p>在配置文件中指定容器启动的参数 –graph=/var/lib/docker 来指定镜像和容器存放路径。</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1835999">https://cloud.tencent.com/developer/article/1835999</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/BigData_Mining/article/details/104921479">https://blog.csdn.net/BigData_Mining/article/details/104921479</a></li>
@@ -212,8 +212,8 @@
 <li><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1870764">https://cloud.tencent.com/developer/article/1870764</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/loveer/p/11615627.html">https://www.cnblogs.com/loveer/p/11615627.html</a></li>
 </ul>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/">https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/">https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

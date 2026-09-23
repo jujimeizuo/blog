@@ -205,12 +205,12 @@
 <li><p>在个人的 settings 中申请 项目的token，然后在项目里的 Secrets and variables 里的 Actions 设置密钥，内容为刚刚申请的 token</p>
 </li>
 <li><p>执行下面代码获取 actionid</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://api.github.com/repos/jujimeizuo/running_page/actions/workflows -H &quot;Authorization: token d8xxxxxxxxxx&quot; ## change to your config</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://api.github.com/repos/jujimeizuo/running_page/actions/workflows -H "Authorization: token d8xxxxxxxxxx" ## change to your config</span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
 <p><img src="/images/2023/10/get-action-id.jpg" alt="get-action-id"></p>
 </li>
 <li><p>拿到 action id 就可以利用 api post 触发 action 啦</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H &quot;Content-Type:application/json&quot; -X POST -d &#x27;&#123;&quot;inputs&quot;: &#123;&#125;, &quot;ref&quot;:&quot;master&quot;&#125;&#x27; https://api.github.com/repos/jujimeizu/running_page/actions/workflows/: $&#123;actionid&#125;/dispatches -H &quot;Authorization: token d8e03d6xxxxxxxxxxxx&quot;  ## change to your config</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H "Content-Type:application/json" -X POST -d '{"inputs": {}, "ref":"master"}' https://api.github.com/repos/jujimeizu/running_page/actions/workflows/: ${actionid}/dispatches -H "Authorization: token d8e03d6xxxxxxxxxxxx"  ## change to your config</span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
 <h2 id="结合快捷指令"><a href="#结合快捷指令" class="headerlink" title="结合快捷指令"></a>结合快捷指令</h2><h3 id="快捷指令"><a href="#快捷指令" class="headerlink" title="快捷指令"></a>快捷指令</h3><ul>
 <li>通过 icloud 获取 <a target="_blank" rel="noopener" href="https://www.icloud.com/shortcuts/4a5807a98b9a4e359815ff179c62bacb">running-page-template</a></li>
@@ -227,8 +227,8 @@
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/yihong0618/gitblog/issues/198">yihong0618 大神</a></li>
 </ul>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/">https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/">https://blog.jujimeizuo.cn/2023/10/06/shortcut-github-actions-automation/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

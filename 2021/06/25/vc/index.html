@@ -261,13 +261,13 @@
 <p>由EndPaint函数释放</p>
 <p>由ReleaseDC函数释放</p>
 <h2 id="画笔、画刷"><a href="#画笔、画刷" class="headerlink" title="画笔、画刷"></a>画笔、画刷</h2><ol>
-<li>画笔、画刷的创建 定义：HPEN hP; 获取Windows系统定义的四种画笔：hP&#x3D;(HPEN)GetStockObject(DC_PEN)； 创建新画笔：hP&#x3D;CreatePen();</li>
+<li>画笔、画刷的创建 定义：HPEN hP; 获取Windows系统定义的四种画笔：hP=(HPEN)GetStockObject(DC_PEN)； 创建新画笔：hP=CreatePen();</li>
 </ol>
-<p>定义：HBRUSH hBr; hBr &#x3D; (HBRUSH)GetStockObject(BLACK_BRUSH); CreateSolidBrush();</p>
+<p>定义：HBRUSH hBr; hBr = (HBRUSH)GetStockObject(BLACK_BRUSH); CreateSolidBrush();</p>
 <ol start="2">
-<li>将画笔选入设备环境 hPenOld&#x3D;SelectObject(hdc, hP)； 直到选入营外一种画笔为止，SelectObject函数的返回值中保存上一次使用的画笔句柄hPenOld。</li>
+<li>将画笔选入设备环境 hPenOld=SelectObject(hdc, hP)； 直到选入营外一种画笔为止，SelectObject函数的返回值中保存上一次使用的画笔句柄hPenOld。</li>
 </ol>
-<p>hBrOld&#x3D;SelectObject(hdc,hBr);</p>
+<p>hBrOld=SelectObject(hdc,hBr);</p>
 <ol start="3">
 <li>删除画笔、画刷 DeleteObject(hP)； DeleteObject(hBr);</li>
 </ol>
@@ -292,21 +292,21 @@
 <h3 id="相对定位"><a href="#相对定位" class="headerlink" title="相对定位"></a>相对定位</h3><p>根据已输出内容，通过获取字体信息，然后格式化文本，确定后续文本的输出的位置，调用函数在窗口中输出文本。</p>
 <ol>
 <li>获取字体信息 GetTextMetrics(hdc, &amp;tm)</li>
-<li>格式化文本 确定后续文本坐标，确定换行时文本坐标 Y &#x3D; y0 + tm.tmHeight + tmExternalLeading;</li>
+<li>格式化文本 确定后续文本坐标，确定换行时文本坐标 Y = y0 + tm.tmHeight + tmExternalLeading;</li>
 <li>文本输出 TextOut(hdc, x, y, “”, len);</li>
 </ol>
 <h2 id="用户区鼠标消息"><a href="#用户区鼠标消息" class="headerlink" title="用户区鼠标消息"></a>用户区鼠标消息</h2><p>消息</p>
 <p>含义</p>
-<p>WM_LBUTTONDOWN &#x2F; UP</p>
-<p>用户区单击 &#x2F; 释放鼠标左键</p>
+<p>WM_LBUTTONDOWN / UP</p>
+<p>用户区单击 / 释放鼠标左键</p>
 <p>WM_LBUTTONDBLCLK</p>
 <p>用户区双击鼠标左键</p>
-<p>WM_MBUTTONDOWN &#x2F; UP</p>
-<p>用户区单击 &#x2F; 释放鼠标中键</p>
+<p>WM_MBUTTONDOWN / UP</p>
+<p>用户区单击 / 释放鼠标中键</p>
 <p>WM_MBUTTONDBLCLK</p>
 <p>用户区双击鼠标中键</p>
-<p>WM_RBUTTONDOWN &#x2F; UP</p>
-<p>用户区单击 &#x2F; 释放鼠标右键</p>
+<p>WM_RBUTTONDOWN / UP</p>
+<p>用户区单击 / 释放鼠标右键</p>
 <p>WM_RBUTTONDBLCLK</p>
 <p>用户区双击鼠标右键</p>
 <p>WM_MOUSEMOVE</p>
@@ -333,7 +333,7 @@
 <p>按下Windows第一徽标键</p>
 <p>MK_XBUTTON2</p>
 <p>按下Windows第二徽标键</p>
-<h2 id="鼠标应用程序实例"><a href="#鼠标应用程序实例" class="headerlink" title="鼠标应用程序实例"></a>鼠标应用程序实例</h2><p>p &#x3D; (LOWORD(lPARAM), HIWORD(lPARAM)) 当消息是鼠标消息时，获取坐标</p>
+<h2 id="鼠标应用程序实例"><a href="#鼠标应用程序实例" class="headerlink" title="鼠标应用程序实例"></a>鼠标应用程序实例</h2><p>p = (LOWORD(lPARAM), HIWORD(lPARAM)) 当消息是鼠标消息时，获取坐标</p>
 <h2 id="对话框"><a href="#对话框" class="headerlink" title="对话框"></a>对话框</h2><p>对话框有模式对话框和非模式对话框。 模式对话框不允许用户在关闭对话框之前切换到应用程序的其他窗口，而非模式对话框然也。</p>
 <h3 id="模式对话框的编程方法"><a href="#模式对话框的编程方法" class="headerlink" title="模式对话框的编程方法"></a>模式对话框的编程方法</h3><ol>
 <li>定义对话框资源 STYLE DS_MODALFRAMEWS_POPUP_WS_CAPTION</li>
@@ -348,13 +348,13 @@
 <li><p>创建对话框函数 CreateDialog();</p>
 </li>
 <li><p>消息循环部分的处理</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="built_in">GetMessage</span>(&amp;Msg, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>)) &#123;</span><br><span class="line"><span class="keyword">if</span>(!<span class="built_in">IsDialogMessage</span>(hdlg, &amp;Msg)) &#123;</span><br><span class="line">    <span class="built_in">TranslateMessage</span>(&amp;Msg);</span><br><span class="line">    <span class="built_in">DispatchMessage</span>(&amp;Msg);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="built_in">GetMessage</span>(&amp;Msg, <span class="literal">NULL</span>, <span class="number">0</span>, <span class="number">0</span>)) {</span><br><span class="line"><span class="keyword">if</span>(!<span class="built_in">IsDialogMessage</span>(hdlg, &amp;Msg)) {</span><br><span class="line">    <span class="built_in">TranslateMessage</span>(&amp;Msg);</span><br><span class="line">    <span class="built_in">DispatchMessage</span>(&amp;Msg);</span><br><span class="line">}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p>关闭对话框的函数 DestroyWindow(HWND hdlg);</p>
 </li>
 </ol>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/25/vc/">https://blog.jujimeizuo.cn/2021/06/25/vc/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2021/06/25/vc/">https://blog.jujimeizuo.cn/2021/06/25/vc/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

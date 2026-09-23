@@ -197,7 +197,7 @@
 <li>此项目不提供任何订阅信息，请自行准备Clash订阅地址。</li>
 <li>运行前请手动更改<code>.env</code>文件中的<code>CLASH_URL</code>变量值，否则无法正常运行。</li>
 <li>当前在RHEL系列和Debian,Kali Linux,ubuntu以及Linux系统中测试过，其他系列可能需要适当修改脚本。</li>
-<li>支持 x86_64&#x2F;aarch64 平台</li>
+<li>支持 x86_64/aarch64 平台</li>
 <li>【注意：kali Linux需要在浏览器设置代理！否则有可能无法使用！】</li>
 </ul>
 <blockquote>
@@ -206,10 +206,10 @@
 <br>
 
 <h2 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h2><h3 id="下载项目"><a href="#下载项目" class="headerlink" title="下载项目"></a>下载项目</h3><p>下载项目</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/Elegybackup/clash-for-linux-backup.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.com/Elegybackup/clash-for-linux-backup.git</span><br></pre></td></tr></tbody></table></figure>
 
 <p>进入到项目目录，编辑<code>.env</code>文件，修改变量<code>CLASH_URL</code>的值。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> clash-for-linux</span><br><span class="line">$ vim .<span class="built_in">env</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> clash-for-linux</span><br><span class="line">$ vim .<span class="built_in">env</span></span><br></pre></td></tr></tbody></table></figure>
 
 <blockquote>
 <p><strong>注意：</strong> <code>.env</code> 文件中的变量 <code>CLASH_SECRET</code> 为自定义 Clash Secret，值为空时，脚本将自动生成随机字符串。</p>
@@ -220,24 +220,24 @@
 <ul>
 <li>进入项目目录</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> clash-for-linux</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> clash-for-linux</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>运行启动脚本</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ sudo bash start.sh</span><br><span class="line"></span><br><span class="line">正在检测订阅地址...</span><br><span class="line">Clash订阅地址可访问！                                      [  OK  ]</span><br><span class="line"></span><br><span class="line">正在下载Clash配置文件...</span><br><span class="line">配置文件config.yaml下载成功！                              [  OK  ]</span><br><span class="line"></span><br><span class="line">正在启动Clash服务...</span><br><span class="line">服务启动成功！                                             [  OK  ]</span><br><span class="line"></span><br><span class="line">Clash Dashboard 访问地址：http://&lt;ip&gt;:9090/ui</span><br><span class="line">Secret：xxxxxxxxxxxxx</span><br><span class="line"></span><br><span class="line">请执行以下命令加载环境变量: <span class="built_in">source</span> /etc/profile.d/clash.sh</span><br><span class="line"></span><br><span class="line">请执行以下命令开启系统代理: proxy_on</span><br><span class="line"></span><br><span class="line">若要临时关闭系统代理，请执行: proxy_off</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ sudo bash start.sh</span><br><span class="line"></span><br><span class="line">正在检测订阅地址...</span><br><span class="line">Clash订阅地址可访问！                                      [  OK  ]</span><br><span class="line"></span><br><span class="line">正在下载Clash配置文件...</span><br><span class="line">配置文件config.yaml下载成功！                              [  OK  ]</span><br><span class="line"></span><br><span class="line">正在启动Clash服务...</span><br><span class="line">服务启动成功！                                             [  OK  ]</span><br><span class="line"></span><br><span class="line">Clash Dashboard 访问地址：http://&lt;ip&gt;:9090/ui</span><br><span class="line">Secret：xxxxxxxxxxxxx</span><br><span class="line"></span><br><span class="line">请执行以下命令加载环境变量: <span class="built_in">source</span> /etc/profile.d/clash.sh</span><br><span class="line"></span><br><span class="line">请执行以下命令开启系统代理: proxy_on</span><br><span class="line"></span><br><span class="line">若要临时关闭系统代理，请执行: proxy_off</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> /etc/profile.d/clash.sh</span><br><span class="line">$ proxy_on</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">source</span> /etc/profile.d/clash.sh</span><br><span class="line">$ proxy_on</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>检查服务端口</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -tln | grep -E <span class="string">&#x27;9090|789.&#x27;</span></span><br><span class="line">tcp        0      0 127.0.0.1:9090          0.0.0.0:*               LISTEN     </span><br><span class="line">tcp6       0      0 :::7890                 :::*                    LISTEN     </span><br><span class="line">tcp6       0      0 :::7891                 :::*                    LISTEN     </span><br><span class="line">tcp6       0      0 :::7892                 :::*                    LISTEN</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -tln | grep -E <span class="string">'9090|789.'</span></span><br><span class="line">tcp        0      0 127.0.0.1:9090          0.0.0.0:*               LISTEN     </span><br><span class="line">tcp6       0      0 :::7890                 :::*                    LISTEN     </span><br><span class="line">tcp6       0      0 :::7891                 :::*                    LISTEN     </span><br><span class="line">tcp6       0      0 :::7892                 :::*                    LISTEN</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>检查环境变量</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">env</span> | grep -E <span class="string">&#x27;http_proxy|https_proxy&#x27;</span></span><br><span class="line">http_proxy=http://127.0.0.1:7890</span><br><span class="line">https_proxy=http://127.0.0.1:7890</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">env</span> | grep -E <span class="string">'http_proxy|https_proxy'</span></span><br><span class="line">http_proxy=http://127.0.0.1:7890</span><br><span class="line">https_proxy=http://127.0.0.1:7890</span><br></pre></td></tr></tbody></table></figure>
 
 <p>以上步鄹如果正常，说明服务clash程序启动成功，现在就可以体验高速下载github资源了。</p>
 <br>
@@ -251,14 +251,14 @@
 <h3 id="停止程序"><a href="#停止程序" class="headerlink" title="停止程序"></a>停止程序</h3><ul>
 <li>进入项目目录</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> clash-for-linux</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> clash-for-linux</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>关闭服务</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo bash shutdown.sh</span><br><span class="line"></span><br><span class="line">服务关闭成功，请执行以下命令关闭系统代理：proxy_off</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo bash shutdown.sh</span><br><span class="line"></span><br><span class="line">服务关闭成功，请执行以下命令关闭系统代理：proxy_off</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ proxy_off</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ proxy_off</span><br></pre></td></tr></tbody></table></figure>
 
 <p>然后检查程序端口、进程以及环境变量<code>http_proxy|https_proxy</code>，若都没则说明服务正常关闭。</p>
 <br>
@@ -270,7 +270,7 @@
 <ul>
 <li>登录管理界面</li>
 </ul>
-<p>在<code>API Base URL</code>一栏中输入：http:&#x2F;&#x2F;&lt;ip&gt;:9090 ，在<code>Secret(optional)</code>一栏中输入启动成功后输出的Secret。</p>
+<p>在<code>API Base URL</code>一栏中输入：http://&lt;ip&gt;:9090 ，在<code>Secret(optional)</code>一栏中输入启动成功后输出的Secret。</p>
 <p>点击Add并选择刚刚输入的管理界面地址，之后便可在浏览器上进行一些配置。</p>
 <ul>
 <li>更多教程</li>
@@ -286,8 +286,8 @@
 </blockquote>
 <br>
 
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2023/11/24/clash-for-linux/">https://blog.jujimeizuo.cn/2023/11/24/clash-for-linux/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2023/11/24/clash-for-linux/">https://blog.jujimeizuo.cn/2023/11/24/clash-for-linux/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

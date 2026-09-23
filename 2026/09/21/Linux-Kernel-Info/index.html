@@ -218,28 +218,28 @@
 </tbody></table>
 <h2 id="proc：运行状态和进程视图"><a href="#proc：运行状态和进程视图" class="headerlink" title="/proc：运行状态和进程视图"></a><code>/proc</code>：运行状态和进程视图</h2><p><code>/proc</code> 是 <code>procfs</code> 虚拟文件系统。它最初主要用于暴露进程信息，后来也加入了大量系统级信息。</p>
 <p>每个进程通常对应一个数字目录：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/proc/1234/</span><br><span class="line">├── cmdline    # 启动命令</span><br><span class="line">├── cwd        # 当前工作目录</span><br><span class="line">├── fd/        # 已打开的文件描述符</span><br><span class="line">├── maps       # 虚拟内存映射</span><br><span class="line">├── status     # 进程状态</span><br><span class="line">└── task/      # 线程</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/proc/1234/</span><br><span class="line">├── cmdline    # 启动命令</span><br><span class="line">├── cwd        # 当前工作目录</span><br><span class="line">├── fd/        # 已打开的文件描述符</span><br><span class="line">├── maps       # 虚拟内存映射</span><br><span class="line">├── status     # 进程状态</span><br><span class="line">└── task/      # 线程</span><br></pre></td></tr></tbody></table></figure>
 
 <p>系统级文件包括：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/meminfo</span><br><span class="line"><span class="built_in">cat</span> /proc/loadavg</span><br><span class="line"><span class="built_in">cat</span> /proc/interrupts</span><br><span class="line"><span class="built_in">cat</span> /proc/mounts</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/meminfo</span><br><span class="line"><span class="built_in">cat</span> /proc/loadavg</span><br><span class="line"><span class="built_in">cat</span> /proc/interrupts</span><br><span class="line"><span class="built_in">cat</span> /proc/mounts</span><br></pre></td></tr></tbody></table></figure>
 
 <p><code>/proc/sys/</code> 比较特殊，它允许查看或修改部分内核参数：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/sys/net/ipv4/ip_forward</span><br><span class="line">sudo sysctl -w net.ipv4.ip_forward=1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /proc/sys/net/ipv4/ip_forward</span><br><span class="line">sudo sysctl -w net.ipv4.ip_forward=1</span><br></pre></td></tr></tbody></table></figure>
 
 <p>通常应优先使用 <code>sysctl</code>，而不是直接写 <code>/proc/sys</code>。</p>
 <h2 id="sys：内核对象和设备模型"><a href="#sys：内核对象和设备模型" class="headerlink" title="/sys：内核对象和设备模型"></a><code>/sys</code>：内核对象和设备模型</h2><p><code>/sys</code> 挂载的是 <code>sysfs</code>，它把内核中的设备、驱动、总线、模块等对象组织成层次结构。</p>
 <p>例如：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/sys/</span><br><span class="line">├── block/       # 块设备</span><br><span class="line">├── bus/         # PCI、USB 等总线</span><br><span class="line">├── class/       # 网络、输入、电源等设备类别</span><br><span class="line">├── devices/     # 实际设备拓扑</span><br><span class="line">├── firmware/    # 固件相关信息</span><br><span class="line">├── fs/          # 文件系统相关对象</span><br><span class="line">├── kernel/      # 内核功能</span><br><span class="line">└── module/      # 已加载模块</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/sys/</span><br><span class="line">├── block/       # 块设备</span><br><span class="line">├── bus/         # PCI、USB 等总线</span><br><span class="line">├── class/       # 网络、输入、电源等设备类别</span><br><span class="line">├── devices/     # 实际设备拓扑</span><br><span class="line">├── firmware/    # 固件相关信息</span><br><span class="line">├── fs/          # 文件系统相关对象</span><br><span class="line">├── kernel/      # 内核功能</span><br><span class="line">└── module/      # 已加载模块</span><br></pre></td></tr></tbody></table></figure>
 
 <p>一些文件不仅能读取，还能控制设备：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /sys/class/net/eth0/operstate</span><br><span class="line"><span class="built_in">cat</span> /sys/class/power_supply/BAT0/capacity</span><br><span class="line"><span class="built_in">echo</span> 0 | sudo <span class="built_in">tee</span> /sys/class/leds/example/brightness</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /sys/class/net/eth0/operstate</span><br><span class="line"><span class="built_in">cat</span> /sys/class/power_supply/BAT0/capacity</span><br><span class="line"><span class="built_in">echo</span> 0 | sudo <span class="built_in">tee</span> /sys/class/leds/example/brightness</span><br></pre></td></tr></tbody></table></figure>
 
 <p>粗略来说，<code>/proc</code> 偏向“系统现在运行得怎样”，<code>/sys</code> 偏向“系统里有哪些内核对象，它们如何组织”。</p>
 <h2 id="debugfs：灵活但不稳定的调试接口"><a href="#debugfs：灵活但不稳定的调试接口" class="headerlink" title="debugfs：灵活但不稳定的调试接口"></a><code>debugfs</code>：灵活但不稳定的调试接口</h2><p><code>debugfs</code> 专门供内核和驱动开发者暴露调试信息，常见挂载位置是：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sys/kernel/debug</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sys/kernel/debug</span><br></pre></td></tr></tbody></table></figure>
 
 <p>检查和挂载：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mount | grep debugfs</span><br><span class="line">sudo mount -t debugfs none /sys/kernel/debug</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mount | grep debugfs</span><br><span class="line">sudo mount -t debugfs none /sys/kernel/debug</span><br></pre></td></tr></tbody></table></figure>
 
 <p>驱动可以在这里提供内部寄存器、统计计数器、状态快照或测试控制项。</p>
 <p>需要注意：</p>
@@ -252,33 +252,33 @@
 <p>因此，生产程序不应长期依赖未经稳定性承诺的 <code>debugfs</code> 接口。</p>
 <h2 id="tracefs：专门用于内核跟踪"><a href="#tracefs：专门用于内核跟踪" class="headerlink" title="tracefs：专门用于内核跟踪"></a><code>tracefs</code>：专门用于内核跟踪</h2><p><code>tracefs</code> 是从 <code>debugfs</code> 中拆分出来的跟踪文件系统，主要承载 ftrace、tracepoints 和部分 eBPF 跟踪基础设施。</p>
 <p>现代系统通常挂载在：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sys/kernel/tracing</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sys/kernel/tracing</span><br></pre></td></tr></tbody></table></figure>
 
 <p>某些旧系统或兼容布局中也可能出现在：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sys/kernel/debug/tracing</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sys/kernel/debug/tracing</span><br></pre></td></tr></tbody></table></figure>
 
 <p>关键文件包括：</p>
-<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">available_tracers       # 可用跟踪器</span><br><span class="line">available_events        # 可跟踪事件</span><br><span class="line">current_tracer          # 当前跟踪器</span><br><span class="line">events/                 # 事件分类</span><br><span class="line">set_ftrace_filter       # 函数过滤器</span><br><span class="line">trace                   # 当前跟踪结果</span><br><span class="line">trace_pipe              # 实时消费跟踪结果</span><br><span class="line">tracing_on              # 跟踪开关</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">available_tracers       # 可用跟踪器</span><br><span class="line">available_events        # 可跟踪事件</span><br><span class="line">current_tracer          # 当前跟踪器</span><br><span class="line">events/                 # 事件分类</span><br><span class="line">set_ftrace_filter       # 函数过滤器</span><br><span class="line">trace                   # 当前跟踪结果</span><br><span class="line">trace_pipe              # 实时消费跟踪结果</span><br><span class="line">tracing_on              # 跟踪开关</span><br></pre></td></tr></tbody></table></figure>
 
 <p>例如跟踪进程执行事件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /sys/kernel/tracing</span><br><span class="line"><span class="built_in">echo</span> 1 | sudo <span class="built_in">tee</span> events/sched/sched_process_exec/enable</span><br><span class="line">sudo <span class="built_in">cat</span> trace_pipe</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /sys/kernel/tracing</span><br><span class="line"><span class="built_in">echo</span> 1 | sudo <span class="built_in">tee</span> events/sched/sched_process_exec/enable</span><br><span class="line">sudo <span class="built_in">cat</span> trace_pipe</span><br></pre></td></tr></tbody></table></figure>
 
 <p><code>trace</code> 更像当前缓冲区的快照；<code>trace_pipe</code> 会持续输出并消费数据，更适合实时跟踪。</p>
 <h2 id="dmesg：读取内核日志"><a href="#dmesg：读取内核日志" class="headerlink" title="dmesg：读取内核日志"></a><code>dmesg</code>：读取内核日志</h2><p><code>dmesg</code> 不是一种文件系统，而是读取内核日志环形缓冲区的命令。内核和驱动通过 <code>printk()</code> 等机制向这个缓冲区写日志。</p>
 <p>常见用法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dmesg</span><br><span class="line">dmesg --human</span><br><span class="line">dmesg --level=err,warn</span><br><span class="line">dmesg --follow</span><br><span class="line">dmesg | grep -i usb</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dmesg</span><br><span class="line">dmesg --human</span><br><span class="line">dmesg --level=err,warn</span><br><span class="line">dmesg --follow</span><br><span class="line">dmesg | grep -i usb</span><br></pre></td></tr></tbody></table></figure>
 
 <p>它常用于排查：</p>
 <ul>
 <li>驱动加载失败；</li>
-<li>磁盘 I&#x2F;O 错误；</li>
+<li>磁盘 I/O 错误；</li>
 <li>OOM Killer；</li>
 <li>USB 或 PCI 设备识别问题；</li>
 <li>文件系统损坏；</li>
 <li>内核崩溃和硬件异常。</li>
 </ul>
 <p>在使用 systemd 的系统上，也可以通过日志系统查看内核消息：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">journalctl -k</span><br><span class="line">journalctl -k -b       <span class="comment"># 当前启动</span></span><br><span class="line">journalctl -k -b -1    <span class="comment"># 上一次启动</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">journalctl -k</span><br><span class="line">journalctl -k -b       <span class="comment"># 当前启动</span></span><br><span class="line">journalctl -k -b -1    <span class="comment"># 上一次启动</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>因为环形缓冲区容量有限，旧消息会被新消息覆盖；<code>journalctl</code> 如果启用了持久化日志，则可能保留更长时间。</p>
 <h2 id="它们之间的关系"><a href="#它们之间的关系" class="headerlink" title="它们之间的关系"></a>它们之间的关系</h2><p>可以用一句话概括：</p>
@@ -290,8 +290,8 @@
 <li><code>dmesg</code>：内核主动输出的日志记录。</li>
 </ul>
 <p>读取普通节点通常安全，但写入 <code>/proc/sys</code>、<code>/sys</code>、<code>debugfs</code> 或 <code>tracefs</code> 可能立即改变内核及硬件行为，需要确认节点语义并使用适当权限。</p>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/">https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/">https://blog.jujimeizuo.cn/2026/09/21/Linux-Kernel-Info/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

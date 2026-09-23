@@ -193,11 +193,11 @@
     <h2 id="Window安装"><a href="#Window安装" class="headerlink" title="Window安装"></a>Window安装</h2><p>github下载：<a target="_blank" rel="noopener" href="https://github.com/tporadowski/redis/releases">https://github.com/tporadowski/redis/releases</a></p>
 <p>下载之后解压到位置，假如是C盘。</p>
 <p>打开cmd窗口，cd到redis的目录下，输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server.exe redis.windows.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server.exe redis.windows.conf</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/images/2021/04/20210409105859526.png"></p>
 <p>这表示我们已经开启了Redis服务端，请不要关闭它，另外开一个cmd窗口并cd到Redis目录下，输入</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli.exe -h 127.0.0.1 -p 6379</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli.exe -h 127.0.0.1 -p 6379</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/images/2021/04/20210409110023750.jpg"></p>
 <p>恭喜你，已经安装成功，可以ping一下看看是否正确。</p>
@@ -205,23 +205,23 @@
 <p>首先，介绍一下需要重启redis服务的设置方式 即找到redis的配置文件—redis.conf文件，然后修改里面的requirepass，这个本来是注释起来了的，将注释去掉，并将后面对应的字段设置成自己想要的密码，保存退出。重启redis服务，即可。</p>
 <p><img src="/images/2021/04/20210409110145570.png"></p>
 <p>我这里是设置密码成了123 然后是不需要重启redis服务的密码设置方式 这种相对简单，连接redis之后，通过命令设置，如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config <span class="built_in">set</span> requirepass 123456</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config <span class="built_in">set</span> requirepass 123456</span><br></pre></td></tr></tbody></table></figure>
 
 <p>如此，便将密码设置成了123456 设置之后，可通过以下指令查看密码</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config get requirepass</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config get requirepass</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/images/2021/04/20210409110243120.png"></p>
 <p>密码设置之后，当你退出再次连上redis的时候，就需要输入密码了，不然是无法操作的。这里有两种方式输入密码，一是连接的时候直接输入密码，而是连接上之后再输入密码，分别如下所示：</p>
 <p><img src="/images/2021/04/20210409110311634.png"></p>
 <p>检查服务是否运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; AUTH <span class="string">&quot;password&quot;</span></span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; PING</span><br><span class="line">PONG</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis 127.0.0.1:6379&gt; AUTH <span class="string">"password"</span></span><br><span class="line">OK</span><br><span class="line">redis 127.0.0.1:6379&gt; PING</span><br><span class="line">PONG</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="Spring配置"><a href="#Spring配置" class="headerlink" title="Spring配置"></a>Spring配置</h4><p>打开一个spring项目，打开properties文件，输入以下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring.redis.host = localhost <span class="comment">// ip地址</span></span><br><span class="line">spring.redis.port = <span class="number">6379</span> <span class="comment">// redis端口</span></span><br><span class="line">spring.redis.password=password <span class="comment">// 密码</span></span><br><span class="line">spring.redis.jedis.pool.max-active=<span class="number">8</span> <span class="comment">// 开放最大数</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">spring.redis.host = localhost <span class="comment">// ip地址</span></span><br><span class="line">spring.redis.port = <span class="number">6379</span> <span class="comment">// redis端口</span></span><br><span class="line">spring.redis.password=password <span class="comment">// 密码</span></span><br><span class="line">spring.redis.jedis.pool.max-active=<span class="number">8</span> <span class="comment">// 开放最大数</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>到现在，已经没有问题，就是如何使用Redis命令和配合项目的问题了。 具体请自行百度。</p>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/04/09/redis-install-and-spring-config/">https://blog.jujimeizuo.cn/2021/04/09/redis-install-and-spring-config/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2021/04/09/redis-install-and-spring-config/">https://blog.jujimeizuo.cn/2021/04/09/redis-install-and-spring-config/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

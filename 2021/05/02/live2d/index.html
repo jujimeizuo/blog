@@ -190,25 +190,25 @@
     <p>致谢大佬：<a target="_blank" rel="noopener" href="https://m1314.cn/287.html">Mario</a></p>
 <h3 id="项目下载地址"><a href="#项目下载地址" class="headerlink" title="项目下载地址"></a>项目下载地址</h3><span id="more"></span>
 <p><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/wordpress_live2d">https://github.com/jujimeizuo/wordpress_live2d</a></p>
-<h3 id="使用须知"><a href="#使用须知" class="headerlink" title="使用须知"></a>使用须知</h3><p>需要 <code>Font Awesome 4.7.0</code> 支持，请确保相关样式表已在页面中加载，例如在 <code>&lt;head&gt;</code> 中加入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="使用须知"><a href="#使用须知" class="headerlink" title="使用须知"></a>使用须知</h3><p>需要&nbsp;<code>Font Awesome 4.7.0</code>&nbsp;支持，请确保相关样式表已在页面中加载，例如在&nbsp;<code>&lt;head&gt;</code>&nbsp;中加入</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"</span><br></pre></td></tr></tbody></table></figure>
 
-<p> </p>
+<p>&nbsp;</p>
 <h3 id="项目代码"><a href="#项目代码" class="headerlink" title="项目代码"></a>项目代码</h3><p><a target="_blank" rel="noopener" href="https://github.com/jujimeizuo/wordpress_live2d">适用于Sakura主题的live2d + 少女前线API</a></p>
 <h4 id="少女前线API版"><a href="#少女前线API版" class="headerlink" title="少女前线API版"></a>少女前线API版</h4><blockquote>
 <ol>
-<li>如果你是小白，或者只需要最基础的功能，请将上方 <strong>项目代码</strong> 下载下来【前面的 <code>Font Awesome</code> 的一行代码（<strong>看需求添加</strong>）】，将 <code>live2d_api</code> 目录放到你的站点根目录，新建一个 <code>live2d</code> 目录将项目的其他文件都放进去。</li>
-<li>修改 <code>autoload.js</code> 文件中第37行的 <code>apiPath</code> 为你的 <code>https://你的域名/live2d_api/</code>, 第2行和第3行路径改为 <code>https://你的域名/live2d/</code></li>
-<li>然后在你主题的 <code>footer.php</code> 文件 <code>&lt;/body&gt;</code> 标签之上引用即可</li>
+<li>如果你是小白，或者只需要最基础的功能，请将上方&nbsp;<strong>项目代码</strong>&nbsp;下载下来【前面的&nbsp;<code>Font Awesome</code>&nbsp;的一行代码（<strong>看需求添加</strong>）】，将&nbsp;<code>live2d_api</code>&nbsp;目录放到你的站点根目录，新建一个&nbsp;<code>live2d</code>&nbsp;目录将项目的其他文件都放进去。</li>
+<li>修改&nbsp;<code>autoload.js</code>&nbsp;文件中第37行的&nbsp;<code>apiPath</code>&nbsp;为你的&nbsp;<code>https://你的域名/live2d_api/</code>, 第2行和第3行路径改为&nbsp;<code>https://你的域名/live2d/</code></li>
+<li>然后在你主题的&nbsp;<code>footer.php</code>&nbsp;文件&nbsp;<code>&lt;/body&gt;</code>&nbsp;标签之上引用即可</li>
 </ol>
 </blockquote>
-<p> </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://你的域名/live2d/autoload.js&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src="https://你的域名/live2d/autoload.js"&gt;&lt;/script&gt;</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="效果示意图"><a href="#效果示意图" class="headerlink" title="效果示意图"></a>效果示意图</h3><p><img src="/images/2021/05/EKP694EJX@QK_4.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
-<h3 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h3><p><code>autoload.js</code> 中的 <code>apiPath:</code> 为 live2d API 接口，默认即可，如果你有其他的也可以修改 <code>autoload.js</code> 中的 <code>cdnPath:</code> 为对象存储路径，注意跨域的问题，不使用请注释掉 Json配置（SDK 2）：<a target="_blank" rel="noopener" href="https://live2d.pavostudio.com/doc/zh-cn/live2d/model-config-sdk2/">https://live2d.pavostudio.com/doc/zh-cn/live2d/model-config-sdk2/</a></p>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/05/02/live2d/">https://blog.jujimeizuo.cn/2021/05/02/live2d/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<h3 id="其他说明"><a href="#其他说明" class="headerlink" title="其他说明"></a>其他说明</h3><p><code>autoload.js</code>&nbsp;中的&nbsp;<code>apiPath:</code>&nbsp;为 live2d API 接口，默认即可，如果你有其他的也可以修改 <code>autoload.js</code>&nbsp;中的&nbsp;<code>cdnPath:</code>&nbsp;为对象存储路径，注意跨域的问题，不使用请注释掉 Json配置（SDK 2）：<a target="_blank" rel="noopener" href="https://live2d.pavostudio.com/doc/zh-cn/live2d/model-config-sdk2/">https://live2d.pavostudio.com/doc/zh-cn/live2d/model-config-sdk2/</a></p>
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2021/05/02/live2d/">https://blog.jujimeizuo.cn/2021/05/02/live2d/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

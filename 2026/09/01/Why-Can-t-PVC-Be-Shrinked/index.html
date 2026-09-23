@@ -8,13 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="扩容是安全的追加操作，缩容是不可逆的有损操作，Kubernetes 在 API 层面直接把它禁掉了。  API 层面直接拒绝PersistentVolumeClaim 的 update 校验里写死了这条规则，新的 spec.resources.requests.storage 不能小于旧值，否则报 field can not be less than previous value。整个特性从一开">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Why Can&#39;t PVC Be Shrinked?">
+<meta property="og:title" content="Why Can&#39;t PVC be Shrinked?">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="扩容是安全的追加操作，缩容是不可逆的有损操作，Kubernetes 在 API 层面直接把它禁掉了。  API 层面直接拒绝PersistentVolumeClaim 的 update 校验里写死了这条规则，新的 spec.resources.requests.storage 不能小于旧值，否则报 field can not be less than previous value。整个特性从一开">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-09-01T03:15:15.000Z">
-<meta property="article:modified_time" content="2026-09-21T03:24:39.733Z">
+<meta property="article:modified_time" content="2026-09-23T06:29:49.310Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="Storage">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
       
     
     <!-- title -->
-    <title>Why Can&#39;t PVC Be Shrinked?</title>
+    <title>Why Can&#39;t PVC be Shrinked?</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -108,7 +108,7 @@
         <li><a class="icon" aria-label="Previous post" href="/2026/09/14/NVMe-NVMe-oF/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
-        <li><a class="icon" aria-label="Next post" href="/2025/11/13/HLA-Round-LiHu-Lake-Half-Marathon-2025/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Next post" href="/2026/08/06/ceph-in-a-word/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
         <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
         <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
@@ -122,16 +122,16 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&text=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&is_video=false&description=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Why Can&#39;t PVC Be Shrinked?&body=Check out this article: https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&name=Why Can&#39;t PVC Be Shrinked?&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&t=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&text=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&is_video=false&description=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Why Can&#39;t PVC be Shrinked?&body=Check out this article: https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&name=Why Can&#39;t PVC be Shrinked?&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&t=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -151,7 +151,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        Why Can&#39;t PVC Be Shrinked?
+        Why Can&#39;t PVC be Shrinked?
     </h1>
 
 
@@ -189,15 +189,15 @@
 <h2 id="API-层面直接拒绝"><a href="#API-层面直接拒绝" class="headerlink" title="API 层面直接拒绝"></a>API 层面直接拒绝</h2><p><code>PersistentVolumeClaim</code> 的 update 校验里写死了这条规则，新的 <code>spec.resources.requests.storage</code> 不能小于旧值，否则报 <code>field can not be less than previous value</code>。整个特性从一开始就叫 <code>ExpandPersistentVolumes</code>，只定义了”扩”。</p>
 <p>CSI spec 同样如此：只有 <code>ControllerExpandVolume</code> 和 <code>NodeExpandVolume</code> 两个 RPC，规范里根本没有 shrink 这个动作。所以就算某个存储后端理论上能缩，也没有接口可以调。</p>
 <h2 id="为什么规范只做扩容"><a href="#为什么规范只做扩容" class="headerlink" title="为什么规范只做扩容"></a>为什么规范只做扩容</h2><ul>
-<li><strong>文件系统层面不对称。</strong> 扩容时新增的空间在块设备末尾，已有数据块的物理位置完全不变，ext4&#x2F;XFS 都支持挂载状态下在线扩容，风险极低。缩容则要先把落在待截断区域里的数据块、inode、extent、日志全部迁移到前面去，本质是一次完整的数据搬迁：resize2fs 缩容必须先 umount（即 Pod 必须停机），而 <strong>XFS 压根不支持缩容</strong>，且 XFS 是很多发行版的默认文件系统。</li>
+<li><strong>文件系统层面不对称。</strong> 扩容时新增的空间在块设备末尾，已有数据块的物理位置完全不变，ext4/XFS 都支持挂载状态下在线扩容，风险极低。缩容则要先把落在待截断区域里的数据块、inode、extent、日志全部迁移到前面去，本质是一次完整的数据搬迁：resize2fs 缩容必须先 umount（即 Pod 必须停机），而 <strong>XFS 压根不支持缩容</strong>，且 XFS 是很多发行版的默认文件系统。</li>
 <li><strong>两步操作没有事务性。</strong> 扩容的顺序是先扩底层卷（controller 侧）、再扩文件系统（kubelet 在 node 侧）；缩容顺序必须反过来，先缩文件系统再缩卷。这两步分别由不同组件在不同机器上执行，中间如果崩溃或超时，就会出现”块设备比文件系统小”的状态，文件系统直接损毁且不可恢复。Kubernetes 没有办法保证这个跨节点两阶段操作的原子性。</li>
 <li><strong>云盘 API 本身不支持。</strong> AWS EBS、GCE PD、Azure Disk 的 modify volume 接口都只接受更大的容量值。</li>
 <li><strong>语义上会有损。</strong> 如果已用空间超过目标容量，缩容意味着必须丢数据。让用户改一个 YAML 数字就静默删掉数据，不是一个可接受的默认行为。另外 requests.storage 的语义是”至少需要这么多”，改小它本来也不必然意味着要求底层收缩。</li>
 </ul>
-<h2 id="想缩容怎么办"><a href="#想缩容怎么办" class="headerlink" title="想缩容怎么办"></a>想缩容怎么办</h2><p>只能走”新建 + 迁移 + 切换”：建一个小容量的新 PVC，用一个 Job（rsync&#x2F;cp）把数据拷过去，改工作负载的挂载指向新 PVC，确认无误后删掉旧的。如果存储支持快照，也可以从 snapshot 恢复到一个较小的新卷，但同样要求已用量小于目标容量。</p>
+<h2 id="想缩容怎么办"><a href="#想缩容怎么办" class="headerlink" title="想缩容怎么办"></a>想缩容怎么办</h2><p>只能走”新建 + 迁移 + 切换”：建一个小容量的新 PVC，用一个 Job（rsync/cp）把数据拷过去，改工作负载的挂载指向新 PVC，确认无误后删掉旧的。如果存储支持快照，也可以从 snapshot 恢复到一个较小的新卷，但同样要求已用量小于目标容量。</p>
 <p>需要注意配额和计费是按 PV 实际容量算的，所以确实有缩容省钱的动机，但没有捷径。</p>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/">https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/">https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 
@@ -251,16 +251,16 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&text=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&is_video=false&description=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Why Can&#39;t PVC Be Shrinked?&body=Check out this article: https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&name=Why Can&#39;t PVC Be Shrinked?&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&t=Why Can&#39;t PVC Be Shrinked?"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&text=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&is_video=false&description=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Why Can&#39;t PVC be Shrinked?&body=Check out this article: https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&title=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&name=Why Can&#39;t PVC be Shrinked?&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://blog.jujimeizuo.cn/2026/09/01/Why-Can-t-PVC-Be-Shrinked/&t=Why Can&#39;t PVC be Shrinked?"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

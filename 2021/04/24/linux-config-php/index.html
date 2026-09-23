@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="php配置官网下载http:&#x2F;&#x2F;php.net&#x2F;downloads.php-8.0.3.tar.gz 放在目录&#x2F;usr&#x2F;local&#x2F;src下： 解压1tar -xvf php-8.0.3.tar.gz   .&#x2F;configure输入命令： 1.&#x2F;configure  可能出现的错误update1sudo apt-get update  libxml缺失 输入">
+    <meta name="description" content="php配置官网下载http:&#x2F;&#x2F;php.net&#x2F;downloads.php-8.0.3.tar.gz 放在目录&#x2F;usr&#x2F;local&#x2F;src下： 解压1tar -xvf php-8.0.3.tar.gz   .&#x2F;configure输入命令： 1.&#x2F;configure  可能出现的错误update1sudo apt-get update  libxml缺失 输入命令： 1sudo apt-get in">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 配置php">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2021/04/24/linux-config-php/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
-<meta property="og:description" content="php配置官网下载http:&#x2F;&#x2F;php.net&#x2F;downloads.php-8.0.3.tar.gz 放在目录&#x2F;usr&#x2F;local&#x2F;src下： 解压1tar -xvf php-8.0.3.tar.gz   .&#x2F;configure输入命令： 1.&#x2F;configure  可能出现的错误update1sudo apt-get update  libxml缺失 输入">
+<meta property="og:description" content="php配置官网下载http:&#x2F;&#x2F;php.net&#x2F;downloads.php-8.0.3.tar.gz 放在目录&#x2F;usr&#x2F;local&#x2F;src下： 解压1tar -xvf php-8.0.3.tar.gz   .&#x2F;configure输入命令： 1.&#x2F;configure  可能出现的错误update1sudo apt-get update  libxml缺失 输入命令： 1sudo apt-get in">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/04/20210424104401884.png">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/04/20210424104732489.png">
@@ -190,64 +190,64 @@
 
   <div class="content e-content" itemprop="articleBody">
     <h2 id="php配置"><a href="#php配置" class="headerlink" title="php配置"></a>php配置</h2><h4 id="官网下载"><a href="#官网下载" class="headerlink" title="官网下载"></a>官网下载</h4><p><a target="_blank" rel="noopener" href="http://php.net/downloads.php-8.0.3.tar.gz">http://php.net/downloads.php-8.0.3.tar.gz</a></p>
-<p>放在目录&#x2F;usr&#x2F;local&#x2F;src下：</p>
-<h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf php-8.0.3.tar.gz</span><br></pre></td></tr></table></figure>
+<p>放在目录/usr/local/src下：</p>
+<h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xvf php-8.0.3.tar.gz</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/images/2021/04/20210424104401884.png"></p>
-<h4 id="configure"><a href="#configure" class="headerlink" title=".&#x2F;configure"></a>.&#x2F;configure</h4><p>输入命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br></pre></td></tr></table></figure>
+<h4 id="configure"><a href="#configure" class="headerlink" title="./configure"></a>./configure</h4><p>输入命令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="可能出现的错误"><a href="#可能出现的错误" class="headerlink" title="可能出现的错误"></a>可能出现的错误</h3><h4 id="update"><a href="#update" class="headerlink" title="update"></a>update</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+<h3 id="可能出现的错误"><a href="#可能出现的错误" class="headerlink" title="可能出现的错误"></a>可能出现的错误</h3><h4 id="update"><a href="#update" class="headerlink" title="update"></a>update</h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="libxml缺失"><a href="#libxml缺失" class="headerlink" title="libxml缺失"></a>libxml缺失</h4><p><img src="/images/2021/04/20210424104732489.png"></p>
 <p>输入命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libxml2-dev</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libxml2-dev</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="sqlite3缺失"><a href="#sqlite3缺失" class="headerlink" title="sqlite3缺失"></a>sqlite3缺失</h4><p><img src="/images/2021/04/20210424110417584.png"></p>
 <p>输入命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install sqlite3</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install sqlite3</span><br></pre></td></tr></tbody></table></figure>
 
 <p>还是找不到？</p>
 <p>这里是缺少dev相关配置。</p>
 <p>输入命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libsqlite3-dev</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libsqlite3-dev</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="make"><a href="#make" class="headerlink" title="make"></a>make</h4><p>等待一段时间</p>
 <h4 id="make-install"><a href="#make-install" class="headerlink" title="make install"></a>make install</h4><p>等待一段时间后，完成。</p>
-<h4 id="结束步骤"><a href="#结束步骤" class="headerlink" title="结束步骤"></a>结束步骤</h4><p>将php配置文档复制到 &#x2F;usr&#x2F;local&#x2F;lib 中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> php.ini-development /usr/local/lib</span><br></pre></td></tr></table></figure>
+<h4 id="结束步骤"><a href="#结束步骤" class="headerlink" title="结束步骤"></a>结束步骤</h4><p>将php配置文档复制到 /usr/local/lib 中</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> php.ini-development /usr/local/lib</span><br></pre></td></tr></tbody></table></figure>
 
 <p>改名字：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> /usr/local/lib/php.ini-development /usr/local/lib/php.ini</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> /usr/local/lib/php.ini-development /usr/local/lib/php.ini</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="配置apache关联php"><a href="#配置apache关联php" class="headerlink" title="配置apache关联php"></a>配置apache关联php</h2><p><strong>apache版本不同，文件存放位置不同。方便起见，这里采用旧版形式，但是个人用的是新版的apache2。</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/httpd/conf/httpd.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/httpd/conf/httpd.conf</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="配置httpd-conf"><a href="#配置httpd-conf" class="headerlink" title="配置httpd.conf"></a>配置httpd.conf</h4><p>需要添加下面几句话，为了能让php文件正常编译：</p>
-<h3 id="老版apache"><a href="#老版apache" class="headerlink" title="老版apache"></a>老版apache</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##Example:</span></span><br><span class="line"><span class="comment">##LoadMoudle foo_module modules/mod_foo.so</span></span><br><span class="line">LoadModule php5_module modules/libphp5.so</span><br><span class="line"><span class="comment">##Addtype application/x-tar .tgz</span></span><br><span class="line">AddType application/x-httpd-php .php</span><br><span class="line"><span class="comment">##</span></span><br></pre></td></tr></table></figure>
+<h3 id="老版apache"><a href="#老版apache" class="headerlink" title="老版apache"></a>老版apache</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##Example:</span></span><br><span class="line"><span class="comment">##LoadMoudle foo_module modules/mod_foo.so</span></span><br><span class="line">LoadModule php5_module modules/libphp5.so</span><br><span class="line"><span class="comment">##Addtype application/x-tar .tgz</span></span><br><span class="line">AddType application/x-httpd-php .php</span><br><span class="line"><span class="comment">##</span></span><br></pre></td></tr></tbody></table></figure>
 
-<p>但是LoadModule之后，sudo &#x2F;etc&#x2F;init.d&#x2F;apache2 restart会报错。 原因：</p>
+<p>但是LoadModule之后，sudo /etc/init.d/apache2 restart会报错。 原因：</p>
 <p>版本不同、文件存放位置不同、代码写错等等情况。</p>
 <h3 id="新版apache2"><a href="#新版apache2" class="headerlink" title="新版apache2"></a>新版apache2</h3><p>开启php模块：</p>
 <p>cd到apache的模块目录：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/apache2/mods-available</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/apache2/mods-available</span><br></pre></td></tr></tbody></table></figure>
 
 <p>找到php开头的文件，然后开启：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo a2enmod php7.2</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo a2enmod php7.2</span><br></pre></td></tr></tbody></table></figure>
 
 <p>会出现这样的错误：</p>
 <p><img src="/images/2021/04/20210425155306341.png"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo a2dismod mpm_event</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo a2dismod mpm_event</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/images/2021/04/2021042515545893.png"></p>
 <p>最后重启一下apache2：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart apache2</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart apache2</span><br></pre></td></tr></tbody></table></figure>
 
 <p>如果出错的话，html的文件也会出错，但是删掉即可。但是这个问题还是要解决的。</p>
 <h4 id="查看网站的DocumentRoot和DirectoryIndex"><a href="#查看网站的DocumentRoot和DirectoryIndex" class="headerlink" title="查看网站的DocumentRoot和DirectoryIndex"></a>查看网站的DocumentRoot和DirectoryIndex</h4><p>借鉴：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/omak/p/11102133.html">https://www.cnblogs.com/omak/p/11102133.html</a></p>
 <h2 id="完结撒花"><a href="#完结撒花" class="headerlink" title="完结撒花"></a>完结撒花</h2><p>编写一个php文件放在网站根目录下，然后网页输入地址即可。</p>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/04/24/linux-config-php/">https://blog.jujimeizuo.cn/2021/04/24/linux-config-php/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2021/04/24/linux-config-php/">https://blog.jujimeizuo.cn/2021/04/24/linux-config-php/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

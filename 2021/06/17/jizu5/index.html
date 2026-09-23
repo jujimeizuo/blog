@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="5.1 有符号数5.1.1 原码表示法原码是机器数中最简单的一种表示形式，符号位为0表示正数，符号位为1表示负数，数值位即为真值的绝对值，故原码表示又称为带符号的绝对值表示。 整数原码定义[x]_原&#x3D;\left&#123;\begin&#123;matrix&#125; 0,x&amp; 2^n&gt;x&gt;0&amp; \ 2^n-x,&amp; 0\ge x&gt;-2^n &amp; \">
+    <meta name="description" content="5.1 有符号数5.1.1 原码表示法原码是机器数中最简单的一种表示形式，符号位为0表示正数，符号位为1表示负数，数值位即为真值的绝对值，故原码表示又称为带符号的绝对值表示。 整数原码定义[x]_原&#x3D;\left{\begin{matrix} 0,x&amp; 2^n&gt;x&gt;0&amp; \ 2^n-x,&amp; 0\ge x&gt;-2^n &amp; \end{matrix}\rig">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机组成原理期末复习（五）计算机的运算方法">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2021/06/17/jizu5/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
-<meta property="og:description" content="5.1 有符号数5.1.1 原码表示法原码是机器数中最简单的一种表示形式，符号位为0表示正数，符号位为1表示负数，数值位即为真值的绝对值，故原码表示又称为带符号的绝对值表示。 整数原码定义[x]_原&#x3D;\left&#123;\begin&#123;matrix&#125; 0,x&amp; 2^n&gt;x&gt;0&amp; \ 2^n-x,&amp; 0\ge x&gt;-2^n &amp; \">
+<meta property="og:description" content="5.1 有符号数5.1.1 原码表示法原码是机器数中最简单的一种表示形式，符号位为0表示正数，符号位为1表示负数，数值位即为真值的绝对值，故原码表示又称为带符号的绝对值表示。 整数原码定义[x]_原&#x3D;\left{\begin{matrix} 0,x&amp; 2^n&gt;x&gt;0&amp; \ 2^n-x,&amp; 0\ge x&gt;-2^n &amp; \end{matrix}\rig">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/image-40.png">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
@@ -239,9 +239,9 @@
 
   <div class="content e-content" itemprop="articleBody">
     <h2 id="5-1-有符号数"><a href="#5-1-有符号数" class="headerlink" title="5.1 有符号数"></a>5.1 有符号数</h2><h3 id="5-1-1-原码表示法"><a href="#5-1-1-原码表示法" class="headerlink" title="5.1.1 原码表示法"></a>5.1.1 原码表示法</h3><p>原码是机器数中最简单的一种表示形式，符号位为0表示正数，符号位为1表示负数，数值位即为真值的绝对值，故原码表示又称为带符号的绝对值表示。</p>
-<h4 id="整数原码定义"><a href="#整数原码定义" class="headerlink" title="整数原码定义"></a><strong>整数原码定义</strong></h4><p><code>[x]_原=\left&#123;\begin&#123;matrix&#125; 0,x&amp; 2^n&gt;x&gt;0&amp; \ 2^n-x,&amp; 0\ge x&gt;-2^n &amp; \end&#123;matrix&#125;\right.</code></p>
+<h4 id="整数原码定义"><a href="#整数原码定义" class="headerlink" title="整数原码定义"></a><strong>整数原码定义</strong></h4><p><code>[x]_原=\left{\begin{matrix} 0,x&amp; 2^n&gt;x&gt;0&amp; \ 2^n-x,&amp; 0\ge x&gt;-2^n &amp; \end{matrix}\right.</code></p>
 <p>式中，x为真值，n为整数的位数。</p>
-<h4 id="小数原码定义"><a href="#小数原码定义" class="headerlink" title="小数原码定义"></a><strong>小数原码定义</strong></h4><p><code>[x]_原=\left&#123;\begin&#123;matrix&#125; x,&amp; 1&gt;x \ge 0&amp; \ 1-x,&amp; 0\ge x&gt;-1 &amp; \end&#123;matrix&#125;\right.</code></p>
+<h4 id="小数原码定义"><a href="#小数原码定义" class="headerlink" title="小数原码定义"></a><strong>小数原码定义</strong></h4><p><code>[x]_原=\left{\begin{matrix} x,&amp; 1&gt;x \ge 0&amp; \ 1-x,&amp; 0\ge x&gt;-1 &amp; \end{matrix}\right.</code></p>
 <p>当x为0时，[+0.0000]原=0.0000，[−0.0000]原=1.0000 可见原码中的“零”有两种表示形式。</p>
 <h3 id="5-1-2-补码表示法"><a href="#5-1-2-补码表示法" class="headerlink" title="5.1.2 补码表示法"></a>5.1.2 补码表示法</h3><h4 id="补数的概念"><a href="#补数的概念" class="headerlink" title="补数的概念"></a>补数的概念</h4><p>只要确定了“模”，就可找到一个与负数灯架的整数来代替此负数，这样就可把减法运算用加法实现。</p>
 <ol>
@@ -249,16 +249,16 @@
 <li>一个正数和一个负数互为补数时，它们绝对值之和即为模数。</li>
 <li>正数的补数即该正数本身。</li>
 </ol>
-<h4 id="整数补码定义"><a href="#整数补码定义" class="headerlink" title="整数补码定义"></a>整数补码定义</h4><p><code>[x]_补=\left&#123;\begin&#123;matrix&#125; 0,x&amp; 2^n&gt;x \ge 0&amp; \ 2^&#123;n+1&#125;+x,&amp; 0&gt; x \ge -2^n (mod\;2^&#123;n+1&#125;) &amp; \end&#123;matrix&#125;\right.</code></p>
-<h4 id="小数补码定义"><a href="#小数补码定义" class="headerlink" title="小数补码定义"></a>小数补码定义</h4><p><code>[x]_补=\left&#123;\begin&#123;matrix&#125; x&amp; 1&gt;x \ge 0&amp; \ 2+x,&amp; 0&gt;x \ge -1(mod\;2^&#123;n+1&#125;) &amp; \end&#123;matrix&#125;\right.</code></p>
+<h4 id="整数补码定义"><a href="#整数补码定义" class="headerlink" title="整数补码定义"></a>整数补码定义</h4><p><code>[x]_补=\left{\begin{matrix} 0,x&amp; 2^n&gt;x \ge 0&amp; \ 2^{n+1}+x,&amp; 0&gt; x \ge -2^n (mod\;2^{n+1}) &amp; \end{matrix}\right.</code></p>
+<h4 id="小数补码定义"><a href="#小数补码定义" class="headerlink" title="小数补码定义"></a>小数补码定义</h4><p><code>[x]_补=\left{\begin{matrix} x&amp; 1&gt;x \ge 0&amp; \ 2+x,&amp; 0&gt;x \ge -1(mod\;2^{n+1}) &amp; \end{matrix}\right.</code></p>
 <p>当x为0时，[+0]补=[−0]补=0.0000，即补码中的“零”只有一种表示形式。由于补码中的零只有一种表示形式，故它比原码能多表示一个“-1”。</p>
-<p>当模数为4时，形成双符号位的补码。这种双符号位的补码又称为<strong>变形补码</strong>，它在阶码运算和溢出判断中有其特殊作用。如x&#x3D;-0.1001，对mod 22而言，</p>
+<p>当模数为4时，形成双符号位的补码。这种双符号位的补码又称为<strong>变形补码</strong>，它在阶码运算和溢出判断中有其特殊作用。如x=-0.1001，对mod 22而言，</p>
 <p>对于负数，由[x]补求[x]原和由[x]原求[x]补都可用规则<strong>除符号位外，每位求反，末尾加一</strong>。</p>
 <p>论真值是正还是负，由[x]补求[−x]补求都是采用规则<strong>连同符号位在内，每位取反，末尾加一</strong>。</p>
 <h3 id="5-1-3-反码表示法"><a href="#5-1-3-反码表示法" class="headerlink" title="5.1.3 反码表示法"></a>5.1.3 反码表示法</h3><p>反码同行用来作为由原码求补码或者由补码求原码的中间过渡。</p>
-<h4 id="整数反码定义"><a href="#整数反码定义" class="headerlink" title="整数反码定义"></a>整数反码定义</h4><p><code>[x]_反=\left&#123;\begin&#123;matrix&#125; 0,x&amp; 2^n&gt;x \ge 0&amp; \ (2^&#123;n+1&#125;-1)+x,&amp; 0 \ge x &gt; -2^n (mod\;(2^&#123;n+1&#125;-1)) &amp; \end&#123;matrix&#125;\right.</code></p>
-<h4 id="小数反码定义"><a href="#小数反码定义" class="headerlink" title="小数反码定义"></a>小数反码定义</h4><p><code>[x]_反=\left&#123;\begin&#123;matrix&#125; x&amp; 1&gt;x \ge 0&amp; \ (2-2^&#123;-n&#125;)+x,&amp; 0 \ge x &gt; -1(mod\;(2-2^&#123;-n&#125;)) &amp; \end&#123;matrix&#125;\right.</code></p>
-<p>当x为0时，[+0.0000]反=0.0000 [−0.0000]反=(10.0000−0.0001)−0.0000&#x3D;1.1111 可见[+0]反不等于[−0]反，反码中的“零”有两种表示形式。</p>
+<h4 id="整数反码定义"><a href="#整数反码定义" class="headerlink" title="整数反码定义"></a>整数反码定义</h4><p><code>[x]_反=\left{\begin{matrix} 0,x&amp; 2^n&gt;x \ge 0&amp; \ (2^{n+1}-1)+x,&amp; 0 \ge x &gt; -2^n (mod\;(2^{n+1}-1)) &amp; \end{matrix}\right.</code></p>
+<h4 id="小数反码定义"><a href="#小数反码定义" class="headerlink" title="小数反码定义"></a>小数反码定义</h4><p><code>[x]_反=\left{\begin{matrix} x&amp; 1&gt;x \ge 0&amp; \ (2-2^{-n})+x,&amp; 0 \ge x &gt; -1(mod\;(2-2^{-n})) &amp; \end{matrix}\right.</code></p>
+<p>当x为0时，[+0.0000]反=0.0000&nbsp;[−0.0000]反=(10.0000−0.0001)−0.0000=1.1111 可见[+0]反不等于[−0]反，反码中的“零”有两种表示形式。</p>
 <p>实际上，反码也可看作是mod(2−2−n)（对于小数）或mod（2n+1−1）（对于整数）的补码。与补码相比，仅在末尾差1，故也称小数的补码为2的补码，小数的反码为1的补码。</p>
 <p>对于负数，由[x]反求[x]原和由[x]原求[x]反都可用规则<strong>除符号位外，每位求反</strong>。</p>
 <blockquote>
@@ -280,7 +280,7 @@
 <p>当小数点位于数符和第一数值位之间时，机器内的数为纯小数；当小数点位于数值位之后时，机器内的数为纯整数。采用定点数的机器称为定点机。数值部分的位数n决定了定点机中数的表示范围。若机器数采用原码，小数定点机中的数的表示范围是−(1−2−n)<del>(1−2−n)，整数定点机中数的表示范围是−(2n−1)</del>(2n−1)。 在定点机中，由于小数点的位置固定不定，故当机器处理的数不是纯小数或纯整数时，必须乘上一个<strong>比例因子</strong>，否则会产生“溢出”。</p>
 <h3 id="5-2-2-浮点表示"><a href="#5-2-2-浮点表示" class="headerlink" title="5.2.2 浮点表示"></a>5.2.2 浮点表示</h3><p><strong>浮点数</strong>即小数点的位置可以浮动的数。</p>
 <p>通常浮点数被表示成</p>
-<p>N&#x3D;S×rj</p>
+<p>N=S×rj</p>
 <p>式中，S为尾数，j为阶码，r是基数。在计算机中，基数可取2、4、8、16等。 为了提高数据精度以及便于浮点数的比较，在计算机中规定浮点数的尾数用纯小数形式。将尾数最高位为1的浮点数称为 <strong>规格化数</strong>。浮点数表示成规格化形式后，其精度最高。</p>
 <h3 id="5-2-3-浮点数的表示形式"><a href="#5-2-3-浮点数的表示形式" class="headerlink" title="5.2.3 浮点数的表示形式"></a>5.2.3 浮点数的表示形式</h3><p>采用这种数据格式的机器称为<strong>浮点机</strong>。</p>
 <p><img src="/images/2021/06/image-41.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
@@ -330,13 +330,13 @@
 <h4 id="补码减法运算的基本公式"><a href="#补码减法运算的基本公式" class="headerlink" title="补码减法运算的基本公式"></a>补码减法运算的基本公式</h4><p><img src="/images/2021/06/75AED03B-5911-4E6D-A63F-C27DC678BFDA.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <h4 id="溢出判断"><a href="#溢出判断" class="headerlink" title="溢出判断"></a>溢出判断</h4><h5 id="用一位符号位判断溢出"><a href="#用一位符号位判断溢出" class="headerlink" title="用一位符号位判断溢出"></a>用一位符号位判断溢出</h5><p>只要实际参加操作的两个数符号相同，结果又与原操作数的符号不同，即为溢出。</p>
 <h5 id="用两位符号位判断溢出"><a href="#用两位符号位判断溢出" class="headerlink" title="用两位符号位判断溢出"></a>用两位符号位判断溢出</h5><p>2为符号位的补码，即变形补码，它是以4为模的，其定义为</p>
-<p><code>[x]_&#123;补&#125;=\left\&#123;\begin&#123;matrix&#125; x&amp; 1&gt;x \ge 0&amp; \\ 4+x,&amp; 0&gt; x \ge -1 (mod\;4) &amp; \end&#123;matrix&#125;\right.</code></p>
+<p><code>[x]_{补}=\left\{\begin{matrix} x&amp; 1&gt;x \ge 0&amp; \\ 4+x,&amp; 0&gt; x \ge -1 (mod\;4) &amp; \end{matrix}\right.</code></p>
 <p>在用变形补码作加法时，2位符号位要连同数值部分一起参加运算，而且高位符号位产生的进位自动丢失，便可得正确结果，即</p>
 <p>[x]补’+[y]补’=[x+y]补’(mod 4)</p>
 <p>变形补码判断溢出的原则是： <strong>当2位符号位不同时，表示溢出，否则无溢出。</strong>不论是否发生溢出，高位（第1位）符号位永远代表真正的符号。</p>
 <h4 id="补码加减运算控制流程"><a href="#补码加减运算控制流程" class="headerlink" title="补码加减运算控制流程"></a>补码加减运算控制流程</h4><p><img src="/images/2021/06/image-47.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <h3 id="5-5-3-乘法运算"><a href="#5-5-3-乘法运算" class="headerlink" title="5.5.3 乘法运算"></a>5.5.3 乘法运算</h3><h4 id="笔算乘法的改进"><a href="#笔算乘法的改进" class="headerlink" title="笔算乘法的改进"></a>笔算乘法的改进</h4><p>两数相乘的过程，可视为加法和移位两种运算。</p>
-<p>例：设A&#x3D;0.1101，B&#x3D;0.1011，求A×B。</p>
+<p>例：设A=0.1101，B=0.1011，求A×B。</p>
 <p><img src="/images/2021/06/image-48.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <p>运算规则如下：</p>
 <ul>
@@ -353,7 +353,7 @@
 <li>乘积的符号位由两原码符号位异或运算结果决定。</li>
 <li>乘积的数值部分由两数绝对值相乘，其通式为：x∗⋅y∗=2−1(y1x∗+(…+2−1(yn−1x∗+2−1(ynx∗+0))…))</li>
 </ul>
-<h5 id="例：已知x-0-1110，y-0-1101，求-x⋅y-原。"><a href="#例：已知x-0-1110，y-0-1101，求-x⋅y-原。" class="headerlink" title="例：已知x&#x3D;-0.1110，y&#x3D;-0.1101，求[x⋅y]原。"></a>例：已知x&#x3D;-0.1110，y&#x3D;-0.1101，求[x⋅y]原。</h5><p><img src="/images/2021/06/image-49.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
+<h5 id="例：已知x-0-1110，y-0-1101，求-x⋅y-原。"><a href="#例：已知x-0-1110，y-0-1101，求-x⋅y-原。" class="headerlink" title="例：已知x=-0.1110，y=-0.1101，求[x⋅y]原。"></a>例：已知x=-0.1110，y=-0.1101，求[x⋅y]原。</h5><p><img src="/images/2021/06/image-49.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <p>故[x⋅y]原=0.10110110</p>
 <h4 id="补码乘法"><a href="#补码乘法" class="headerlink" title="补码乘法"></a>补码乘法</h4><p><img src="/images/2021/06/05F7859F-4788-4F3B-97E0-0D9172E88BEB.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <h5 id="例：已知-x-补-1-0101，-y-补-0-1101，求-x⋅y-补。"><a href="#例：已知-x-补-1-0101，-y-补-0-1101，求-x⋅y-补。" class="headerlink" title="例：已知[x]补=1.0101，[y]补=0.1101，求[x⋅y]补。"></a>例：已知[x]补=1.0101，[y]补=0.1101，求[x⋅y]补。</h5><p><img src="/images/2021/06/image-50.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
@@ -380,9 +380,9 @@
 </ul>
 <p>实现除法运算时，还应避免除数为0或被除数为0。 原码除法中由于对余数的处理不同，又可分为 恢复余数法和 不恢复余数法（加减交替法）两种。</p>
 <h5 id="恢复余数法"><a href="#恢复余数法" class="headerlink" title="恢复余数法"></a>恢复余数法</h5><p>特点是：当余数为负时，需加上除数，将其恢复成原来的余数。</p>
-<p>例：已知x=−0.1011，y=−0.1101，求[x&#x2F;y]原。</p>
+<p>例：已知x=−0.1011，y=−0.1101，求[x/y]原。</p>
 <p><img src="/images/2021/06/image-52.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
-<p>故商值为0.1101，商的符号位为x0⊕y0=1⊕1=0，故[x&#x2F;y]原=0.1101。</p>
+<p>故商值为0.1101，商的符号位为x0⊕y0=1⊕1=0，故[x/y]原=0.1101。</p>
 <p>第一次上的商在商的整数位上，这对小数除法而言，可用它作溢出判断。即当该位为“1”时，表示此除法溢出，不能进行，应由程序进行处理；当该位为“0”时，说明除法合法，可以进行。 在恢复余数法中，每当余数为负时，都需恢复余数，这就延长了机器出发的时间，操作也很不规则，对线路结构不利。加减交替法可克服这些缺点。</p>
 <h5 id="加减交替法"><a href="#加减交替法" class="headerlink" title="加减交替法"></a>加减交替法</h5><p>加减交替法又称为不恢复余数法，可以认为它是恢复余数法的一种改进算法。</p>
 <p>分析原码恢复余数法得知：</p>
@@ -395,9 +395,9 @@
 <li>当Ri&gt;0时，上商“1”，做2Ri−y∗的运算。</li>
 <li>当Ri&lt;0时，上商“0”，做2Ri+y∗的运算。</li>
 </ul>
-<p>例：已知x=−0.1011，y=−0.1101，求[x&#x2F;y]原。</p>
+<p>例：已知x=−0.1011，y=−0.1101，求[x/y]原。</p>
 <p><img src="/images/2021/06/image-53.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
-<p>故商值为0.1101，商的符号位为x0⊕y0=1⊕0=1，故[x&#x2F;y]原=1.1101。</p>
+<p>故商值为0.1101，商的符号位为x0⊕y0=1⊕0=1，故[x/y]原=1.1101。</p>
 <h4 id="补码除法"><a href="#补码除法" class="headerlink" title="补码除法"></a>补码除法</h4><h5 id="补码加减交替法运算规则"><a href="#补码加减交替法运算规则" class="headerlink" title="补码加减交替法运算规则"></a>补码加减交替法运算规则</h5><p>补码除法的符号位和数值部分是一起参加运算的。 <strong>1.欲确定商值，必须先比较被除数和除数的大小，然后才能求得商值。</strong> 比较被除数和除数的大小</p>
 <ul>
 <li>当被除数与除数同号时，做减法，若得到的余数与除数同号，表示“够减”，否则表示“不够减”。</li>
@@ -411,9 +411,9 @@
 </ul>
 <p><strong>2.在补码除法中，商符是在求商的过程中自动形成的。</strong></p>
 <p><strong>3.新余数[Ri+1]补的获得方法与原码加减交替法极相似</strong></p>
-<p>例：已知x=0.1001，y=0.1101，求[x&#x2F;y]补。</p>
+<p>例：已知x=0.1001，y=0.1101，求[x/y]补。</p>
 <p><img src="/images/2021/06/image-55.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
-<p>所以[x&#x2F;y]补=0.1011。</p>
+<p>所以[x/y]补=0.1011。</p>
 <h2 id="5-6-浮点四则运算"><a href="#5-6-浮点四则运算" class="headerlink" title="5.6 浮点四则运算"></a>5.6 浮点四则运算</h2><p><img src="/images/2021/06/71A0406B-20D9-4D80-98BE-02E695E0FCFF.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <h3 id="5-6-1-浮点加减运算"><a href="#5-6-1-浮点加减运算" class="headerlink" title="5.6.1 浮点加减运算"></a>5.6.1 浮点加减运算</h3><p>浮点数加减运算必须按以下几步进行：</p>
 <ol>
@@ -428,11 +428,11 @@
 <p><img src="/images/2021/06/481B6F94FE975A975197523BC7B72FBB.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <p><img src="/images/2021/06/4DF787DD-4AC7-4C39-8B30-4F32AD558C76.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 </blockquote>
-<p> </p>
+<p>&nbsp;</p>
 <blockquote>
-<p>6.5 已知[x]补，求[x]原和x。</p>
-<p>[x1]补=1.1100;  [x2]补=1.1001;  [x3]补=0.1110;  [x4]补=1.0000;</p>
-<p>[x5]补=1,0101;  [x6]补=1,1100;  [x7]补=0,0111;  [x8]补=1,0000</p>
+<p>6.5&nbsp;已知[x]补，求[x]原和x。</p>
+<p>[x1]补=1.1100; &nbsp;[x2]补=1.1001; &nbsp;[x3]补=0.1110;&nbsp; [x4]补=1.0000;</p>
+<p>[x5]补=1,0101; &nbsp;[x6]补=1,1100; &nbsp;[x7]补=0,0111; &nbsp;[x8]补=1,0000</p>
 <p>[x]补与[x]原、x的对应关系如下：</p>
 <p>[x]补</p>
 <p>1.1100</p>
@@ -462,9 +462,9 @@
 <p>0,0111</p>
 <p>-10000</p>
 </blockquote>
-<p> </p>
+<p>&nbsp;</p>
 <blockquote>
-<p>6.11 已知机器数字长为4位（含1位符号位），写出整数定点机和小数定点机中原码、补码和反码的全部形式，并注明其对应的十进制真值。</p>
+<p>6.11&nbsp;已知机器数字长为4位（含1位符号位），写出整数定点机和小数定点机中原码、补码和反码的全部形式，并注明其对应的十进制真值。</p>
 <p>整数定点机</p>
 <p>小数定点机</p>
 <p>原码</p>
@@ -612,41 +612,41 @@
 <p>无</p>
 <p>-1</p>
 </blockquote>
-<p> </p>
+<p>&nbsp;</p>
 <blockquote>
 <p><img src="/images/2021/06/732D658E-6A92-4FD6-8132-69FEC87BE802.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <p><img src="/images/2021/06/958ADDA5-10FD-4D21-A717-65D6F5012EC6.png"><img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 </blockquote>
-<p> </p>
+<p>&nbsp;</p>
 <blockquote>
-<p>6.20 用原码一位乘、两位乘和补码一位乘（Booth算法）、两位乘计算x·y。</p>
-<p>（1）x&#x3D; 0.110 111，y&#x3D; -0.101 110；</p>
-<p>（2）x&#x3D; -0.010 111，y&#x3D; -0.010 101；</p>
-<p>（3）x&#x3D; 19，y&#x3D; 35；</p>
-<p>（4）x&#x3D; 0.110 11，y&#x3D; -0.111 01。</p>
+<p>6.20&nbsp;用原码一位乘、两位乘和补码一位乘（Booth算法）、两位乘计算x·y。</p>
+<p>（1）x= 0.110 111，y= -0.101 110；</p>
+<p>（2）x= -0.010 111，y= -0.010 101；</p>
+<p>（3）x= 19，y= 35；</p>
+<p>（4）x= 0.110 11，y= -0.111 01。</p>
 </blockquote>
-<p> </p>
+<p>&nbsp;</p>
 <blockquote>
 <p>6.27 </p>
 <p><img src="/images/2021/06/ECD3F4E1-7DB6-4B56-B4B7-FAD58240D999.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <p>（1）</p>
-<p>x&#x3D;2101*0.101100.      y&#x3D;2100*(-0.100100).</p>
-<p>[x]补=00,101;00.101100.  [y]补=00,100;1.011100</p>
+<p>x=2101*0.101100. &nbsp; &nbsp; &nbsp;y=2100*(-0.100100).</p>
+<p>[x]补=00,101;00.101100. &nbsp;[y]补=00,100;1.011100</p>
 <p>1)对阶</p>
-<p>[E]补=[Jx]补+[-Jy]补=00,101+11,100&#x3D;00,001&gt;0</p>
+<p>[E]补=[Jx]补+[-Jy]补=00,101+11,100=00,001&gt;0</p>
 <p>应Jy向Jx对齐，则</p>
-<p>[Jy]补=00,100+00,001&#x3D;[Jx]补</p>
+<p>[Jy]补=00,100+00,001=[Jx]补</p>
 <p>[y]补=00,101;11.101110</p>
 <p>2)尾数运算</p>
-<p>[Sx]补+[Sy]补=00.101100+11.101110&#x3D;00.011010&gt;0</p>
+<p>[Sx]补+[Sy]补=00.101100+11.101110=00.011010&gt;0</p>
 <p>3)规格化</p>
 <p>左规1位，阶码减1</p>
 <p>4)舍入：无</p>
 <p>5)溢出：无</p>
-<p>则x+y&#x3D;2100*0.110100&#x3D;24*(13&#x2F;16)</p>
+<p>则x+y=2100*0.110100=24*(13/16)</p>
 </blockquote>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/17/jizu5/">https://blog.jujimeizuo.cn/2021/06/17/jizu5/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2021/06/17/jizu5/">https://blog.jujimeizuo.cn/2021/06/17/jizu5/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

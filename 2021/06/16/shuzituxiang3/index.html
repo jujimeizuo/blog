@@ -243,13 +243,13 @@
 <li>计算图像信息量（熵）</li>
 </ul>
 <p><img src="/images/2021/06/image-5.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
-<h3 id="3-1-5-彩色图像转换成灰度图像"><a href="#3-1-5-彩色图像转换成灰度图像" class="headerlink" title="3.1.5 彩色图像转换成灰度图像"></a>3.1.5 彩色图像转换成灰度图像</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">im = cv2.imread(&#x27;lenna.jpg&#x27;)</span><br><span class="line">nim = cv2.cvtColor(im,  cv2.COLOR_BGR2GRAY);</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-5-彩色图像转换成灰度图像"><a href="#3-1-5-彩色图像转换成灰度图像" class="headerlink" title="3.1.5 彩色图像转换成灰度图像"></a>3.1.5 彩色图像转换成灰度图像</h3><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">im&nbsp;=&nbsp;cv2.imread('lenna.jpg')</span><br><span class="line">nim&nbsp;=&nbsp;cv2.cvtColor(im,&nbsp;&nbsp;cv2.COLOR_BGR2GRAY);</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="3-1-6-计算直方图"><a href="#3-1-6-计算直方图" class="headerlink" title="3.1.6 计算直方图"></a>3.1.6 计算直方图</h3><p>OpenCV计算直方图的函数：calcHist()</p>
 <p>例如：打开图像 lenna.jpg，使用 cv2.calcHist()函数计算灰度图像的直方图，以屏显打印输出的形式显示具有 100-128 灰度值的像素数目；</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import cv2</span><br><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">im = cv2.imread(&#x27;lenna.jpg&#x27;)</span><br><span class="line">nim = cv2.cvtColor(im,  cv2.COLOR_BGR2GRAY)</span><br><span class="line">jpg = cv2.calcHist([im], [0], None, [29], [100, 128])</span><br><span class="line">plt.plot(jpg)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import&nbsp;cv2</span><br><span class="line">import&nbsp;matplotlib.pyplot&nbsp;as&nbsp;plt</span><br><span class="line">im&nbsp;=&nbsp;cv2.imread('lenna.jpg')</span><br><span class="line">nim&nbsp;=&nbsp;cv2.cvtColor(im,&nbsp;&nbsp;cv2.COLOR_BGR2GRAY)</span><br><span class="line">jpg&nbsp;=&nbsp;cv2.calcHist([im],&nbsp;[0],&nbsp;None,&nbsp;[29],&nbsp;[100,&nbsp;128])</span><br><span class="line">plt.plot(jpg)</span><br><span class="line">plt.show()</span><br></pre></td></tr></tbody></table></figure>
 
-<p> </p>
+<p>&nbsp;</p>
 <h4 id="3-2-归一化直方图"><a href="#3-2-归一化直方图" class="headerlink" title="3.2 归一化直方图"></a>3.2 归一化直方图</h4><p><img src="/images/2021/06/D108A660-1968-4C99-8E9F-80627540B950.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <h4 id="3-3-图像的基本运算"><a href="#3-3-图像的基本运算" class="headerlink" title="3.3 图像的基本运算"></a>3.3 图像的基本运算</h4><h3 id="3-3-1-点运算"><a href="#3-3-1-点运算" class="headerlink" title="3.3.1 点运算"></a>3.3.1 点运算</h3><p><strong>点运算：</strong>是指对一幅图像中每个像素点的灰度值进行计算</p>
 <p><img src="/images/2021/06/image-7.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
@@ -297,8 +297,8 @@
 <p>在该点各相邻像素间灰度变化较小时，这种方法是一种简单快捷的方法，但当该点相邻像素间灰度差很大时，这种灰度估值方法会产生较大的误差。计算简单，容易产生锯齿现象。</p>
 <p><strong>双线性插值法</strong>：是最邻近法的改进版，效果较好，但是具有低通滤波性，使高频分量受损，图像轮廓受损。会引入平滑效应，使图像产生模糊，清晰度下降。可以采用效果更好的三次内插法。</p>
 <p><strong>三次内插法</strong>：可精确地恢复原函数，当然也就可精确得到采样点间任意点的值。此方法计算量很大，但精度高，能保持较好的图像边缘。</p>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/06/16/shuzituxiang3/">https://blog.jujimeizuo.cn/2021/06/16/shuzituxiang3/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2021/06/16/shuzituxiang3/">https://blog.jujimeizuo.cn/2021/06/16/shuzituxiang3/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

@@ -239,10 +239,10 @@
 <p><img src="/images/2021/09/image-1631620452939.png" alt="file"></p>
 <ol>
 <li>以下四种方式均可</li>
-<li>docker search –filter&#x3D;stars&#x3D;5000 mysql</li>
-<li>docker search –filter stars&#x3D;5000 mysql</li>
-<li>docker search -f&#x3D;stars&#x3D;5000 mysql</li>
-<li>docker search -f stars&#x3D;5000 mysql</li>
+<li>docker search –filter=stars=5000 mysql</li>
+<li>docker search –filter stars=5000 mysql</li>
+<li>docker search -f=stars=5000 mysql</li>
+<li>docker search -f stars=5000 mysql</li>
 </ol>
 <p><img src="/images/2021/09/image-1631620406980.png" alt="file"></p>
 <h3 id="docker-pull"><a href="#docker-pull" class="headerlink" title="docker pull"></a>docker pull</h3><ol>
@@ -281,7 +281,7 @@
 </li>
 </ol>
 <p>测试如下：</p>
-<p>使用centos进行交互模式启动容器，在容器内执行&#x2F;bin&#x2F;bash命令 <img src="/images/2021/09/image-1631620876616.png" alt="file"></p>
+<p>使用centos进行交互模式启动容器，在容器内执行/bin/bash命令 <img src="/images/2021/09/image-1631620876616.png" alt="file"></p>
 <p>由上图可以看出，地址已经变成容器内部了。</p>
 <h3 id="列出所有运行的容器（docker-ps）"><a href="#列出所有运行的容器（docker-ps）" class="headerlink" title="列出所有运行的容器（docker ps）"></a>列出所有运行的容器（docker ps）</h3><ol>
 <li>docker ps [OPTIONS]</li>
@@ -324,7 +324,7 @@
 <li>docker top 容器id</li>
 </ol>
 <p><img src="/images/2021/09/image-1631621090534.png" alt="file"></p>
-<h3 id="查看容器-镜像的元数据（docker-inspect）"><a href="#查看容器-镜像的元数据（docker-inspect）" class="headerlink" title="查看容器 &#x2F; 镜像的元数据（docker inspect）"></a>查看容器 &#x2F; 镜像的元数据（docker inspect）</h3><ol>
+<h3 id="查看容器-镜像的元数据（docker-inspect）"><a href="#查看容器-镜像的元数据（docker-inspect）" class="headerlink" title="查看容器 / 镜像的元数据（docker inspect）"></a>查看容器 / 镜像的元数据（docker inspect）</h3><ol>
 <li>docker inspect 容器id</li>
 </ol>
 <p><img src="/images/2021/09/image-1631621146517.png" alt="file"></p>
@@ -355,11 +355,11 @@
 </li>
 <li><p>例如：</p>
 </li>
-<li><p>docker cp f261f17bb39d:&#x2F;home&#x2F;f1 &#x2F;home</p>
+<li><p>docker cp f261f17bb39d:/home/f1 /home</p>
 </li>
 </ol>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2021/09/14/dockerml/">https://blog.jujimeizuo.cn/2021/09/14/dockerml/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2021/09/14/dockerml/">https://blog.jujimeizuo.cn/2021/09/14/dockerml/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

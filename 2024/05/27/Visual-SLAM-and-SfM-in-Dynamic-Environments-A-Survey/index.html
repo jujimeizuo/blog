@@ -217,7 +217,7 @@
 <h2 id="综述结构"><a href="#综述结构" class="headerlink" title="综述结构"></a>综述结构</h2><ul>
 <li>鲁棒 VSLAM<ol>
 <li>运动分割<ol>
-<li>背景&#x2F;前景初始化</li>
+<li>背景/前景初始化</li>
 <li>几何约束</li>
 <li>光流</li>
 <li>自我运动约束</li>
@@ -265,12 +265,12 @@
 <h3 id="运动分割"><a href="#运动分割" class="headerlink" title="运动分割"></a>运动分割</h3><blockquote>
 <p>将特征分为两个不同的组，即静态特征和动态特征，来检测图像中的动态部分。</p>
 </blockquote>
-<p>标准的 VSLAM 使用 <strong>计算几何模型（基础&#x2F;单应矩阵）</strong>、<strong>RANSAC</strong>、<strong>辛普森距离</strong> 等去除动态特征点。</p>
+<p>标准的 VSLAM 使用 <strong>计算几何模型（基础/单应矩阵）</strong>、<strong>RANSAC</strong>、<strong>辛普森距离</strong> 等去除动态特征点。</p>
 <ul>
 <li>如果静态特征占多数，效果会很好。</li>
 <li>如果相机前的动态物体占据较大，效果不好，其他方法可以利用 <strong>IMU</strong> 估计相机的自我运动来解决。</li>
 </ul>
-<h4 id="背景-前景初始化"><a href="#背景-前景初始化" class="headerlink" title="背景&#x2F;前景初始化"></a>背景&#x2F;前景初始化</h4><p>假设系统对环境有<strong>先验知识</strong>，可以利用该信息来分割。这种先验知识可以附加到背景或前景对象上。如果信息是关于前景对象的，则系统知道在相机前移动的对象的类型或形状。</p>
+<h4 id="背景-前景初始化"><a href="#背景-前景初始化" class="headerlink" title="背景/前景初始化"></a>背景/前景初始化</h4><p>假设系统对环境有<strong>先验知识</strong>，可以利用该信息来分割。这种先验知识可以附加到背景或前景对象上。如果信息是关于前景对象的，则系统知道在相机前移动的对象的类型或形状。</p>
 <h4 id="几何约束"><a href="#几何约束" class="headerlink" title="几何约束"></a>几何约束</h4><p>利用对极几何特性来分割静态和动态特征。动态特征违反静态场景中在多视图几何中定义的约束，可以从<strong>对极方程</strong>、<strong>三角测量</strong>、<strong>基础矩阵</strong>估计或<strong>重投影误差</strong>中推导出。</p>
 <h4 id="光流"><a href="#光流" class="headerlink" title="光流"></a>光流</h4><p>光流定义了从两个连续图像计算得出的亮度模式的表观运动，对应于图像中的运动场，利用图割算法基于该运动度量来分割动态物体。还有 <strong>3D 版本的场景流</strong>。</p>
 <h4 id="自我运动约束"><a href="#自我运动约束" class="headerlink" title="自我运动约束"></a>自我运动约束</h4><p>标准的 SfM 和 VSLAM 通过<strong>八点法</strong>或<strong>五点法</strong>来计算相机运动。另一种方法假设相机根据给定的外部信息（e.g. 车轮里程计信息）按照特定的参数化进行移动。通过这种强制自我运动约束，可以拟合与相机运动约束相匹配的特征点来对静态特征进行分类。</p>
@@ -298,7 +298,7 @@
 <li>SURF</li>
 <li>FAST</li>
 </ol>
-<p>为找到对应关系，使用特征匹配。根据两个相机的光心之间的距离（基线&#x2F;视差）分开的程度来划分。</p>
+<p>为找到对应关系，使用特征匹配。根据两个相机的光心之间的距离（基线/视差）分开的程度来划分。</p>
 <ul>
 <li>基于短基线：可以用基于光流的技术进行匹配</li>
 <li>对于长基线：需要有高度区分度的特征描述子，例如 <strong>SIFT</strong>、<strong>SURF</strong>、<strong>BRIEF</strong>、<strong>BRISK</strong> 等，通过计算这些描述子之间的不相似性来找到对应关系，当数据包含异常值时，需要使用 <strong>RANSAC</strong>、<strong>PROSAC</strong>、<strong>MLESAC</strong> 等排除异常值。</li>
@@ -328,7 +328,7 @@
 <p>在无监督的情况下，CNN 没有真实数据进行训练。相反，该网络通过最小化类似于 <strong>LSD-SLAM</strong> 的光度误差来学习预测相机位姿。</p>
 <ul>
 <li>利用新颖视图合成原则（给定一个源图像合成具有不同位姿的目标图像的问题）。构建两个并行的 CNN 用于预测深度和估计相机位姿。来自源图像的预测深度用于在给定相机变换矩阵和源图像的情况下合成目标图像。通过最小化光度误差，共同训练深度和相机位姿。而不是从深度预测生成目标图像。</li>
-<li>基于深度预测、相机运动以及卷积&#x2F;反卷积网络产生的动态对象分割构建了一个 3D 场景流。场景流通过相机运动进行变换，然后反投影到当前帧以评估光度误差。</li>
+<li>基于深度预测、相机运动以及卷积/反卷积网络产生的动态对象分割构建了一个 3D 场景流。场景流通过相机运动进行变换，然后反投影到当前帧以评估光度误差。</li>
 </ul>
 <h2 id="动态物体分割与-3D-跟踪"><a href="#动态物体分割与-3D-跟踪" class="headerlink" title="动态物体分割与 3D 跟踪"></a>动态物体分割与 3D 跟踪</h2><blockquote>
 <p>动态对象分割和 3D 跟踪将特征对应关系基于其运动聚类到不同组中，并在 3D 中跟踪它们的轨迹。</p>
@@ -383,7 +383,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>背景&#x2F;前景初始化</td>
+<td>背景/前景初始化</td>
 <td>当移动对象暂时静止时能够跟踪它们，无需进行新的分割。还可以处理退化运动。</td>
 <td>1. 与背景或物体相关的信息需要事先定义<br>2. 基于检测的跟踪方案可能会阻碍实时能力</td>
 </tr>
@@ -419,7 +419,7 @@
 <tr>
 <td>子空间聚类</td>
 <td>时间复杂度低，主要基于代数方法</td>
-<td>1. 不能顺序&#x2F;实时运行<br>2. 需要场景中运动数量或子空间所在维度的信息<br>3. 大多数方法使用仿射相机模型，如果场景包含主要的透视效果，该模型会失败<br>4. 对长序列的实施很困难</td>
+<td>1. 不能顺序/实时运行<br>2. 需要场景中运动数量或子空间所在维度的信息<br>3. 大多数方法使用仿射相机模型，如果场景包含主要的透视效果，该模型会失败<br>4. 对长序列的实施很困难</td>
 </tr>
 <tr>
 <td>几何</td>
@@ -473,10 +473,10 @@
 </tr>
 </tbody></table>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.cs.ox.ac.uk/files/9926/Visual%20Slam.pdf">cs.ox.ac.uk&#x2F;files&#x2F;9926&#x2F;Visual Slam.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cs.ox.ac.uk/files/9926/Visual%20Slam.pdf">cs.ox.ac.uk/files/9926/Visual Slam.pdf</a></li>
 </ul>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/">https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/">https://blog.jujimeizuo.cn/2024/05/27/Visual-SLAM-and-SfM-in-Dynamic-Environments-A-Survey/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 

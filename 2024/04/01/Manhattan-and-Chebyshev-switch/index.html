@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="曼哈顿距离定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的曼哈顿距离为： $$d(A, B) &#x3D; |x_1 - x_2| + |y_1 - y_2|$$  性质  对称性：$d(A,B)&#x3D;d(B,A)$ 三角不等式：$d(A,C) \le d(A,B)+d(B,C)$   距离原点的曼哈顿距离为 1 组成的点：   切比雪夫距离定义两个">
+    <meta name="description" content="曼哈顿距离定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的曼哈顿距离为： $$d(A, B) &#x3D; |x_1 - x_2| + |y_1 - y_2|$$  性质  对称性：$d(A,B)&#x3D;d(B,A)$ 三角不等式：$d(A,C) \le d(A,B)+d(B,C)$   距离原点的曼哈顿距离为 1 组成的点：   切比雪夫距离定义两个点 $A(x_1,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Manhattan and Chebyshev">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
-<meta property="og:description" content="曼哈顿距离定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的曼哈顿距离为： $$d(A, B) &#x3D; |x_1 - x_2| + |y_1 - y_2|$$  性质  对称性：$d(A,B)&#x3D;d(B,A)$ 三角不等式：$d(A,C) \le d(A,B)+d(B,C)$   距离原点的曼哈顿距离为 1 组成的点：   切比雪夫距离定义两个">
+<meta property="og:description" content="曼哈顿距离定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的曼哈顿距离为： $$d(A, B) &#x3D; |x_1 - x_2| + |y_1 - y_2|$$  性质  对称性：$d(A,B)&#x3D;d(B,A)$ 三角不等式：$d(A,C) \le d(A,B)+d(B,C)$   距离原点的曼哈顿距离为 1 组成的点：   切比雪夫距离定义两个点 $A(x_1,">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/04/manhattan.png">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2024/04/chebyshev.png">
@@ -187,11 +187,11 @@
 
   <div class="content e-content" itemprop="articleBody">
     <h2 id="曼哈顿距离"><a href="#曼哈顿距离" class="headerlink" title="曼哈顿距离"></a>曼哈顿距离</h2><p>定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的曼哈顿距离为：</p>
-<p>$$<br>d(A, B) &#x3D; |x_1 - x_2| + |y_1 - y_2|<br>$$</p>
+<p>$$<br>d(A, B) = |x_1 - x_2| + |y_1 - y_2|<br>$$</p>
 <blockquote>
 <p>性质</p>
 <ol>
-<li>对称性：$d(A,B)&#x3D;d(B,A)$</li>
+<li>对称性：$d(A,B)=d(B,A)$</li>
 <li>三角不等式：$d(A,C) \le d(A,B)+d(B,C)$</li>
 </ol>
 </blockquote>
@@ -199,23 +199,23 @@
 <center><img src="/images/2024/04/manhattan.png" alt="曼哈顿"></center>
 
 <h2 id="切比雪夫距离"><a href="#切比雪夫距离" class="headerlink" title="切比雪夫距离"></a>切比雪夫距离</h2><p>定义两个点 $A(x_1, y_1), B(x_2, y_2)$，则 $A, B$ 之间的切比雪夫距离为：</p>
-<p>$$<br>d(A, B) &#x3D; \max ( |x_1 - x_2|, |y_1 - y_2| )<br>$$</p>
+<p>$$<br>d(A, B) = \max ( |x_1 - x_2|, |y_1 - y_2| )<br>$$</p>
 <p><strong>距离原点的切比雪夫距离为 1 组成的点：</strong></p>
 <center><img src="/images/2024/04/chebyshev.png" alt="切比雪夫"></center>
 
 <h2 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h2><h3 id="曼哈顿转切比雪夫"><a href="#曼哈顿转切比雪夫" class="headerlink" title="曼哈顿转切比雪夫"></a>曼哈顿转切比雪夫</h3><p>将代表曼哈顿距离的正方形绕原点逆时针旋转 $\frac{\pi}{4}$，发现两个正方形是相似的，只需要把代表曼哈顿距离的正方形扩大 $\sqrt{2}$ 倍。</p>
 <p>发现原来在代表曼哈顿距离的正方形的四条边上的点 $A(x,y)$ 的坐标由旋转之后变为了<br>$$(x * \cos{\frac{\pi}{4}}-y * \sin{\frac{\pi}{4}}, y * \cos{\frac{\pi}{4}} + x * \sin{\frac{\pi}{4}})$$<br>然后扩大后变为<br>$$A^\prime(\sqrt{2}(x * \cos{\frac{\pi}{4}}-y * \sin{\frac{\pi}{4}}), \sqrt{2}(y * \cos{\frac{\pi}{4}} + x * \sin{\frac{\pi}{4}})) \to A^\prime (x-y, x+y)$$<br>这里的旋转事实上可以理解为坐标轴的旋转。</p>
 <h3 id="切比雪夫转曼哈顿"><a href="#切比雪夫转曼哈顿" class="headerlink" title="切比雪夫转曼哈顿"></a>切比雪夫转曼哈顿</h3><p>通过图形旋转，原来的点 $A(x,y) \to A^\prime(\frac{x+y}{2}, \frac{x-y}{2})$。（由上述逆变换证明）</p>
-<h3 id="恒等式"><a href="#恒等式" class="headerlink" title="恒等式"></a>恒等式</h3><p>$$<br>|x_1 - x_2| + |y_1 - y_2| &#x3D; \max(|x_1^\prime - x_2^\prime|, |y_1^\prime - y_2^\prime|)<br>$$</p>
-<p>其中等式左侧为 $(x_1,y_1)$ 和 $(x_2, y_2)$ 的<strong>曼哈顿距离</strong>，等式右侧 $(x^\prime - y^\prime)&#x3D;(x+y,y-x)$，计算的是 $(x_1^\prime - y_1^\prime)$ 和 $(x_2^\prime - y_2^\prime)$ 两点的曼哈顿距离投影到 $x^\prime$ 轴和 $y^\prime$  轴的线段长度的最大值，即<strong>切比雪夫距离</strong>。</p>
+<h3 id="恒等式"><a href="#恒等式" class="headerlink" title="恒等式"></a>恒等式</h3><p>$$<br>|x_1 - x_2| + |y_1 - y_2| = \max(|x_1^\prime - x_2^\prime|, |y_1^\prime - y_2^\prime|)<br>$$</p>
+<p>其中等式左侧为 $(x_1,y_1)$ 和 $(x_2, y_2)$ 的<strong>曼哈顿距离</strong>，等式右侧 $(x^\prime - y^\prime)=(x+y,y-x)$，计算的是 $(x_1^\prime - y_1^\prime)$ 和 $(x_2^\prime - y_2^\prime)$ 两点的曼哈顿距离投影到 $x^\prime$ 轴和 $y^\prime$  轴的线段长度的最大值，即<strong>切比雪夫距离</strong>。</p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimize-manhattan-distances/description/">3102. 最小化曼哈顿距离</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32878257">曼哈顿距离与切比雪夫距离的转换 - 知乎</a></li>
 <li><a target="_blank" rel="noopener" href="https://tom0727.github.io/post/063-%E6%9B%BC%E5%93%88%E9%A1%BF-%E5%88%87%E6%AF%94%E9%9B%AA%E5%A4%AB%E8%B7%9D%E7%A6%BB/">曼哈顿距离 和 切比雪夫距离 - tom0727’s blog</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.luogu.com/article/hxr7p6po">常用距离算法详解 - 洛谷专栏</a></li>
 </ul>
-<p><b>本文作者：jujimeizuo</b><br /><b>本文地址<b/>： <a href="https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/">https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/</a> <br /><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></p>
-
+<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/">https://blog.jujimeizuo.cn/2024/04/01/Manhattan-and-Chebyshev-switch/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
+</b></b>
   </div>
 </article>
 
