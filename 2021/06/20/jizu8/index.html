@@ -6,12 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="8.1 微操作命令的分析8.1.1 取指周期  8.1.2 间址周期间址周期完成取操作数有效地址的任务。   8.1.3 执行周期        8.2 例题  （1）（2）（3）在上面 （4）   &nbsp;       本文作者：jujimeizuo本文地址： https:&#x2F;&#x2F;blog.jujimeizuo.cn&#x2F;2021&#x2F;06&#x2F;20&#x2F;jizu8&#x2F; 本博客所有文章除特别声明外，均采用 CC">
+    <meta name="description" content="8.1 微操作命令的分析8.1.1 取指周期  8.1.2 间址周期间址周期完成取操作数有效地址的任务。   8.1.3 执行周期        8.2 例题  （1）（2）（3）在上面 （4）   &nbsp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机组成原理期末复习（八）控制单元的功能">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2021/06/20/jizu8/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
-<meta property="og:description" content="8.1 微操作命令的分析8.1.1 取指周期  8.1.2 间址周期间址周期完成取操作数有效地址的任务。   8.1.3 执行周期        8.2 例题  （1）（2）（3）在上面 （4）   &nbsp;       本文作者：jujimeizuo本文地址： https:&#x2F;&#x2F;blog.jujimeizuo.cn&#x2F;2021&#x2F;06&#x2F;20&#x2F;jizu8&#x2F; 本博客所有文章除特别声明外，均采用 CC">
+<meta property="og:description" content="8.1 微操作命令的分析8.1.1 取指周期  8.1.2 间址周期间址周期完成取操作数有效地址的任务。   8.1.3 执行周期        8.2 例题  （1）（2）（3）在上面 （4）   &nbsp;">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/06/2D6AC65A-597D-4AC6-92B1-DF95B1F4EF6F.png">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/05/VC9YM177S3GJAIBM2.png">
@@ -75,6 +75,8 @@
 
 
     <!-- styles -->
+    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css">
+    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css">
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -222,8 +224,35 @@
 <p><img src="/images/2021/06/4.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 <p><img src="/images/2021/06/7FE27029-750B-4D7D-A23B-2244F25BD13E.png"> <img src="/images/2021/05/VC9YM177S3GJAIBM2.png"></p>
 </blockquote>
-<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2021/06/20/jizu8/">https://blog.jujimeizuo.cn/2021/06/20/jizu8/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
-</b></b>
+
+    <aside class="post-copyright" aria-label="文章出处">
+  <div class="post-copyright-watermark" aria-hidden="true">CC</div>
+  <div class="post-copyright-title">计算机组成原理期末复习（八）控制单元的功能</div>
+  <a class="post-copyright-link" href="https://blog.jujimeizuo.cn/2021/06/20/jizu8/">https://blog.jujimeizuo.cn/2021/06/20/jizu8/</a>
+  <div class="post-copyright-meta">
+    <div>
+      <span class="post-copyright-label">作者</span>
+      <span>jujimeizuo</span>
+    </div>
+    <div>
+      <span class="post-copyright-label">发布于</span>
+      <time datetime="2021-06-20T11:29:23.000Z">2021-06-20</time>
+    </div>
+    <div>
+      <span class="post-copyright-label">更新于</span>
+      <time datetime="2025-12-19T13:50:29.068Z">2025-12-19</time>
+    </div>
+    <div>
+      <span class="post-copyright-label">许可协议</span>
+      <a class="post-copyright-license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans" target="_blank" rel="license noopener" aria-label="CC BY-SA 3.0">
+        <i class="fa-brands fa-creative-commons" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-sa" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+
   </div>
 </article>
 
@@ -245,6 +274,7 @@
         crossorigin="anonymous"
         async>
 </script>
+
         
           <div id="footer-post-container">
   <div id="footer-post">

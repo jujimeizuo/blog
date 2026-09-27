@@ -54,6 +54,8 @@
 
 
     <!-- styles -->
+    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css">
+    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css">
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -199,9 +201,34 @@
 <h2 id="E-Critical-Hit"><a href="#E-Critical-Hit" class="headerlink" title="E. Critical Hit"></a>E. Critical Hit</h2><h2 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h2><p>一只怪物有n滴血，攻击一滴血的概率为p/100 (p1),攻击两滴血的概率为1 - (100 / p) (p2)，求打死怪物的攻击期望。</p>
 <h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>设dp[i]表示攻击i滴血的攻击期望，则转移方程为 <code>dp[i] = dp[i - 1] * p1 + dp[i - 2] * P2 + 1</code></p>
 <figure class="highlight c++"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *    author:  jujimeizuo</span></span><br><span class="line"><span class="comment"> *    created: 2022-12-03 21:18:42</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">"bits/stdc++.h"</span></span></span><br><span class="line"></span><br><span class="line">#<span class="meta">#<span class="keyword">ifdef</span> LOCAL</span></span><br><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">"algo/debug.h"</span></span></span><br><span class="line">#<span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">#<span class="meta">#<span class="keyword">define</span> debug(...) 42</span></span><br><span class="line">#<span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    std::ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    std::cin.<span class="built_in">tie</span>(<span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n, p;</span><br><span class="line">    std::cin &gt;&gt; n &gt;&gt; p;</span><br><span class="line"></span><br><span class="line">    Mint inv100 = <span class="built_in">power</span>(<span class="built_in">Mint</span>(<span class="number">100</span>), md - <span class="number">2</span>);</span><br><span class="line">    Mint p2 = inv100 * p, p1 = inv100 * (<span class="number">100</span> - p);</span><br><span class="line"></span><br><span class="line">    <span class="function">std::vector&lt;Mint&gt; <span class="title">dp</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) {</span><br><span class="line">        dp[i] = dp[i - <span class="number">1</span>] * p1 + dp[std::<span class="built_in">max</span>(<span class="number">0</span>, i - <span class="number">2</span>)] * p2 + <span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; dp[n] &lt;&lt; <span class="string">'\n'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+    <aside class="post-copyright" aria-label="文章出处">
+  <div class="post-copyright-watermark" aria-hidden="true">CC</div>
+  <div class="post-copyright-title">Atcoder ABC280</div>
+  <a class="post-copyright-link" href="https://blog.jujimeizuo.cn/2022/12/03/atcoder-abc280/">https://blog.jujimeizuo.cn/2022/12/03/atcoder-abc280/</a>
+  <div class="post-copyright-meta">
+    <div>
+      <span class="post-copyright-label">作者</span>
+      <span>jujimeizuo</span>
+    </div>
+    <div>
+      <span class="post-copyright-label">发布于</span>
+      <time datetime="2022-12-03T14:04:23.000Z">2022-12-03</time>
+    </div>
+    <div>
+      <span class="post-copyright-label">更新于</span>
+      <time datetime="2024-04-01T11:19:01.829Z">2024-04-01</time>
+    </div>
+    <div>
+      <span class="post-copyright-label">许可协议</span>
+      <a class="post-copyright-license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans" target="_blank" rel="license noopener" aria-label="CC BY-SA 3.0">
+        <i class="fa-brands fa-creative-commons" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-sa" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</aside>
 
-<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2022/12/03/atcoder-abc280/">https://blog.jujimeizuo.cn/2022/12/03/atcoder-abc280/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
-</b></b>
   </div>
 </article>
 
@@ -223,6 +250,7 @@
         crossorigin="anonymous"
         async>
 </script>
+
         
           <div id="footer-post-container">
   <div id="footer-post">

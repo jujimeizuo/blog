@@ -57,6 +57,8 @@
 
 
     <!-- styles -->
+    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css">
+    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css">
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -207,9 +209,34 @@
 <p>所以，就完事了。</p>
 <p>题解给的就是找规律暴力求解，但它内含的就是欧拉降幂的思想。</p>
 <h2 id="Code-9MS"><a href="#Code-9MS" class="headerlink" title="Code(9MS)"></a>Code(9MS)</h2><figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">#<span class="meta">#<span class="keyword">include</span> <span class="string">"bits/stdc++.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">solve</span><span class="params">()</span> </span>{</span><br><span class="line">    string a, n; cin &gt;&gt; a &gt;&gt; n;</span><br><span class="line">    ll t = a[a.<span class="built_in">length</span>() - <span class="number">1</span>] - <span class="string">'0'</span>;</span><br><span class="line">    <span class="keyword">if</span>(n == <span class="string">"1"</span>) {</span><br><span class="line">        cout &lt;&lt; t &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> {</span><br><span class="line">        ll tmp1, tmp2;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="string">"2"</span>) tmp1 = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> tmp1 = t % <span class="number">2</span> + <span class="number">2</span>;</span><br><span class="line">        ll mod4 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; a.<span class="built_in">length</span>(); i++) {</span><br><span class="line">            mod4 = mod4 * <span class="number">10</span> + a[i] - <span class="string">'0'</span>;</span><br><span class="line">            mod4 %= <span class="number">4</span>;</span><br><span class="line">        }</span><br><span class="line">        tmp2 = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt;= tmp1; i++) {</span><br><span class="line">            tmp2 = tmp2 * mod4 % <span class="number">4</span>;</span><br><span class="line">        }</span><br><span class="line">        tmp2 += <span class="number">4</span>;</span><br><span class="line">        ll ans = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>;i &lt;= tmp2; i++) {</span><br><span class="line">            ans = ans * t % <span class="number">10</span>;</span><br><span class="line">        }</span><br><span class="line">        cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">signed</span> <span class="title">main</span><span class="params">()</span> </span>{</span><br><span class="line">    <span class="built_in">solve</span>();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+    <aside class="post-copyright" aria-label="文章出处">
+  <div class="post-copyright-watermark" aria-hidden="true">CC</div>
+  <div class="post-copyright-title">【2021牛客寒假第一场】H题 幂塔个位数的计算 欧拉降幂</div>
+  <a class="post-copyright-link" href="https://blog.jujimeizuo.cn/2021/02/01/2021-nowcoder-hanjia-1-h/">https://blog.jujimeizuo.cn/2021/02/01/2021-nowcoder-hanjia-1-h/</a>
+  <div class="post-copyright-meta">
+    <div>
+      <span class="post-copyright-label">作者</span>
+      <span>jujimeizuo</span>
+    </div>
+    <div>
+      <span class="post-copyright-label">发布于</span>
+      <time datetime="2021-02-01T15:40:43.000Z">2021-02-01</time>
+    </div>
+    <div>
+      <span class="post-copyright-label">更新于</span>
+      <time datetime="2025-12-19T13:50:29.068Z">2025-12-19</time>
+    </div>
+    <div>
+      <span class="post-copyright-label">许可协议</span>
+      <a class="post-copyright-license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans" target="_blank" rel="license noopener" aria-label="CC BY-SA 3.0">
+        <i class="fa-brands fa-creative-commons" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-sa" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</aside>
 
-<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2021/02/01/2021-nowcoder-hanjia-1-h/">https://blog.jujimeizuo.cn/2021/02/01/2021-nowcoder-hanjia-1-h/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
-</b></b>
   </div>
 </article>
 
@@ -231,6 +258,7 @@
         crossorigin="anonymous"
         async>
 </script>
+
         
           <div id="footer-post-container">
   <div id="footer-post">

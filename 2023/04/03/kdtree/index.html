@@ -54,6 +54,8 @@
 
 
     <!-- styles -->
+    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css">
+    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css">
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -201,9 +203,34 @@
 <h4 id="install-1"><a href="#install-1" class="headerlink" title="install"></a>install</h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> flann</span><br><span class="line"><span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_PYTHON_BINDINGS=OFF -DBUILD_MATLAB_BINDINGS=OFF -DBUILD_EXAMPLES=OFF -DBUILD_TESTS=OFF -DBUILD_D</span><br><span class="line">OC=OFF ..</span><br><span class="line">make -j5</span><br><span class="line">sudo make install</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="CMakeLists-txt"><a href="#CMakeLists-txt" class="headerlink" title="CMakeLists.txt"></a>CMakeLists.txt</h4><figure class="highlight cmake"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(flann REQUIRED)</span><br><span class="line"><span class="keyword">set</span>(THIRD_PARTY_LIBS</span><br><span class="line">        <span class="variable">${libflann_LIBRARIES}</span></span><br><span class="line">        )</span><br></pre></td></tr></tbody></table></figure>
+    <aside class="post-copyright" aria-label="文章出处">
+  <div class="post-copyright-watermark" aria-hidden="true">CC</div>
+  <div class="post-copyright-title">基础算法算子库 - KD-Tree</div>
+  <a class="post-copyright-link" href="https://blog.jujimeizuo.cn/2023/04/03/kdtree/">https://blog.jujimeizuo.cn/2023/04/03/kdtree/</a>
+  <div class="post-copyright-meta">
+    <div>
+      <span class="post-copyright-label">作者</span>
+      <span>jujimeizuo</span>
+    </div>
+    <div>
+      <span class="post-copyright-label">发布于</span>
+      <time datetime="2023-04-03T07:42:30.000Z">2023-04-03</time>
+    </div>
+    <div>
+      <span class="post-copyright-label">更新于</span>
+      <time datetime="2024-04-01T11:19:02.710Z">2024-04-01</time>
+    </div>
+    <div>
+      <span class="post-copyright-label">许可协议</span>
+      <a class="post-copyright-license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans" target="_blank" rel="license noopener" aria-label="CC BY-SA 3.0">
+        <i class="fa-brands fa-creative-commons" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-sa" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</aside>
 
-<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2023/04/03/kdtree/">https://blog.jujimeizuo.cn/2023/04/03/kdtree/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
-</b></b>
   </div>
 </article>
 
@@ -225,6 +252,7 @@
         crossorigin="anonymous"
         async>
 </script>
+
         
           <div id="footer-post-container">
   <div id="footer-post">

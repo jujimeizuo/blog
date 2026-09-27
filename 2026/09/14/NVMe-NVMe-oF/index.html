@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="NVMe 和 NVMe-oF 都是为闪存设计的高速存储协议。区别可以先简单理解为：  NVMe：访问本机通过 PCIe 连接的 SSD。 NVMe-oF：把 NVMe 命令通过网络发送，访问远端 SSD。 NVMe&#x2F;NVMe-oF 存储服务：将一组本地 NVMe SSD 组织起来，通过 NVMe-oF 对其他服务器提供块存储。   1. NVMe 是什么NVMe（Non-Volatile Mem">
+    <meta name="description" content="NVMe 和 NVMe-oF 都是为闪存设计的高速存储协议。区别可以先简单理解为：  NVMe：访问本机通过 PCIe 连接的 SSD。 NVMe-oF：把 NVMe 命令通过网络发送，访问远端 SSD。 NVMe&#x2F;NVMe-oF 存储服务：将一组本地 NVMe SSD 组织起来，通过 NVMe-oF 对其他服务器提供块存储。   NVMe 是什么NVMe（Non-Volatile Memory">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NVMe&#x2F;NVMe-oF">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2026/09/14/NVMe-NVMe-oF/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
-<meta property="og:description" content="NVMe 和 NVMe-oF 都是为闪存设计的高速存储协议。区别可以先简单理解为：  NVMe：访问本机通过 PCIe 连接的 SSD。 NVMe-oF：把 NVMe 命令通过网络发送，访问远端 SSD。 NVMe&#x2F;NVMe-oF 存储服务：将一组本地 NVMe SSD 组织起来，通过 NVMe-oF 对其他服务器提供块存储。   1. NVMe 是什么NVMe（Non-Volatile Mem">
+<meta property="og:description" content="NVMe 和 NVMe-oF 都是为闪存设计的高速存储协议。区别可以先简单理解为：  NVMe：访问本机通过 PCIe 连接的 SSD。 NVMe-oF：把 NVMe 命令通过网络发送，访问远端 SSD。 NVMe&#x2F;NVMe-oF 存储服务：将一组本地 NVMe SSD 组织起来，通过 NVMe-oF 对其他服务器提供块存储。   NVMe 是什么NVMe（Non-Volatile Memory">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-09-14T02:35:00.000Z">
-<meta property="article:modified_time" content="2026-09-21T03:05:34.302Z">
+<meta property="article:modified_time" content="2026-09-27T06:40:51.969Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="Storage">
 <meta name="twitter:card" content="summary">
@@ -54,6 +54,8 @@
 
 
     <!-- styles -->
+    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css">
+    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css">
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -138,7 +140,7 @@
     
     
       <div id="toc">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-NVMe-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">1. NVMe 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NVMe-oF-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">2.</span> <span class="toc-text">2. NVMe-oF 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%B8%80%E5%A5%97-NVMe-oF-%E6%9C%8D%E5%8A%A1%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%92%E8%89%B2"><span class="toc-number">3.</span> <span class="toc-text">3. 一套 NVMe-oF 服务有哪些角色</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Initiator-Host"><span class="toc-number">3.1.</span> <span class="toc-text">Initiator &#x2F; Host</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Target"><span class="toc-number">3.2.</span> <span class="toc-text">Target</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Subsystem"><span class="toc-number">3.3.</span> <span class="toc-text">Subsystem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Namespace"><span class="toc-number">3.4.</span> <span class="toc-text">Namespace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transport"><span class="toc-number">3.5.</span> <span class="toc-text">Transport</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-NVMe-oF-%E5%B8%B8%E8%A7%81%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">4. NVMe-oF 常见传输方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-TCP"><span class="toc-number">4.1.</span> <span class="toc-text">NVMe&#x2F;TCP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-RDMA"><span class="toc-number">4.2.</span> <span class="toc-text">NVMe&#x2F;RDMA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-FC"><span class="toc-number">4.3.</span> <span class="toc-text">NVMe&#x2F;FC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-SPDK-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-NVMe-oF-%E6%9C%8D%E5%8A%A1"><span class="toc-number">5.</span> <span class="toc-text">5. SPDK 如何实现 NVMe-oF 服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%98%AF%E6%80%8E%E6%A0%B7%E6%89%A7%E8%A1%8C%E7%9A%84"><span class="toc-number">6.</span> <span class="toc-text">6. 一个请求是怎样执行的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%AE%83%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-number">7.</span> <span class="toc-text">7. 它解决了什么问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E4%B8%8E%E5%AD%98%E5%82%A8%E8%A7%A3%E8%80%A6"><span class="toc-number">7.1.</span> <span class="toc-text">计算与存储解耦</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%AB%98-SSD-%E5%88%A9%E7%94%A8%E7%8E%87"><span class="toc-number">7.2.</span> <span class="toc-text">提高 SSD 利用率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BE%9B%E6%8E%A5%E8%BF%91%E6%9C%AC%E5%9C%B0%E7%9B%98%E7%9A%84%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%9E%8B"><span class="toc-number">7.3.</span> <span class="toc-text">提供接近本地盘的访问模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E9%AB%98%E6%80%A7%E8%83%BD%E9%9B%86%E4%B8%AD%E5%AD%98%E5%82%A8"><span class="toc-number">7.4.</span> <span class="toc-text">支持高性能集中存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%AE%83%E4%B8%8D%E4%B8%BB%E5%8A%A8%E6%8F%90%E4%BE%9B%E4%BB%80%E4%B9%88"><span class="toc-number">8.</span> <span class="toc-text">8. 它不主动提供什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E4%B8%8E%E5%85%B6%E4%BB%96%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">9.</span> <span class="toc-text">9. 与其他存储方式的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">10.</span> <span class="toc-text">10. 常见应用场景</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NVMe-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">NVMe 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NVMe-oF-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">2.</span> <span class="toc-text">NVMe-oF 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E5%A5%97-NVMe-oF-%E6%9C%8D%E5%8A%A1%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%92%E8%89%B2"><span class="toc-number">3.</span> <span class="toc-text">一套 NVMe-oF 服务有哪些角色</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Initiator-Host"><span class="toc-number">3.1.</span> <span class="toc-text">Initiator &#x2F; Host</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Target"><span class="toc-number">3.2.</span> <span class="toc-text">Target</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Subsystem"><span class="toc-number">3.3.</span> <span class="toc-text">Subsystem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Namespace"><span class="toc-number">3.4.</span> <span class="toc-text">Namespace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transport"><span class="toc-number">3.5.</span> <span class="toc-text">Transport</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NVMe-oF-%E5%B8%B8%E8%A7%81%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">NVMe-oF 常见传输方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-TCP"><span class="toc-number">4.1.</span> <span class="toc-text">NVMe&#x2F;TCP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-RDMA"><span class="toc-number">4.2.</span> <span class="toc-text">NVMe&#x2F;RDMA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-FC"><span class="toc-number">4.3.</span> <span class="toc-text">NVMe&#x2F;FC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPDK-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-NVMe-oF-%E6%9C%8D%E5%8A%A1"><span class="toc-number">5.</span> <span class="toc-text">SPDK 如何实现 NVMe-oF 服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%98%AF%E6%80%8E%E6%A0%B7%E6%89%A7%E8%A1%8C%E7%9A%84"><span class="toc-number">6.</span> <span class="toc-text">一个请求是怎样执行的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%83%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-number">7.</span> <span class="toc-text">它解决了什么问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E4%B8%8E%E5%AD%98%E5%82%A8%E8%A7%A3%E8%80%A6"><span class="toc-number">7.1.</span> <span class="toc-text">计算与存储解耦</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%AB%98-SSD-%E5%88%A9%E7%94%A8%E7%8E%87"><span class="toc-number">7.2.</span> <span class="toc-text">提高 SSD 利用率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BE%9B%E6%8E%A5%E8%BF%91%E6%9C%AC%E5%9C%B0%E7%9B%98%E7%9A%84%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%9E%8B"><span class="toc-number">7.3.</span> <span class="toc-text">提供接近本地盘的访问模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E9%AB%98%E6%80%A7%E8%83%BD%E9%9B%86%E4%B8%AD%E5%AD%98%E5%82%A8"><span class="toc-number">7.4.</span> <span class="toc-text">支持高性能集中存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%83%E4%B8%8D%E4%B8%BB%E5%8A%A8%E6%8F%90%E4%BE%9B%E4%BB%80%E4%B9%88"><span class="toc-number">8.</span> <span class="toc-text">它不主动提供什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">9.</span> <span class="toc-text">与其他存储方式的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">10.</span> <span class="toc-text">常见应用场景</span></a></li></ol>
       </div>
     
   </span>
@@ -191,7 +193,7 @@
 <li>NVMe/NVMe-oF 存储服务：将一组本地 NVMe SSD 组织起来，通过 NVMe-oF 对其他服务器提供块存储。</li>
 </ul>
 </blockquote>
-<h2 id="1-NVMe-是什么"><a href="#1-NVMe-是什么" class="headerlink" title="1. NVMe 是什么"></a>1. NVMe 是什么</h2><p>NVMe（Non-Volatile Memory Express）是一套面向 PCIe 固态存储的协议。</p>
+<h2 id="NVMe-是什么"><a href="#NVMe-是什么" class="headerlink" title="NVMe 是什么"></a>NVMe 是什么</h2><p>NVMe（Non-Volatile Memory Express）是一套面向 PCIe 固态存储的协议。</p>
 <p>传统 SATA/SAS 协议最初主要为机械硬盘设计，队列和并发能力有限。NVMe 从设计之初就考虑了 SSD 的高并发与低延迟。</p>
 <p>NVMe 的关键机制包括：</p>
 <ul>
@@ -206,7 +208,7 @@
 <figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">应用</span><br><span class="line">  ↓</span><br><span class="line">文件系统或块设备层</span><br><span class="line">  ↓</span><br><span class="line">Linux NVMe 驱动</span><br><span class="line">  ↓</span><br><span class="line">PCIe</span><br><span class="line">  ↓</span><br><span class="line">本机 NVMe SSD</span><br></pre></td></tr></tbody></table></figure>
 
 <p>一台服务器安装多块 NVMe SSD 后，可以直接使用，也可以在上面构建 RAID、逻辑卷、数据库或分布式存储。</p>
-<h2 id="2-NVMe-oF-是什么"><a href="#2-NVMe-oF-是什么" class="headerlink" title="2. NVMe-oF 是什么"></a>2. NVMe-oF 是什么</h2><p>NVMe-oF 全称是 NVMe over Fabrics。</p>
+<h2 id="NVMe-oF-是什么"><a href="#NVMe-oF-是什么" class="headerlink" title="NVMe-oF 是什么"></a>NVMe-oF 是什么</h2><p>NVMe-oF 全称是 NVMe over Fabrics。</p>
 <p>它把 NVMe 的提交队列、完成队列和命令模型扩展到网络，使客户端可以像使用块设备一样访问远端 NVMe 存储。</p>
 <figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">计算节点                           存储节点</span><br><span class="line">┌─────────────┐                  ┌─────────────┐</span><br><span class="line">│ 应用/文件系统 │                  │ NVMe SSD × N│</span><br><span class="line">├─────────────┤                  ├─────────────┤</span><br><span class="line">│ NVMe-oF 主机 │ ─── 高速网络 ───→ │ NVMe-oF目标端│</span><br><span class="line">│ Initiator   │ ←─────────────── │ Target      │</span><br><span class="line">└─────────────┘                  └─────────────┘</span><br></pre></td></tr></tbody></table></figure>
 
@@ -215,7 +217,7 @@
 
 <p>对应用来说，它看起来接近本地 NVMe 块设备，但数据实际存储在远端服务器。</p>
 <p>需要注意：NVMe-oF 提供的是<strong>块存储</strong>，本身不是共享文件系统。多台主机同时挂载同一个 namespace 时，如果上层文件系统或应用不支持多主机并发，可能造成数据损坏。</p>
-<h2 id="3-一套-NVMe-oF-服务有哪些角色"><a href="#3-一套-NVMe-oF-服务有哪些角色" class="headerlink" title="3. 一套 NVMe-oF 服务有哪些角色"></a>3. 一套 NVMe-oF 服务有哪些角色</h2><h3 id="Initiator-Host"><a href="#Initiator-Host" class="headerlink" title="Initiator / Host"></a>Initiator / Host</h3><p>客户端，也叫主机端。负责：</p>
+<h2 id="一套-NVMe-oF-服务有哪些角色"><a href="#一套-NVMe-oF-服务有哪些角色" class="headerlink" title="一套 NVMe-oF 服务有哪些角色"></a>一套 NVMe-oF 服务有哪些角色</h2><h3 id="Initiator-Host"><a href="#Initiator-Host" class="headerlink" title="Initiator / Host"></a>Initiator / Host</h3><p>客户端，也叫主机端。负责：</p>
 <ul>
 <li>发现远端存储服务</li>
 <li>建立网络连接</li>
@@ -249,7 +251,7 @@
 <li>分布式存储中的虚拟块设备</li>
 </ul>
 <h3 id="Transport"><a href="#Transport" class="headerlink" title="Transport"></a>Transport</h3><p>负责在主机与 target 之间传输 NVMe 命令和数据，例如 TCP、RDMA。</p>
-<h2 id="4-NVMe-oF-常见传输方式"><a href="#4-NVMe-oF-常见传输方式" class="headerlink" title="4. NVMe-oF 常见传输方式"></a>4. NVMe-oF 常见传输方式</h2><h3 id="NVMe-TCP"><a href="#NVMe-TCP" class="headerlink" title="NVMe/TCP"></a>NVMe/TCP</h3><p>使用普通 TCP/IP 网络，适合云平台、通用数据中心和成本敏感的存储网络。</p>
+<h2 id="NVMe-oF-常见传输方式"><a href="#NVMe-oF-常见传输方式" class="headerlink" title="NVMe-oF 常见传输方式"></a>NVMe-oF 常见传输方式</h2><h3 id="NVMe-TCP"><a href="#NVMe-TCP" class="headerlink" title="NVMe/TCP"></a>NVMe/TCP</h3><p>使用普通 TCP/IP 网络，适合云平台、通用数据中心和成本敏感的存储网络。</p>
 <ul>
 <li>优点：<ul>
 <li>可以运行在常规以太网上</li>
@@ -281,7 +283,7 @@
 </li>
 </ul>
 <h3 id="NVMe-FC"><a href="#NVMe-FC" class="headerlink" title="NVMe/FC"></a>NVMe/FC</h3><p>通过 Fibre Channel 网络承载 NVMe。它适合已经部署 FC SAN 的企业数据中心，可以复用现有的隔离、安全与运维体系，但基础设施成本通常较高。</p>
-<h2 id="5-SPDK-如何实现-NVMe-oF-服务"><a href="#5-SPDK-如何实现-NVMe-oF-服务" class="headerlink" title="5. SPDK 如何实现 NVMe-oF 服务"></a>5. SPDK 如何实现 NVMe-oF 服务</h2><p>SPDK 可以在存储服务器上同时承担两类工作：</p>
+<h2 id="SPDK-如何实现-NVMe-oF-服务"><a href="#SPDK-如何实现-NVMe-oF-服务" class="headerlink" title="SPDK 如何实现 NVMe-oF 服务"></a>SPDK 如何实现 NVMe-oF 服务</h2><p>SPDK 可以在存储服务器上同时承担两类工作：</p>
 <ol>
 <li>在用户态直接控制本地 NVMe SSD。</li>
 <li>将这些设备通过 NVMe/TCP 或 NVMe/RDMA 暴露给远端客户端。</li>
@@ -300,18 +302,18 @@
 <li>队列与 CPU 核绑定</li>
 </ul>
 <p>在 RDMA 场景中，数据可能直接在客户端内存与服务端 DMA 内存之间移动，CPU 主要处理控制逻辑。</p>
-<h2 id="6-一个请求是怎样执行的"><a href="#6-一个请求是怎样执行的" class="headerlink" title="6. 一个请求是怎样执行的"></a>6. 一个请求是怎样执行的</h2><p>以远程读取为例：</p>
+<h2 id="一个请求是怎样执行的"><a href="#一个请求是怎样执行的" class="headerlink" title="一个请求是怎样执行的"></a>一个请求是怎样执行的</h2><p>以远程读取为例：</p>
 <figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1. 应用向 /dev/nvme1n1 发起读取</span><br><span class="line">2. initiator 生成 NVMe Read 命令</span><br><span class="line">3. 命令通过 TCP 或 RDMA 发给 target</span><br><span class="line">4. target 找到对应 subsystem 和 namespace</span><br><span class="line">5. target 向后端 SSD 提交读取</span><br><span class="line">6. SSD 将数据 DMA 到服务端内存</span><br><span class="line">7. 数据通过网络发送到客户端内存</span><br><span class="line">8. target 返回 NVMe completion</span><br><span class="line">9. 应用收到读取完成</span><br></pre></td></tr></tbody></table></figure>
 
 <p>实际实现会通过队列并行、批量处理和流水线执行重叠这些步骤。</p>
-<h2 id="7-它解决了什么问题"><a href="#7-它解决了什么问题" class="headerlink" title="7. 它解决了什么问题"></a>7. 它解决了什么问题</h2><h3 id="计算与存储解耦"><a href="#计算与存储解耦" class="headerlink" title="计算与存储解耦"></a>计算与存储解耦</h3><p>如果 SSD 全部安装在计算服务器中，扩容时计算和存储经常需要一起扩展。NVMe-oF 可以把两者分开：</p>
+<h2 id="它解决了什么问题"><a href="#它解决了什么问题" class="headerlink" title="它解决了什么问题"></a>它解决了什么问题</h2><h3 id="计算与存储解耦"><a href="#计算与存储解耦" class="headerlink" title="计算与存储解耦"></a>计算与存储解耦</h3><p>如果 SSD 全部安装在计算服务器中，扩容时计算和存储经常需要一起扩展。NVMe-oF 可以把两者分开：</p>
 <figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">计算资源池 ←→ 网络 ←→ NVMe 存储资源池</span><br></pre></td></tr></tbody></table></figure>
 
 <p>计算节点和存储节点可以分别扩容。</p>
 <h3 id="提高-SSD-利用率"><a href="#提高-SSD-利用率" class="headerlink" title="提高 SSD 利用率"></a>提高 SSD 利用率</h3><p>本地 SSD 容易出现某些服务器容量不足、某些服务器大量空闲的问题。集中形成存储池后，可以灵活分配 namespace。</p>
 <h3 id="提供接近本地盘的访问模型"><a href="#提供接近本地盘的访问模型" class="headerlink" title="提供接近本地盘的访问模型"></a>提供接近本地盘的访问模型</h3><p>客户端继续使用标准 NVMe 块设备接口，数据库和文件系统不需要理解服务端的实际磁盘布局。</p>
 <h3 id="支持高性能集中存储"><a href="#支持高性能集中存储" class="headerlink" title="支持高性能集中存储"></a>支持高性能集中存储</h3><p>相比传统 iSCSI，NVMe-oF 保留了 NVMe 的多队列和高并发模型，更适合 NVMe SSD。</p>
-<h2 id="8-它不主动提供什么"><a href="#8-它不主动提供什么" class="headerlink" title="8. 它不主动提供什么"></a>8. 它不主动提供什么</h2><p>NVMe-oF 主要负责高效传输块 I/O，并不天然解决完整存储系统的全部问题。</p>
+<h2 id="它不主动提供什么"><a href="#它不主动提供什么" class="headerlink" title="它不主动提供什么"></a>它不主动提供什么</h2><p>NVMe-oF 主要负责高效传输块 I/O，并不天然解决完整存储系统的全部问题。</p>
 <p>它本身不等于：</p>
 <ul>
 <li>RAID</li>
@@ -328,7 +330,7 @@
 <p>因此，真正的存储服务通常会在 NVMe-oF 上下增加控制层和数据保护层：</p>
 <figure class="highlight text"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">控制面</span><br><span class="line">├── 卷创建与删除</span><br><span class="line">├── 权限与主机映射</span><br><span class="line">├── 容量调度</span><br><span class="line">├── 健康检查</span><br><span class="line">└── 故障切换</span><br><span class="line"></span><br><span class="line">数据面</span><br><span class="line">├── NVMe-oF target</span><br><span class="line">├── RAID/副本/纠删码</span><br><span class="line">├── 快照与精简配置</span><br><span class="line">└── NVMe SSD</span><br></pre></td></tr></tbody></table></figure>
 
-<h2 id="9-与其他存储方式的区别"><a href="#9-与其他存储方式的区别" class="headerlink" title="9. 与其他存储方式的区别"></a>9. 与其他存储方式的区别</h2><table>
+<h2 id="与其他存储方式的区别"><a href="#与其他存储方式的区别" class="headerlink" title="与其他存储方式的区别"></a>与其他存储方式的区别</h2><table>
 <thead>
 <tr>
 <th>技术</th>
@@ -372,7 +374,7 @@
 <td>提供目录和文件语义，系统更复杂</td>
 </tr>
 </tbody></table>
-<h2 id="10-常见应用场景"><a href="#10-常见应用场景" class="headerlink" title="10. 常见应用场景"></a>10. 常见应用场景</h2><p>NVMe-oF 比较适合：</p>
+<h2 id="常见应用场景"><a href="#常见应用场景" class="headerlink" title="常见应用场景"></a>常见应用场景</h2><p>NVMe-oF 比较适合：</p>
 <ul>
 <li>数据库集群的远程高性能数据盘</li>
 <li>虚拟机和容器的高速块存储</li>
@@ -383,8 +385,35 @@
 <li>disaggregated storage，解耦式存储架构</li>
 </ul>
 <p>如果业务主要是普通文件共享、归档或低频访问，NFS、对象存储或传统分布式存储可能更简单、更经济。</p>
-<p><b>本文作者：jujimeizuo</b><br><b>本文地址<b>： <a href="https://blog.jujimeizuo.cn/2026/09/14/NVMe-NVMe-oF/">https://blog.jujimeizuo.cn/2026/09/14/NVMe-NVMe-oF/</a> <br><b>本博客所有文章除特别声明外，均采用 CC BY-SA 3.0 协议。转载请注明出处！</b></b></b></p><b><b>
-</b></b>
+
+    <aside class="post-copyright" aria-label="文章出处">
+  <div class="post-copyright-watermark" aria-hidden="true">CC</div>
+  <div class="post-copyright-title">NVMe/NVMe-oF</div>
+  <a class="post-copyright-link" href="https://blog.jujimeizuo.cn/2026/09/14/NVMe-NVMe-oF/">https://blog.jujimeizuo.cn/2026/09/14/NVMe-NVMe-oF/</a>
+  <div class="post-copyright-meta">
+    <div>
+      <span class="post-copyright-label">作者</span>
+      <span>jujimeizuo</span>
+    </div>
+    <div>
+      <span class="post-copyright-label">发布于</span>
+      <time datetime="2026-09-14T02:35:00.000Z">2026-09-14</time>
+    </div>
+    <div>
+      <span class="post-copyright-label">更新于</span>
+      <time datetime="2026-09-27T06:40:51.969Z">2026-09-27</time>
+    </div>
+    <div>
+      <span class="post-copyright-label">许可协议</span>
+      <a class="post-copyright-license" href="https://creativecommons.org/licenses/by-sa/3.0/deed.zh-hans" target="_blank" rel="license noopener" aria-label="CC BY-SA 3.0">
+        <i class="fa-brands fa-creative-commons" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-by" aria-hidden="true"></i>
+        <i class="fa-brands fa-creative-commons-sa" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</aside>
+
   </div>
 </article>
 
@@ -406,6 +435,7 @@
         crossorigin="anonymous"
         async>
 </script>
+
         
           <div id="footer-post-container">
   <div id="footer-post">
@@ -431,7 +461,7 @@
     
     
       <div id="toc-footer" style="display: none">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-NVMe-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">1. NVMe 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-NVMe-oF-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">2.</span> <span class="toc-text">2. NVMe-oF 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%B8%80%E5%A5%97-NVMe-oF-%E6%9C%8D%E5%8A%A1%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%92%E8%89%B2"><span class="toc-number">3.</span> <span class="toc-text">3. 一套 NVMe-oF 服务有哪些角色</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Initiator-Host"><span class="toc-number">3.1.</span> <span class="toc-text">Initiator &#x2F; Host</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Target"><span class="toc-number">3.2.</span> <span class="toc-text">Target</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Subsystem"><span class="toc-number">3.3.</span> <span class="toc-text">Subsystem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Namespace"><span class="toc-number">3.4.</span> <span class="toc-text">Namespace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transport"><span class="toc-number">3.5.</span> <span class="toc-text">Transport</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-NVMe-oF-%E5%B8%B8%E8%A7%81%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">4. NVMe-oF 常见传输方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-TCP"><span class="toc-number">4.1.</span> <span class="toc-text">NVMe&#x2F;TCP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-RDMA"><span class="toc-number">4.2.</span> <span class="toc-text">NVMe&#x2F;RDMA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-FC"><span class="toc-number">4.3.</span> <span class="toc-text">NVMe&#x2F;FC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-SPDK-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-NVMe-oF-%E6%9C%8D%E5%8A%A1"><span class="toc-number">5.</span> <span class="toc-text">5. SPDK 如何实现 NVMe-oF 服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%98%AF%E6%80%8E%E6%A0%B7%E6%89%A7%E8%A1%8C%E7%9A%84"><span class="toc-number">6.</span> <span class="toc-text">6. 一个请求是怎样执行的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%AE%83%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-number">7.</span> <span class="toc-text">7. 它解决了什么问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E4%B8%8E%E5%AD%98%E5%82%A8%E8%A7%A3%E8%80%A6"><span class="toc-number">7.1.</span> <span class="toc-text">计算与存储解耦</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%AB%98-SSD-%E5%88%A9%E7%94%A8%E7%8E%87"><span class="toc-number">7.2.</span> <span class="toc-text">提高 SSD 利用率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BE%9B%E6%8E%A5%E8%BF%91%E6%9C%AC%E5%9C%B0%E7%9B%98%E7%9A%84%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%9E%8B"><span class="toc-number">7.3.</span> <span class="toc-text">提供接近本地盘的访问模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E9%AB%98%E6%80%A7%E8%83%BD%E9%9B%86%E4%B8%AD%E5%AD%98%E5%82%A8"><span class="toc-number">7.4.</span> <span class="toc-text">支持高性能集中存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%AE%83%E4%B8%8D%E4%B8%BB%E5%8A%A8%E6%8F%90%E4%BE%9B%E4%BB%80%E4%B9%88"><span class="toc-number">8.</span> <span class="toc-text">8. 它不主动提供什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E4%B8%8E%E5%85%B6%E4%BB%96%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">9.</span> <span class="toc-text">9. 与其他存储方式的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">10.</span> <span class="toc-text">10. 常见应用场景</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NVMe-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text">NVMe 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NVMe-oF-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">2.</span> <span class="toc-text">NVMe-oF 是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E5%A5%97-NVMe-oF-%E6%9C%8D%E5%8A%A1%E6%9C%89%E5%93%AA%E4%BA%9B%E8%A7%92%E8%89%B2"><span class="toc-number">3.</span> <span class="toc-text">一套 NVMe-oF 服务有哪些角色</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Initiator-Host"><span class="toc-number">3.1.</span> <span class="toc-text">Initiator &#x2F; Host</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Target"><span class="toc-number">3.2.</span> <span class="toc-text">Target</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Subsystem"><span class="toc-number">3.3.</span> <span class="toc-text">Subsystem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Namespace"><span class="toc-number">3.4.</span> <span class="toc-text">Namespace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Transport"><span class="toc-number">3.5.</span> <span class="toc-text">Transport</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NVMe-oF-%E5%B8%B8%E8%A7%81%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">NVMe-oF 常见传输方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-TCP"><span class="toc-number">4.1.</span> <span class="toc-text">NVMe&#x2F;TCP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-RDMA"><span class="toc-number">4.2.</span> <span class="toc-text">NVMe&#x2F;RDMA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NVMe-FC"><span class="toc-number">4.3.</span> <span class="toc-text">NVMe&#x2F;FC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPDK-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-NVMe-oF-%E6%9C%8D%E5%8A%A1"><span class="toc-number">5.</span> <span class="toc-text">SPDK 如何实现 NVMe-oF 服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E6%98%AF%E6%80%8E%E6%A0%B7%E6%89%A7%E8%A1%8C%E7%9A%84"><span class="toc-number">6.</span> <span class="toc-text">一个请求是怎样执行的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%83%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98"><span class="toc-number">7.</span> <span class="toc-text">它解决了什么问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E4%B8%8E%E5%AD%98%E5%82%A8%E8%A7%A3%E8%80%A6"><span class="toc-number">7.1.</span> <span class="toc-text">计算与存储解耦</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%AB%98-SSD-%E5%88%A9%E7%94%A8%E7%8E%87"><span class="toc-number">7.2.</span> <span class="toc-text">提高 SSD 利用率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E4%BE%9B%E6%8E%A5%E8%BF%91%E6%9C%AC%E5%9C%B0%E7%9B%98%E7%9A%84%E8%AE%BF%E9%97%AE%E6%A8%A1%E5%9E%8B"><span class="toc-number">7.3.</span> <span class="toc-text">提供接近本地盘的访问模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E9%AB%98%E6%80%A7%E8%83%BD%E9%9B%86%E4%B8%AD%E5%AD%98%E5%82%A8"><span class="toc-number">7.4.</span> <span class="toc-text">支持高性能集中存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%83%E4%B8%8D%E4%B8%BB%E5%8A%A8%E6%8F%90%E4%BE%9B%E4%BB%80%E4%B9%88"><span class="toc-number">8.</span> <span class="toc-text">它不主动提供什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">9.</span> <span class="toc-text">与其他存储方式的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">10.</span> <span class="toc-text">常见应用场景</span></a></li></ol>
       </div>
     
 
