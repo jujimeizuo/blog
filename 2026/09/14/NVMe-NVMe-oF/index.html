@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="NVMe 和 NVMe-oF 都是为闪存设计的高速存储协议。区别可以先简单理解为：  NVMe：访问本机通过 PCIe 连接的 SSD。 NVMe-oF：把 NVMe 命令通过网络发送，访问远端 SSD。 NVMe&#x2F;NVMe-oF 存储服务：将一组本地 NVMe SSD 组织起来，通过 NVMe-oF 对其他服务器提供块存储。   NVMe 是什么NVMe（Non-Volatile Memory">
+    <meta name="description" content="AbstractNVMe 和 NVMe-oF 都是为闪存设计的高速存储协议。区别可以先简单理解为：   NVMe：访问本机通过 PCIe 连接的 SSD。 NVMe-oF：把 NVMe 命令通过网络发送，访问远端 SSD。 NVMe&#x2F;NVMe-oF 存储服务：将一组本地 NVMe SSD 组织起来，通过 NVMe-oF 对其他服务器提供块存储。  NVMe 是什么NVMe（Non-Volatile">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NVMe&#x2F;NVMe-oF">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2026/09/14/NVMe-NVMe-oF/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
-<meta property="og:description" content="NVMe 和 NVMe-oF 都是为闪存设计的高速存储协议。区别可以先简单理解为：  NVMe：访问本机通过 PCIe 连接的 SSD。 NVMe-oF：把 NVMe 命令通过网络发送，访问远端 SSD。 NVMe&#x2F;NVMe-oF 存储服务：将一组本地 NVMe SSD 组织起来，通过 NVMe-oF 对其他服务器提供块存储。   NVMe 是什么NVMe（Non-Volatile Memory">
+<meta property="og:description" content="AbstractNVMe 和 NVMe-oF 都是为闪存设计的高速存储协议。区别可以先简单理解为：   NVMe：访问本机通过 PCIe 连接的 SSD。 NVMe-oF：把 NVMe 命令通过网络发送，访问远端 SSD。 NVMe&#x2F;NVMe-oF 存储服务：将一组本地 NVMe SSD 组织起来，通过 NVMe-oF 对其他服务器提供块存储。  NVMe 是什么NVMe（Non-Volatile">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2026-09-14T02:35:00.000Z">
-<meta property="article:modified_time" content="2026-09-27T06:40:51.969Z">
+<meta property="article:modified_time" content="2026-09-27T06:44:10.090Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="Storage">
 <meta name="twitter:card" content="summary">
@@ -79,7 +79,7 @@
 <meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
 </head>
 
-<body class="max-width mx-auto px3 ltr">
+<body class="max-width mx-auto px3 ltr post-page">
     
       <div id="header-post">
   <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
@@ -149,7 +149,8 @@
     
     <div class="content index py4 ">
         
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+        
+<article class="post h-entry auto-heading-numbers" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
@@ -185,14 +186,13 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <blockquote>
-<p>NVMe 和 NVMe-oF 都是为闪存设计的高速存储协议。区别可以先简单理解为：</p>
+    <div class="hexo-callout hexo-callout--abstract" data-callout="abstract" data-callout-color="#1F3232"><div class="hexo-callout__header"><span class="hexo-callout__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16"></path><path d="M4 10h16"></path><path d="M4 16h16"></path><path d="M4 22h16"></path></svg></span><span class="hexo-callout__title">Abstract</span></div><div class="hexo-callout__content">NVMe 和 NVMe-oF 都是为闪存设计的高速存储协议。区别可以先简单理解为：
+
 <ul>
 <li>NVMe：访问本机通过 PCIe 连接的 SSD。</li>
 <li>NVMe-oF：把 NVMe 命令通过网络发送，访问远端 SSD。</li>
 <li>NVMe/NVMe-oF 存储服务：将一组本地 NVMe SSD 组织起来，通过 NVMe-oF 对其他服务器提供块存储。</li>
-</ul>
-</blockquote>
+</ul></div></div>
 <h2 id="NVMe-是什么"><a href="#NVMe-是什么" class="headerlink" title="NVMe 是什么"></a>NVMe 是什么</h2><p>NVMe（Non-Volatile Memory Express）是一套面向 PCIe 固态存储的协议。</p>
 <p>传统 SATA/SAS 协议最初主要为机械硬盘设计，队列和并发能力有限。NVMe 从设计之初就考虑了 SSD 的高并发与低延迟。</p>
 <p>NVMe 的关键机制包括：</p>
@@ -401,7 +401,7 @@
     </div>
     <div>
       <span class="post-copyright-label">更新于</span>
-      <time datetime="2026-09-27T06:40:51.969Z">2026-09-27</time>
+      <time datetime="2026-09-27T06:44:10.090Z">2026-09-27</time>
     </div>
     <div>
       <span class="post-copyright-label">许可协议</span>

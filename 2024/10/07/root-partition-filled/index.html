@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="当我在 docker 容器内 apt install 时，提示根分区即将爆满，所以查询相关内容解决问题。 以下都是在 ubuntu20.04 下实验。   查找原因关于 linux 的磁盘命令，都会使用 dh 或 df 命令，如果要找导致磁盘空间满的目录或文件，使用以下命令： 1du -sh &#x2F;path&#x2F;to&#x2F;* 2&gt;&#x2F;dev&#x2F;null | sort -hr | head -10   发">
+    <meta name="description" content="Abstract 当我在 docker 容器内 apt install 时，提示根分区即将爆满，所以查询相关内容解决问题。 以下都是在 ubuntu20.04 下实验。  查找原因关于 linux 的磁盘命令，都会使用 dh 或 df 命令，如果要找导致磁盘空间满的目录或文件，使用以下命令： 1du -sh &#x2F;path&#x2F;to&#x2F;* 2&gt;&#x2F;dev&#x2F;null | sort -hr | head -">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Root-Partition Filled">
 <meta property="og:url" content="https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/index.html">
 <meta property="og:site_name" content="jujimeizuo · Blog">
-<meta property="og:description" content="当我在 docker 容器内 apt install 时，提示根分区即将爆满，所以查询相关内容解决问题。 以下都是在 ubuntu20.04 下实验。   查找原因关于 linux 的磁盘命令，都会使用 dh 或 df 命令，如果要找导致磁盘空间满的目录或文件，使用以下命令： 1du -sh &#x2F;path&#x2F;to&#x2F;* 2&gt;&#x2F;dev&#x2F;null | sort -hr | head -10   发">
+<meta property="og:description" content="Abstract 当我在 docker 容器内 apt install 时，提示根分区即将爆满，所以查询相关内容解决问题。 以下都是在 ubuntu20.04 下实验。  查找原因关于 linux 的磁盘命令，都会使用 dh 或 df 命令，如果要找导致磁盘空间满的目录或文件，使用以下命令： 1du -sh &#x2F;path&#x2F;to&#x2F;* 2&gt;&#x2F;dev&#x2F;null | sort -hr | head -">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-10-07T13:30:46.000Z">
-<meta property="article:modified_time" content="2024-10-07T13:35:17.017Z">
+<meta property="article:modified_time" content="2026-09-27T06:44:10.111Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -79,7 +79,7 @@
 <meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
 </head>
 
-<body class="max-width mx-auto px3 ltr">
+<body class="max-width mx-auto px3 ltr post-page">
     
       <div id="header-post">
   <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
@@ -149,7 +149,8 @@
     
     <div class="content index py4 ">
         
-        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+        
+<article class="post h-entry auto-heading-numbers" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
@@ -185,12 +186,10 @@
   
 
   <div class="content e-content" itemprop="articleBody">
-    <blockquote>
-<ul>
+    <div class="hexo-callout hexo-callout--abstract" data-callout="abstract" data-callout-color="#1F3232"><div class="hexo-callout__header"><span class="hexo-callout__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16"></path><path d="M4 10h16"></path><path d="M4 16h16"></path><path d="M4 22h16"></path></svg></span><span class="hexo-callout__title">Abstract</span></div><div class="hexo-callout__content"><ul>
 <li>当我在 docker 容器内 apt install 时，提示根分区即将爆满，所以查询相关内容解决问题。</li>
 <li>以下都是在 ubuntu20.04 下实验。</li>
-</ul>
-</blockquote>
+</ul></div></div>
 <h2 id="查找原因"><a href="#查找原因" class="headerlink" title="查找原因"></a>查找原因</h2><p>关于 linux 的磁盘命令，都会使用 <code>dh</code> 或 <code>df</code> 命令，如果要找导致磁盘空间满的目录或文件，使用以下命令：</p>
 <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh /path/to/* 2&gt;/dev/null | <span class="built_in">sort</span> -hr | <span class="built_in">head</span> -10</span><br></pre></td></tr></tbody></table></figure>
 
@@ -230,7 +229,7 @@
     </div>
     <div>
       <span class="post-copyright-label">更新于</span>
-      <time datetime="2024-10-07T13:35:17.017Z">2024-10-07</time>
+      <time datetime="2026-09-27T06:44:10.111Z">2026-09-27</time>
     </div>
     <div>
       <span class="post-copyright-label">许可协议</span>
