@@ -473,7 +473,7 @@ html {
 body {
   margin: 0;
   height: 100%;
-  background-color: #f7f7f7;
+  background-color: #fff;
   color: #4a4a4a;
   font-weight: 400;
   font-size: 17px;
@@ -577,8 +577,17 @@ body {
 }
 @media (min-width: 481px) {
   .post-page.px3 {
-    padding-right: 10rem;
+    padding-right: 2rem;
     padding-left: 1rem;
+  }
+}
+@media (min-width: 1440px) {
+  .post-page.max-width {
+    margin-right: auto;
+    margin-left: max(2rem, min(calc((100vw - 68rem) / 2), calc(100vw - 86.5rem)));
+  }
+  .post-page.px3 {
+    padding-right: 10rem;
   }
 }
 @media (max-width: 480px) {
@@ -868,7 +877,7 @@ body {
 #header-post #toc .toc-number {
   display: inline;
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 499px) {
   #header-post {
     display: none;
   }
@@ -881,9 +890,40 @@ body {
     display: none;
   }
 }
-@media screen and (max-width: 1199px) {
+@media screen and (min-width: 500px) and (max-width: 1439px) {
+  #header-post #menu {
+    position: fixed;
+    top: 4rem;
+    right: 1rem;
+    overflow: auto;
+    margin: 0;
+    padding: 1rem;
+    width: 24rem;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100vh - 5rem);
+    border: 1px solid #dbdbdb;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+  #header-post #actions {
+    float: none;
+    margin: 0.75rem 0 0;
+    width: auto;
+    text-align: left;
+  }
+  #header-post #share {
+    padding-right: 0;
+  }
   #header-post #toc {
-    display: none;
+    float: none;
+    clear: none;
+    display: block;
+    margin: 1rem 0 0;
+    padding-right: 0;
+    width: 100%;
+    max-width: none;
+    max-height: none;
   }
 }
 @media screen and (min-width: 900px) {
@@ -1110,6 +1150,21 @@ body {
 @media (max-width: 560px) {
   .topic-list {
     grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .topic-list .topic-item {
+    padding: 0.65rem 0.8rem;
+  }
+  .topic-list .topic-item p {
+    display: none;
+  }
+  .topic-list .topic-item .topic-tags {
+    margin-top: 0.25rem;
+  }
+  .topic-list .topic-item .topic-tags a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.5rem;
   }
 }
 .post-list {
@@ -1445,7 +1500,7 @@ article.auto-heading-numbers .content h3::before {
 }
 article .content .hexo-callout,
 article .content details.hexo-callout {
-  --callout-bg: #f7f7f7;
+  --callout-bg: #fff;
   --callout-accent: #448aff;
   --callout-tint: rgba(68,138,255,0.1);
   --callout-text: #4a4a4a;
@@ -1769,7 +1824,7 @@ article .content .hexo-callout[data-callout="quote"] {
   outline: none;
   border: solid 1px #7a7a7a;
   border-radius: 5px;
-  background-color: #f7f7f7;
+  background-color: #fff;
   color: #4a4a4a;
   font-size: 1.2rem;
   -webkit-border-radius: 5px;
@@ -1829,7 +1884,7 @@ article .content .hexo-callout[data-callout="quote"] {
   display: none;
   padding: 0.2em 0.5em;
   -webkit-font-smoothing: subpixel-antialiased;
-  color: #f7f7f7;
+  color: #fff;
   font-display: swap;
   font-weight: 400;
   font-size: 13.600000000000001px;
@@ -2013,6 +2068,7 @@ pre {
   padding-bottom: 0;
   border: 1px dotted #dbdbdb;
   border-radius: 4px;
+  background: #fafafa;
   font-size: 16px;
   font-family: "Maple Mono", "LXGW WenKai Screen", -apple-system, BlinkMacSystemFont;
   line-height: 24px;
@@ -2037,14 +2093,15 @@ pre code {
 .highlight {
   overflow-x: auto;
   margin: 1rem 0;
-  padding: 10px 15px;
+  padding: 0;
   border-radius: 4px;
-  background: #f5f5f5;
+  background: #fafafa;
   font-family: "Maple Mono", "LXGW WenKai Screen", -apple-system, BlinkMacSystemFont;
   -webkit-border-radius: 4px;
 }
 .highlight figcaption {
-  margin: -5px 0 5px;
+  margin: 0;
+  padding: 10px 15px 0;
   color: #7a7a7a;
   font-size: 0.9em;
   transform: scale(1);
@@ -2095,14 +2152,18 @@ pre code {
 }
 .highlight td.gutter {
   width: 1%;
-  padding-left: 0;
+  padding: 10px 8px;
+  border-radius: 4px 0 0 4px;
+  background: #f3f3f3;
   white-space: nowrap;
-  text-align: right;
+  text-align: center;
+}
+.highlight td.gutter .line {
   opacity: 0.2;
 }
 .highlight td.code {
   width: 99%;
-  padding-right: 0;
+  padding: 10px 15px 10px 8px;
 }
 .highlight .line {
   height: 22px;

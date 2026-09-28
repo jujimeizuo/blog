@@ -30,12 +30,25 @@ $(document).ready(function() {
     var menuIcon = $("#menu-icon, #menu-icon-tablet");
 
     /**
-     * Display the menu on hi-res laptops and desktops.
+     * Keep the menu in sync when a window crosses the desktop breakpoint.
      */
-    if ($(document).width() >= 1440) {
-      menu.show();
-      menuIcon.addClass("active");
+    var wideLayout = null;
+    function syncMenuLayout() {
+      var isWide = $(window).width() >= 1440;
+      if (isWide === wideLayout) return;
+
+      wideLayout = isWide;
+      if (isWide) {
+        menu.show();
+        nav.show();
+        menuIcon.addClass("active");
+      } else {
+        menu.hide();
+        menuIcon.removeClass("active");
+      }
     }
+    syncMenuLayout();
+    $(window).on("resize", syncMenuLayout);
 
     /**
      * Display the menu if the menu icon is clicked.
@@ -51,6 +64,13 @@ $(document).ready(function() {
       return false;
     });
 
+    menu.on("click", "#toc a", function() {
+      if ($(window).width() < 1440) {
+        menu.hide();
+        menuIcon.removeClass("active");
+      }
+    });
+
     /**
      * Add a scroll listener to the menu to hide/show the navigation links.
      */
@@ -60,7 +80,9 @@ $(document).ready(function() {
         // var topDistance = menu.offset().top;
 
         // hide only the navigation links on desktop
-        if (!nav.is(":visible") && topDistance < 50) {
+        if ($(window).width() >= 1440) {
+          nav.show();
+        } else if (!nav.is(":visible") && topDistance < 50) {
           nav.show();
         } else if (nav.is(":visible") && topDistance > 100) {
           nav.hide();
