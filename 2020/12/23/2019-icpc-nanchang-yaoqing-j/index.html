@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang="zh-CN">
 <head>
     <!-- so meta -->
     <meta charset="utf-8">
@@ -9,15 +9,17 @@
     <meta name="description" content="传送门：https:&#x2F;&#x2F;nanti.jisuanke.com&#x2F;t&#x2F;38229 题意给n个点，n-1条边，每条边都有边权。 m此询问，输出u到v这条简单路径上边权&lt;&#x3D;k的边数。 思路首先看到这道题，找到几个关键点。u到v、区间小于k的个数  u到v的简单路径，可以树剖将树化为数列进行模拟. 区间&lt;&#x3D;k的个数，在树的dfs序上建主席树。  这题是边权，我们树剖完成之后，根据每个节点的深度，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2019南昌邀请赛网络赛 J题 Distance on the tree 边权树剖 + 树上DFS序建主席树">
-<meta property="og:url" content="https://blog.jujimeizuo.cn/2020/12/23/2019-icpc-nanchang-yaoqing-j/index.html">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2020/12/23/2019-icpc-nanchang-yaoqing-j/">
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="传送门：https:&#x2F;&#x2F;nanti.jisuanke.com&#x2F;t&#x2F;38229 题意给n个点，n-1条边，每条边都有边权。 m此询问，输出u到v这条简单路径上边权&lt;&#x3D;k的边数。 思路首先看到这道题，找到几个关键点。u到v、区间小于k的个数  u到v的简单路径，可以树剖将树化为数列进行模拟. 区间&lt;&#x3D;k的个数，在树的dfs序上建主席树。  这题是边权，我们树剖完成之后，根据每个节点的深度，">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-23T08:37:18.000Z">
 <meta property="article:modified_time" content="2024-04-01T11:19:01.830Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
+    
+    <link rel="canonical" href="https://blog.jujimeizuo.cn/2020/12/23/2019-icpc-nanchang-yaoqing-j/">
     
     
       
@@ -39,23 +41,19 @@
     <!-- title -->
     <title>2019南昌邀请赛网络赛 J题 Distance on the tree 边权树剖 + 树上DFS序建主席树</title>
     <!-- async scripts -->
-    <!-- Google Analytics -->
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GNY9KG3NWK');
-  </script>
-
 
     <!-- Umami Analytics -->
 
 
     <!-- styles -->
-    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css">
-    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css">
+    <link rel="preconnect" href="https://cdn.jujimeizuo.cn" crossorigin>
+    
+      <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css"></noscript>
+    
+      <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css"></noscript>
+    
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -65,16 +63,6 @@
     
     
 	<!-- mathjax -->
-	
-		<script type="text/x-mathjax-config">
-		  MathJax.Hub.Config({
-			tex2jax: {
-			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-			  inlineMath: [['$','$']]
-			}
-		  });
-		</script>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
 	
 <meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
 </head>
@@ -343,7 +331,14 @@
           <span id="busuanzi_container_site_uv" style='display:none'>
                   本站访客数<span id="busuanzi_value_site_uv"></span>人
           </span>
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <script>
+          window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+            script.async = true;
+            document.body.appendChild(script);
+          }, { once: true });
+        </script>
         
       </ul>
     </nav>
@@ -374,9 +369,9 @@
   <script type="text/javascript">
   $(function() {
     // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    var btn = "<button type=\"button\" class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
     btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
+    btn += '</button>';
     // mount it!
     $(".highlight table").before(btn);
     var clip = new ClipboardJS('.btn-copy', {
@@ -396,16 +391,33 @@
 
 <!-- search -->
 
+<!-- Google Analytics -->
+
+
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+      window.addEventListener('load', function() {
+        var script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK';
+        script.async = true;
+        document.head.appendChild(script);
+      }, { once: true });
+  </script>
+
+
 <!-- Baidu Analytics -->
 
   <script type="text/javascript">
         var _hmt = _hmt || [];
-        (function() {
+        window.addEventListener('load', function() {
           var hm = document.createElement("script");
           hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
           var s = document.getElementsByTagName("script")[0];
           s.parentNode.insertBefore(hm, s);
-        })();
+        }, { once: true });
         </script>
 
 <!-- Cloudflare Analytics -->

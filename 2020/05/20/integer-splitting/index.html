@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang="zh-CN">
 <head>
     <!-- so meta -->
     <meta charset="utf-8">
@@ -9,10 +9,10 @@
     <meta name="description" content="首先来了解整数拆分的创始人——拉马努金。 这位是我数学上最佩服的几个大神之一，当然最佩服的还是欧拉，欧了～ 如果提前了解了离散数学里的集合划分知识，那下面内容会更加易懂。 问题描述： 有一个正整数n，可以拆分成最大数为m的的拆分方案，要求所有的方案都不重复。 例如n &#x3D; 4， m &#x3D; 4，拆分方案如下： 4 &#x3D; 4； 4 &#x3D; 1 + 3； 4 &#x3D; 2 + 2； 4 &#x3D; 1 + 2 + 1； 4 &#x3D;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="整数拆分的两种方法——递归和dp">
-<meta property="og:url" content="https://blog.jujimeizuo.cn/2020/05/20/integer-splitting/index.html">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2020/05/20/integer-splitting/">
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="首先来了解整数拆分的创始人——拉马努金。 这位是我数学上最佩服的几个大神之一，当然最佩服的还是欧拉，欧了～ 如果提前了解了离散数学里的集合划分知识，那下面内容会更加易懂。 问题描述： 有一个正整数n，可以拆分成最大数为m的的拆分方案，要求所有的方案都不重复。 例如n &#x3D; 4， m &#x3D; 4，拆分方案如下： 4 &#x3D; 4； 4 &#x3D; 1 + 3； 4 &#x3D; 2 + 2； 4 &#x3D; 1 + 2 + 1； 4 &#x3D;">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2020/05/20200521150046435.jpg">
 <meta property="article:published_time" content="2020-05-20T06:59:12.000Z">
 <meta property="article:modified_time" content="2025-12-19T13:50:29.068Z">
@@ -20,6 +20,8 @@
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2020/05/20200521150046435.jpg">
+    
+    <link rel="canonical" href="https://blog.jujimeizuo.cn/2020/05/20/integer-splitting/">
     
     
       
@@ -41,23 +43,19 @@
     <!-- title -->
     <title>整数拆分的两种方法——递归和dp</title>
     <!-- async scripts -->
-    <!-- Google Analytics -->
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GNY9KG3NWK');
-  </script>
-
 
     <!-- Umami Analytics -->
 
 
     <!-- styles -->
-    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css">
-    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css">
+    <link rel="preconnect" href="https://cdn.jujimeizuo.cn" crossorigin>
+    
+      <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css"></noscript>
+    
+      <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css"></noscript>
+    
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -67,16 +65,6 @@
     
     
 	<!-- mathjax -->
-	
-		<script type="text/x-mathjax-config">
-		  MathJax.Hub.Config({
-			tex2jax: {
-			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-			  inlineMath: [['$','$']]
-			}
-		  });
-		</script>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
 	
 <meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
 </head>
@@ -355,7 +343,14 @@
           <span id="busuanzi_container_site_uv" style='display:none'>
                   本站访客数<span id="busuanzi_value_site_uv"></span>人
           </span>
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <script>
+          window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+            script.async = true;
+            document.body.appendChild(script);
+          }, { once: true });
+        </script>
         
       </ul>
     </nav>
@@ -386,9 +381,9 @@
   <script type="text/javascript">
   $(function() {
     // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    var btn = "<button type=\"button\" class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
     btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
+    btn += '</button>';
     // mount it!
     $(".highlight table").before(btn);
     var clip = new ClipboardJS('.btn-copy', {
@@ -408,16 +403,33 @@
 
 <!-- search -->
 
+<!-- Google Analytics -->
+
+
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+      window.addEventListener('load', function() {
+        var script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK';
+        script.async = true;
+        document.head.appendChild(script);
+      }, { once: true });
+  </script>
+
+
 <!-- Baidu Analytics -->
 
   <script type="text/javascript">
         var _hmt = _hmt || [];
-        (function() {
+        window.addEventListener('load', function() {
           var hm = document.createElement("script");
           hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
           var s = document.getElementsByTagName("script")[0];
           s.parentNode.insertBefore(hm, s);
-        })();
+        }, { once: true });
         </script>
 
 <!-- Cloudflare Analytics -->

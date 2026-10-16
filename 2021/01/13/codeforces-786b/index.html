@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang="zh-CN">
 <head>
     <!-- so meta -->
     <meta charset="utf-8">
@@ -9,10 +9,10 @@
     <meta name="description" content="传送门：https:&#x2F;&#x2F;codeforces.com&#x2F;contest&#x2F;786&#x2F;problem&#x2F;B 题意有n个星球，q条路径，问从一个起点为s的星球到其他星球的距离。 每条路径可能有以下三种形式：  $1\;u\;v\;w$：一个点u到另一点v，路程为w $2\;u\;l\;r\;w$：从一点u到[l,r]区间任意一个星球，路程为w $3\;u\;l\;r\;w$：从[l,r]区间任意一个星球到另一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Codeforces - 786B Legacy 线段树建图+最短路">
-<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/01/13/codeforces-786b/index.html">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2021/01/13/codeforces-786b/">
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="传送门：https:&#x2F;&#x2F;codeforces.com&#x2F;contest&#x2F;786&#x2F;problem&#x2F;B 题意有n个星球，q条路径，问从一个起点为s的星球到其他星球的距离。 每条路径可能有以下三种形式：  $1\;u\;v\;w$：一个点u到另一点v，路程为w $2\;u\;l\;r\;w$：从一点u到[l,r]区间任意一个星球，路程为w $3\;u\;l\;r\;w$：从[l,r]区间任意一个星球到另一">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/01/20210131152026846.png">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/01/20210131152112438.png">
 <meta property="og:image" content="https://blog.jujimeizuo.cn/images/2021/01/20210131152311495.png">
@@ -22,6 +22,8 @@
 <meta property="article:tag" content="ACM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.jujimeizuo.cn/images/2021/01/20210131152026846.png">
+    
+    <link rel="canonical" href="https://blog.jujimeizuo.cn/2021/01/13/codeforces-786b/">
     
     
       
@@ -43,23 +45,19 @@
     <!-- title -->
     <title>Codeforces - 786B Legacy 线段树建图+最短路</title>
     <!-- async scripts -->
-    <!-- Google Analytics -->
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GNY9KG3NWK');
-  </script>
-
 
     <!-- Umami Analytics -->
 
 
     <!-- styles -->
-    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css">
-    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css">
+    <link rel="preconnect" href="https://cdn.jujimeizuo.cn" crossorigin>
+    
+      <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css"></noscript>
+    
+      <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css"></noscript>
+    
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -74,7 +72,8 @@
 		  MathJax.Hub.Config({
 			tex2jax: {
 			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-			  inlineMath: [['$','$']]
+			  inlineMath: [['$','$'], ['\\(','\\)']],
+              processEscapes: true
 			}
 		  });
 		</script>
@@ -356,7 +355,14 @@
           <span id="busuanzi_container_site_uv" style='display:none'>
                   本站访客数<span id="busuanzi_value_site_uv"></span>人
           </span>
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <script>
+          window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+            script.async = true;
+            document.body.appendChild(script);
+          }, { once: true });
+        </script>
         
       </ul>
     </nav>
@@ -387,9 +393,9 @@
   <script type="text/javascript">
   $(function() {
     // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    var btn = "<button type=\"button\" class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
     btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
+    btn += '</button>';
     // mount it!
     $(".highlight table").before(btn);
     var clip = new ClipboardJS('.btn-copy', {
@@ -409,16 +415,33 @@
 
 <!-- search -->
 
+<!-- Google Analytics -->
+
+
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+      window.addEventListener('load', function() {
+        var script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK';
+        script.async = true;
+        document.head.appendChild(script);
+      }, { once: true });
+  </script>
+
+
 <!-- Baidu Analytics -->
 
   <script type="text/javascript">
         var _hmt = _hmt || [];
-        (function() {
+        window.addEventListener('load', function() {
           var hm = document.createElement("script");
           hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
           var s = document.getElementsByTagName("script")[0];
           s.parentNode.insertBefore(hm, s);
-        })();
+        }, { once: true });
         </script>
 
 <!-- Cloudflare Analytics -->

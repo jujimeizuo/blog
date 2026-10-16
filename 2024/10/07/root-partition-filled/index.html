@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang="zh-CN">
 <head>
     <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="Abstract 当我在 docker 容器内 apt install 时，提示根分区即将爆满，所以查询相关内容解决问题。 以下都是在 ubuntu20.04 下实验。  查找原因关于 linux 的磁盘命令，都会使用 dh 或 df 命令，如果要找导致磁盘空间满的目录或文件，使用以下命令： 1du -sh &#x2F;path&#x2F;to&#x2F;* 2&gt;&#x2F;dev&#x2F;null | sort -hr | head -">
+    <meta name="description" content="记录 Ubuntu 20.04 根分区空间不足的排查过程，以及迁移 Docker 数据目录的操作方法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Root-Partition Filled">
-<meta property="og:url" content="https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/index.html">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/">
 <meta property="og:site_name" content="jujimeizuo · Blog">
-<meta property="og:description" content="Abstract 当我在 docker 容器内 apt install 时，提示根分区即将爆满，所以查询相关内容解决问题。 以下都是在 ubuntu20.04 下实验。  查找原因关于 linux 的磁盘命令，都会使用 dh 或 df 命令，如果要找导致磁盘空间满的目录或文件，使用以下命令： 1du -sh &#x2F;path&#x2F;to&#x2F;* 2&gt;&#x2F;dev&#x2F;null | sort -hr | head -">
-<meta property="og:locale" content="en_US">
+<meta property="og:description" content="记录 Ubuntu 20.04 根分区空间不足的排查过程，以及迁移 Docker 数据目录的操作方法。">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-10-07T13:30:46.000Z">
-<meta property="article:modified_time" content="2026-09-27T06:44:10.111Z">
+<meta property="article:modified_time" content="2026-10-16T03:24:02.332Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
+    
+    <link rel="canonical" href="https://blog.jujimeizuo.cn/2024/10/07/root-partition-filled/">
     
     
       
@@ -39,23 +41,19 @@
     <!-- title -->
     <title>Root-Partition Filled</title>
     <!-- async scripts -->
-    <!-- Google Analytics -->
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GNY9KG3NWK');
-  </script>
-
 
     <!-- Umami Analytics -->
 
 
     <!-- styles -->
-    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css">
-    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css">
+    <link rel="preconnect" href="https://cdn.jujimeizuo.cn" crossorigin>
+    
+      <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css"></noscript>
+    
+      <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css"></noscript>
+    
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -65,16 +63,6 @@
     
     
 	<!-- mathjax -->
-	
-		<script type="text/x-mathjax-config">
-		  MathJax.Hub.Config({
-			tex2jax: {
-			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-			  inlineMath: [['$','$']]
-			}
-		  });
-		</script>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
 	
 <meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
 </head>
@@ -229,7 +217,7 @@
     </div>
     <div>
       <span class="post-copyright-label">更新于</span>
-      <time datetime="2026-09-27T06:44:10.111Z">2026-09-27</time>
+      <time datetime="2026-10-16T03:24:02.332Z">2026-10-16</time>
     </div>
     <div>
       <span class="post-copyright-label">许可协议</span>
@@ -360,7 +348,14 @@
           <span id="busuanzi_container_site_uv" style='display:none'>
                   本站访客数<span id="busuanzi_value_site_uv"></span>人
           </span>
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <script>
+          window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+            script.async = true;
+            document.body.appendChild(script);
+          }, { once: true });
+        </script>
         
       </ul>
     </nav>
@@ -391,9 +386,9 @@
   <script type="text/javascript">
   $(function() {
     // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    var btn = "<button type=\"button\" class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
     btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
+    btn += '</button>';
     // mount it!
     $(".highlight table").before(btn);
     var clip = new ClipboardJS('.btn-copy', {
@@ -413,16 +408,33 @@
 
 <!-- search -->
 
+<!-- Google Analytics -->
+
+
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+      window.addEventListener('load', function() {
+        var script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK';
+        script.async = true;
+        document.head.appendChild(script);
+      }, { once: true });
+  </script>
+
+
 <!-- Baidu Analytics -->
 
   <script type="text/javascript">
         var _hmt = _hmt || [];
-        (function() {
+        window.addEventListener('load', function() {
           var hm = document.createElement("script");
           hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
           var s = document.getElementsByTagName("script")[0];
           s.parentNode.insertBefore(hm, s);
-        })();
+        }, { once: true });
         </script>
 
 <!-- Cloudflare Analytics -->

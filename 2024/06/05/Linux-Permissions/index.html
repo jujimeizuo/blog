@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang="zh-CN">
 <head>
     <!-- so meta -->
     <meta charset="utf-8">
@@ -9,15 +9,17 @@
     <meta name="description" content="Introduction Linux 系统上对文件的权限有着严格的控制，如果想对某个文件执行某种操作，必须具有对应的权限方可执行成功。 Linux 下文件的权限类型一般包括读，写，执行。对应字母为 r、w、x。 Linux 下权限的粒度有拥有者、群组、其它组三种。每个文件都可以针对三个粒度，设置不同的 rwx (读写执行)权限。通常情况下，一个文件只能归属于一个用户和组，如果其它的用户想有这个文件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux Permissions">
-<meta property="og:url" content="https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/index.html">
+<meta property="og:url" content="https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/">
 <meta property="og:site_name" content="jujimeizuo · Blog">
 <meta property="og:description" content="Introduction Linux 系统上对文件的权限有着严格的控制，如果想对某个文件执行某种操作，必须具有对应的权限方可执行成功。 Linux 下文件的权限类型一般包括读，写，执行。对应字母为 r、w、x。 Linux 下权限的粒度有拥有者、群组、其它组三种。每个文件都可以针对三个粒度，设置不同的 rwx (读写执行)权限。通常情况下，一个文件只能归属于一个用户和组，如果其它的用户想有这个文件">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-05T07:02:08.000Z">
 <meta property="article:modified_time" content="2025-04-17T01:07:06.440Z">
 <meta property="article:author" content="jujimeizuo">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
+    
+    <link rel="canonical" href="https://blog.jujimeizuo.cn/2024/06/05/Linux-Permissions/">
     
     
       
@@ -39,23 +41,19 @@
     <!-- title -->
     <title>Linux Permissions</title>
     <!-- async scripts -->
-    <!-- Google Analytics -->
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK"></script>
-  <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-GNY9KG3NWK');
-  </script>
-
 
     <!-- Umami Analytics -->
 
 
     <!-- styles -->
-    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css">
-    <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css">
+    <link rel="preconnect" href="https://cdn.jujimeizuo.cn" crossorigin>
+    
+      <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://cdn.jujimeizuo.cn/maple/maplemono.css"></noscript>
+    
+      <link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css" media="print" onload="this.media='all'">
+      <noscript><link rel="stylesheet" href="https://cdn.jujimeizuo.cn/lxgw/lxgwscreen.css"></noscript>
+    
     
 <link rel="stylesheet" href="/css/style.css">
 
@@ -65,16 +63,6 @@
     
     
 	<!-- mathjax -->
-	
-		<script type="text/x-mathjax-config">
-		  MathJax.Hub.Config({
-			tex2jax: {
-			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-			  inlineMath: [['$','$']]
-			}
-		  });
-		</script>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
 	
 <meta name="generator" content="Hexo 7.1.1"><link rel="alternate" href="/atom.xml" title="jujimeizuo · Blog" type="application/atom+xml">
 </head>
@@ -362,7 +350,14 @@
           <span id="busuanzi_container_site_uv" style='display:none'>
                   本站访客数<span id="busuanzi_value_site_uv"></span>人
           </span>
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <script>
+          window.addEventListener('load', function() {
+            var script = document.createElement('script');
+            script.src = 'https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js';
+            script.async = true;
+            document.body.appendChild(script);
+          }, { once: true });
+        </script>
         
       </ul>
     </nav>
@@ -393,9 +388,9 @@
   <script type="text/javascript">
   $(function() {
     // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    var btn = "<button type=\"button\" class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
     btn += '<i class="fa-regular fa-clone"></i>';
-    btn += '</span>';
+    btn += '</button>';
     // mount it!
     $(".highlight table").before(btn);
     var clip = new ClipboardJS('.btn-copy', {
@@ -415,16 +410,33 @@
 
 <!-- search -->
 
+<!-- Google Analytics -->
+
+
+  <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-GNY9KG3NWK');
+      window.addEventListener('load', function() {
+        var script = document.createElement('script');
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-GNY9KG3NWK';
+        script.async = true;
+        document.head.appendChild(script);
+      }, { once: true });
+  </script>
+
+
 <!-- Baidu Analytics -->
 
   <script type="text/javascript">
         var _hmt = _hmt || [];
-        (function() {
+        window.addEventListener('load', function() {
           var hm = document.createElement("script");
           hm.src = "https://hm.baidu.com/hm.js?ef9689758a12d2cdf6b9e8642a8604d9";
           var s = document.getElementsByTagName("script")[0];
           s.parentNode.insertBefore(hm, s);
-        })();
+        }, { once: true });
         </script>
 
 <!-- Cloudflare Analytics -->
